@@ -1,0 +1,6 @@
+- Mapeado de imagenes: seleccionamos coordenadas de imagenes para linkar un enlace de cada elemento por ejemplo
+- Etiqueta picture: cambiar imagen a mostrar en función del tamaño de pantalla.
+- Tablas: filas columnas y atributos.
+- Contenedor DIV
+- Clases: div contenido1, luego en css poner .estilo1{background colour: grey;}
+- Grid:

@@ -1,0 +1,25 @@
+- Las activity son pantallas
+- Permisos y componentes de la aplicación: androidManifest.xml
+- El método que se ejecuta al iniciar una Activity: onCreate()
+- Carpeta que contiene las imágenes y recursos gradicos en Android: /res/drawable.
+- Que es un Intent en Android: un mensaje para solicitare una accion a otro componente
+- Activity no es una vista en Android
+- Que es un Fragment en Android: Una clase que representa parte de la interfaz de usuario.
+- Patron diseño Android para separar interfaz y lógica: MVVM
+- En POO, la herencia permite: compartir código entre padre-hijo.
+- Que método se usa en Java para iniciar la ejecución de un programa: main.
+- Clase para reproducir audio en Android: MediaPlayer.
+- Gestor de diseño (layout) organiza elementos en fila o columna: linearLayout.
+- BBDD nativa en Android: SQLite.
+- Archivo cadenas texto en Android: string.xml (es para los mensajes emergentes)
+- Comando de Gradle se usa para compilar y generar el APK: gradle build.
+- Elemento que se utiliza para mostrar mensajes cortos al usuario: TOAST.
+- Motor de interfaz grafica de Android: OpenGL ES
+- Contiene las dependencias y configuración del proyecto en Antroid: build.gradle.
+- Palabra clave en Java para evitar que una clase sea heredada: final.
+- Componente que permite guardar datos simples en Android, ejemplo configuraciones del usuario: SharedPreferences.
+- ReciclerView de Android es un widget
+- XML archivos de recursos de diseño de Android.
+- Hilos en Java THREAD.
+- Que es una API: conjunto de métodos para interactuar con un software o servicio
+- Metodos canca onDraw.

@@ -1,0 +1,5 @@
+- Ficheros
+- Conexión a bbdd relacionales
+- Persistencia con ORM (hibernate)
+- BBDD especializadas
+- Componentes de acceso a datos

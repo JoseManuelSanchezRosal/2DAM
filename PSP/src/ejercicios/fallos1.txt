@@ -1,0 +1,4 @@
+INFO;No arranca
+INFO;Sin cable
+WARN;Luz averia
+ERROR;Pal desguace

@@ -1,0 +1,4 @@
+Para guardar el archivo del programa en NetBeans:
+1- File >> Export Project >> to ZIP >> nombre.zip
+2- Click en "CLICK AND BUILD"
+3- En la carpeta de documents, copiar la carpeta que contiene el jar (DIST) y mandarla junto al zip creado anteriormente

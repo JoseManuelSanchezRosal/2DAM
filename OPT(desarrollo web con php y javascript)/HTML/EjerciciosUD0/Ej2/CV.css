@@ -1,0 +1,48 @@
+img{
+    width: 200px;
+}
+
+body{
+    margin: 20px;
+    display: grid;
+    width: 98vw;
+    height: 95vh;
+    grid-template: "cabecera cabecera cabecera" 90px
+                    "datos experiencia formacion" auto /
+                    300px auto 300px;
+    background-image: url("../sources/plazatoros.webp");
+    background-size: cover;
+}
+
+.cabecera{
+    grid-area: cabecera;
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.datos{
+    display: grid;
+    grid-area: datos;
+    margin: 20px;
+}
+
+.experiencia{
+    grid-area: experiencia;
+    margin: 20px;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+}
+
+.formacion{
+    display: grid;
+    grid-area: formacion;
+    margin: 20px;
+}
+
+ul, a{
+    color: white;
+}

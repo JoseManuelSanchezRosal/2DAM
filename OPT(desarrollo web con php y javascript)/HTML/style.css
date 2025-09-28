@@ -1,0 +1,11 @@
+img{
+    height:50vh;
+}
+body{
+    background-image: url(sources/bolitadepelo.jpg);
+}
+.contenido1{
+    width: 15vh;
+    height: 15vw;
+    color: white;
+}

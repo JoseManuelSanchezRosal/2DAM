@@ -1,0 +1,10 @@
+- Competencias base del proyecto:
+	* Configurar y explotar sistemas informáticos (que funcione en SSOO informático).
+	* Programar una base de datos relacional.
+	* Desarrollar componentes software en lenguajes de programación estructurada.
+
+- Competencias parciales:
+	* Instalar y configurar sistemas de planificación de recursos empresariales y de gestión de relaciones con clientes.
+	* Crear elementos software 
+
+- Anteproyecto competencias. titulo, introducción, definición del problema, objetivos, antecedentes, recursos, bibliografía.

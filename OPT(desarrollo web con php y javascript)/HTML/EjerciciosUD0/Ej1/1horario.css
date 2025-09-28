@@ -1,0 +1,49 @@
+table{
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+td{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.contenedor{
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+td{
+    text-align: center;
+}
+.OPT{
+    background-color: aliceblue;
+}
+.AaD{
+    background-color: antiquewhite;
+}
+.DIN{
+    background-color: aqua;
+}
+.PSP{
+    background-color: aquamarine;
+}
+.IPE{
+    background-color: rgb(92, 193, 193);
+}
+.PRO{
+    background-color: rgb(219, 219, 99);
+}
+.SGE{
+    background-color: rgb(151, 90, 15);
+}
+.ING{
+    background-color: rgb(67, 67, 241);
+}
+.PMD{
+    background-color: blueviolet;
+}
+.dias{
+    font-weight: bold;
+    font-size: 18px;
+    color: red;
+}

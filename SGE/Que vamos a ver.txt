@@ -1,0 +1,7 @@
+- Obtener la formación necesaria para implantar y adaptar en las empresas:
+	1- Sistemas de planificación de recursos empresariales (erp)
+	2- Sistemas de gestión de relaciones de clientes (crm)
+
+- odoo
+- teoría
+- prácticas

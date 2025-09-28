@@ -1,0 +1,6 @@
+INFO;Falta llave
+INFO;Falta papeles
+WARN;No abre
+WARN;Puerta abierta
+WARN;Rueda pinchada
+ERROR;Sin carnet

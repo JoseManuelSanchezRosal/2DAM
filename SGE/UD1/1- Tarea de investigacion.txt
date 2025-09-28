@@ -1,0 +1,11 @@
+1- investigar software erps….
+- documento con índice y demás.
+- introducción.
+- bbdd.
+- lenguaje programación.
+- ssoo servidor y cliente
+- licencia (si es propietario o libre)
+- Bibliografía.
+
+
+NETSUITE, SAGE, openbravo, ALO suite

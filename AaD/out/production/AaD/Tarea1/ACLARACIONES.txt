@@ -1,0 +1,14 @@
+- HAY QUE CERRAR FileReader y BufferedReader, o bien dentro del try-catch al finalizar o bien en el "finally"
+- Se puede declarar el File con la ruta (o el string) dentro o fuera del try-catch. Pero el FR y BR dentro por las excepciones.
+- Si en un try-catch ponemos finally, por temas de ambito de operacion hay que inicializar el File, FR y BR a null. Porque
+Sino no nos deja cerrarlos (porque estan fuera del try catch)
+- OJO CON LAS RUTAS.
+- Diferencia entre la declaracion de la variable Integer o int. MIRAR
+- EJERCICIO 3 CLAVES- equals, scanner, while
+    * El FileWriter no tiene el metodo de salto de linea bw.newline, por eso hay que abrir FR y BR (a la orden de cerrar es de orden inverso)
+- (Se recomienda no hacer 'break' dentro del while(true)
+- Trhows hay que evitar usarlo, hay que controlar la excepcion con el catch
+- EJERCICIO 4 CLAVES: hay que separar la cadena con el split y guardarlos en la clase empleado y meter por parametro en el mismo orden
+hay que pasarle por parametro al new empleado las posiciones del arraylist
+
+- FALTAN 4 y 5
