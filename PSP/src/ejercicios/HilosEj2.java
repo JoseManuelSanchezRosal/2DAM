@@ -8,7 +8,7 @@ package ejercicios;
 
 //ESTE ES UN CLARO EJEMPLO DE CONCURRENCIA PUESTO QUE ABRIMOS HILOS PARA HACER TAREAS QUE SE EJECUTAN AL MISMO TIEMPO.
 //DIFERENCIA ENTRE PONER O NO IMPLEMENTS RUNNABLE????
-public class HilosEj3 {
+public class HilosEj2 {
     public static void main(String[] args) {
         //DEFINIMOS CON RUNNABLE LA LOGICA QUE QUEREMOS QUE SE EJECUTE AL LLAMAR A NUESTRO HILO
         Runnable hiloA = new Runnable() {

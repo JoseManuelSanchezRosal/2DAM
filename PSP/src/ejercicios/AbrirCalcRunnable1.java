@@ -1,7 +1,7 @@
 package ejercicios;
 //NOTA, ESTE EJERCICIO EN MI PC ME LANZA LOS 2 MENSAJES DE NOTEPAD ABIERTO Y NOTEPAD CERRADO AL MISMO TIEMPO SIN CERRAR NOTEPAD.
 //SE HA PROBADO EL MISMO CODIGO EN OTRO PC Y SI FUNCIONA BIEN, HASTA QUE NO CERRAMOS EL NOTEPAD, NO LANZA EL MENSAJE DE NOTEPAD CERRADO.
-public class AbrirCalcRunnable {
+public class AbrirCalcRunnable1 {
     public static void main(String[] args) {
         Runnable notePad = new Runnable() {
             @Override

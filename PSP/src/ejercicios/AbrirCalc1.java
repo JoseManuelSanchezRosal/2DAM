@@ -1,6 +1,6 @@
 package ejercicios;
 
-public class AbrirCalc extends Thread{
+public class AbrirCalc1 extends Thread{
     public void run(){
         try {
             ProcessBuilder calculadora = new ProcessBuilder("notepad");
@@ -16,7 +16,7 @@ public class AbrirCalc extends Thread{
         }
     }
     public static void main(String[] args) {
-        AbrirCalc abrir1 = new AbrirCalc();
+        AbrirCalc1 abrir1 = new AbrirCalc1();
         abrir1.start();
     }
 }

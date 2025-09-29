@@ -1,6 +1,8 @@
-- metodo currentTimeMillis para calculo tiempo en ejecutar un proceso (tiempo inicio - tiempo fin) / 1000.
+- metodo System.currentTimeMillis para calculo tiempo en ejecutar un proceso (tiempo inicio - tiempo fin) / 1000.
 - En que caso estoy obligado a usar Interfaz RUNNABLE es que si tenemos una clase que extiende de otra, no podemos poner tambien que
 extiende de Thread, tenemos que poner implements RUNNABLE
 - MIRAR DIFERENCIAS ENTRE IMPLEMENTAR RUNNABLE EN LA CLASE O USAR LA SOBRECARGA DE RUNNABLE.
 - SI NO SABES LA CLASE EXACTA DE LA EXCEPCION, PONER   !!!E X C E P C I O N!!!
 - MIRAR DIFERENTES TIPOS DE EXCEPCIONES DEL TRY-CATCH
+
+- 
