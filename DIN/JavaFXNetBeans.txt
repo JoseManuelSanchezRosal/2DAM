@@ -1,0 +1,8 @@
+- File > New Project.
+- Seleccionar Java whith ANT > JavaFX > JavaFX Aplication.
+- 
+
+- Controls > ImageView
+- Hacer paquete de imágenes en SourcePackages
+- Por defecto, las imágenes se vienen adelante. Para enviarlas atrás > botón 2º > send to back.
+- 

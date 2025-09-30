@@ -1,0 +1,72 @@
+UD1: Identificación de sistemas ERP-CRM
+
+RA1: Identifica sistemas de planificación de recursos empresariales y de gestión de relaciones con clientes (ERP-CRM) reconociendo sus características y verificando la configuración del sistema informático.
+
+Criterios de evaluación:
+a) Se han reconocido los diferentes sistemas ERP-CRM que existen en el mercado.
+b) Se han comparado sistemas ERP-CRM en función de sus características y requisitos.
+c) Se han identificado los diferentes tipos de licencia de los sistemas ERP-CRM en base a su arquitectura.
+d) Se ha identificado el sistema operativo adecuado a cada sistema ERP-CRM.
+e) Se ha identificado el sistema gestor de datos adecuado a cada sistema ERP-CRM.
+f) Se han verificado las configuraciones del sistema operativo y del gestor de datos para garantizar la funcionalidad del ERP-CRM.
+g) Se han documentado las operaciones realizadas.
+h) Se han documentado las incidencias producidas durante el proceso.
+
+MÓDULOS DEL ERP:
+
+2.1 ADMINISTRACIÓN/PANEL CONTROL
+- Usuarios:
+- Permisos:
+- Parametrizaciones: beneficios
+
+2.2 FICHEROS MAESTROS:
+- Clientes:
+- Proveedores:
+- Artículos (más importante):puede ser un bien (se puede tocar), tiene stock. Ó un servicio (no tiene stock).
+ 	- Si el artículo es un bien, debe haber un inventario.
+ 	- Los productos se agrupan por familias, grupos o subgrupos (por hombre o mujer, marcas, pantalones, etc...)
+	- Los productos se clasifican compras y/o ventas o fabricación.
+	- Los productos se pueden comprar por unidades. También hay productos que tienen dos unidades (doble stockaje) (jamón, queso (kilo y unidad)).
+	- Stockaje mínimo y máximo.
+	- Por medio del LOTE (trazabilidad) de los productos podemos controlar la fecha de caducidad.
+
+
+- Vehículos:
+
+
+EXAMEN:
+ dificultades, ventajas, licencias, crm, erp, ficheros maestros, documentos, artículos,
+
+EJ1
+Ficheros Maestros de una tienda de ropa: Clientes, Proveedores, Almacén, Artículos, Series de documentos,
+Ficheros Básicos: Almacén, empleados, marcas, formas de pago, sedes, tallas, color, marcas, códigos postales.
+-----
+Código de barras:
+	- EAN8 (8 números).
+	- EAN13 (13 dígitos alfanuméricos).
+	- EAN128 ()
+-----
+
+EJ2
+Ficheros Maestros de una tienda de ropa: Clientes, Proveedores, Almacén, Artículos, Series de documentos,
+Ficheros Básicos: Almacén, empleados, marcas, formas de pago, sedes, marcas, códigos postales, lotes
+
+
+El escandallo es lo que necesito para fabricar algo, tanto material, productos como horas/persona. Detallado el proceso también.
+
+Compañía de seguros:
+- Clientes, servicios, series de documentos
+- Empleados, categorías, forma de pago, oficinas, códigos postales.
+
+
+
+
+
+
+
+
+
+
+
+ 
+
