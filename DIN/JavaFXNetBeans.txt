@@ -5,4 +5,8 @@
 - Controls > ImageView
 - Hacer paquete de imágenes en SourcePackages
 - Por defecto, las imágenes se vienen adelante. Para enviarlas atrás > botón 2º > send to back.
-- 
+
+- La funcionalidad a la vista en JavaFX se le da mediante clases.
+
+Para hacer una calculadora:
+- Introducimos botones y text label, damos nombre y nombramos también las variables. Luego en CODE rellenamos la casilla ON ACTION (que generará la función que más tarde programaremos)
