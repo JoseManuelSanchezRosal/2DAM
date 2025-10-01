@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function tiposVar(){
+            var x = "Esto es una variable var";
+            let y = "Esto es una variable let";
+            const z = "Esto es una variable const";
+            document.getElementById("varx").innerHTML=x;
+            document.getElementById("vary").innerHTML=y;
+            document.getElementById("varz").innerHTML=z;
+        }
+    </script>
+</head>
+<body>
+    
+
+    <div>
+        <p id="varx">x</p>
+        <p id="vary">y</p>
+        <p id="varz">z</p>
+    </div>
+
+    <script>tiposVar();</script>
+    
+</body>
+</html>
