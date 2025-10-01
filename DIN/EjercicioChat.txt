@@ -1,0 +1,4 @@
+1. JFrame (absolut layout) padre para todos los panel
+2. 3 panel dentro del JFrame, vamos jugando con las vistas
+3. Para cambiar el tamaño de jpanel cambiar prefered size y luego en LAYOUT X e Y seleccionar prefered también
+4
