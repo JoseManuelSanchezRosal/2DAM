@@ -1,0 +1,6 @@
+ALOSUITE
+- Ficheros > Maestros > Clientes > Nuevo Cliente.
+- El nombre comercial es TELEFONICA por ejemplo (el dueño será Pepito el de los Palotes)
+
+- Ficheros > Articulos > Productos > Nuevo Producto.
+- 

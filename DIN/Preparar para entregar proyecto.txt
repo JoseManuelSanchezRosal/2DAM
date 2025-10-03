@@ -1,0 +1,4 @@
+- click derecho > click and build.
+- File > export Project > to ZIP
+- Poner nombre y ruta .zip.
+- Carpeta raíz de NB y buscar en el proyecto la carpeta DIST y añadirla a la entrega.

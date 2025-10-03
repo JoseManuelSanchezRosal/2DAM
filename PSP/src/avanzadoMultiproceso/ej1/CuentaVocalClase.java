@@ -91,7 +91,7 @@ public class CuentaVocalClase extends Thread{
             System.out.println("----------------------------------------------------");
             File lecturaA = new File("src/avanzadoMultiproceso/cuentaA.txt");
             int contador =  0;
-            // NOTA: SE PUEDE OPTIMIZAR LA LECTURA DE LOS TXT.
+            // NOTA: SE PUEDE OPTIMIZAR LA LECTURA DE LOS TXT.tooooooooooooooooodoooooooooooooooo
 
             try {
                 BufferedReader br = new BufferedReader(new FileReader(lecturaA));
