@@ -6,11 +6,6 @@ import java.util.ArrayList;
 public class Recurso {
     private ArrayList<Integer> buffer = new ArrayList<>();
 
-    // Constructor
-    public Recurso() {
-        this.buffer = buffer;
-    }
-
     // Metodo syncronized para control de concurrencia al metodo PRODUCIR, con buffer de produccion maximo de 3 unidades.
     // "Mientras el tamanio del buffer sea igual a 3, el metodo que intente acceder a PRODUCIR, espera.
     public synchronized void producir() throws InterruptedException {
