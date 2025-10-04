@@ -7,18 +7,19 @@ public class DemoDeadlock {
         // Primer cliente: bloquea primero las sillas, luego el sillón
         Thread primCliente = new Thread(() -> {
             synchronized (sillon.getSillas()) {
-                System.out.println("🧍‍♂️ [Cliente A] ha bloqueado las sillas de espera");
+                System.out.println("[Cliente A] ha bloqueado las sillas de espera");
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                System.out.println("🧍‍♂️ [Cliente A] intenta acceder al sillón del barbero...");
-                System.out.println("⚠️ [Cliente A] está esperando porque el [Cliente B] tiene bloqueado el sillón");
+                System.out.println("[Cliente A] intenta acceder al sillón del barbero...");
+                System.out.println("DEADLOCK");
+                System.out.println("[Cliente A] está esperando porque el [Cliente B] tiene bloqueado el sillón");
 
                 synchronized (sillon) {
-                    System.out.println("✅ [Cliente A] ha conseguido el sillón y está siendo atendido");
+                    System.out.println("[Cliente A] ha conseguido el sillón y está siendo atendido");
                 }
             }
         });
@@ -26,18 +27,19 @@ public class DemoDeadlock {
         // Segundo cliente: bloquea primero el sillón, luego las sillas
         Thread clienteB = new Thread(() -> {
             synchronized (sillon) {
-                System.out.println("🧍‍♂️ [Cliente B] ha bloqueado el sillón del barbero");
+                System.out.println("[Cliente B] ha bloqueado el sillón del barbero");
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                System.out.println("🧍‍♂️ [Cliente B] intenta acceder a las sillas de espera...");
-                System.out.println("⚠️ [Cliente B] está esperando porque el [Cliente A] tiene bloqueadas las sillas");
+                System.out.println("[Cliente B] intenta acceder a las sillas de espera...");
+                System.out.println("DEADLOCK");
+                System.out.println("[Cliente B] está esperando porque el [Cliente A] tiene bloqueadas las sillas");
 
                 synchronized (sillon.getSillas()) {
-                    System.out.println("✅ [Cliente B] ha conseguido las sillas de espera");
+                    System.out.println("[Cliente B] ha conseguido las sillas de espera");
                 }
             }
         });
