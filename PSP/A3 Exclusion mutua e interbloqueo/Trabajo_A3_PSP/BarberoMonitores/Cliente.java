@@ -1,4 +1,4 @@
-package Barbero1;
+package Trabajo_A3_PSP.BarberoMonitores;
 
 // Clase Cliente que extiende de HILO
 public class Cliente extends Thread{

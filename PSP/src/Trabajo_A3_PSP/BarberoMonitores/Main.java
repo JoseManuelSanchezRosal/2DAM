@@ -1,4 +1,4 @@
-package Barbero1;
+package Trabajo_A3_PSP.BarberoMonitores;
 
 public class Main {
     public static void main(String[] args) {

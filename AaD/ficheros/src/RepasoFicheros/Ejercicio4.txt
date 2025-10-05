@@ -1,0 +1,3 @@
+Juan;25;Programador
+Ana;30;Disenadora
+Paco;35;Arbanil

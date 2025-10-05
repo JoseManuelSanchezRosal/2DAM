@@ -1,4 +1,4 @@
-package Barbero1;
+package Trabajo_A3_PSP.BarberoMonitores;
 
 import java.util.ArrayList;
 import java.util.Random;

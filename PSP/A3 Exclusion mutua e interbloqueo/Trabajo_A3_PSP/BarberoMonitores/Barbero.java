@@ -1,4 +1,4 @@
-package Barbero1;
+package Trabajo_A3_PSP.BarberoMonitores;
 
 // Clase barbero que extiende de HILO
 public class Barbero extends Thread {
