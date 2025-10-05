@@ -1,4 +1,4 @@
-package Tarea1;
+package Tarea1.Ej4;
 //Creamos la clase empleado
 public class empleado {
     private String nombre;

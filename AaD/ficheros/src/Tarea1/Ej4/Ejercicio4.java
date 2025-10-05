@@ -1,7 +1,7 @@
-package Tarea1;
+package Tarea1.Ej4;
+
 import java.io.*;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 //Crear fichero ejercicio4.txt con la siguiente estructura: Juan;25;programador.
 //Leer el fichero, crear objetos empleado y guardarlos en un ArrayList<Empleado>,
