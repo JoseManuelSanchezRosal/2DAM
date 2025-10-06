@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <script src="script.js"></script>
+
+</head>
+<body>
+    <h1>Realiza los siguientes ejercicios utilizando JavaScript:</h1>
+    <ol>
+        <li>Crear una web que llame a un script de javaScript que dibuje una tabla de dos fila y una columna.</li>
+        <li>Modificar el ejercicio anterior para que el script contenga una variable de cadena de caracteres que guarde la cadena necesaria para darle color de fuente azul y tamaño 12 pto a la tabla del ejercicio anterior.</li>
+        <li>Crear una web que tenga dos cuadros de texto y un botón y hacer un script de javaScript para que cuando hagamos click sobre él se muestre con la función alert la suma de lo escrito en ambos cuadros de texto.</li>
+        <li>Modificar el ejercicio anterior para que en lugar del alert con la función innerHTML se muestre en una tabla el contenido de cada cuadro de texto</li>
+        <li>Crear una web que tenga una imagen insertada. Incluirle a dicha web un script que cambie los valores de ancho y alto de esta imagen para que tenga un tamaño de 100x100</li>
+        <li>Modificar el ejercicio anterior para incluir dos cuadros de texto en los que se puedan poner los valores para el ancho y alto de la imagen. Incluir también un botón para que cuando lo pulsemos se redimensione la imagen a los valores introducidos en los cuadros de texto.</li>
+    </ol>
+    <h3>Ejercicio 1:</h3>
+    <button type="button" onclick="crearTabla()">Crear tabla</button>
+    <table id="tabla">
+    </table>
+    <br>
+
+    <h3>Ejercicio 2:</h3>
+    <button type="button" onclick="estilosTabla()">Dar estilo</button>
+    <br>
+
+    <h3>Ejercicio 3:</h3>
+    <input type="number" id="A" name="nombre" placeholder="Ingrese numero A">
+    <input type="number" id="B" name="nombre" placeholder="Ingrese numero B">
+    <button type="button" onclick="hacerSuma()">Hacer suma</button>
+    <br>
+
+    <h3>Ejercicio 4:</h3>
+    <button type="button" onclick="mostrarTabla()">Mostrar tabla A B</button>
+    <br>
+
+
+    <!--Para Ejecutar Alguna acción nada mas cargar la página,s-->
+    <!--<script>crearTabla()</script>-->
+</body>
+</html>

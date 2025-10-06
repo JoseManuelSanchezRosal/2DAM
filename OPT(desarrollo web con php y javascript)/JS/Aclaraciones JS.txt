@@ -1,1 +1,2 @@
-- Los scripts que se llamen desde el HTML, van al final del BODY
+- Los scripts que se llamen desde el HTML, van al final del BODY, esto se hace por si quieres que nada mas cargar tu página, haga algo.
+- 

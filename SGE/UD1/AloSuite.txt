@@ -1,0 +1,3 @@
+Artículos >> Productos >> doble click en uno de nuestros productos para llegar a editar todo lo referente al ARTICULO.
+- Proveedor >> suministra materias primas.
+- Acreedor >> suministra servicios (NO TIENEN STOCK)
