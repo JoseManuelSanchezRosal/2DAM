@@ -44,7 +44,7 @@ public class SillonBarberoSemaforo {
 
     public static void main(String[] args) {
         SillonBarberoSemaforo sillon = new SillonBarberoSemaforo();
-        Barberoo barbero = new Barberoo(sillon);
+        Barbero barbero = new Barbero(sillon);
         barbero.start();
         for (int i = 0; i < 10; i++) {
             Clientee cliente = new Clientee(sillon);
