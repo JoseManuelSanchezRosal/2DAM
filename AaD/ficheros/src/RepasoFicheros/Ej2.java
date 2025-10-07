@@ -1,7 +1,6 @@
 package RepasoFicheros;
 import java.io.*;
 import java.util.ArrayList;
-
 //Crear un fichero con un número en cada fila
 //Guardar los números en un ArrayList<Integer> y mostrar la suma y la media.
 public class Ej2 {
@@ -24,7 +23,6 @@ public class Ej2 {
                 listaNumeros.add(Integer.parseInt(linea));
             }
             System.out.println("El arrayList de enteros contiene: " + listaNumeros);
-
             int suma = 0;
             for (int numero : listaNumeros){
                 suma+=numero;
