@@ -21,11 +21,10 @@ function hacerSuma(){
 
 // Ejercicio 4
 function mostrarTabla(){
-    let a = document.getElementById("A").value;
-    let b = document.getElementById("B").value;
-
-
-        
-
-
+    let a = parseInt(document.getElementById("A").value);// Para coger el valor de un CAMPO de TEXTO, hay que parsear a ENTERO con parseint
+    let b = parseInt(document.getElementById("B").value);// Para coger el valor del elemento hay que poner .value
+    let resultados = a+b;
+    const tabla2 = document.getElementById("tabla2").innerHTML = "<tr><td class='fila'>" + a + "</td></tr> <tr><td class='fila'> "+ b + "</td></tr></tr> <tr><td class='fila'> "+ resultados + "</td></tr>";
 }
+
+// Ejercicio 5
