@@ -1,6 +1,7 @@
 package RepasoFicheros2;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /*Crear fichero productos.txt
@@ -12,7 +13,9 @@ guardarlos en productos_actualizados.txt*/
 public class Ej5 {
     public static void main(String[] args) {
         File fichero = new File("ficheros/src/RepasoFicheros2/ej5.txt");
+        File salida = new File("ficheros/src/RepasoFicheros2/productos_actualizados.txt");
         ArrayList<String> productos = new ArrayList<>();
+
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fichero));
             bw.write("1;Teclado;25.5\n");
@@ -25,16 +28,21 @@ public class Ej5 {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(fichero));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(salida));
+
             String linea;
             while ((linea = br.readLine())!=null){
                 String[] palabra = linea.split(";");
                 double precio = Double.parseDouble(palabra[2]);
                 double precioAumentado = precio * 1.1;
-                System.out.println(precioAumentado);
-
+                palabra[2] = String.valueOf(precioAumentado);
+                bw.write((palabra[0] + ";" + palabra[1] + ";" + (palabra[2])));
             }
+            bw.close();
+            br.close();
         }catch (IOException e){
             System.out.println("Error al leer el archivo " + e.getMessage());
         }
+        System.out.println("Precios aumentados y guardados en: " + salida.getPath());
     }
 }

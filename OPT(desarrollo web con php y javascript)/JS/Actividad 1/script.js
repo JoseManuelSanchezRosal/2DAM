@@ -28,3 +28,33 @@ function mostrarTabla(){
 }
 
 // Ejercicio 5
+const boton = document.getElementById("changeWH");
+const imagen = document.getElementById("relax");
+let original = false; //Vamos a hacer click para alternar entre tamano original y el modificado.
+
+boton.addEventListener("click", function() {
+    if (!original){
+        imagen.style.width = "100px";
+        imagen.style.height = "100px"
+        original = true;
+    }else{
+         imagen.style.width = "600px";
+        imagen.style.height = "600px"
+        original = false;
+
+    }
+});
+
+// Ejercicio 6
+const boton6 = document.getElementById("redimensionar");
+const imagen6 = document.getElementById("relax");
+
+boton6.addEventListener("click", () => {
+// Obtener los valores de los inputs
+let nuevoAncho = document.getElementById("ancho").value;
+let nuevoAlto = document.getElementById("alto").value;
+
+    
+imagen6.style.width = nuevoAncho + "px";
+imagen6.style.height = nuevoAlto + "px";
+});
