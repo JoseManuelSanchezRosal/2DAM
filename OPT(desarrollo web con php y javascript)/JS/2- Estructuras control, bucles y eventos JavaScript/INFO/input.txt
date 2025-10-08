@@ -1,0 +1,14 @@
+| `type`           | Descripción                          | Ejemplo                         |
+| ---------------- | ------------------------------------ | ------------------------------- |
+| `password`       | Campo de contraseña, oculta el texto | `<input type="password">`       |
+| `email`          | Valida que el valor sea un email     | `<input type="email">`          |
+| `number`         | Solo permite números                 | `<input type="number">`         |
+| `tel`            | Para números de teléfono             | `<input type="tel">`            |
+| `url`            | Valida que sea una URL               | `<input type="url">`            |
+| `search`         | Campo optimizado para búsquedas      | `<input type="search">`         |
+| `date`           | Selector de fecha                    | `<input type="date">`           |
+| `time`           | Selector de hora                     | `<input type="time">`           |
+| `datetime-local` | Fecha y hora local                   | `<input type="datetime-local">` |
+| `month`          | Selector de mes y año                | `<input type="month">`          |
+| `week`           | Selector de semana y año             | `<input type="week">`           |
+| `color`          | Selector de color                    | `<input type="color">`          |

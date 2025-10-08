@@ -1,0 +1,10 @@
+| `type`     | Descripción                          | Ejemplo                                  |
+| ---------- | ------------------------------------ | ---------------------------------------- |
+| `checkbox` | Casilla de verificación              | `<input type="checkbox">`                |
+| `radio`    | Botón de opción (solo uno por grupo) | `<input type="radio" name="sexo">`       |
+| `range`    | Deslizador (slider)                  | `<input type="range" min="0" max="100">` |
+| `file`     | Selector de archivo                  | `<input type="file">`                    |
+| `hidden`   | Campo oculto, no visible             | `<input type="hidden">`                  |
+| `submit`   | Botón de envío                       | `<input type="submit">`                  |
+| `reset`    | Botón para reiniciar formulario      | `<input type="reset">`                   |
+| `button`   | Botón normal, controlado por JS      | `<input type="button">`                  |

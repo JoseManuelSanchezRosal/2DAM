@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var x = "Esto es una variable var";
+        let y = "Esto es una variable let";
+        const z = "Esto es una variable const";
+        
+        function tiposVar(){
+            document.getElementById("varx").innerHTML=x;
+            document.getElementById("vary").innerHTML=y;
+            document.getElementById("varz").innerHTML=z;
+        }
+        
+        function cambiarTexto(){
+            x=document.getElementById("entrada1").value;
+            y=document.getElementById("entrada2").value;
+            /* z=document.getElementById("entrada3").value; */
+
+            document.getElementById("varx").innerHTML=x;
+            document.getElementById("vary").innerHTML=y;
+            /* document.getElementById("varz").innerHTML=z; */
+        }
+    </script>
+</head>
+<body>
+    
+
+    <div>
+        <p id="varx">x</p>
+        <p id="vary">y</p>
+        <p id="varz">z</p>
+    </div>
+
+    <script>tiposVar();</script>
+
+    <label for="entrada1">Variable var x:</label><br>
+    <input type="text" id="entrada1"><br>
+
+    <label for="entrada2">Variable let y:</label><br>
+    <input type="text" id="entrada2"><br>
+
+    <label for="entrada3">Variable const z:</label><br>
+    <input type="text" id="entrada3"><br>
+
+    <button type="button" onclick="cambiarTexto()">Cambiar</button>
+    
+    
+</body>
+</html>

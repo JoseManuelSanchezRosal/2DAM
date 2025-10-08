@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajando con JavaScrip</title>
+    <script src="script2.js"></script><!--El script se pone arriba cuando no queremos que se ejecuten FUNCIONES SINCRONAS-->
+</head>
+<body>
+    <h1>Ejercicios JavaScrip 2</h1>
+    <ol>
+        <li>Crear una web con un cuadro de texto en los que cuando el usuario introduzca algo que no sea un dígito numérico se borre todo el contenido de dicho cuadro.</li>
+        <li>Crear una web con varios cuadros de texto. La web tendrá una función llamada enfoque que se llamará cuando ocurra el evento onfocus de cada cuadro de texto. Cuando se dispare dicho evento se pondrá el color del fondo del cuadro gris claro y la letra en azul. Hacer que cuando se pierda el enfoque el cuadro tenga el formato original.</li>
+        <li>Modificar el ejercicio anterior y añadir un botón que sirva para poder borrar todos los contenidos de los cuadros de texto de golpe. Usad un bucle y la función getElementsByTagName().</li>
+        <li>Crear una web que tenga cuatro divs y un cuadro de lista desplegable que tenga las siguientes opciones red, blue, green, lightgrey. Codificar una función que para el evento onchange del cuadro de lista cambie el color de fondo de los divs.</li>
+        <li>Crear una web que en el evento onload llame a una función que cree 255 divs mediante un bucle. Cada div tendrá un color de fondo que será asignado mediante la funcion rgb. La función rgb necesita tres valores para los tonos de rojo, verde y azul. Usaremos la variable del bucle como valor para dichos tonos.</li>
+        <li>Crear una web con dos imágenes cualesquiera 1.jpeg y 2.jpeg. Controlar el evento onmouseover de ambas imágenes para que cuando el usuario pase con el ratón se intercambien las imágenes de sitio. Usarás el if para saber que imagen hay en cada posición.</li>
+        <li>Crear una web que tenga un cuadro de texto y en su evento onchange cree una tabla mediante un bucle con una columna y en las filas insertamos los números pares existentes entre 0 y el valor introducido en el cuadro de texto.</li>
+        <li>Crear un formulario con 4 cuadros de texto y un botón. Al pulsar el botón se llamará a una función que ponga en rojo aquellos cuadros de texto que estén vacíos o tengan números.</li>
+        <li>Modificar el ejercicio anterior para que aparte de mostrar el fondo en rojo también muestre al lado del cuadro el texto “El campo es requerido o es un número”</li>
+    </ol>
+
+    <p>Ejercicio 1</p>
+    <input type="text" id="ej1" onkeyup="soloNumeros()">
+
+    <!--Si queremos que se ejecute algo nada mas iniciar el HTML (alguna funcion sincrona de JS) poner el Script aqui-->
+</body>
+</html>

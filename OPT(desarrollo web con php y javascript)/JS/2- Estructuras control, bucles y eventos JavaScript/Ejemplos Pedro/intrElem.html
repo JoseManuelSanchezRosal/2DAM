@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let cont=1;
+        function elemHTML() {
+
+            document.getElementById("container").innerHTML="<p>Parrafo " + cont + "</p><br>"; 
+            cont++;
+        }
+
+    </script>
+</head>
+<body>
+
+    <button type="button" onclick="elemHTML()">Introduce un elemento HTML</button>
+    <div id="container"></div>
+    
+</body>
+</html>
