@@ -12,7 +12,7 @@ public class Cliente extends Thread{
         // Enviamos a 7 clientes al sillón:
         for (int i = 0; i <= 6; i++){
             try {
-                // Esperamos un segundo entre cliente y cliente:
+                // Intervalo de espera entre que mandamos un cliente a la barberia y otro.
                 Thread.sleep(1000);
                 sillon.SentarseSillon();
             } catch (InterruptedException e) {

@@ -1,0 +1,2 @@
+Juan;25;Programador
+Ana;35;Disenadora

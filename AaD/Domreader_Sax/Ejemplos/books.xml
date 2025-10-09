@@ -1,0 +1,30 @@
+<library>
+    <book id="b1">
+        <title>Effective Java</title>
+        <authors>
+            <!--Metemos mas de un autor para poder recoger mas de uno por nodo-->
+            <author>Patricia Sanchez</author>
+            <author>Rafael Palomares</author>
+            <author>Alvaro Luna</author>
+
+        </authors>
+        <year>2018</year>
+        <price>45.90</price>
+    </book>
+    <book id="b2">
+        <title>Clean Code</title>
+        <authors>
+            <!--Metemos mas autores-->
+            <author>Enrique Cortes</author>
+            <author>Ana Fernandez</author>
+        </authors>
+        <year>2008</year>
+        <price>38.50</price>
+    </book>
+    <book id="b3">
+        <title>Head First Design Patterns</title>
+        <author>Eric Freemann</author>
+        <year>2020</year>
+        <price>29.99</price>
+    </book>
+</library>

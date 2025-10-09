@@ -2,8 +2,8 @@ package Trabajo_A3_PSP.BarberoMonitores;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-// El sillon es el recurso compartido (también llamado monitor).
+// Monitor es el metodo para acceder al recurso compartido, en este caso usamos el metodo o bloque syncronized
+// El sillon es el recurso compartido.
 public class Sillon {
 
     // Declaramos el ArrayList de sillas disponibles en nuestra Barberia y una variable de control de barbería vacía.
@@ -18,6 +18,7 @@ public class Sillon {
         this.sillas = sillas;
     }
 
+
     // Bloque  para Cortar Pelo
     public synchronized void CortarPelo() throws InterruptedException {
         // Si no hay clientes....el barbero se queda dormido:
@@ -25,7 +26,6 @@ public class Sillon {
             System.out.println("No hay clientes, el barbero sigue durmiendo...");
             wait();
         }
-
         // Si entra un cliente y hay sitio se sienta y el barbero lo atiende:
         System.out.println("Barbero atiende al cliente " + sillas.get(0) + " y se marcha...");
         // Simulamos el tiempo de corte de pelo:
@@ -42,6 +42,7 @@ public class Sillon {
             System.out.println("El barbero se queda dormido...");
         }
     }
+
 
     // Bloque syncronized para Sentarse en Sillón:
     public synchronized void SentarseSillon() throws InterruptedException {

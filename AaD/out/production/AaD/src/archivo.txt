@@ -1,0 +1,1 @@
+Leyendo datos de un fichero, en este caso archivo.txt

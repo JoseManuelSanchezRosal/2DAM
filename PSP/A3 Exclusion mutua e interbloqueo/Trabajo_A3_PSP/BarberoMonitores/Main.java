@@ -6,7 +6,8 @@ public class Main {
         Sillon sillon = new Sillon();
         Barbero b1 = new Barbero(sillon);
         Cliente c1 = new Cliente(sillon);
-        // Lanzamos los hilos....
+
+        // Lanzamos los hilos (o procesos) barbero y cliente a la vez.
         c1.start();
         b1.start();
     }
