@@ -1,0 +1,18 @@
+INSTALACIÓN ODOO.
+1- Crear cuenta.
+2- Pruébalo Gratis.
+3- Seleccionamos: Ventas, Facturación, Documentos, Inventario, Compra y Empleados.
+4- En nombre de empresa ponemos "edu-" delante del nombre de nuestra empresa bit a bit.
+5- Activar bbdd (omitir)
+6- Ir a pagina de nuestra empresa (ficticia) bitabit.
+7- Ajustes
+8- Click en usuario (superUsiario) el que ha creado la página
+---------------------------------------------
+Vamos a crear un usuario Nuevo:
+1- Rol >> Miembro
+2- Creamos miembro, correo y contraseña (acordarnos) tonyStark@superme.com >> tonystark.
+
+Vamos a ir a ajustes de compañía.
+1- Ajustes.
+2- Usuarios y compañías >> Compañías
+3- Rellenar info de empresa.
