@@ -1,0 +1,21 @@
+*{
+    /*Inicializamos pagina*/
+    margin: 10;
+    padding: 10;
+    box-sizing: border-box;
+}
+
+body{
+    /*damos formato de display flex para dar uniformidad a los divs*/
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px;
+}
+
+.colorDivs{
+    /*Le damos tamaño y disposición a los divs creados con el bucle*/
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}

@@ -1,0 +1,10 @@
+- Las expresiones regulares son unas cadenas que siguen unos patrones regulares.
+- Las expresiones se caracterizan:
+	- ^ para empezar
+	- [ expresión ]	ejemplo ^[ a-z , A-Z ]
+	- Pueden ir acompañados de:
+		* "^" empieza
+		* "$" termina
+		* "+" 1 o más elementos
+		* "*" 0 o más elementos.
+

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trabajando con JavaScrip</title>
-    <script src="script2.js"></script><!--El script se pone arriba cuando no queremos que se ejecuten FUNCIONES SINCRONAS-->
+    <link rel="stylesheet" href="style2.css">
+    
 </head>
 <body>
     <h1>Ejercicios JavaScrip 2</h1>
@@ -21,11 +22,58 @@
         <li>Crear un script que pida al usuario mediante dos cuadros de texto un número de filas y columnas y dibuje una tabla html con dicho número de filas y columnas. Además las filas pares e impares serán de diferente color.</li>
         <li>Basándose en el script anterior hacer las modificaciones oportunas para que ahora las columnas pares e impares sean diferentes.</li>
         <li>Crear un documento html con 3 imágenes y mediante javascript controlar el evento onmouseover sobre cada imagen para que le ponga los bordes redondeados a la imagen sobre la cual estamos pasando.</li>
-    </ol>
+    </ol><br>
 
-    <p>Ejercicio 1</p>
-    <input type="text" id="ej1" onkeyup="soloNumeros()">
+
+    <h3>Ejercicio 1</h3>
+     <p>Introduce un número:</p>
+    <input type="text" id="entrada">
+    <button onclick="compararNumero()">Comprobar si es NÚMERO</button>
+
+    <h3>Ejercicio 2</h3><!--Pides esto? o quieres que el texto también vuelva a ser el original?-->
+    <input type="text" class="ej2" placeholder="Hola" onfocus="enfocado(this)" onblur="desenfocado(this)">
+    <input type="text" class="ej2" placeholder="que" onfocus="enfocado(this)" onblur="desenfocado(this)">
+    <input type="text" class="ej2" placeholder="tal" onfocus="enfocado(this)" onblur="desenfocado(this)">
+    <input type="text" class="ej2" placeholder="estás" onfocus="enfocado(this)" onblur="desenfocado(this)">
+
+    <h3>Ejercicio 3</h3>
+    <button onclick="borrar()">Pulsa para borrar contenido anterior</button>
+
+    <h3>Ejercicio 4</h3>
+    <!--Definimos los divs con CLASE ej4 (para darles estilo a todos más)-->
+    <div class="ej4">contenedor 1</div>
+    <div class="ej4">contenedor 2</div>
+    <div class="ej4">contenedor 3</div>
+    <div class="ej4">contenedor 4</div>
+
+    <!--Insertamos el label con desplegable-->
+    <label for="frutas">Elige un color</label>
+    <select id="colores" onchange="cambiarColor()">
+        <option value="red">red</option>
+        <option value="blue">blue</option>
+        <option value="green">green</option>
+        <option value="lightgrey">lightgrey</option>
+    </select>
+
+    <h3>Ejercicio 6, escoge tu dinerito:</h3>
+    <div class="contenedor">
+        <img id="billete" src="sources/500.webp" alt="billetaso">
+        <img id="moneda" src="sources/euro.jpg" alt="moneilla">
+    </div>
+
+    <h3>Ejercicio 7</h3>
+    <!-- Cuadro de texto para introducir el número -->
+    <input type="number" id="numero" onchange="crearTabla()">
+    <!-- Contenedor donde se generará la tabla -->
+     <div id="tablaContainer"></div>
+
+    </div>
+
+    <h3>Ejercicio 8</h3>
+    
+
 
     <!--Si queremos que se ejecute algo nada mas iniciar el HTML (alguna funcion sincrona de JS) poner el Script aqui-->
+    <script src="script2.js"></script>
 </body>
 </html>
