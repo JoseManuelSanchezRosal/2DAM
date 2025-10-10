@@ -12,10 +12,8 @@ public class DomReader {
 
         // 1️ Crea una fábrica de constructores de documentos (para leer XML)
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
         // 2️ Crea un constructor de documentos (parser XML)
         DocumentBuilder db = dbf.newDocumentBuilder();
-
         // 3️ Parsea el archivo XML y lo convierte en un árbol DOM (Document)
         Document doc = db.parse(xmlFile);
 
