@@ -1,6 +1,6 @@
-package Dom_Sax_Tarea2;
-import Dom_Sax_Tarea2.models.Author;
-import Dom_Sax_Tarea2.models.Book;
+package Tarea2JJ;
+import Tarea2JJ.models.Author;
+import Tarea2JJ.models.Book;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

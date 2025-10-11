@@ -1,4 +1,4 @@
-package Ejemplos; // Paquete donde se encuentra la clase
+package EjemplosDomySax; // Paquete donde se encuentra la clase
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;

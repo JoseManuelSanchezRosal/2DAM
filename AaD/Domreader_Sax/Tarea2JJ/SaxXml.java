@@ -1,8 +1,8 @@
-package Dom_Sax_Tarea2;
+package Tarea2JJ;
 
 
-import Dom_Sax_Tarea2.models.Author;
-import Dom_Sax_Tarea2.models.Book;
+import Tarea2JJ.models.Author;
+import Tarea2JJ.models.Book;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

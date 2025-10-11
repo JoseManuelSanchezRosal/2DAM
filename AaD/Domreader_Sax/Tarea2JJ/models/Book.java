@@ -1,4 +1,4 @@
-package Dom_Sax_Tarea2.models;
+package Tarea2JJ.models;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

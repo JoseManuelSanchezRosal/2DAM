@@ -1,4 +1,4 @@
-package Ejemplos;
+package EjemplosDomySax;
 import javax.xml.stream.*;                // Librerías principales del API StAX (Streaming API for XML)
 import javax.xml.stream.events.Attribute; // Para manejar los atributos de las etiquetas (como id="...")
 import javax.xml.stream.events.XMLEvent;  // Representa cada evento XML (inicio, fin, texto, etc.)

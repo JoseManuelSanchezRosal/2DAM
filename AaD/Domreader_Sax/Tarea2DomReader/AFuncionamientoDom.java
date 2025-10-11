@@ -1,4 +1,4 @@
-package AA_Intro_Dom_Sax_info;
+package Tarea2DomReader;
 
 // Al analizar un documento XML con DOM obtenemos una estructura de árbol que contiene todos los elementos del documento. El DOM ofrece diversas funciones que permiten examinar el contenido y la estructura del documento.
 
@@ -14,8 +14,7 @@ package AA_Intro_Dom_Sax_info;
 /*Dado que Element es una interfaz, para crear su objeto necesitamos usar el metodo getDocumentElement() . Este método recupera y devuelve el elemento raíz como un objeto.*/
 
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Element;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;

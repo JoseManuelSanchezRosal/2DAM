@@ -1,4 +1,4 @@
-package Dom_Sax_Tarea2.models;
+package Tarea2JJ.models;
 
 public class Author {
     private String name;
