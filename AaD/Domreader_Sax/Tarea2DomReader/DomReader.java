@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DomReader {
     public static void main(String[] args) throws Exception {
-        // FOTO 0:
+        // Creación del factory, builder y document:
         File xmlFile = new File("Domreader_Sax/Dom_Sax_Tarea2/books.xml");
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); // Nueva fabrica
         DocumentBuilder builder = factory.newDocumentBuilder(); // Nuevo constructor.

@@ -14,6 +14,8 @@ package Tarea2DomReader;
 /*Dado que Element es una interfaz, para crear su objeto necesitamos usar el metodo getDocumentElement() . Este método recupera y devuelve el elemento raíz como un objeto.*/
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,30 +25,31 @@ import java.util.List;
 public class AFuncionamientoDom {
 
     /**
-     * Método estático que lee un archivo XML y devuelve una lista de objetos Book.
+     * Método estático que lee un archivo XML y devuelve una lista de objetos Book. Hay que
      * @param xmlFile //
      * @return
      * @throws Exception
      */
-    public static List<Book> read(File xmlFile) throws Exception {
-        // 1- Creamos una fabrica de constructores para leer el XML
+    public static List<Book> read(File xmlFile) throws Exception {// El archivo FILE xmlFile es la ruta de nuestro .XML
+
+        //FOTO 2
+        // Creamos una fabrica de constructores para leer el XML
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        // 2- Creamos el constructor de documentos (parser XML)
+        // Creamos el constructor de documentos (parser XML)
         DocumentBuilder db = dbf.newDocumentBuilder();
-        // 3- Parseamos el documento XML a árbol DOM.
+        // Parseamos el documento XML a árbol DOM.
         Document doc = db.parse(xmlFile);
 
-// El documento XML/HTML se representa mediante la Interfaz ELEMENT. Esta interfaz proporciona varios métodos para recuperar, añadir y modificar el contenido de un documento XML/HTML:
+        //FOTO 3
+        // Element representa un nodo individual, en este caso "book", mientras que NODELIST es una colección ordenada de "books"
+        NodeList nodeBooks = doc.getElementsByTagName("book");
 
-        // Método getTagName() se usa para recuperar el nombre del elemento raíz como una cadena.
-        // Dado que ELEMENT es una Interfaz, para crear su objeto necesitamos usar el método getDocumentElement(). Este método recupera y devuelve el elemento raíz como un objeto.
-
-// Para analizar un único Subelemento en XML:
-    // Dado que sólo tenemos un subelemento, usamos el método getFirstChild() para recuperarlo. Este método se usa con el elemento raíz para obtener su primer hijo, devolviendo el NODO HIJO como un objeto NODE.
-    // Tras recuperar el NODO secundario, se utiliza el método getNodeName() para obtener su nombre. Este método devuelve el nombre del nodo como una cadena.
-    // Por último, para obtener EL CONTENIDO DEL TEXTO: usamos el método getTextContent() que también lo devuelve como una cadena.
-
+        // Una vez tengamos nuestra lista de nodos, mediante bucle for vamos a recorrer todos los nodos hijo para extraer la información que necesitemos.
+        for (int index = 0; index < nodeBooks.getLength(); index++){
+            // Cada nodo se manipula de forma individual usando la interfaz ELEMENT (a través de sus métodos)
+            // FOTO 4
+            Element book = (Element) nodeBooks.item(index); //en cada vuelta devuelve una instancia de objeto de los elementos "book"
+        }
         return List.of();
     }
-
 }

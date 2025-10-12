@@ -9,7 +9,7 @@ public class Book {
     private final String price;
     private final String currency;
 
-    // Implementamos getters para acceder a la informacion par la implementación de métodos.
+    // Implementamos getters para implementar métodos de recogida de información.
     public String getTitle() {
         return title;
     }
