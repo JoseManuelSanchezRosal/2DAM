@@ -13,8 +13,8 @@ import java.util.List;
 public class DomReader {
     public static void main(String[] args) throws Exception {
         // Creación del factory, builder y document:
-        File xmlFile = new File("Domreader_Sax/Dom_Sax_Tarea2/books.xml");
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); // Nueva fabrica
+        File xmlFile = new File("Domreader_Sax/Tarea2DOMySAXReader/Tarea2DomReader/books.xml");
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance(); // Nueva fábrica
         DocumentBuilder builder = factory.newDocumentBuilder(); // Nuevo constructor.
         Document xmlDoc = (Document) builder.parse(xmlFile); // Documento XML parseado a árbol DOM.
         //MUCHO CUIDADO CON IMPORTAR TANTO EL DOCUMENT COMO EL ELEMENT (QUE NO SEAN DE JAVA SWING, SINO DE org.w3c.dom)
@@ -27,6 +27,7 @@ public class DomReader {
         NodeList nodosHijo = rootElement.getChildNodes();
         ArrayList<Book> books = new ArrayList<>();// Creamos el arraylist de libros.
 
+        // int nodoshijo2 = nodosHijo.getLength(); y metemos en el for nodosHijo, para no recalcular la longitud en cada iteración
         // Recorremos todos los nodos hijo del elemento Raiz con un FOR:
         for (int index = 0; index < nodosHijo.getLength(); index++) {
             Node currentNode = nodosHijo.item(index);
@@ -104,7 +105,7 @@ public class DomReader {
             }
         }
     }
-    // Método para mostrar los libros con más de un autor
+    // Métode para mostrar los libros con más de un autor
     private static void mostrarLibros(List<Book> books) {
         System.out.println("Libros con más de un autor:");
         for (Book b : books) {
