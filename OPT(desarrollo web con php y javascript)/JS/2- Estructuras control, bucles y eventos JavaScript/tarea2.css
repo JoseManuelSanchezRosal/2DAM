@@ -38,3 +38,19 @@ input {
   padding: 5px;
   width: 100px;
 }
+
+.error{
+  background-color: red;
+}
+
+/*Ejercicio 12*/
+/* Estilos básicos para las imágenes */
+.contenedor-imagenes {
+  display: flex;
+  gap: 20px;
+}
+
+.imagen {
+  width: 200px;
+  border: 3px solid #333;
+}

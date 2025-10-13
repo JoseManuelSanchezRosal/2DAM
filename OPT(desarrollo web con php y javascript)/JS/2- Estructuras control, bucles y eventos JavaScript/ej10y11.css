@@ -1,0 +1,31 @@
+/* Estilo general de la tabla */
+table {
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+/* Estilos de celdas */
+td {
+    width: 50px;
+    height: 20px;
+    border: 1px solid black;
+    padding: 6px;
+}
+
+/* Estilos de filas pares e impares (Ejercicio 10) */
+.fila-par {
+    background-color: grey;
+}
+
+.fila-impar {
+    background-color: burlywood;
+}
+
+/* Estilos de columnas pares e impares (Ejercicio 11) */
+.columna-par {
+    background-color: rgb(236, 238, 149);
+}
+
+.columna-impar {
+    background-color: rgb(204, 228, 70);
+}

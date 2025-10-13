@@ -90,7 +90,7 @@ function crearTabla() {
     tabla.appendChild(thead);                    // Añadimos el thead a la tabla
 
     // Creamos el cuerpo de la tabla (<tbody>)
-    let tbody = document.createElement("tbody");   // Creamos <tbody>
+    let tbody = document.createElement("tbody");   
 
     // Bucle que recorre todos los números pares desde 0 hasta "valor"
     for (let i = 0; i <= valor; i += 2) {
@@ -100,9 +100,56 @@ function crearTabla() {
         tr.appendChild(td);                            // Añadimos la celda a la fila
         tbody.appendChild(tr);                         // Añadimos la fila al cuerpo de la tabla
     }
-    // Añadimos el cuerpo de la tabla a la tabla principal
+    // Añadimos la tabla creada con Xfilas al body del HTML
     tabla.appendChild(tbody);
 
     // Insertamos la tabla completa en el contenedor del HTML
     contenedor.appendChild(tabla);
 }
+
+// Ejercicio 8 y 9
+function validarCampos(){
+    //Obtenemos todos los campos de texto del formulario
+    let camposTexto = document.querySelectorAll("#formulario input"); //Aplicado a la id formulario
+    let mensajesError = document.querySelectorAll(".mensaje-error"); //Aplicado a los mensajes span
+    
+    // Recorremos todos los campos input uno por uno
+    for (let i = 0; i < camposTexto.length; i++){
+        let campoActual = camposTexto[i];
+
+        // Valor del campo sin espacions al principio y final
+        let contenidoCampo = campoActual.value.trim();
+
+        // Verificamos si el campo está vacío o contiene números
+        let campoVacio = (contenidoCampo === "");
+        let contieneNumeros = /\d/.test(contenidoCampo);
+
+        // Ahora si el campo está vacío o contiene algún número, le añadimos una classList (definida en el style) para  ponerle el background-color en red:
+        if (campoVacio || contieneNumeros){
+            mensajesError[i].textContent = "(Campo de texto requerido)";
+            campoActual.classList.add("error"); // Mediante la funcion "classList.add" aplicada a una variable, nos permite añadir una o más clases CSS a ese elemento.
+
+        }else{
+            campoActual.classList.remove("error");
+            mensajesError[i].textContent = "";
+        }
+    }
+}
+
+// Ejercicio 12
+// Seleccionamos todas las imágenes con la clase "imagen"
+let imagenes = document.querySelectorAll(".imagen");
+
+// El foreach es una estructura para recorrer todos los elementos de una coleccion (o clase, en este caso) uno a uno para ejecutar un mismo conjunto de instrucciones para cada uno
+imagenes.forEach(function(imagen) {
+    
+    // Cuando el ratón pasa sobre la imagen:
+    imagen.onmouseover = function() {
+        imagen.style.borderRadius = "50px"; // Función que asigna bordes redondeados a la imagen
+    };
+
+    // Cuando el ratón sale de la imagen:
+    imagen.onmouseout = function() {
+        imagen.style.borderRadius = "0"; // Función para volver al estado original de la imagen (sin bordes).
+    };
+});
