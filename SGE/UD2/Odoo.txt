@@ -16,3 +16,101 @@ Vamos a ir a ajustes de compañía.
 1- Ajustes.
 2- Usuarios y compañías >> Compañías
 3- Rellenar info de empresa.
+
+-----------------------
+Vamos a crear una nueva base de datos
+- Seleccionar compra, ventas e inventario y continuar
+- Rellenamos campos, dejamos nuestro teléfono y correo y le damos adelante
+
+NUEVO USUARIO:
+1. Opciones Generales >> gestionar usuarios >> nuevo
+2. En función del Rol del nuevo usuario, se añadirán los módulos pertinentes. Compras, productos, materias primas, dar de alta modificar o eliminar productos.
+3. Seleccionar permisos de Usuario a nuevos Clientes, preferiblemente dar pocos permisos de entrada.
+4. Para ventas, el coordinador de todas las tiendas marcamos todos los documentos. Si es el trabajador de un única tienda por ejemplo, solo los propios
+
+
+
+---------DAR ALTA POROVEEDOR---------
+
+1. Compras >> pedidos >> proveedores >> nuevo
+Se marca por por defecto "compañía", habría que marcar individuo si fuera un autónomo o persona física. Aparecería su DNI. 
+
+2. Dentro de compañia metalgrup, añadir contacto.
+ 
+3. En crear contacto, el apartado FACe (factura electrónica).
+
+4. Compañía >> pestaña ventas y compras >>
+Si es un proveedor, tenemos que rellenar la parte de compras (en proveedor). Seleccionamos nuestro comprador, en este caso BorjaEsponja
+Normalmente las condiciones de pago se tratan con el proveedor.
+Desde la emisión de la factura, las opciones que nos aparecen. 
+
+5. TENEMOS QUE DAR DE ALTA METODOS DE PAGO
+Los efectos y las remesas bancarias sirven para emitir recibos de factura. Para pagar a los proveedores, por ejemplo.
+
+6. Pestaña Facturación >> Crear Banco
+
+7. En configuración nos viene arriba en el centro nos viene un pequeño resumen de ventas, facturado, reuniones, tareas y compras
+
+8. CONFIGURACION DE COMPRAS GENERALES (determinadas por El administrador (nosotros)
+1. Ajustes >> Compra >> 
+2. Marcamos aprobacion pedido para marcar limite de compra por usuario.
+3. MArcar bloquear pedidos confirmados.
+
+9. CONFIGURACION DE FACTURACION
+1. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
