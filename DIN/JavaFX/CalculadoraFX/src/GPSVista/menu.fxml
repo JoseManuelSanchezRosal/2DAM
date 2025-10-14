@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GPSController.MenuController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="594.0" pickOnBounds="true" preserveRatio="true" />
+      <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" rotateGraphic="true" side="LEFT" style="-fx-background-size: 200px;" tabClosingPolicy="UNAVAILABLE" tabMinHeight="65.0" tabMinWidth="65.0" AnchorPane.leftAnchor="0.0">
+        <tabs>
+          <Tab style="-fx-rotate: 90;" text="GPS" />
+          <Tab style="-fx-rotate: 90;" text="Multimedia" />
+            <Tab style="-fx-rotate: 90;" text="Radio" />
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
