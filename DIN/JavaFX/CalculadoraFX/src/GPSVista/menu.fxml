@@ -1,19 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GPSController.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="379.0" prefWidth="495.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GPSController.MenuController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="594.0" pickOnBounds="true" preserveRatio="true" />
-      <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" rotateGraphic="true" side="LEFT" style="-fx-background-size: 200px;" tabClosingPolicy="UNAVAILABLE" tabMinHeight="65.0" tabMinWidth="65.0" AnchorPane.leftAnchor="0.0">
+      <TabPane fx:id="tab" nodeOrientation="LEFT_TO_RIGHT" prefHeight="379.0" prefWidth="495.0" rotateGraphic="true" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMinHeight="60.0" tabMinWidth="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab style="-fx-rotate: 90;" text="GPS" />
-          <Tab style="-fx-rotate: 90;" text="Multimedia" />
-            <Tab style="-fx-rotate: 90;" text="Radio" />
+          <Tab id="gps" styleClass="botonesMenu">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="262.0" fitWidth="428.0" layoutX="2.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/navegador.png" />
+                           </image>
+                        </ImageView>
+                        <TextField layoutX="33.0" layoutY="37.0" prefHeight="26.0" prefWidth="357.0" promptText="Introduzca Dirección" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab id="radio" styleClass="botonesMenu">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" layoutX="98.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/fm.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" fitWidth="78.0" layoutX="242.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/am.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab id="multimedia" styleClass="botonesMenu">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" layoutX="99.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/bt.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" layoutX="257.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/sd.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" layoutX="99.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/usb.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" layoutX="257.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/jack.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab id="ajustes" styleClass="botonesMenu">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" layoutX="43.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/info.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" layoutX="181.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/micro.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" layoutX="311.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/software.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
         </tabs>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
       </TabPane>
    </children>
 </AnchorPane>
