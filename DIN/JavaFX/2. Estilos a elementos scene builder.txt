@@ -1,0 +1,214 @@
+Perfecto ✅ — lo que estás pidiendo ahora son **los comandos o propiedades exactas que puedes escribir en Scene Builder (en la pestaña “Code” → campo “Style”)** para **dar estilo visual** directamente a los elementos **sin usar CSS externo**.
+
+👉 En otras palabras:
+Te mostraré qué comandos puedes poner en **`Style:`** dentro de Scene Builder, qué hacen y **a qué elementos puedes aplicarlos**.
+
+---
+
+# 🎨 COMANDOS DE ESTILO EN SCENE BUILDER
+
+*(Pestaña “Code” → campo “Style”)*
+
+Cada comando empieza con `-fx-`, seguido de la propiedad y su valor.
+
+---
+
+## 🧱 ESTILOS GENERALES (válidos para casi todos los elementos)
+
+| Comando                          | Qué hace                              | Se aplica a                                     |
+| -------------------------------- | ------------------------------------- | ----------------------------------------------- |
+| `-fx-background-color: #3498db;` | Cambia el color de fondo.             | Todos los controles (Button, Pane, Label, etc.) |
+| `-fx-text-fill: white;`          | Cambia el color del texto.            | Label, Button, TextField, CheckBox, etc.        |
+| `-fx-font-size: 16px;`           | Cambia el tamaño del texto.           | Todos los que tengan texto.                     |
+| `-fx-font-weight: bold;`         | Pone el texto en negrita.             | Todos los que tengan texto.                     |
+| `-fx-font-style: italic;`        | Pone el texto en cursiva.             | Todos los que tengan texto.                     |
+| `-fx-font-family: "Segoe UI";`   | Cambia la fuente.                     | Todos los que tengan texto.                     |
+| `-fx-border-color: black;`       | Añade borde.                          | Casi todos los nodos.                           |
+| `-fx-border-width: 2px;`         | Grosor del borde.                     | Casi todos.                                     |
+| `-fx-border-radius: 8px;`        | Bordes redondeados del borde.         | Casi todos.                                     |
+| `-fx-background-radius: 8px;`    | Bordes redondeados del fondo.         | Casi todos.                                     |
+| `-fx-padding: 8px;`              | Espaciado interno.                    | Botones, Labels, TextArea, Pane.                |
+| `-fx-opacity: 0.8;`              | Transparencia (0–1).                  | Todos los nodos.                                |
+| `-fx-cursor: hand;`              | Cambia el cursor al pasar por encima. | Interactivos (Button, Label clicable, etc.)     |
+
+---
+
+## 🖱️ BOTONES (`Button`)
+
+| Comando                          | Qué hace                                 |
+| -------------------------------- | ---------------------------------------- |
+| `-fx-background-color: #2980b9;` | Fondo del botón.                         |
+| `-fx-text-fill: white;`          | Color del texto.                         |
+| `-fx-font-weight: bold;`         | Negrita.                                 |
+| `-fx-background-radius: 10px;`   | Bordes redondeados.                      |
+| `-fx-border-color: #1f6391;`     | Borde exterior.                          |
+| `-fx-border-width: 1px;`         | Grosor del borde.                        |
+| `-fx-padding: 5px 10px;`         | Espaciado interno (vertical/horizontal). |
+
+👉 **Consejo:**
+Puedes poner varios juntos, separados por `;`, por ejemplo:
+
+```
+-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10px;
+```
+
+---
+
+## 🏷️ LABELS (`Label`)
+
+| Comando                              | Qué hace                          |
+| ------------------------------------ | --------------------------------- |
+| `-fx-text-fill: #2c3e50;`            | Cambia el color del texto.        |
+| `-fx-font-size: 18px;`               | Tamaño del texto.                 |
+| `-fx-font-weight: bold;`             | Negrita.                          |
+| `-fx-background-color: transparent;` | Fondo transparente (por defecto). |
+
+---
+
+## ✏️ TEXTFIELD / PASSWORDFIELD
+
+| Comando                          | Qué hace                     |
+| -------------------------------- | ---------------------------- |
+| `-fx-background-color: white;`   | Fondo del campo.             |
+| `-fx-border-color: #cccccc;`     | Color del borde.             |
+| `-fx-border-radius: 5px;`        | Bordes redondeados.          |
+| `-fx-background-radius: 5px;`    | Fondo redondeado.            |
+| `-fx-prompt-text-fill: #999999;` | Color del texto placeholder. |
+| `-fx-text-fill: #333333;`        | Color del texto ingresado.   |
+
+---
+
+## 🧾 TEXTAREA
+
+| Comando                                | Qué hace                 |
+| -------------------------------------- | ------------------------ |
+| `-fx-control-inner-background: white;` | Color de fondo interior. |
+| `-fx-border-color: #cccccc;`           | Borde.                   |
+| `-fx-border-radius: 5px;`              | Bordes redondeados.      |
+| `-fx-font-family: "Consolas";`         | Fuente del texto.        |
+| `-fx-font-size: 13px;`                 | Tamaño de fuente.        |
+
+---
+
+## 🔽 COMBOBOX / CHOICEBOX
+
+| Comando                        | Qué hace            |
+| ------------------------------ | ------------------- |
+| `-fx-background-color: white;` | Fondo principal.    |
+| `-fx-border-color: #aaaaaa;`   | Borde.              |
+| `-fx-border-radius: 5px;`      | Bordes redondeados. |
+| `-fx-font-size: 14px;`         | Tamaño del texto.   |
+
+---
+
+## 📅 DATEPICKER
+
+| Comando                          | Qué hace            |
+| -------------------------------- | ------------------- |
+| `-fx-background-color: #fdfdfd;` | Fondo del campo.    |
+| `-fx-border-color: #3498db;`     | Borde del selector. |
+| `-fx-border-radius: 5px;`        | Bordes redondeados. |
+
+---
+
+## ✅ CHECKBOX / RADIOBUTTON
+
+| Comando                    | Qué hace                       |
+| -------------------------- | ------------------------------ |
+| `-fx-text-fill: #2c3e50;`  | Color del texto.               |
+| `-fx-font-size: 14px;`     | Tamaño del texto.              |
+| `-fx-mark-color: #3498db;` | Color de la marca (✔ o punto). |
+
+---
+
+## 📋 TABLEVIEW
+
+| Comando                                 | Qué hace                      |
+| --------------------------------------- | ----------------------------- |
+| `-fx-background-color: white;`          | Fondo de la tabla.            |
+| `-fx-border-color: #dddddd;`            | Borde.                        |
+| `-fx-table-cell-border-color: #e6e6e6;` | Color de líneas entre celdas. |
+| `-fx-font-size: 13px;`                  | Tamaño de texto.              |
+
+---
+
+## 🗃️ LISTVIEW
+
+| Comando                                | Qué hace                 |
+| -------------------------------------- | ------------------------ |
+| `-fx-background-color: white;`         | Fondo.                   |
+| `-fx-border-color: #cccccc;`           | Borde.                   |
+| `-fx-cell-hover-color: #d6eaf8;`       | Fondo al pasar el ratón. |
+| `-fx-control-inner-background: white;` | Interior.                |
+
+---
+
+## 📦 CONTENEDORES
+
+### 🧩 ANCHORPANE
+
+| Comando                          | Qué hace       |
+| -------------------------------- | -------------- |
+| `-fx-background-color: #ecf0f1;` | Fondo general. |
+| `-fx-border-color: #cccccc;`     | Borde externo. |
+
+### 🧱 VBOX / HBOX
+
+| Comando                          | Qué hace                |
+| -------------------------------- | ----------------------- |
+| `-fx-background-color: #f8f9fa;` | Fondo del contenedor.   |
+| `-fx-padding: 10;`               | Espaciado interno.      |
+| `-fx-spacing: 10;`               | Separación entre hijos. |
+| `-fx-border-color: #dddddd;`     | Borde.                  |
+
+### 🗂️ GRIDPANE
+
+| Comando            | Qué hace                         |
+| ------------------ | -------------------------------- |
+| `-fx-hgap: 10;`    | Espacio horizontal entre celdas. |
+| `-fx-vgap: 10;`    | Espacio vertical entre celdas.   |
+| `-fx-padding: 10;` | Espaciado interno del grid.      |
+
+---
+
+## 📜 SCROLLPANE
+
+| Comando                              | Qué hace            |
+| ------------------------------------ | ------------------- |
+| `-fx-background-color: transparent;` | Fondo transparente. |
+| `-fx-border-color: transparent;`     | Sin bordes.         |
+
+---
+
+## 🧭 MENUBAR / TOOLBAR
+
+| Comando                          | Qué hace        |
+| -------------------------------- | --------------- |
+| `-fx-background-color: #3498db;` | Fondo de barra. |
+| `-fx-text-fill: white;`          | Texto blanco.   |
+
+---
+
+## 🕹️ SLIDER / PROGRESSBAR
+
+| Comando                          | Qué hace                      |
+| -------------------------------- | ----------------------------- |
+| `-fx-accent: #3498db;`           | Color principal del progreso. |
+| `-fx-background-color: #e0e0e0;` | Fondo.                        |
+
+---
+
+# 🧩 Cómo aplicarlos
+
+1. Selecciona el elemento en Scene Builder.
+2. Ve a la pestaña **Code**.
+3. En el campo **Style**, escribe los comandos separados por `;`.
+   Ejemplo para un botón:
+
+   ```
+   -fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10px;
+   ```
+
+---
+
+¿Quieres que te prepare una **chuleta en tabla imprimible (PDF o DOCX)** con todos estos comandos agrupados por tipo de elemento (para tenerla como guía rápida en clase o práctica)? Puedo generártela lista para descargar.

@@ -1,0 +1,162 @@
+Excelente pregunta 👏 — lo que quieres ahora es una **guía práctica de los ajustes que puedes aplicar directamente desde Scene Builder**, sin necesidad de usar CSS.
+Te daré una **lista completa y ordenada** de las **propiedades**, **atributos de Layout** y **campos del Code tab**, indicando:
+
+* 🔹 **Qué hace cada propiedad**
+* 🔹 **En qué tipo de elemento se usa** (por ejemplo: botones, labels, contenedores, etc.)
+* 🔹 **En qué pestaña de Scene Builder está** (Properties, Layout o Code)
+
+---
+
+# 🧭 GUÍA DE ATRIBUTOS EN SCENE BUILDER
+
+---
+
+## 🧱 1. Pestaña **Properties**
+
+Estas son las propiedades visuales y de comportamiento de cada componente.
+
+### 🔹 Comunes a casi todos los elementos (Labels, Buttons, TextFields, etc.)
+
+| Propiedad       | Descripción                                               | Elementos aplicables                                                                    |
+| --------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Text**        | Texto visible del elemento.                               | `Label`, `Button`, `TextField`, `TextArea`, `CheckBox`, `RadioButton`, `MenuItem`, etc. |
+| **Font**        | Cambia la fuente, tamaño y estilo del texto.              | Cualquier elemento con texto.                                                           |
+| **Text Fill**   | Cambia el color del texto.                                | `Label`, `Button`, `Text`, etc.                                                         |
+| **Alignment**   | Alinea el texto dentro del control (LEFT, CENTER, RIGHT). | `Label`, `Button`, `TextField`.                                                         |
+| **Wrap Text**   | Permite que el texto se ajuste a varias líneas.           | `Label`, `TextArea`.                                                                    |
+| **Prompt Text** | Texto de sugerencia (placeholder).                        | `TextField`, `PasswordField`, `TextArea`.                                               |
+| **Editable**    | Si el usuario puede modificar el texto.                   | `TextField`, `TextArea`.                                                                |
+| **Disable**     | Desactiva el elemento (gris).                             | Todos.                                                                                  |
+| **Visible**     | Muestra/oculta el elemento.                               | Todos.                                                                                  |
+| **Opacity**     | Transparencia (0.0 = invisible, 1.0 = opaco).             | Todos.                                                                                  |
+| **Tooltip**     | Texto emergente al pasar el cursor.                       | Casi todos.                                                                             |
+
+---
+
+### 🔹 Específicas por tipo
+
+#### 🖱️ **Button**
+
+| Propiedad          | Descripción                                   |
+| ------------------ | --------------------------------------------- |
+| **Default Button** | Actúa como botón principal (Enter).           |
+| **Cancel Button**  | Cierra ventana o actúa como “Cancelar” (Esc). |
+| **Graphic**        | Permite añadir una imagen o ícono al botón.   |
+
+#### 🏷️ **Label**
+
+| Propiedad            | Descripción                                    |
+| -------------------- | ---------------------------------------------- |
+| **Mnemonic Parsing** | Permite usar accesos de teclado (Alt + letra). |
+
+#### 🧾 **TextField / PasswordField**
+
+| Propiedad       | Descripción                               |
+| --------------- | ----------------------------------------- |
+| **Prompt Text** | Muestra texto de ayuda cuando está vacío. |
+| **Editable**    | Permite o impide escribir.                |
+| **Alignment**   | Alinea el texto dentro del campo.         |
+
+#### 🧮 **TextArea**
+
+| Propiedad          | Descripción                    |
+| ------------------ | ------------------------------ |
+| **Wrap Text**      | Ajusta líneas automáticamente. |
+| **Pref Row Count** | Filas visibles por defecto.    |
+
+#### 🔽 **ComboBox / ChoiceBox**
+
+| Propiedad       | Descripción                                           |
+| --------------- | ----------------------------------------------------- |
+| **Prompt Text** | Texto antes de seleccionar.                           |
+| **Editable**    | Permite escribir manualmente en lugar de solo elegir. |
+
+#### 📅 **DatePicker**
+
+| Propiedad             | Descripción                                   |
+| --------------------- | --------------------------------------------- |
+| **Editable**          | Permite escribir la fecha.                    |
+| **Show Week Numbers** | Muestra el número de semana en el calendario. |
+
+#### ✅ **CheckBox / RadioButton**
+
+| Propiedad            | Descripción                  |
+| -------------------- | ---------------------------- |
+| **Selected**         | Valor booleano inicial.      |
+| **Mnemonic Parsing** | Permite accesos por teclado. |
+
+#### 📋 **TableView / ListView**
+
+| Propiedad                | Descripción                              |
+| ------------------------ | ---------------------------------------- |
+| **Editable**             | Permite editar celdas directamente.      |
+| **Placeholder**          | Mensaje cuando no hay datos.             |
+| **Column Resize Policy** | Ajuste automático del ancho de columnas. |
+
+---
+
+## 📐 2. Pestaña **Layout**
+
+Aquí defines **posición, tamaño y márgenes** dentro de su contenedor.
+
+### 🔹 Propiedades generales de Layout (para casi todos los nodos)
+
+| Propiedad                          | Descripción                                        | Elementos aplicables                      |
+| ---------------------------------- | -------------------------------------------------- | ----------------------------------------- |
+| **LayoutX / LayoutY**              | Posición absoluta en el contenedor.                | En `AnchorPane`, `Pane`.                  |
+| **Pref Width / Pref Height**       | Tamaño preferido del nodo.                         | Todos.                                    |
+| **Min Width / Min Height**         | Tamaño mínimo permitido.                           | Todos.                                    |
+| **Max Width / Max Height**         | Tamaño máximo permitido.                           | Todos.                                    |
+| **Padding**                        | Espaciado interno del contenedor.                  | `VBox`, `HBox`, `GridPane`, `BorderPane`. |
+| **Spacing**                        | Separación entre los hijos.                        | `VBox`, `HBox`, `TilePane`.               |
+| **Margin**                         | Espaciado externo de un elemento respecto a otros. | Cualquier hijo dentro de un contenedor.   |
+| **Alignment**                      | Alinea los hijos dentro del contenedor.            | `VBox`, `HBox`, `StackPane`.              |
+| **Anchor (Top/Bottom/Left/Right)** | Fija un elemento a un borde específico.            | Solo en `AnchorPane`.                     |
+| **RowIndex / ColumnIndex**         | Posición del nodo en una cuadrícula.               | Solo en `GridPane`.                       |
+| **Hgrow / Vgrow**                  | Cómo se expanden los hijos.                        | `HBox`, `VBox`.                           |
+
+---
+
+### 🔸 Ejemplos comunes:
+
+* `AnchorPane` → usar “Top/Bottom/Left/Right Anchor” para fijar el elemento.
+* `VBox / HBox` → usar “Spacing” y “Alignment” para ordenar y centrar elementos.
+* `GridPane` → usar “RowIndex” y “ColumnIndex” para ubicar celdas.
+* `StackPane` → usar “Alignment” para centrar contenido.
+
+---
+
+## 💻 3. Pestaña **Code**
+
+Aquí conectas la interfaz con tu código Java (controlador).
+
+| Campo                                   | Descripción                                                                                         | Aplicable a                                               |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| **fx:id**                               | Nombre de la variable que usas en el controlador (`@FXML`).                                         | Todos los elementos que necesites manipular desde código. |
+| **On Action**                           | Método que se ejecuta cuando se dispara un evento (clic, enter, etc.).                              | `Button`, `MenuItem`, `TextField` (al presionar Enter).   |
+| **On Key Pressed / Released / Typed**   | Acciones al interactuar con el teclado.                                                             | Cualquier control interactivo.                            |
+| **On Mouse Clicked / Entered / Exited** | Acciones con el ratón.                                                                              | Casi todos.                                               |
+| **Style Class**                         | Asigna una o varias clases CSS al nodo.                                                             | Todos.                                                    |
+| **Style**                               | Permite escribir directamente propiedades CSS en línea (por ejemplo, `-fx-background-color: red;`). | Todos.                                                    |
+| **Controller Class (solo raíz)**        | Indica qué clase Java controla esa vista.                                                           | Nodo raíz del FXML.                                       |
+
+---
+
+## 🧩 4. Resumen por tipo de elemento
+
+| Elemento        | Pestaña más usada | Propiedades destacadas                     |
+| --------------- | ----------------- | ------------------------------------------ |
+| **Label**       | Properties        | Text, Font, Text Fill, Alignment           |
+| **Button**      | Properties / Code | Text, On Action, Graphic                   |
+| **TextField**   | Properties / Code | Prompt Text, Editable, fx:id               |
+| **TextArea**    | Properties        | Wrap Text, Prompt Text                     |
+| **ComboBox**    | Properties        | Prompt Text, Editable                      |
+| **DatePicker**  | Properties        | Show Week Numbers, Editable                |
+| **TableView**   | Properties        | Editable, Placeholder                      |
+| **VBox / HBox** | Layout            | Spacing, Alignment, Padding                |
+| **AnchorPane**  | Layout            | Anchor constraints (Top/Bottom/Left/Right) |
+| **GridPane**    | Layout            | RowIndex, ColumnIndex                      |
+| **ImageView**   | Properties        | Image, FitWidth, FitHeight, Preserve Ratio |
+
+
+
