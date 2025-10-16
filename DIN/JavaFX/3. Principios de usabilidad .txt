@@ -1,0 +1,159 @@
+Perfecto 👍 Aquí tienes un **resumen claro y estructurado** con los **conceptos clave de usabilidad, diseño y accesibilidad** del documento, junto con **cómo aplicarlos correctamente al crear interfaces UI/UX atractivas y fáciles de usar**:
+
+---
+
+## 🧭 **1. Usabilidad**
+
+### 🔹 Concepto general
+
+La **usabilidad** mide lo fácil, clara y agradable que resulta una interfaz para los usuarios.
+
+> “Si no lo haces fácil, los usuarios se marcharán de tu web” — *Jakob Nielsen*
+
+Una interfaz usable debe ser:
+
+* Comprensible.
+* Aprendible rápidamente.
+* Eficiente y sin errores.
+* Visualmente atractiva.
+
+### 🔹 Objetivos y estándares
+
+Los principales estándares internacionales que definen cómo diseñar interfaces usables son:
+
+* **ISO/IEC 9126** → Evalúa la calidad del software (modelo, métricas y calidad en uso).
+* **ISO/DIS 9241-11** → Mide resultados y satisfacción de los usuarios.
+* **ISO 13407** → Guía para el diseño centrado en el usuario (DCU).
+* **ISO 9241-151** → Directrices ergonómicas para interfaces web.
+* **UNE 139803:2004 / 2012** → Normas españolas de accesibilidad (basadas en WCAG 1.0 y 2.0).
+
+### 🔹 Cómo aplicar la usabilidad
+
+Antes de diseñar, pregunta:
+
+* ¿Qué necesita el usuario?
+* ¿Quién es (nivel técnico, edad, cultura)?
+* ¿En qué contexto usará la aplicación?
+
+Evalúa tu diseño con **tests de usabilidad**, midiendo:
+
+* **Satisfacción** → agrado del usuario, facilidad de aprendizaje, deseo de reutilización.
+* **Efectividad** → éxito al completar tareas y errores cometidos.
+* **Eficiencia** → tiempo y recursos necesarios para alcanzar los objetivos.
+
+### 🔹 Conocer al usuario
+
+Ten en cuenta:
+
+* **Capacidades cognitivas y perceptivas.**
+* **Factores culturales y lingüísticos.**
+* **Discapacidades** (visuales, auditivas, motoras).
+* **Limitaciones tecnológicas** (dispositivos, conexión, resolución).
+
+Tipos de usuarios:
+
+* *Anónimo:* sin sesión iniciada.
+* *Registrado:* con privilegios personalizados.
+* *Beta tester:* realiza pruebas funcionales.
+
+---
+
+## 🧩 **2. Pautas de diseño UI/UX**
+
+### 🔹 2.1. Menús
+
+* Mantén una **zona fija** para los menús en toda la aplicación.
+* Usa **títulos claros** y **máximo 10 opciones** por menú.
+* No abuses de los **menús en cascada**.
+* Los menús contextuales deben complementar, no sustituir, los principales.
+
+### 🔹 2.2. Ventanas y cuadros de diálogo
+
+* Permitir **abrir, cerrar y redimensionar** ventanas libremente.
+* Evita saturar con demasiadas ventanas.
+* Los **mensajes** deben ser claros, positivos e informativos (sin asumir conocimiento previo).
+* Usa cuadros de diálogo para guiar la interacción con el usuario.
+
+### 🔹 2.3. Aspecto visual
+
+Diseño coherente y funcional:
+
+* **Iconos:** simples, representativos y consistentes.
+* **Colores:** refuerzan la identidad de marca y guían la atención (usa contrastes adecuados).
+* **Tipografía:** legible, uniforme y del tamaño adecuado según dispositivo.
+
+📘 *Ejemplo:*
+Usar los colores corporativos de una marca como BBVA mejora el reconocimiento visual y coherencia.
+
+### 🔹 2.4. Elementos interactivos
+
+* Añade **etiquetas o texto guía** en campos de texto.
+* Ajusta el **tamaño de inputs y botones** a la interfaz.
+* Los **botones, checkboxes y radios** deben ser:
+
+  * Intuitivos y bien diferenciados.
+  * Con acciones claras y comprensibles.
+  * Fáciles de identificar y seleccionar.
+
+### 🔹 2.5. Presentación de datos
+
+* Usa **tablas o gráficos** solo cuando aporten valor visual.
+* En tablas:
+
+  * Títulos < 2 líneas.
+  * Etiquetas y encabezados claros.
+* En gráficos:
+
+  * Ajusta tamaño a la pantalla.
+  * No satures de elementos.
+  * Usa una **paleta de color diferenciada** y **leyenda visible**.
+
+---
+
+## ♿ **3. Accesibilidad**
+
+### 🔹 Concepto
+
+La **accesibilidad** garantiza que *todas las personas*, independientemente de sus capacidades o limitaciones técnicas, puedan **acceder** y **usar** la aplicación.
+
+> Una interfaz debe ser accesible antes que usable.
+
+### 🔹 W3C y WCAG
+
+El **W3C** (World Wide Web Consortium) establece los estándares internacionales de accesibilidad mediante la iniciativa **WAI (Web Accessibility Initiative)** y sus **WCAG 2.1**.
+
+Los **principios fundamentales** son:
+
+1. **Perceptible:** los usuarios deben poder percibir la información.
+2. **Operable:** se debe poder navegar y usar con teclado, ratón o voz.
+3. **Comprensible:** el contenido y la interacción deben ser fáciles de entender.
+4. **Robusto:** debe funcionar en distintos dispositivos, navegadores y tecnologías asistivas.
+
+### 🔹 Niveles de conformidad
+
+* **Nivel A (mínimo):** 25 criterios.
+* **Nivel AA (recomendado):** 38 criterios (A + AA).
+* **Nivel AAA (máximo):** 61 criterios (A + AA + AAA).
+
+También debe cumplirse:
+
+* Accesibilidad en **todas las páginas** del proceso.
+* Uso de **tecnologías compatibles con accesibilidad**.
+* Que ningún elemento no accesible **interfiera** con el resto.
+
+---
+
+## 🧠 **Resumen práctico para el diseño UI/UX**
+
+| Principio                   | Qué implica                                            | Cómo aplicarlo                                                                   |
+| --------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| **Claridad**                | Mostrar la información de forma simple y comprensible. | Usa lenguaje claro, estructura coherente y navegación predecible.                |
+| **Consistencia**            | Mantener el mismo estilo visual y funcional.           | Usa la misma paleta, tipografía y disposición en todas las páginas.              |
+| **Retroalimentación**       | Informar siempre al usuario de lo que ocurre.          | Mensajes de error, confirmación y carga visibles.                                |
+| **Control del usuario**     | Permitir deshacer, cerrar o corregir acciones.         | Botones de cancelar, volver o modificar.                                         |
+| **Accesibilidad universal** | Que todos puedan usar la app.                          | Contraste adecuado, texto alternativo, navegación por teclado, tamaños legibles. |
+| **Eficiencia**              | Que el usuario logre sus objetivos rápido.             | Agrupar funciones, reducir pasos y tiempos de carga.                             |
+
+---
+
+¿Quieres que te prepare este resumen también en **formato visual** (por ejemplo, un esquema o infografía resumida para incluir en tu trabajo o presentación)?

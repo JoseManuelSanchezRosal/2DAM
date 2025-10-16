@@ -1,0 +1,1 @@
+El barbero tiene trabajo 24/7, sino fuera así, como controlamos para que una vez no haya clientes durante x tiempo, el barbero cierre la barbería, por ejemplo (para que no se quede el proceso barbero en wait

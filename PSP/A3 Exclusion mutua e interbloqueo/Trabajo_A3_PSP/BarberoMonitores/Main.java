@@ -7,8 +7,17 @@ public class Main {
         Barbero b1 = new Barbero(sillon);
         Cliente c1 = new Cliente(sillon);
 
+
         // Lanzamos los hilos (o procesos) barbero y cliente a la vez.
+
         c1.start();
         b1.start();
+
+        try {
+            c1.join();
+            b1.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
