@@ -1,0 +1,3 @@
+- Nosotros como empresa: AL CLIENTE YO LE VENDO (Sección de Ventas)
+- Nosotros como empresa: AL PROVEEDOR LE COMPRO (Sección de Compras)
+- Las facturas son en XML (casi todas)

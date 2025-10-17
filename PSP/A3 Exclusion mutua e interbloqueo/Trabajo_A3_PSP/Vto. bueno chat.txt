@@ -126,3 +126,6 @@ Los clientes (hilos) llegan concurrentemente y se sientan si hay sillas libres; 
 El recurso compartido es la clase Sillon, donde se controlan los accesos mediante bloques synchronized para asegurar la exclusión mutua.
 Se utilizan los métodos wait() y notifyAll() para sincronizar la interacción entre barbero y clientes, evitando condiciones de carrera.
 De esta forma, el código demuestra cómo resolver un problema real de concurrencia mediante sincronización y comunicación entre hilos.
+
+
+

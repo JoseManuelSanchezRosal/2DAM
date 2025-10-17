@@ -22,7 +22,7 @@ public class Sillon {
         // Si no hay clientes....el barbero se queda dormido:
         while (sillas.size() == 0) {
             System.out.println("No hay clientes, el barbero sigue durmiendo...");
-            wait(5000);
+            wait();
 
         }
         // Si entra un cliente y hay sitio se sienta y el barbero lo atiende:

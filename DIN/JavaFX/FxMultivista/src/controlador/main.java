@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
-package GPSController;
+package controlador;
 
 import java.io.IOException;
 import javafx.application.Application;
@@ -17,19 +17,19 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Jose
+ * @author Pedro
  */
-public class Main extends Application {
+public class main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/GPSVista/nmenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/vista/vista1.fxml"));
 
             // Cargo el scene
             
             Scene scene = new Scene(root);
             
-            primaryStage.setTitle("GPS");
+            primaryStage.setTitle("Vista 1");
             // Seteo la scene y la muestro
             primaryStage.setScene(scene);
             primaryStage.show();
