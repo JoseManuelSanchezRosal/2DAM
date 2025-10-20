@@ -4,8 +4,8 @@
  */
 package controller;
 
+import java.io.IOException;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,24 +20,25 @@ import javafx.stage.Stage;
  * @author Jose
  */
 public class Main extends Application {
-
     @Override
-    public void start(Stage primaryStage) throws Exception{
-
-            Parent root = FXMLLoader.load(getClass().getResource("/vista/ventanaPrincipal.fxml"));
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/vista/principal.fxml"));
 
             // Cargo el scene
             
             Scene scene = new Scene(root);
             
-            primaryStage.setTitle("Hola mundo");
+            primaryStage.setTitle("Vista 1");
             // Seteo la scene y la muestro
             primaryStage.setScene(scene);
             primaryStage.show();
     }
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
-
+    
 }

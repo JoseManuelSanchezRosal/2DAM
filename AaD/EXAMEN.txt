@@ -1,0 +1,11 @@
+- Construyo una li
+
+
+nea y la escribo
+
+- primer id = leer fichero y devolver las lineas (para meter el id por donde le toque) HAY QUE CREAR UNA función para leer que líneas tiene el documento, para seguir por esa id
+
+- Punto 2: public int function alumnoId (String nombre, String apellidos) 
+Tenemos que leer el archivo, splitear y comparar la posición del nombre y el apellido con .equals y retornar la posición 0 del array. NOMBRE Y APELLIDO LOS PEDIMOS POR TECLADO.
+
+- Punto 3: necesitamos escribir en otro fichero. Como tenemos que saber la ID, cogemos la función del punto 2 y guardar las notas. 

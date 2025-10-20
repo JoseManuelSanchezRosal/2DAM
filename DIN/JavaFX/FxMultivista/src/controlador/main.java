@@ -23,7 +23,7 @@ public class main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/vista/vista1.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/vista/principal.fxml"));
 
             // Cargo el scene
             

@@ -1,7 +1,5 @@
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -28,7 +26,8 @@ public class ExamenFicheros {
                 agregarAlumno();
             } else if (opcion == 2) {
                 System.out.println("devolver id");
-                devolverID();
+
+                /*devolverID();*/
             } else if (opcion == 3) {
                 System.out.println("insertar notas");
                 insertarNotas();
@@ -44,17 +43,34 @@ public class ExamenFicheros {
         } while (opcion != 0 && menu == true);
     }
 
+
+
+
+
     private static void calcularMedia() {
     }
-
     private static void insertarNotas() {
-
     }
 
-    private static void devolverID() {
+    private int devolverID(String nombre, String apellidos) {
+        File archivo = new File("ficheros/src/Alumnos.txt");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            String linea;
+            while ((linea = br.readLine())!= null){
+
+                String[] palabras = linea.split("|");
+                if(nombre.equals(palabras[1]) && apellidos.equals(palabras[2])){
+                    return Integer.parseInt(palabras[0]);
+                }
+            }
+
+        }catch (IOException e){
+            System.out.println("Error al leer el archivo "+e.getMessage());
+        }
+
+        return 0;
     }
-
-
     private static void agregarAlumno() {
         Scanner aa = new Scanner(System.in);
         int insercion = 1;
