@@ -35,7 +35,7 @@ NUEVO USUARIO:
 1. Compras >> pedidos >> proveedores >> nuevo
 Se marca por por defecto "compañía", habría que marcar individuo si fuera un autónomo o persona física. Aparecería su DNI. 
 
-2. Dentro de compañia metalgrup, añadir contacto.
+2. Dentro de compañía metalgrup, añadir contacto.
  
 3. En crear contacto, el apartado FACe (factura electrónica).
 
@@ -53,11 +53,29 @@ Los efectos y las remesas bancarias sirven para emitir recibos de factura. Para 
 
 8. CONFIGURACION DE COMPRAS GENERALES (determinadas por El administrador (nosotros)
 1. Ajustes >> Compra >> 
-2. Marcamos aprobacion pedido para marcar limite de compra por usuario.
-3. MArcar bloquear pedidos confirmados.
+2. Marcamos aprobación pedido para marcar limite de compra por usuario.
+3. Marcar bloquear pedidos confirmados.
 
 9. CONFIGURACION DE FACTURACION
 1. 
+
+10. AÑADIR PRODUCTO.
+1- Se pueden añadir desde compras, ventas e inventario desde el menú principal
+2- Añadimos foto >> añadimos nombre >> seleccionamos el tipo de producto.
+3- En política de facturación seleccionamos las cantidades entregadas (las que nos llegan, pueden ser diferentes a las que pedimos).
+4- Marcamos rastreo.
+5- Precio de venta: PVP + IVA
+5.5 Precio sobre venta: PVP - %IVA
+MIRAR DIFERENCIA ENTRE PRECIO SOBRE COSTO Y SOBRE VENTA
+(LO NORMAL DE GANANCIAS DE UN PRODUCTO ES EL 60%. EN ROPA DEL 200 O 300%)
+7-Creamos nueva categoría climat y calef
+8- Referencia (la misma del producto) o bien la referencia nuestra o la del proveedor, en este caso cogeremos la del proveedor (Salvo que nosotros no seamos fabricantes, entonces pondríamos la nuestra)
+9- Metemos la descripción.
+10- En la pestaña de VENTAS, en productos opcionales son los que se recomiendan al echar el actual al carrito (para hacer pack).
+11- Pestaña de Precios: no hay un solo precio, hay precio para otras empresas y precio para cliente final.
+------LISTA DE PRECIOS OJO----------
+-------HAY QUE SEAGUIR METIENDO PRODUCTOS-----------
+
 
 
 
