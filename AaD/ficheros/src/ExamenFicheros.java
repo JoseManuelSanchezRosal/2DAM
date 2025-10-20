@@ -1,9 +1,8 @@
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
-// He sido capaz de sacar el apartado de agregar alumno en hora y media. Como no sé sacar la ID por nombre y apellidos, tampoco meter las notas del ese alumno y por tanto tampoco calcular la media. Sí es cierto que podría meter notas en una fila por cada alumno y sacar la media. Pero no desde la ID, no he sabido sacarla....
+// TERMINADO AMIN, EN TOTAL 3 HORAS APROXIMADAMENTE DESPUES DE LA ACLARACION DE HOY.
 
 public class ExamenFicheros {
     public static void main(String[] args) {
@@ -24,16 +23,24 @@ public class ExamenFicheros {
 
             if (opcion == 1) {
                 agregarAlumno();
-            } else if (opcion == 2) {
-                System.out.println("devolver id");
 
-                /*devolverID();*/
+            } else if (opcion == 2) {
+                Scanner s = new Scanner(System.in);
+                System.out.println("Ingrese nombre a buscar: ");
+                String nombre = s.nextLine();
+                System.out.println("Ingrese apellido a buscar: ");
+                String apellidos = s.nextLine();
+                int id = devolverID(nombre, apellidos);
+                if(id == 0){
+                    System.out.println(("El alumno con nombre: " + nombre + " y apellidos: " + apellidos + ", no se encuentra en el archivo"));
+                }else System.out.println("El nombre: " + nombre + " y apellidos: " + apellidos + " tiene el ID: " + id );
+
             } else if (opcion == 3) {
-                System.out.println("insertar notas");
                 insertarNotas();
+
             } else if (opcion == 4) {
-                System.out.println("calcular media notas");
                 calcularMedia();
+
             } else if (opcion ==0){
                 System.out.println("Saliendo del programa");
             }else{
@@ -43,52 +50,124 @@ public class ExamenFicheros {
         } while (opcion != 0 && menu == true);
     }
 
-
-
-
-
     private static void calcularMedia() {
+
+        File notas = new File("ficheros/src/notas.txt");
+
+        Scanner s = new Scanner(System.in);
+        System.out.println("Ingrese nombre del alumno: ");
+        String nombre = s.nextLine();
+        System.out.println("Ingrese apellidos del alumno: ");
+        String apellidos = s.nextLine();
+
+        int id = devolverID(nombre, apellidos);
+
+        if(id == 0){
+            System.out.println(("El alumno con nombre: " + nombre + " y apellidos: " + apellidos + ", no se encuentra en el archivo"));
+        }
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(notas));
+            double media = 0;
+            String linea;
+            while ((linea = br.readLine())!=null) {
+                String[] palabras = linea.split("-");
+                if (id == Integer.parseInt(palabras[0])) {
+                    String[] notasAlumnos = palabras[1].split(";");
+                    int numeroNotas = notasAlumnos.length;
+                    double suma = 0;
+                    for (int i = 0; i < numeroNotas; i++) {
+                        suma += Double.parseDouble(notasAlumnos[i]);
+                    }
+                    media = (double) suma / numeroNotas;
+                }
+            }
+            System.out.println("La nota media del alumno " + nombre + " es de: " + media);
+
+        }catch (Exception e){
+            System.out.println("Error al leer el archivo " + e.getMessage());
+        }
     }
     private static void insertarNotas() {
+        File notas = new File("ficheros/src/notas.txt");
+
+        Scanner s = new Scanner(System.in);
+        System.out.println("Ingrese nombre del alumno: ");
+        String nombre = s.nextLine();
+        System.out.println("Ingrese apellidos del alumno: ");
+        String apellidos = s.nextLine();
+
+        int id = devolverID(nombre, apellidos);
+
+        if(id == 0){
+            System.out.println(("El alumno con nombre: " + nombre + " y apellidos: " + apellidos + ", no se encuentra en el archivo"));
+        }
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(notas, true));
+            bw.write(id+ "-");
+            System.out.println("Introduzca notas del alumno " + id + " (separado por ;)");
+            String notasAlumno = s.nextLine();
+            bw.write(notasAlumno);
+            bw.newLine();
+
+            bw.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private int devolverID(String nombre, String apellidos) {
+    private static int devolverID(String nombre, String apellidos) {
         File archivo = new File("ficheros/src/Alumnos.txt");
+        int id = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(archivo));
             String linea;
             while ((linea = br.readLine())!= null){
-
-                String[] palabras = linea.split("|");
+                String[] palabras = linea.trim().split("-");
                 if(nombre.equals(palabras[1]) && apellidos.equals(palabras[2])){
-                    return Integer.parseInt(palabras[0]);
+                    id = Integer.parseInt(palabras[0]);
                 }
             }
-
         }catch (IOException e){
             System.out.println("Error al leer el archivo "+e.getMessage());
         }
-
-        return 0;
+        return id;
     }
+
+    private static int autoIncremento(String archivo){
+        int contador = 0;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            String linea;
+            while ((linea = br.readLine())!=null){
+                contador++;
+            }
+            br.close();
+        }catch (Exception e){
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return contador+1;
+    }
+
     private static void agregarAlumno() {
         Scanner aa = new Scanner(System.in);
         int insercion = 1;
-        int contador = 1;
+        int contador = autoIncremento("ficheros/src/Alumnos.txt");
         File archivo = new File("ficheros/src/Alumnos.txt");
         do {
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, true));
-                bw.write(String.valueOf(contador + " | "));
+                bw.write(String.valueOf(contador + "-"));
                 System.out.println("Introduzca nombre: ");
                 String nombre = aa.nextLine();
-                bw.write(nombre + " | ");
+                bw.write(nombre + "-");
                 System.out.println("Introduzca los apellidos: ");
                 String apellidos = aa.nextLine();
-                bw.write(apellidos +" | ");
-                System.out.println("Introduzca fecha nacimiento (dd-mm-aaaa): ");
+                bw.write(apellidos +"-");
+                System.out.println("Introduzca fecha nacimiento (dd/mm/aaaa): ");
                 String fecha = aa.nextLine();
-                bw.write(fecha + " |");
+                bw.write(fecha + "-");
                 System.out.println("Introduzca la clase del alumno: ");
                 String clase = aa.nextLine();
                 bw.write(clase + "\n");

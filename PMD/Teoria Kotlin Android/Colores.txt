@@ -1,0 +1,2 @@
+En carpeta RES >> VALUES >> THEMES >> colors.xml
+Anadimos colores a nuestro xml
