@@ -1,11 +1,12 @@
 import java.io.*;
+import java.security.spec.ECField;
 import java.util.Scanner;
 
 
 // TERMINADO AMIN, EN TOTAL 3 HORAS APROXIMADAMENTE DESPUES DE LA ACLARACION DE HOY.
 
 public class ExamenFicheros {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         int opcion = 10;
         boolean menu = true;
@@ -15,11 +16,13 @@ public class ExamenFicheros {
                     "2- Devolver el ID de un alumno (nombre y apellido)\n" +
                     "3- Insertar notas\n" +
                     "4- Calcular nota media\n" +
-                    "0- Salir" +
+                    "0- Salir\n" +
                     "------------------------------------------------------\n" +
                     "Ingrese una Opcion: ");
             opcion = sc.nextInt();
             sc.nextLine();
+
+
 
             if (opcion == 1) {
                 agregarAlumno();
@@ -64,27 +67,29 @@ public class ExamenFicheros {
 
         if(id == 0){
             System.out.println(("El alumno con nombre: " + nombre + " y apellidos: " + apellidos + ", no se encuentra en el archivo"));
-        }
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(notas));
-            double media = 0;
-            String linea;
-            while ((linea = br.readLine())!=null) {
-                String[] palabras = linea.split("-");
-                if (id == Integer.parseInt(palabras[0])) {
-                    String[] notasAlumnos = palabras[1].split(";");
-                    int numeroNotas = notasAlumnos.length;
-                    double suma = 0;
-                    for (int i = 0; i < numeroNotas; i++) {
-                        suma += Double.parseDouble(notasAlumnos[i]);
-                    }
-                    media = (double) suma / numeroNotas;
-                }
-            }
-            System.out.println("La nota media del alumno " + nombre + " es de: " + media);
 
-        }catch (Exception e){
-            System.out.println("Error al leer el archivo " + e.getMessage());
+        }else{
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(notas));
+                double media = 0;
+                String linea;
+                while ((linea = br.readLine())!=null) {
+                    String[] palabras = linea.split("-");
+                    if (id == Integer.parseInt(palabras[0])) {
+                        String[] notasAlumnos = palabras[1].split(";");
+                        int numeroNotas = notasAlumnos.length;
+                        double suma = 0;
+                        for (int i = 0; i < numeroNotas; i++) {
+                            suma += Double.parseDouble(notasAlumnos[i]);
+                        }
+                        media = (double) suma / numeroNotas;
+                    }
+                }
+                System.out.println("La nota media del alumno " + nombre + " es de: " + media);
+
+            }catch (Exception e){
+                System.out.println("Error al leer el archivo " + e.getMessage());
+            }
         }
     }
     private static void insertarNotas() {
@@ -100,19 +105,20 @@ public class ExamenFicheros {
 
         if(id == 0){
             System.out.println(("El alumno con nombre: " + nombre + " y apellidos: " + apellidos + ", no se encuentra en el archivo"));
-        }
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(notas, true));
-            bw.write(id+ "-");
-            System.out.println("Introduzca notas del alumno " + id + " (separado por ;)");
-            String notasAlumno = s.nextLine();
-            bw.write(notasAlumno);
-            bw.newLine();
+        }else {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(notas, true));
+                bw.write(id+ "-");
+                System.out.println("Introduzca notas del alumno " + id + " (separado por ;)");
+                String notasAlumno = s.nextLine();
+                bw.write(notasAlumno);
+                bw.newLine();
 
-            bw.close();
+                bw.close();
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -173,7 +179,6 @@ public class ExamenFicheros {
                 bw.write(clase + "\n");
                 System.out.println("Pulse 1 para ingresar nuevo alumno, Pulse 0 para salir al MENU: ");
 
-
                 insercion = aa.nextInt();
                 if(insercion == Integer.parseInt("1")){
                     contador++;
@@ -186,6 +191,5 @@ public class ExamenFicheros {
                 insercion = 0;
             }
         }while (insercion == 1);
-        // Por cierto tampoco he sabido controlar el contador de alumnos a la hora de meter otra vez después de salir (empezaría otra vez por el 1)...
     }
 }
