@@ -44,6 +44,7 @@ public class PrincipalController implements Initializable {
             Parent nroot = FXMLLoader.load(getClass().getResource("/vista/alimentos.fxml"));
             Scene scene = new Scene(nroot);
             nuevaV.setTitle("alimentos");
+            
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
             nuevaV.show();

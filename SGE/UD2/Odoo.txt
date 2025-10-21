@@ -76,41 +76,33 @@ MIRAR DIFERENCIA ENTRE PRECIO SOBRE COSTO Y SOBRE VENTA
 ------LISTA DE PRECIOS OJO----------
 -------HAY QUE SEAGUIR METIENDO PRODUCTOS-----------
 
+12- Compra >> nueva solicitud de presupuesto >>
+1- Seleccionamos lapesa
+2- Fecha limite del pedido
+3- Entregar a Que poner
+4- Volver a menu principal >> ajustes >> companies >> configurar diseño de documento.
+4.1- Vemos que coge los colores de la compañía.
+4.2- Aquí podemos configurar el estilo de nuestros documentos.
+4.3- LEMA >> seleccionamos la frase comercial de la empresa (en caso de nike: just do it)
+4.4- Rellenar todo, sobre todo el numero de cuenta.
+4.5- En menu >> compras >> compañía >> ver todas las plantillas podemos ver el diseño de todas las que tiene Odoo.
+5- Podemos enviar el SdP (solicitud de presupuesto) por email.
+6- AL CONFIRMAR PEDIDO NO PODEMOS MODIFICAR NADA DEL PRESUPUESTO, se bloquea.
+7- En producto >> pedido podemos rellenar la referencia del proveedor. Normalmente se rellena.
+8- Supongamos que nos ha llegado el pedido (confirmar)
+9- Antes de validar, hay que imprimir el albarán de recepción.
+10- Para confirmar recepción del pedido: camioncito >> validamos >> 
+11- Para crear factura tenemos que irnos a compra >> pedidos >> pedidos de compra >> marcar y darle a CREAR FACTURAS.
+12- Factura: BILL/2025/10/0001
+12.1 BILL/2025/10 ES LA SERIE
+    0001 ES LA NUMERACION.
+13- El contenido de la factura es muy importante. La fecha contable es para AEAT (Agencia española tributaria)
+Cada fecha tiene su función de cara a Hacienda
+Datos necesarios: NIF, numero factura y fecha de factura.
+13- Después hay que pagar la factura (crear un registro dentro de nuestro software en la tabla de pagos, por ejemplo) en realidad quien se encarga de realizar la transferencia o pago es una persona de CONTABILIDAD.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Una vez que paga, se marca como pagado y se le entrega al administrativo.
+------
 
 
 

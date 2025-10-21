@@ -73,6 +73,7 @@ public class ExamenFicheros {
                 BufferedReader br = new BufferedReader(new FileReader(notas));
                 double media = 0;
                 String linea;
+
                 while ((linea = br.readLine())!=null) {
                     String[] palabras = linea.split("-");
                     if (id == Integer.parseInt(palabras[0])) {
