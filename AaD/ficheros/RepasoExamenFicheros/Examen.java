@@ -1,5 +1,4 @@
 package RepasoExamenFicheros;
-
 import java.io.*;
 import java.security.spec.ECField;
 import java.util.Scanner;
@@ -19,7 +18,6 @@ public class Examen {
                     "0 - Salir\n" +
                     "--------------------------------------------)\n" +
                     "INGRESE UNA OPCION: ");
-
             opcion = sc.nextInt();
             sc.nextLine();
 
@@ -27,6 +25,7 @@ public class Examen {
                 case 1:
                     anadirAlumno();
                     break;
+
                 case 2:
                     System.out.println("Nombre:");
                     String nombreBuscado = sc.nextLine();
@@ -38,6 +37,7 @@ public class Examen {
                         System.out.println("El alumno " + nombreBuscado + " " + apellidosBuscado + " tiene el ID: " + id);
                     }
                     break;
+
                 case 3:
                     System.out.println("Nombre:");
                     String nombreAlumno = sc.nextLine();
@@ -49,6 +49,7 @@ public class Examen {
                         insertarNotas(idAlumno);
                     }
                     break;
+
                 case 4:
                     System.out.println("Nombre:");
                     String nombreMedia = sc.nextLine();
@@ -60,6 +61,7 @@ public class Examen {
                         calcularMedia(idMedia);
                     }
                     break;
+
                 case 0:
                     System.out.println("Saliendo del programa...........");
                     break;
@@ -74,8 +76,8 @@ public class Examen {
         Scanner ss = new Scanner(System.in);
         int contador = obtenerUltimoId("ficheros/RepasoExamenFicheros/Alumnos.txt");
         int anadirMas = 1;
-        do {
 
+        do {
             System.out.println("Nombre: ");
             String nombre = ss.nextLine();
             System.out.println("Apellidos: ");
@@ -98,6 +100,7 @@ public class Examen {
             System.out.println("Pulse 1 para anadir alumno, pulse 0 para salir: ");
             anadirMas = ss.nextInt();
             ss.nextLine();
+
         }while (anadirMas == 1);
     }
 
@@ -150,6 +153,7 @@ public class Examen {
             BufferedWriter bw = new BufferedWriter(new FileWriter(notas, true));
             System.out.println("Introduzca notas (separadas por ;): ");
             String calificaciones = sscc.nextLine();
+
             bw.write(id + "-" + calificaciones);
             bw.newLine();
             bw.close();
@@ -158,6 +162,7 @@ public class Examen {
             System.out.println(e.getMessage());
         }
     }
+
     private static void calcularMedia(int id) {
         File notas = new File("ficheros/RepasoExamenFicheros/notas.txt");
         try {
@@ -179,6 +184,7 @@ public class Examen {
             }
             br.close();
             System.out.println("La media del alumno con ID: " + id + " es " + (suma/numeroNotas));
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
