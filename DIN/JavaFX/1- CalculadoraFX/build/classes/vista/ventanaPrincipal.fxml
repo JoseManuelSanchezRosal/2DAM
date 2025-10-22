@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="315.0" prefWidth="196.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="controlador.VentanaPrincipalController">
+   <children>
+      <Button fx:id="punto" layoutX="14.0" layoutY="269.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="35.0" text="." />
+      <Button fx:id="cero" layoutX="58.0" layoutY="269.0" mnemonicParsing="false" onAction="#clickCero" prefHeight="34.0" prefWidth="35.0" text="0" />
+      <Button fx:id="igual" layoutX="102.0" layoutY="269.0" mnemonicParsing="false" onAction="#clickIgual" prefHeight="34.0" prefWidth="35.0" text="=" />
+      <Button fx:id="division" layoutX="146.0" layoutY="269.0" mnemonicParsing="false" onAction="#clickDivision" prefHeight="34.0" prefWidth="35.0" text="/" />
+      <Button fx:id="uno" layoutX="14.0" layoutY="225.0" mnemonicParsing="false" onAction="#clickUno" prefHeight="34.0" prefWidth="35.0" text="1" />
+      <Button fx:id="dos" layoutX="58.0" layoutY="225.0" mnemonicParsing="false" onAction="#clickDos" prefHeight="34.0" prefWidth="35.0" text="2" />
+      <Button fx:id="tres" layoutX="102.0" layoutY="225.0" mnemonicParsing="false" onAction="#clickTres" prefHeight="34.0" prefWidth="35.0" text="3" />
+      <Button fx:id="producto" layoutX="146.0" layoutY="225.0" mnemonicParsing="false" onAction="#clickProducto" prefHeight="34.0" prefWidth="35.0" text="*" />
+      <Button fx:id="cuatro" layoutX="14.0" layoutY="181.0" mnemonicParsing="false" onAction="#clickCuatro" prefHeight="34.0" prefWidth="35.0" text="4" />
+      <Button fx:id="cinco" layoutX="58.0" layoutY="181.0" mnemonicParsing="false" onAction="#clickCinco" prefHeight="34.0" prefWidth="35.0" text="5" />
+      <Button fx:id="seis" layoutX="102.0" layoutY="181.0" mnemonicParsing="false" onAction="#clickSeis" prefHeight="34.0" prefWidth="35.0" text="6" />
+      <Button fx:id="resta" layoutX="146.0" layoutY="181.0" mnemonicParsing="false" onAction="#clickResta" prefHeight="34.0" prefWidth="35.0" text="-" />
+      <Button fx:id="siete" layoutX="14.0" layoutY="137.0" mnemonicParsing="false" onAction="#clickSiete" prefHeight="34.0" prefWidth="35.0" text="7" />
+      <Button fx:id="ocho" layoutX="58.0" layoutY="137.0" mnemonicParsing="false" onAction="#clickOcho" prefHeight="34.0" prefWidth="35.0" text="8" />
+      <Button fx:id="nueve" layoutX="102.0" layoutY="137.0" mnemonicParsing="false" onAction="#clickNueve" prefHeight="34.0" prefWidth="35.0" text="9" />
+      <Button layoutX="146.0" layoutY="137.0" mnemonicParsing="false" onAction="#clickSuma" prefHeight="34.0" prefWidth="35.0" text="+" />
+      <Button fx:id="reset" layoutX="146.0" layoutY="93.0" mnemonicParsing="false" onAction="#clickReset" prefHeight="34.0" prefWidth="35.0" text="C" />
+      <TextField fx:id="entrada" alignment="CENTER_RIGHT" editable="false" layoutX="13.0" layoutY="57.0" prefHeight="26.0" prefWidth="168.0" />
+      <TextField fx:id="salida" alignment="CENTER_RIGHT" editable="false" layoutX="13.0" layoutY="21.0" prefHeight="26.0" prefWidth="168.0" />
+   </children>
+</AnchorPane>

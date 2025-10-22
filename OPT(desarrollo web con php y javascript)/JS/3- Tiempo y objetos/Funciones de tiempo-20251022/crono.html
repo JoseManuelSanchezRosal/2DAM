@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let semaforo;
+        function actualizarCrono(){
+            document.getElementById("salidacrono").innerHTML= new Date();
+        }
+
+        function iniciarCrono(){
+            semaforo=setInterval(actualizarCrono,1000);
+        }
+
+        function  pararCrono(){
+            clearInterval(semaforo);
+        }
+    </script>
+</head>
+<body>
+    <h2>Conometro</h2>
+    <p id="salidacrono"></p>
+
+    <div>
+        <button onclick="iniciarCrono()">Iniciar</button>
+        <button onclick="pararCrono()">Parar</button>
+    </div>
+    
+</body>
+</html>

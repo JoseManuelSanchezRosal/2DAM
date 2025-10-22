@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        banner=["imagenes/logo.jpg","imagenes/aula.jpg","imagenes/biblioteca.jpg"]
+        indice=0;
+        function cambiarBanner(){
+            imagen=document.getElementById("imagen");
+
+            if(indice==2){
+                indice=0;
+                imagen.src=banner[indice];
+            }
+            else{
+                indice++;
+                imagen.src=banner[indice];
+            }
+
+        }
+    </script>
+</head>
+
+<body onload="setInterval(cambiarBanner,1000)">
+    <div>
+        <h2>Anuncios: by Antonio Gala</h2>
+    </div>
+    <div>
+        <img src="imagenes/logo.jpg" id="imagen" width="500px" height="500px">
+    </div>
+</body>
+</html>

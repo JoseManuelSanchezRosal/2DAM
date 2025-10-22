@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function titulo(){
+            document.getElementById("demo").innerHTML="Esto aparece despues de onload";
+        }
+    </script>
+</head>
+<body onload="setTimeout(titulo,2000)">
+    <h2>La funcion se ejecuta pasado un tiempo</h2>
+    <p id="demo">Texto inicial</p>
+    
+</body>
+</html>
