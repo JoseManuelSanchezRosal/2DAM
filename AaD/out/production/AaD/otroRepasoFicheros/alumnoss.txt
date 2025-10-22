@@ -1,0 +1,7 @@
+1|Jose|Sanchez|555|555
+2|Ester|Cubero|666|666
+4|Jaime|Bonilla|666|666
+5|Oscar|Oscar|555|555
+
+1|ratono|44|50
+2|teclado|55|66
