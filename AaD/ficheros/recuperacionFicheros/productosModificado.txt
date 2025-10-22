@@ -1,8 +1,4 @@
-
+1|ratono|44|50
 2|teclado|55|66
 
-2|teclado|55|66
-
-2|teclado|55|66
-
-3|teclasfg|55|66
+4|pen|12|40

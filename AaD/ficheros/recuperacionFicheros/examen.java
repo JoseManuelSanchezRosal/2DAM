@@ -36,6 +36,7 @@ Ingresos totales:
         1 - Teclado : 80 €*/
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // El 1 bien hecho
@@ -73,7 +74,8 @@ public class examen {
                     borrarProducto(idProducto);
                     break;
                 case 4:
-                    //calcularIngresos();
+                    //Metemos ruta productos, ruta pedidos
+                    calcularIngresos("ficheros/recuperacionFicheros/productos.txt", "ficheros/recuperacionFicheros/predidos.txt");
                     break;
                 case 0:
                     System.out.println("Saliendo del programa............");
@@ -85,6 +87,10 @@ public class examen {
         }while(opcion != 0);
 
     }
+
+    private static void calcularIngresos(String s, String s1) {
+    }
+
 
     private static void cargarPedidos(String ruta) {
         File pedidos = new File(ruta);
@@ -127,7 +133,6 @@ public class examen {
             System.out.println(e.getMessage());
         }
     }
-
     private static void borrarProducto(int id) {
         File archivo = new File("ficheros/recuperacionFicheros/productos.txt");
         File archivoModificado = new File("ficheros/recuperacionFicheros/productosModificado.txt");

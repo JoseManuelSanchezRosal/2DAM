@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+    <style>
+        table, td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+    </style>
+
+    <script>
+        function gifATabla(){
+            document.getElementById("miGif").style.visibility = "hidden";
+            document.getElementById("miTabla").style.visibility = "visible";
+        }
+    </script>
+    
+
+
+</head>
+<body onload="setTimeout(gifATabla, 5000)">
+
+    <h3>Crear una web que muestre un gif animado (cógelo de la galería de google) durante 5 segundos. Pasado ese tiempo ocultará dicho gif y mostrará una tabla de 5 filas y 5 columnas que se creará dinámicamente.</h3>
+
+    <img id="miGif" src="sources/homer.gif" alt="" width="100px">
+
+    <table id="miTabla" border="1" style="visibility: hidden; width: 150px; height: 100px;">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+
+    </table>
+
+    
+    
+</body>
+</html>
