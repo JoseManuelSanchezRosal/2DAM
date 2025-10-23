@@ -35,9 +35,9 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+ 
     @FXML
-    private void butonAlimentos(MouseEvent event) {
+    private void cambiarVistaAlimentos(MouseEvent event) {
         Stage nuevaV = (Stage) alimentos.getScene().getWindow();
         
         try {
@@ -53,8 +53,9 @@ public class PrincipalController implements Initializable {
             System.getLogger(AlimentosController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }   
+
     @FXML
-    private void butonAjustes(MouseEvent event) {
+    private void cambiarVistaAjustes(MouseEvent event) {
         Stage nuevaV = (Stage) ajustes.getScene().getWindow();
         
         try {
@@ -68,5 +69,5 @@ public class PrincipalController implements Initializable {
         } catch (IOException ex) {
             System.getLogger(AjustesController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-    }   
+    } 
 }

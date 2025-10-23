@@ -35,7 +35,7 @@ public class AjustesController implements Initializable {
     }    
 
     @FXML
-    private void volverPrincipal(MouseEvent event) {
+    private void cambiarVistaPrincipal(MouseEvent event) {
         Stage nuevaV = (Stage) atras.getScene().getWindow();
         
         try {
@@ -49,5 +49,5 @@ public class AjustesController implements Initializable {
         } catch (IOException ex) {
             System.getLogger(AjustesController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-    }   
+    }
 }

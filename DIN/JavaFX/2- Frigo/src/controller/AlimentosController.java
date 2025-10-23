@@ -36,7 +36,7 @@ public class AlimentosController implements Initializable {
     }    
 
     @FXML
-    private void volverPrincipal(MouseEvent event) {
+    private void cambiarVistaPrincipal(MouseEvent event) {
         Stage nuevaV = (Stage) atras.getScene().getWindow();
         
         try {
