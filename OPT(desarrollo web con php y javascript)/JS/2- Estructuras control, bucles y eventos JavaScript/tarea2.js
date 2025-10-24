@@ -6,6 +6,8 @@ function compararNumero(){
     if(!/^[0-9]*$/.test(entrada)){ //^[0-9] puede sustituirse tambien por \d
         alert("La cadena introducida no es un numero");
 
+        
+
         input.value = ""; // Borramos el campo si no es numero
         input.focus(); // Con el .focus() pone el cursor en el campo de texto para que el usuario vuelva a escribir.
 

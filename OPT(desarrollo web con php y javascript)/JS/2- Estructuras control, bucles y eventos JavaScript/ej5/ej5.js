@@ -11,16 +11,12 @@ function crearDivs(){
         let div = document.createElement("div") // En cada iteración creamos un div. a cada div le decimos que pertenecerá a la clase colorDivs.
         div.className = "colorDivs";
 
-        //Asignar el color rgb usando la propia iteracion de la variable i a cada div creado en cada vuelta
-        let rojo = i;
-        let verde = i;
-        let azul = i;
+        // Antes declaraba las tre variables con los tres colores y lo igualaba a i. Lo he borrado y directamente en el RGB le paso el valor de i
 
-        // Aplicamos el color de fondo usando el formato "rgb(rojo,verder,azul)"
-        div.style.backgroundColor = "rgb(" + rojo + "," + verde + "," + azul + ")";
-
+        // Aplicamos el color de fondo usando el formato "rgb(rojo,verder,azul)=(i, i, i)"
+        
+        div.style.backgroundColor = "rgb(" + i + "," + i + "," + i + ")";
 
         contenedor.appendChild(div); //Apendamos el div creado al contenedor padre (BODY)
     }
-
 }

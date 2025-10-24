@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="fridgeapp.controller.AlimentoFormController"
+          hgap="10" vgap="10" styleClass="root" style="-fx-padding: 20;">
+    <Label text="Nombre:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="txtNombre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <Label text="Tipo:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="txtTipo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <Label text="Cantidad:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="txtCantidad" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label text="Unidad:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <ChoiceBox fx:id="cbUnidad" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <HBox spacing="10" GridPane.rowIndex="4" GridPane.columnSpan="2" alignment="CENTER">
+        <Button text="Guardar" onAction="#guardar" styleClass="primary"/>
+        <Button text="Cancelar" onAction="#cancelar" styleClass="secondary"/>
+    </HBox>
+</GridPane>
