@@ -50,6 +50,7 @@ public class AjustesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inicializarReloj();
+        actualizarTemperatura();
         // TODO
     }    
     public void inicializarReloj(){
@@ -73,7 +74,7 @@ public class AjustesController implements Initializable {
         try {
             Parent nroot = FXMLLoader.load(getClass().getResource("/vista/alimentos.fxml"));
             Scene scene = new Scene(nroot);
-            nuevaV.setTitle("ajustes");
+            nuevaV.setTitle("Alimentos");
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
             nuevaV.show();
@@ -90,7 +91,7 @@ public class AjustesController implements Initializable {
         try {
             Parent nroot = FXMLLoader.load(getClass().getResource("/vista/principal.fxml"));
             Scene scene = new Scene(nroot);
-            nuevaV.setTitle("ajustes");
+            nuevaV.setTitle("Principal");
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
             nuevaV.show();
@@ -100,17 +101,20 @@ public class AjustesController implements Initializable {
         }
     }
 
+    private void actualizarTemperatura(){
+        int tempActual = model.datosCompartidos.getTemperatura();
+        displayTemp.setText(String.valueOf(tempActual));
+    }
+
     @FXML
     private void sRestarTemp(MouseEvent event) {
-        int temp = Integer.parseInt(displayTemp.getText());
-        temp +=1;
-        displayTemp.setText(String.valueOf(temp));
+        model.datosCompartidos.temperatura--;
+        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
     }
 
     @FXML
     private void sSumarTemp(MouseEvent event) {
-        int temp = Integer.parseInt(displayTemp.getText());
-        temp -=1;
-        displayTemp.setText(String.valueOf(temp));
+        model.datosCompartidos.temperatura++;
+        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
     }
 }

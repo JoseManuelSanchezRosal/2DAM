@@ -18,11 +18,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Alimento;
 
 /**
  * FXML Controller class
@@ -55,6 +59,14 @@ public class AlimentosController implements Initializable {
     private ImageView restar;
     @FXML
     private ImageView sumar;
+    @FXML
+    private TableView<model.Alimento> tablaAlimentos;
+    @FXML
+    private TableColumn<?, ?> colAlimento;
+    @FXML
+    private TableColumn<?, ?> colCantidad;
+    @FXML
+    private TextField alimentoAModificar;
     
 
     /**
@@ -63,8 +75,15 @@ public class AlimentosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inicializarReloj();
-        // TODO
-    }    
+        actualizarTemperatura();
+        
+        // Vincular columnas de la tabla a los atributos de tu clase Alimento
+        colAlimento.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        
+        // Enlazar la tabla con la lista observable
+        tablaAlimentos.setItems(model.datosCompartidos.getAlimentosFrigo());
+            }    
     
     public void inicializarReloj(){
         // Formato de hora y fecha
@@ -91,7 +110,7 @@ public class AlimentosController implements Initializable {
         try {
             Parent nroot = FXMLLoader.load(getClass().getResource("/vista/principal.fxml"));
             Scene scene = new Scene(nroot);
-            nuevaV.setTitle("ajustes");
+            nuevaV.setTitle("Principal");
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
             nuevaV.show();
@@ -109,7 +128,7 @@ public class AlimentosController implements Initializable {
         try {
             Parent nroot = FXMLLoader.load(getClass().getResource("/vista/ajustes.fxml"));
             Scene scene = new Scene(nroot);
-            nuevaV.setTitle("ajustes");
+            nuevaV.setTitle("Ajustes");
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
             nuevaV.show();
@@ -119,17 +138,112 @@ public class AlimentosController implements Initializable {
         }
     }
 
+    private void actualizarTemperatura(){
+        int tempActual = model.datosCompartidos.getTemperatura();
+        displayTemp.setText(String.valueOf(tempActual));
+    }
+
     @FXML
     private void fRestarTemp(MouseEvent event) {
-        int temp = Integer.parseInt(displayTemp.getText());
-        temp -=1;
-        displayTemp.setText(String.valueOf(temp));
+        model.datosCompartidos.temperatura--;
+        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
     }
 
     @FXML
     private void fSumarTemp(MouseEvent event) {
-        int temp = Integer.parseInt(displayTemp.getText());
-        temp +=1;
-        displayTemp.setText(String.valueOf(temp));
+        model.datosCompartidos.temperatura++;
+        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
     }
+
+    @FXML
+    private void agregarNuevoAlimento(MouseEvent event) {
+        
+        // Recoger nombre y cantidad introducida en los textFields
+        String nombreAlimento = alimentoCrud.getText();
+        int cantidadAlimento = Integer.parseInt(cantidadCrud.getText());
+        
+        // Comprobar que no esté vacío ninguno de los dos
+        if (nombreAlimento.equals("") || cantidadAlimento < 0) {
+            return;
+        }
+        
+        // Crear alimento e insertar en la lista
+        model.Alimento alimentoInsertar = new Alimento(nombreAlimento, cantidadAlimento);
+        model.datosCompartidos.getAlimentosFrigo().add(alimentoInsertar);
+        
+        // Una vez introducido, resetear los textFields
+        alimentoCrud.setText("");
+        cantidadCrud.setText("");
+    }
+
+    @FXML
+    private void modificarAlimentoLista(MouseEvent event) {
+        
+        // Alimento en null para rellenarlo si se encuentra en la lista
+        model.Alimento alimentoModificar = null;
+        
+        // Buscarlo y rellenarlo si está en la lista.
+        for(model.Alimento alimento : model.datosCompartidos.getAlimentosFrigo()){
+            if (alimentoAModificar.getText().equals(alimento.getNombre())) {
+                alimentoModificar = alimento;
+            }
+        }
+        
+        // Recoger nombre y cantidad introducida en los textFields 
+        String nuevoNombre = alimentoCrud.getText();
+        int nuevaCantidad = Integer.parseInt(cantidadCrud.getText());
+                
+        // Comprobar que no esté vacío ninguno de los dos
+        if (nuevoNombre.equals("") || nuevaCantidad < 0) {
+            return;
+        }
+        
+        // Comprobar que el alimento se ha encontrado
+        if (alimentoModificar == null) {
+            return;
+        }
+        
+        // Modificarle el nombre y cantidad
+        alimentoModificar.setNombre(nuevoNombre);
+        alimentoModificar.setCantidad(nuevaCantidad);
+        
+        // Actualizar la tabla
+        tablaAlimentos.refresh();
+        
+        alimentoCrud.setText("");
+        cantidadCrud.setText("");
+        alimentoAModificar.setText("");
+        
+    }
+
+    @FXML
+    private void eliminarAlimentoLista(MouseEvent event) {
+        
+        // Obtener el alimento seleccionado
+        model.Alimento alimentoSeleccionado = tablaAlimentos.getSelectionModel().getSelectedItem();
+        
+        if (alimentoSeleccionado != null) {
+            // Eliminarlo de la lista
+            model.datosCompartidos.getAlimentosFrigo().remove(alimentoSeleccionado);
+            
+            tablaAlimentos.refresh();
+        }else{
+            return;
+        }
+        
+    }
+    
+    private void obtenerAlimentoTabla(){
+        // Obtener el alimento seleccionado de la tabla
+        model.Alimento alimentoSeleccionado = tablaAlimentos.getSelectionModel().getSelectedItem();
+        
+        if (alimentoSeleccionado == null) {
+            return;
+        }
+        
+        // Guardar el alimenmto en los textFields
+        alimentoCrud.setText(alimentoSeleccionado.getNombre());
+        cantidadCrud.setText(String.valueOf(alimentoSeleccionado.getCantidad()));
+    }
+    
 }

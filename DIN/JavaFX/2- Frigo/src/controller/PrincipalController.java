@@ -54,7 +54,7 @@ public class PrincipalController implements Initializable {
 
         
         // Timeline que se ejecuta cada segundo
-        Timeline reloj = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        Timeline reloj = new Timeline(new KeyFrame(Duration.millis(1), event -> {
             LocalDateTime ahora = LocalDateTime.now();
             this.reloj.setText(formatoHora.format(ahora));
         }));
@@ -68,6 +68,7 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         inicializarReloj();
+        actualizarTemperatura();
         // TODO
     }    
  
@@ -97,7 +98,7 @@ public class PrincipalController implements Initializable {
         try {
             Parent nroot = FXMLLoader.load(getClass().getResource("/vista/ajustes.fxml"));
             Scene scene = new Scene(nroot);
-            nuevaV.setTitle("ajustes");
+            nuevaV.setTitle("Ajustes");
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
             nuevaV.show();
@@ -106,18 +107,20 @@ public class PrincipalController implements Initializable {
             System.getLogger(AjustesController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
+    private void actualizarTemperatura(){
+        int tempActual = model.datosCompartidos.getTemperatura();
+        displayTemp.setText(String.valueOf(tempActual));
+    }
 
     @FXML
     private void pRestarTemp(MouseEvent event) {
-        int temp = Integer.parseInt(displayTemp.getText());
-        temp -=1;
-        displayTemp.setText(String.valueOf(temp));
+        model.datosCompartidos.temperatura--;
+        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
     }
 
     @FXML
     private void pSumarTemp(MouseEvent event) {
-        int temp = Integer.parseInt(displayTemp.getText());
-        temp +=1;
-        displayTemp.setText(String.valueOf(temp));
+        model.datosCompartidos.temperatura++;
+        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
     }
 }

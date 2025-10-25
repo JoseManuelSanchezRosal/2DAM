@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="691.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="691.0" prefWidth="480.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrincipalController">
    <children>
       <ImageView fx:id="pFood" fitHeight="50.0" fitWidth="50.0" layoutX="49.0" layoutY="615.0" onMouseClicked="#pGoFood" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -23,26 +23,34 @@
             <Image url="@../sources/settings.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgFrigo" fitHeight="466.0" fitWidth="373.0" layoutX="54.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-radius:: 300;" styleClass="styleFrigo">
+      <ImageView fx:id="imgFrigo" fitHeight="466.0" fitWidth="373.0" layoutX="54.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-radius: 30px;" styleClass="styleFrigo">
          <image>
             <Image url="@../sources/interior_nevera.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="reloj" layoutX="37.0" layoutY="32.0" prefHeight="32.0" prefWidth="94.0">
+      <Label fx:id="displayTemp" alignment="CENTER_RIGHT" layoutX="290.0" layoutY="26.0" prefHeight="35.0" prefWidth="50.0" textAlignment="RIGHT">
          <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="displayTemp" layoutX="327.0" layoutY="32.0" prefHeight="32.0" prefWidth="85.0" text="3" textAlignment="CENTER" />
-      <ImageView fx:id="restar" fitHeight="23.0" fitWidth="35.0" layoutX="286.0" layoutY="64.0" onMouseClicked="#pRestarTemp" pickOnBounds="true" preserveRatio="true">
+            <Font size="24.0" />
+         </font></Label>
+      <ImageView fx:id="restar" fitHeight="35.0" fitWidth="32.0" layoutX="302.0" layoutY="64.0" onMouseClicked="#pRestarTemp" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../sources/restar.png" />
+            <Image url="@../sources/menossss.png" />
          </image>
       </ImageView>
       <ImageView fx:id="sumar" fitHeight="32.0" fitWidth="32.0" layoutX="352.0" layoutY="64.0" onMouseClicked="#pSumarTemp" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../sources/sumar.png" />
+            <Image url="@../sources/masssss.png" />
          </image>
       </ImageView>
+      <Label fx:id="displayTemp1" layoutX="342.0" layoutY="26.0" prefHeight="35.0" prefWidth="50.0" text="ºC">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="reloj" alignment="CENTER" layoutX="54.0" layoutY="44.0" prefHeight="41.0" prefWidth="116.0" style="-fx-border-color: black; -fx-border-radius: 10;" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

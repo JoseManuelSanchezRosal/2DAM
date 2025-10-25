@@ -28,7 +28,7 @@ public class Main extends Application {
             
             Scene scene = new Scene(root);
             
-            primaryStage.setTitle("Vista 1");
+            primaryStage.setTitle("Principal");
             // Seteo la scene y la muestro
             primaryStage.setScene(scene);
             primaryStage.show();
