@@ -12,13 +12,13 @@ import javafx.collections.FXCollections;
  * @author Jose
  */
 public class datosCompartidos {
-    public static int temperatura = 10;
+    public static int temperatura = 3;
     
     private static ObservableList<Alimento> alimentosFrigo = FXCollections.observableArrayList();
     
     static {
         alimentosFrigo.addAll(
-            new Alimento("Peras", 10),
+            new Alimento("Peras", 3),
             new Alimento("Manzanas", 3)
         );
     }

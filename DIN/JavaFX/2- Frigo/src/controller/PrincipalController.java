@@ -83,7 +83,12 @@ public class PrincipalController implements Initializable {
             
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
-            nuevaV.show();
+            nuevaV.show(
+            
+            
+            
+            
+            );
             
         } catch (IOException ex) {
             System.getLogger(AlimentosController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);

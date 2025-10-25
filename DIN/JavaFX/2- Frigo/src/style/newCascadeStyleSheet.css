@@ -7,7 +7,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : Jose
 */
 
-.styleFrigo{
-    -fx-border-radius: 10px;
-    -fx-border: 1px solid black;
+.image-pane {
+    -fx-background-image: url("/sources/interior_nevera.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 2;
+    -fx-background-color: white;
 }
