@@ -1,0 +1,13 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 25 oct 2025, 8:43:01
+    Author     : Jose
+*/
+
+.styleFrigo{
+    -fx-border-radius: 10px;
+    -fx-border: 1px solid black;
+}

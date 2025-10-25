@@ -6,15 +6,22 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -24,19 +31,61 @@ import javafx.stage.Stage;
 public class AjustesController implements Initializable {
 
     @FXML
-    private Button atras;
+    private ImageView sFood;
+    @FXML
+    private Label reloj;
+    @FXML
+    private Label displayTemp;
+    @FXML
+    private ImageView restar;
+    @FXML
+    private ImageView sumar;
+    @FXML
+    private ImageView sHome;
+    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        inicializarReloj();
         // TODO
     }    
+    public void inicializarReloj(){
+        // Formato de hora y fecha
+        DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        
+        // Timeline que se ejecuta cada segundo
+        Timeline reloj = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            LocalDateTime ahora = LocalDateTime.now();
+            this.reloj.setText(formatoHora.format(ahora));
+        }));
+        reloj.setCycleCount(Timeline.INDEFINITE);
+        reloj.play();
+    }
 
     @FXML
-    private void cambiarVistaPrincipal(MouseEvent event) {
-        Stage nuevaV = (Stage) atras.getScene().getWindow();
+    private void sGoFood(MouseEvent event) {
+        Stage nuevaV = (Stage) sFood.getScene().getWindow();
+        
+        try {
+            Parent nroot = FXMLLoader.load(getClass().getResource("/vista/alimentos.fxml"));
+            Scene scene = new Scene(nroot);
+            nuevaV.setTitle("ajustes");
+            // Seteo la scene y la muestro
+            nuevaV.setScene(scene);
+            nuevaV.show();
+            
+        } catch (IOException ex) {
+            System.getLogger(AjustesController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+
+    @FXML
+    private void sGohome(MouseEvent event) {
+        Stage nuevaV = (Stage) sHome.getScene().getWindow();
         
         try {
             Parent nroot = FXMLLoader.load(getClass().getResource("/vista/principal.fxml"));
@@ -49,5 +98,19 @@ public class AjustesController implements Initializable {
         } catch (IOException ex) {
             System.getLogger(AjustesController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
+    }
+
+    @FXML
+    private void sRestarTemp(MouseEvent event) {
+        int temp = Integer.parseInt(displayTemp.getText());
+        temp +=1;
+        displayTemp.setText(String.valueOf(temp));
+    }
+
+    @FXML
+    private void sSumarTemp(MouseEvent event) {
+        int temp = Integer.parseInt(displayTemp.getText());
+        temp -=1;
+        displayTemp.setText(String.valueOf(temp));
     }
 }
