@@ -28,7 +28,7 @@ import javafx.util.Duration;
  *
  * @author Jose
  */
-public class AjustesController implements Initializable {
+public class SettingsController implements Initializable {
 
     @FXML
     private ImageView sFood;
@@ -72,15 +72,15 @@ public class AjustesController implements Initializable {
         Stage nuevaV = (Stage) sFood.getScene().getWindow();
         
         try {
-            Parent nroot = FXMLLoader.load(getClass().getResource("/vista/alimentos.fxml"));
+            Parent nroot = FXMLLoader.load(getClass().getResource("/vista/Food.fxml"));
             Scene scene = new Scene(nroot);
-            nuevaV.setTitle("Alimentos");
+            nuevaV.setTitle("Food");
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
             nuevaV.show();
             
         } catch (IOException ex) {
-            System.getLogger(AjustesController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.getLogger(SettingsController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
@@ -89,41 +89,41 @@ public class AjustesController implements Initializable {
         Stage nuevaV = (Stage) sHome.getScene().getWindow();
         
         try {
-            Parent nroot = FXMLLoader.load(getClass().getResource("/vista/principal.fxml"));
+            Parent nroot = FXMLLoader.load(getClass().getResource("/vista/Home.fxml"));
             Scene scene = new Scene(nroot);
-            nuevaV.setTitle("Principal");
+            nuevaV.setTitle("Home");
             // Seteo la scene y la muestro
             nuevaV.setScene(scene);
             nuevaV.show();
             
         } catch (IOException ex) {
-            System.getLogger(AjustesController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.getLogger(SettingsController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
     private void actualizarTemperatura(){
-        int tempActual = model.datosCompartidos.getTemperatura();
+        int tempActual = model.DatosCompartidos.getTemperatura();
         displayTemp.setText(String.valueOf(tempActual));
     }
 
     @FXML
     private void sRestarTemp(MouseEvent event) {
-        if (model.datosCompartidos.temperatura <= -2)
+        if (model.DatosCompartidos.temperatura <= -2)
             return;
         else{
-            model.datosCompartidos.temperatura--;
-            displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+            model.DatosCompartidos.temperatura--;
+            displayTemp.setText(String.valueOf(model.DatosCompartidos.temperatura));
         }
         
     }
 
     @FXML
     private void sSumarTemp(MouseEvent event) {
-        if(model.datosCompartidos.temperatura >=8)
+        if(model.DatosCompartidos.temperatura >=8)
             return;
         else{
-            model.datosCompartidos.temperatura++;
-            displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+            model.DatosCompartidos.temperatura++;
+            displayTemp.setText(String.valueOf(model.DatosCompartidos.temperatura));
         }
     }
 }

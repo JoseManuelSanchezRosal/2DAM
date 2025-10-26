@@ -22,13 +22,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/vista/principal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/vista/Home.fxml"));
 
             // Cargo el scene
             
             Scene scene = new Scene(root);
             
-            primaryStage.setTitle("Principal");
+            primaryStage.setTitle("Home");
             // Seteo la scene y la muestro
             primaryStage.setScene(scene);
             primaryStage.show();

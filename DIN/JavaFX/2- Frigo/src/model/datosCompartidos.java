@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
  *
  * @author Jose
  */
-public class datosCompartidos {
+public class DatosCompartidos {
     public static int temperatura = 3;
     
     private static ObservableList<Alimento> alimentosFrigo = FXCollections.observableArrayList();
@@ -19,7 +19,16 @@ public class datosCompartidos {
     static {
         alimentosFrigo.addAll(
             new Alimento("Peras", 3),
-            new Alimento("Manzanas", 3)
+            new Alimento("Manzanas", 7),
+            new Alimento("Platanos",5),
+            new Alimento("Zumos", 6),
+            new Alimento("Leche", 12),
+            new Alimento("Hamburguesas",4),
+            new Alimento("Cerveza 1906", 6),
+            new Alimento("Melón", 1),
+            new Alimento("Sandía", 1),
+            new Alimento("Pizza",2)
+            
         );
     }
 
@@ -28,12 +37,10 @@ public class datosCompartidos {
     }
 
     public static void setTemperatura(int temperatura) {
-        datosCompartidos.temperatura = temperatura;
+        DatosCompartidos.temperatura = temperatura;
     }
 
     public static ObservableList<Alimento> getAlimentosFrigo() {
         return alimentosFrigo;
     }
-    
-    
 }
