@@ -47,6 +47,8 @@ public class PrincipalController implements Initializable {
     private ImageView restar;
     @FXML
     private ImageView sumar;
+    @FXML
+    private Label displayTemp1;
     
     public void inicializarReloj(){
         // Formato de hora y fecha
@@ -69,6 +71,7 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         inicializarReloj();
         actualizarTemperatura();
+        
         // TODO
     }    
  
@@ -119,13 +122,22 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void pRestarTemp(MouseEvent event) {
-        model.datosCompartidos.temperatura--;
-        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+        if (model.datosCompartidos.temperatura <= -2)
+            return;
+        else{
+            model.datosCompartidos.temperatura--;
+            displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+        }
+        
     }
 
     @FXML
     private void pSumarTemp(MouseEvent event) {
-        model.datosCompartidos.temperatura++;
-        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+        if(model.datosCompartidos.temperatura >=8)
+            return;
+        else{
+            model.datosCompartidos.temperatura++;
+            displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+        }
     }
 }

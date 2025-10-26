@@ -108,13 +108,22 @@ public class AjustesController implements Initializable {
 
     @FXML
     private void sRestarTemp(MouseEvent event) {
-        model.datosCompartidos.temperatura--;
-        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+        if (model.datosCompartidos.temperatura <= -2)
+            return;
+        else{
+            model.datosCompartidos.temperatura--;
+            displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+        }
+        
     }
 
     @FXML
     private void sSumarTemp(MouseEvent event) {
-        model.datosCompartidos.temperatura++;
-        displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+        if(model.datosCompartidos.temperatura >=8)
+            return;
+        else{
+            model.datosCompartidos.temperatura++;
+            displayTemp.setText(String.valueOf(model.datosCompartidos.temperatura));
+        }
     }
 }

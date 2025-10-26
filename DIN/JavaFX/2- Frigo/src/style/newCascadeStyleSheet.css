@@ -7,13 +7,52 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : Jose
 */
 
-.image-pane {
-    -fx-background-image: url("/sources/interior_nevera.jpg");
-    -fx-background-size: cover;
-    -fx-background-position: center;
-    -fx-background-radius: 25;
-    -fx-border-radius: 25;
-    -fx-border-color: #cccccc;
-    -fx-border-width: 2;
-    -fx-background-color: white;
+
+
+#anchorPrincipal{
+    -fx-background-color: grey;
+    -fx-background-radius: 30; /* Nota: Se recomienda usar -fx-background-radius para esquinas redondeadas en el color de fondo. */
+    -fx-border-color: black; /* Define el color del borde. Puedes cambiar 'black' por el color que prefieras. */
+    -fx-border-width: 2; /* Define el ancho del borde. Se recomienda un valor en píxeles. */
+    -fx-border-radius: 30; /* Define el radio de las esquinas del borde. */
+}
+
+#anchorAjustes{
+    -fx-background-color: grey;
+    -fx-background-radius: 30; /* Nota: Se recomienda usar -fx-background-radius para esquinas redondeadas en el color de fondo. */
+    -fx-border-color: black; /* Define el color del borde. Puedes cambiar 'black' por el color que prefieras. */
+    -fx-border-width: 2; /* Define el ancho del borde. Se recomienda un valor en píxeles. */
+    -fx-border-radius: 30; /* Define el radio de las esquinas del borde. */
+}
+
+#anchorAlimentos{
+    -fx-background-color: grey;
+    -fx-background-radius: 30; /* Nota: Se recomienda usar -fx-background-radius para esquinas redondeadas en el color de fondo. */
+    -fx-border-color: black; /* Define el color del borde. Puedes cambiar 'black' por el color que prefieras. */
+    -fx-border-width: 2; /* Define el ancho del borde. Se recomienda un valor en píxeles. */
+    -fx-border-radius: 30; /* Define el radio de las esquinas del borde. */
+}
+#vBoxSettings{
+    -fx-background-color: #C8C8C8;
+    -fx-background-radius: 30; /* Nota: Se recomienda usar -fx-background-radius para esquinas redondeadas en el color de fondo. */
+    -fx-border-color: black; /* Define el color del borde. Puedes cambiar 'black' por el color que prefieras. */
+    -fx-border-width: 1; /* Define el ancho del borde. Se recomienda un valor en píxeles. */
+    -fx-border-radius: 30; /* Define el radio de las esquinas del borde. */
+}
+
+#paneFrigo{
+    -fx-background-color: #C8C8C8;
+    -fx-background-radius: 30; /* Nota: Se recomienda usar -fx-background-radius para esquinas redondeadas en el color de fondo. */
+    -fx-border-color: black; /* Define el color del borde. Puedes cambiar 'black' por el color que prefieras. */
+    -fx-border-width: 1; /* Define el ancho del borde. Se recomienda un valor en píxeles. */
+    -fx-border-radius: 30; /* Define el radio de las esquinas del borde. */
+}
+
+#vBoxAlimentos{
+    -fx-background-color: #C8C8C8;
+    -fx-background-radius: 30; /* Nota: Se recomienda usar -fx-background-radius para esquinas redondeadas en el color de fondo. */
+    -fx-border-color: black; /* Define el color del borde. Puedes cambiar 'black' por el color que prefieras. */
+    -fx-border-width: 1; /* Define el ancho del borde. Se recomienda un valor en píxeles. */
+    -fx-border-radius: 30; /* Define el radio de las esquinas del borde. */
+    
 }
