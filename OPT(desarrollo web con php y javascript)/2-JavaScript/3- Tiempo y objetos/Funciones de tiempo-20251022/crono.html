@@ -8,10 +8,12 @@
         let semaforo;
         function actualizarCrono(){
             document.getElementById("salidacrono").innerHTML= new Date();
+
         }
 
         function iniciarCrono(){
             semaforo=setInterval(actualizarCrono,1000);
+            
         }
 
         function  pararCrono(){

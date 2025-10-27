@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 2</title>
-    <script>
-        let contador = 0;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 2</title>
+        <script>
+            let contador = 0;
 
-        function contadorMinutos(){
-            contador++;
-            document.getElementById("display").innerHTML=contador;
-        }
-    </script>
-</head>
-<body onload="setInterval(contadorMinutos,60000)">
-    <h3>Modifica el ejercicio anterior para que también nos diga los minutos que llevamos con la página abierta.</h3>
-    <span>La pagina lleva abierta</span>
-    <span id="display">0</span>
-    <span>minutos</span>
-    
-</body>
+            function contadorMinutos(){
+                contador++;
+                document.getElementById("display").innerHTML=contador;
+            }
+        </script>
+    </head>
+    <body onload="setInterval(contadorMinutos,60000)">
+        <h3>Modifica el ejercicio anterior para que también nos diga los minutos que llevamos con la página abierta.</h3>
+        <span>La pagina lleva abierta</span>
+        <span id="display">0</span>
+        <span>minutos</span>
+        
+    </body>
 </html>

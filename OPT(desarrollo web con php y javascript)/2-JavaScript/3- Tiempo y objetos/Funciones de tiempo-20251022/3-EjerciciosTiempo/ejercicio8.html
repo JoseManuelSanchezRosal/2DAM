@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 8</title>
+
+        <style>
+            body{
+                width: 80%;
+                margin: 0 auto;
+                background-color: yellow;
+                text-align: center;
+            }
+            img{
+                width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
+
+        <script>
+            // Creamos un array que contiene las rutas (URLs) de las imágenes que se mostraran en el banner
+            var imagenes = [
+                "banner/naruto1.jpeg",
+                "banner/naruto2.jpeg",
+                "banner/naruto3.jpeg",
+                "banner/naruto4.webp"
+            ];
+
+            // Variable que guarda el índice de la imagen actual
+            var indice = 0;
+
+            
+            // Función que cambia la imagen mostrada en el banner
+            function cambiarImagen() {
+                // Obtenemos el elemento <img> con id="banner"
+                var img = document.getElementById("banner");
+
+                // Cambiamos el atributo 'src' de la imagen por la ruta correspondiente del array
+                img.src = imagenes[indice];
+
+                // Avanzamos al siguiente índice
+                indice++;
+
+                // Si llegamos al final del array, volvemos al principio (para que sea ciclico)
+                if (indice >= imagenes.length) {
+                    indice = 0;
+                }
+        }
+
+        // Función que inicia el banner rotatorio
+        function iniciarBanner() {
+            // Mostramos la primera imagen inmediatamente al cargar la pagina
+            cambiarImagen();
+
+            // Llamamos a la funcion cambiarImagen() cada 3 segundos (3000 milisegundos)
+            setInterval(cambiarImagen, 3000);
+            
+        }
+        </script>
+
+    </head>
+
+    <!-- Cuando se carga la página, se ejecuta la funcion iniciarBanner() -->
+    <body onload="iniciarBanner()">
+        <h2>Evoluciones de Naruto</h2>
+        <img id="banner">
+
+    </body>
+</html>

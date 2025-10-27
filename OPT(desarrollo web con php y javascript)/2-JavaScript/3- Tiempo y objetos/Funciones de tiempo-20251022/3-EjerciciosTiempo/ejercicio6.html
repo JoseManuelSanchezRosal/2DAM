@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 6</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 6</title>
+        <script>
+            let segundos = 0;       // Contador de segundos
+            let intervalo = null;   // Variable que guarda la referencia del setInterval
 
-<body>
-    <h3>Implementar una web que haga las funciones de un cronómetro. Se añadirá un botón desde el que poder iniciar o reanudar el cronómetro, otro botón para parar el cronómetro y otro para resetear los valores y ponerlos a 0.</h3>
+            //FUNCION PARA CONTAR SEGUNDO A SEGUNDO
+            function contar() {
+            segundos++; // contamos cada segundo
+            document.getElementById("display").textContent = segundos; // y la sacamos por el display.     
+            }
 
-</body>
+            // FUNCION PARA INICIAR EL INTERVALO DE TIEMPO (CONTAR) SI NO HAY NINGUNO ACTIVO
+            function iniciar() {
+            if (!intervalo) { // Si no hay un intervalo activo, llama a la funcion contar (esto se hace para no iniciar mas de un intervalo a la vez, porque comenzaria a aumentar el contador mas rapido)
+                intervalo = setInterval(contar, 1000); // Llama a la funcion contar cada segundo 
+            }
+            }
+
+            // FUNCION PARA PARAR EL CONTADOR
+            function parar() {
+            clearInterval(intervalo); // Detiene el intervalo (busca referencia interna del setInterval y la detiene)
+            intervalo = null; // pasamos a null la variable para poder iniciar el contador de nuevo al pulsar
+            }
+
+            // FUNCION PARA PARAR Y REESTABLECER EL CONTADOR A 0
+            function resetear() {
+            clearInterval(intervalo); // Detiene el contador
+            intervalo = null; // pasamos a null la variable para poder iniciar el contador de nuevo al pulsar
+            segundos = 0; // aqui reiniciamos el contador a 0 de nuevo.
+            document.getElementById("display").textContent = segundos;
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <h3>Implementar una web que haga las funciones de un cronómetro. Se añadirá un botón desde el que poder iniciar o reanudar el cronómetro, otro botón para parar el cronómetro y otro para resetear los valores y ponerlos a 0.</h3>
+
+        <button id="iniciar" onclick="iniciar()">Iniciar/Reanudar</button>
+        <button id="parar" onclick="parar()" >Parar</button>
+        <button id="reset" onclick="resetear()" >Reset</button>
+
+        <span id="display">0</span> <span>Segundos</span>
+
+    </body>
 
 </html>
