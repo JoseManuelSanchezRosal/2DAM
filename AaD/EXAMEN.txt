@@ -1,7 +1,4 @@
-- Construyo una li
-
-
-nea y la escribo
+- Construyo una linea y la escribo
 
 - primer id = leer fichero y devolver las lineas (para meter el id por donde le toque) HAY QUE CREAR UNA función para leer que líneas tiene el documento, para seguir por esa id
 

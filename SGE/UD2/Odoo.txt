@@ -104,8 +104,10 @@ Datos necesarios: NIF, numero factura y fecha de factura.
 Una vez que paga, se marca como pagado y se le entrega al administrativo.
 ------
 
+LISTA DE PRECIOS:
 
-
+1 Ventas >> Presupuestos >> Nuevo >>
+2 
 
 
 
