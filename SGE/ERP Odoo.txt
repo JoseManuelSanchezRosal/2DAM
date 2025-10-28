@@ -19,7 +19,8 @@ Vamos a ir a ajustes de compañía.
 
 -----------------------
 Vamos a crear una nueva base de datos
-- Seleccionar compra, ventas e inventario y continuar
+- Seleccionar compra, ventas, inventario y facturación y continuar.
+- En el nombre de la empresa, debemos poner edu. delante, sino nos la borran,
 - Rellenamos campos, dejamos nuestro teléfono y correo y le damos adelante
 
 NUEVO USUARIO:
