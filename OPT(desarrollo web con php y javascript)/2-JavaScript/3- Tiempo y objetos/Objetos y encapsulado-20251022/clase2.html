@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="clase2.js">
+        function hola(){
+    document.getElementById("nombreE").innerHTML="hola";
+}
+    </script>
+</head>
+<body>
+    <h2>Estoy usando una clase de JavaScript</h2>
+    <label>Nombre</label>
+    <input type="text" id="nomb">
+    
+    <label>Apellidos</label>
+    <input type="text" id="apll">
+
+    <label>Edad</label>
+    <input type="text" id="edad">
+
+    <span id="nombreE"></span>
+    <p id="edad"></p>
+
+    <button onclick="rellenarPersona('nomb', 'apll', 'edad')">Mostrar persona</button>
+    
+</body>
+</html>

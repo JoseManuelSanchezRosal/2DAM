@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 1</title>
+
+        <script>
+            let alumno = {
+                nombre: "Damian Gonzalez",
+                DIN: 9,
+                AaD: 10,
+                Opt: 9,
+                IPE: 7,
+                Ingles: 9,
+
+                salidaNombre: function(){
+                    return "Nombre: " + this.nombre;
+                },
+                salidaCalificaciones: function(){
+                    return "DIN: " + this.DIN + " " + "AaD: " + this.AaD + " " + "Opt: " + this.Opt + " " + "IPE: " + this.IPE + " " + "Ingles: " + this.Ingles;
+                },
+                salidaMedia: function(){
+                    return (this.DIN + this.AaD + this.Opt + this.IPE + this.Ingles)/5;
+                }
+            }
+
+            function mostrarNombre(){
+                document.getElementById("labelNombre").textContent = alumno.salidaNombre();
+            }
+            function mostrarCalificaciones(){
+                document.getElementById("labelCalificaciones").textContent = alumno.salidaCalificaciones();
+            }
+            function mostrarMedia(){
+                document.getElementById("labelMedia").textContent = alumno.salidaMedia();
+            }
+        </script>
+
+    </head>
+
+    <body>
+
+        <h3>Define un objeto que sea un alumno para guardar sus calificaciones, los módulos que tienen que tener son DIN, AaD, Opt, IPE e Inglés, en la salida tenemos que devolver el nombre del alumno, las diferentes calificaciones y la media.</h3>
+        
+        <button id="nombre" onclick="mostrarNombre()">Devolver nombre</button>
+        <label id="labelNombre"></label><br><br>
+
+        <button id="calificaciones" onclick="mostrarCalificaciones()">Devolver calificaciones</button>
+        <label id="labelCalificaciones"></label><br><br>
+
+        <button id="media" onclick="mostrarMedia()">Devolver media calificaciones</button>
+        <label id="labelMedia"></label>
+
+    </body>
+</html>
