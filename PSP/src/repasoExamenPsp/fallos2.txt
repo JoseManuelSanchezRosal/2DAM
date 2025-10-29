@@ -1,0 +1,5 @@
+INFO;Inicio del programa
+ERROR;No se pudo conectar a la BD
+ERROR;Usuario logueado
+ERROR;Memoria al 80%
+ERROR;Archivo no encontrado

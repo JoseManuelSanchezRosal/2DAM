@@ -26,7 +26,7 @@ public class Sillon {
             wait();
         }
 
-        // Si entra un cliente y hay sitio se sienta y el barbero lo atiende:
+         // Si entra un cliente y hay sitio se sienta y el barbero lo atiende:
         System.out.println("Barbero atiende al cliente " + sillas.get(0) + " y se marcha...");
         // Simulamos el tiempo de corte de pelo:
         Thread.sleep(2000);

@@ -9,10 +9,10 @@ public class Cliente extends Thread{
     }
     @Override
     public void run(){
-        // Enviamos a 7 clientes al sillón:
+        // Enviamos a 7 clientes a la barberia:
         for (int i = 0; i <= 6; i++){
             try {
-                // Esperamos un segundo entre cliente y cliente:
+                // Esperamos un segundo entre entrada de un cliente a otro:
                 Thread.sleep(1000);
                 sillon.SentarseSillon();
             } catch (InterruptedException e) {
