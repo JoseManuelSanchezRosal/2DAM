@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 8</title>
+
+        <style>
+            /* El body ocupa el 80% del ancho y se centra */
+            body {
+                width: 80%;
+                margin: 0 auto;
+                background-color: yellow;
+                text-align: center;
+            }
+
+            /* Las imágenes ocupan el ancho completo del body */
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                cursor: pointer; /* Indica que se puede hacer clic */
+            }
+        </style>
+
+        <script>
+            // === ARRAY DE IMÁGENES ===
+            var imagenes = [
+                "banner/naruto1.jpeg",
+                "banner/naruto2.jpeg",
+                "banner/naruto3.jpeg",
+                "banner/naruto4.webp"
+            ];
+
+            var indice = 0;          // Índice actual de imagen
+            var intervalo = null;    // Referencia al setInterval
+
+            // === FUNCIÓN PARA CAMBIAR LA IMAGEN ===
+            function cambiarImagen() {
+                var img = document.getElementById("banner");
+                img.src = imagenes[indice];
+                indice++;
+                if (indice >= imagenes.length) {
+                    indice = 0; // vuelve al inicio
+                }
+            }
+
+            // === FUNCIÓN PARA INICIAR EL BANNER ===
+            function iniciarBanner() {
+                cambiarImagen(); // mostrar primera imagen
+                intervalo = setInterval(cambiarImagen, 3000); // cambia cada 3 segundos
+            }
+
+            // === FUNCIÓN PARA DETENER EL CAMBIO AL HACER CLIC ===
+            function pararBanner() {
+                if (intervalo !== null) { // si el intervalo está activo
+                    clearInterval(intervalo); // lo detenemos
+                    intervalo = null;         // lo marcamos como inactivo
+                }
+            }
+        </script>
+    </head>
+
+    <body onload="iniciarBanner()">
+        <h2>Evoluciones de Naruto</h2>
+
+        <!-- Al hacer clic sobre la imagen se ejecuta pararBanner() -->
+        <img id="banner" onclick="pararBanner()">
+
+    </body>
+
+</html>

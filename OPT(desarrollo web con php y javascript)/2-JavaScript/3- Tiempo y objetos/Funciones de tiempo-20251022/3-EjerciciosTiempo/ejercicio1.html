@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 1</title>
+        <script>
+            let contador = 0; //Declaramos variable global contador.
+
+            function contadorPagina(){
+                contador++; //Incrementa la variable contador en 1 cada vez que se ejecuta la funcion
+                document.getElementById("display").innerHTML=contador;
+            }
+
+        </script>
+    </head>
+    <body onload="setInterval(contadorPagina,1000)">
+        <h3>1. Mediante las función setInterval crear una web que permita saber en cada momento cuantos segundos lleva la página abierta. Se mostrará un contador en la parte inferior derecha del navegador en un div lo suficientemente visible.</h3>
+
+        <div> <!--El span encadena dentro del div. Si ponemos <p> en su lugar, haria saltos de pagina-->
+            <span>Pagina Abierta durante</span>
+            <span id="display">0</span>
+            <span>segundos</span>
+        </div>
+        
+    </body>
+</html>

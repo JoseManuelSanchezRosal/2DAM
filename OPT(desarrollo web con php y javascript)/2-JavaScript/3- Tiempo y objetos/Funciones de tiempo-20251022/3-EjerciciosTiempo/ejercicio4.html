@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ejercicio 4</title>
+
+        <style>
+            table, td{
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+
+        <script>
+        // Esperar 5 segundos y luego cambiar el contenido del div
+            setTimeout(() => {
+            const contenedor = document.getElementById("contenedor");
+            
+            // Limpiar el contenido anterior (el gif)
+            contenedor.innerHTML = "";
+
+            // Crear tabla de forma dinámica
+            const tabla = document.createElement("table");
+
+            for (let i = 0; i < 5; i++) {
+                const fila = document.createElement("tr");
+                for (let j = 0; j < 5; j++) {
+                const celda = document.createElement("td");
+                celda.textContent = `F ${i + 1}, C ${j + 1}`;
+                fila.appendChild(celda);
+                }
+                tabla.appendChild(fila);
+            }
+
+            // Insertar la tabla en el contenedor
+            contenedor.appendChild(tabla);
+            }, 5000); // 5000 ms = 5 segundos
+        </script>
+
+    </head>
+    
+    <body onload="setTimeout(gifATabla, 5000)">
+            <h3>Crear una web que muestre un gif animado (cógelo de la galería de google) durante 5 segundos. Pasado ese tiempo ocultará dicho gif y mostrará una tabla de 5 filas y 5 columnas que se creará dinámicamente.</h3>
+
+            <!--Aqui ponemos dentro del contenedor el gif y la tabla (que se creara de forma dinamica en el script)-->
+            <div id="contenedor">
+                <img id="miGif" src="sources/homer.gif" alt="" width="250px">
+                <table id="miTabla"></table>
+            </div>
+    </body>
+
+</html>
