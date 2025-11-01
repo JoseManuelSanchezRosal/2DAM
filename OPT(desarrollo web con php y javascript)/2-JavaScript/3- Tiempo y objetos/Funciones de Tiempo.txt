@@ -1,8 +1,0 @@
-1- SetInterval: "setInterval(hora actual, 1000)" >>>> Esto actualiza la hora cada segundo.
- - Si la cargamos en el body, se ejecuta siempre.
- - Podemos usar las funciones de tiempo en cualquier parte del documento.
- 
-2- ClearInterval: "clearInterval(function)" para el crono (hora)
-
-3- SetTimeOut: "(function, tiempo)" la función se ejecuta pasado el tiempo del 2 parámetro.
-
