@@ -29,8 +29,10 @@ NUEVO USUARIO:
 3. Seleccionar permisos de Usuario a nuevos Clientes, preferiblemente dar pocos permisos de entrada.
 4. Para ventas, el coordinador de todas las tiendas marcamos todos los documentos. Si es el trabajador de un única tienda por ejemplo, solo los propios
 
-
-
+-------Configurar diseño de documentos--------
+BBDD >> Ajustes >> compañías >> configurar disenio de impresión 
+A ser posible poner en pie de pagina junto la web, nif y demás, el registro mercantil
+Ademas, con el modo desarrollador activado, se puede acceder a la configuración del html para cambiar estilos
 ---------DAR ALTA POROVEEDOR---------
 
 1. Compras >> pedidos >> proveedores >> nuevo

@@ -6,6 +6,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Domreader_Sax" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ficheros" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ficheros/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Unidad1/2- DomReader_SaxReader_XML" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Unidad1/2- DomReader_SaxReader_XML/EjemplosDomySax" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Unidad1/DomReader_SaxReader_XML/EjemplosDomySax" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Unidad1/DomReader_SaxReader_XML/Tarea2DOMySAXReader" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

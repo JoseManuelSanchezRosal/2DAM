@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="DomReader_SaxReader_XML">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/c.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Tarea2DOMySAXReader_SanchezRosal_JoseManuel.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
