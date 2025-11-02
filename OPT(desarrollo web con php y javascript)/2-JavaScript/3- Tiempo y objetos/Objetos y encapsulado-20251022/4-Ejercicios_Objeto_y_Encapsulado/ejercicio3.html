@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+    <style>
+
+    </style>
+
+    <script>
+        
+        class Curso{
+            constructor(nombre, aula, alumnos, calificaciones){
+                this._nombre = nombre;
+                this._aula = aula;
+                this._alumnos = alumnos;
+                this._calificaciones = calificaciones;
+            }
+
+            mostrarInfo(idDiv) {
+                const div = document.getElementById(idDiv); //Div donde mostraremos la info
+                let html = "<h4>Curso: " + this._nombre + "</h4>"; //Variable html donde añadimos info del curso
+                html += "<h4>Aula: " + this._aula + "</h4>"; //Aula
+                html += "<h5>Alumnos y sus calificaciones:</h5>";
+
+                for (let i = 0; i < this._alumnos.length; i++) { //Recorremos Array de alumnos
+                    html += this._alumnos[i] + ": "; 
+                    for (let j = 0; j < this._calificaciones[i].length; j++) { //Recorremos Array de calificaciones de cada alumno
+                        html += this._calificaciones[i][j];
+                        if (j < this._calificaciones[i].length - 1) html += ", "; //Apendamos ", " si no es la ultima nota.
+                    }
+                    html += "<br>"; // Salto de línea para el siguiente alumno
+                }
+                div.innerHTML = html; // Volcamos nuestro html en el div para mostrar la info.
+            }
+        }
+
+        const nombresAlumnos = ["Paco", "Antonio", "Lucia", "Silvia"];
+        const notasAlumnos = [
+            [9, 9, 7, 8, 9, 10],
+            [9, 6, 7, 8, 6, 6],
+            [9, 7, 4, 9, 9, 7],
+            [4, 9, 7, 9, 9, 10]
+        ];
+
+        const curso1 = new Curso("Desarrollo Aplicaciones Multiplataforma", "2 DAM", nombresAlumnos, notasAlumnos);
+
+        function mostrarInfo(){
+            curso1.mostrarInfo("infoCurso");
+        }
+        
+    </script>
+
+</head>
+
+<body>
+    <h3>Añade al ejercicio anterior un método para buscar dentro del array de alumnos por un alumno en concreto y que muestre sus calificaciones</h3>
+
+    <button id="mostrarInfoCurso" onclick="mostrarInfo()">Mostrar Informacion del Curso</button>
+    <div id="infoCurso"></div>
+    
+</body>
+</html>

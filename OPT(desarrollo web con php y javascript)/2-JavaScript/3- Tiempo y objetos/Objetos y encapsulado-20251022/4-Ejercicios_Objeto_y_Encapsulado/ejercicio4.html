@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4</title>
+    <style>
+
+    </style>
+
+    <script>
+        
+        class Curso{
+            constructor(nombre, aula, alumnos, calificaciones){
+                this._nombre = nombre;
+                this._aula = aula;
+                this._alumnos = alumnos;
+                this._calificaciones = calificaciones;
+            }
+
+            // Metodo para mostrar la info del curso en el div con el html construido
+            mostrarInfo(idDiv) {
+                const div = document.getElementById(idDiv); //Div donde mostraremos la info
+                let html = "<h4>Curso: " + this._nombre + "</h4>"; //Variable html donde añadimos info del curso
+                html += "<h4>Aula: " + this._aula + "</h4>"; //Aula
+                html += "<h5>Alumnos y sus calificaciones:</h5>";
+
+                for (let i = 0; i < this._alumnos.length; i++) { //Recorremos Array de alumnos
+                    html += this._alumnos[i] + ": "; 
+                    for (let j = 0; j < this._calificaciones[i].length; j++) { //Recorremos Array de calificaciones de cada alumno
+                        html += this._calificaciones[i][j];
+                        if (j < this._calificaciones[i].length - 1) html += ", "; //Apendamos ", " si no es la ultima nota.
+                    }
+                    html += "<br>"; // Salto de línea para el siguiente alumno
+                }
+                div.innerHTML = html; // Volcamos nuestro html en el div para mostrar la info.
+            }
+
+            // Metodo para buscar alumno y si lo encuentra, imprimir su nombre y calificaciones, sino devuelve alumno no encontrado
+            buscarAlumno(nombre){
+                for (let i = 0; i < this._alumnos.length; i++){
+                    if (this._alumnos[i] === nombre){
+                        let resultado = this._alumnos[i] + ": "
+                        for (let j = 0; j < this._calificaciones[i].length; j++){
+                            resultado += this._calificaciones[i][j];
+                            if (j < this._calificaciones[i].length -1){
+                                resultado += ", ";
+                            }
+                        }
+                        return resultado; 
+                    }
+                }
+                return "Alumno no encontrado"
+            }
+        }
+
+        const nombresAlumnos = ["Paco", "Antonio", "Lucia", "Silvia"];
+        const notasAlumnos = [
+            [9, 9, 7, 8, 9, 10],
+            [9, 6, 7, 8, 6, 6],
+            [9, 7, 4, 9, 9, 7],
+            [4, 9, 7, 9, 9, 10]
+        ];
+
+        const curso1 = new Curso("Desarrollo Aplicaciones Multiplataforma", "2 DAM", nombresAlumnos, notasAlumnos);
+
+
+        // Funcion que muestra la informacion en el DIV al pulsar el boton
+        function mostrarInfo(){
+            curso1.mostrarInfo("infoCurso");
+        }
+
+        // Funcion que busca el alumno accediendo a su metodo y devolver el resultado en el label.
+        function buscarAlumno(){
+            const nombre = document.getElementById("nombreBuscar").value;
+            const resultado = curso1.buscarAlumno(nombre);
+            document.getElementById("labelAlumno").textContent = resultado;
+        }
+        
+    </script>
+
+</head>
+
+<body>
+    <h3>Crea una clase llamada curso, la clase contiene en nombre del curso, el aula y un array de alumnos con sus calificaciones.  Crea un método para mostrar todos los alumnos del curso.</h3>
+
+    <button id="mostrarInfoCurso" onclick="mostrarInfo()">Mostrar Informacion del Curso</button>
+    <div id="infoCurso"></div>
+    <br><br>
+
+    <label>Nombre del alumno: </label> <input type="text" id="nombreBuscar">
+    <button onclick="buscarAlumno()">Buscar</button><br>
+    <label id="labelAlumno"></label>
+    
+</body>
+</html>

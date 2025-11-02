@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5</title>
+    <style>
+        .labelWidth{
+            width: 50px;
+        }
+    </style>
+
+    <script>
+
+        function aplicarDescuento(){
+            //Obtenemos los valores de los input precio y descuento y los parseamos a decimal
+            let precio = parseFloat(document.getElementById("precio").value);
+            let descuento = parseFloat(document.getElementById("descuento").value);
+
+            // Construimos el objeto articulo con precio, descuento y metodo neto:
+            const articulo = {
+                precio: precio,
+                descuento: descuento,
+
+                neto: function(){
+                    return this.precio - ((this.precio * this.descuento)/100);
+                }
+            }
+            // Mostramos precio final en el label de salida:
+            document.getElementById("labelPrecioFinal").value = articulo.neto();
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <h3>Define un objeto, mediante una expresión, que tenga dos propiedades: precio y descuento y un método neto que devuelve el valor del objeto con el descuento aplicado. El método calculará el precio con el descuento aplicado. Los valores se pedirán por teclado.</h3>
+
+    <label>Introduzca Precio</label> <input id="precio" type="number" class="labelWidth">
+    <label>Introduzca Descuento</label> <input id="descuento" type="number" class="labelWidth"><br><br>
+    <button id="mostrarPrecioFinal" onclick="aplicarDescuento()">Aplicar descuento</button> <label>El precio final del articulo es: </label><input id="labelPrecioFinal" type="number" class="labelWidth">
+    
+</body>
+</html>
