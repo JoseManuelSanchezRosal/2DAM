@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 6</title>
+
+    <script>
+        function Cliente(nombre, saldo){
+            // Variables privadas con let
+            let _nombre = nombre;
+            let _saldo = saldo;
+
+            // Ingresar
+            this.ingreso = function(cantidad){
+                if (cantidad > 0 ){
+                    _saldo+=cantidad;
+                }
+            }
+           // Retirar
+            this.retiro = function(cantidad){
+                if (cantidad > 0 && cantidad <= _saldo){
+                    _saldo -= cantidad;
+                }
+            }
+            // Mostrar cuenta
+            this.mostrarInfo = function(){
+                return "Cliente: " + _nombre + ". Saldo: " + _saldo;
+            }
+        }
+
+        // Creamos el cliente
+        let cliente1 = new Cliente ("Antonio", 1000);
+
+        // Funciones para ingresar y retirar dinero y mostrar estado de cuenta
+        function mostrarInfo(){
+            document.getElementById("salidaInfo").textContent = cliente1.mostrarInfo();
+        }
+        function ingresar(){
+            let cantidad = parseFloat(document.getElementById("cantidadIngreso").value);
+            cliente1.ingreso(cantidad);
+            document.getElementById("cantidadIngreso").value = "";
+        }
+        function retirar(){
+            let cantidad = parseFloat(document.getElementById("cantidadRetiro").value);
+            cliente1.retiro(cantidad);
+            document.getElementById("cantidadRetiro").value = "";
+            
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <h3> Define un objeto constructor que sea un cliente, este cliente tiene un nombre y un saldo bancario (variables privadas), crea los métodos ingreso, retirada y consultar para añadir, retirar o consultar el estado de las cuentas.</h3>
+
+    <button onclick="mostrarInfo()">Consultar cuenta</button>
+    <p id="salidaInfo"></p><br><br>
+
+    <input type="number" id="cantidadIngreso" placeholder="Cantidad a ingresar">
+    <button id="btnIngresar" onclick="ingresar()">Ingreso</button><br><br>
+
+    <input type="number" id="cantidadRetiro" placeholder="Cantidad a retirar">
+    <button id="btnRetirar" onclick="retirar()">Retirar</button>
+    
+    
+</body>
+</html>
