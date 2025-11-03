@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 8 Clase Bus y Conductor</title>
+
+    <!--El defer sirve para que se cargue el archivo .js DESPUES de cargar el elemento DOM del HTML (despues de cargar toda la pagina HTML)-->
+    <script src="Ejercicio8.js" defer></script>
+
+    <style>
+        input{
+            width: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <h4>1- Crea una clase que llamaremos Bus. Sus atributos serán: capacidad, pasajeros, conductor</h4>
+   
+    <h4>2- Sus metodos: subir, bajar, conductor</h4>
+    <h4>3- El objeto conductor es de una clase (Conductor) cuyos atributos son: nombre, licencia</h4>
+    <h4>4- Al crear el objeto se asigna también el conductor. No pueden subir más pasajeros que los máximos admitidos y no pueden bajar más de los que no hay</h4>
+    
+    <button id="verInfo">Ver Info Bus</button>
+    <div id="salidaInfo"></div>
+    <br><br>
+
+    <button id="subirPasajeros">Subir Pasajeros al Bus:</button> <input id="pasajeros-arriba"><label id="mensaje-subir"></label>
+    <br><br>
+    
+    <button id="bajarPasajeros">Bajar Pasajeros al Bus:</button> <input id="pasajeros-abajo"><label id="mensaje-bajar"></label>
+
+    
+    
+    
+</body>
+</html>
