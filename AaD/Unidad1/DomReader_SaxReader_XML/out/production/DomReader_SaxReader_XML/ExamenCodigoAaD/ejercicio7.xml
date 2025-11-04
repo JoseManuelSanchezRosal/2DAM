@@ -1,5 +1,4 @@
 <library>
-    <book><price currency="EUR">10</price></book>
-    <book><price currency="EUR">20</price></book>
-    <book><price currency="USD">5</price></book>
+    <book><price>10</price></book>
+    <book><price>20</price></book>
 </library>
