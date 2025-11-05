@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function escalaGris(){
+            let avisos="";
+            for(let i=0 ; i<256 ;i++){
+                avisos+="<div style='background-color: rgb(" + i + ","+ i + "," + i + ")'><p>Te estas quedando sin tinta aviso "+ i +" </p></div>";
+            }
+            document.getElementById("sust").innerHTML=avisos;
+        }
+    </script>
+</head>
+<body onload="escalaGris()">
+    <div id="sust"></div>
+</body>
+</html>

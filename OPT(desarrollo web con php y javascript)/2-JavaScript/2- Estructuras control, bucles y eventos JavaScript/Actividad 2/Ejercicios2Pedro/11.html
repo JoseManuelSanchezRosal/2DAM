@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function crearTabla(){
+            let filas, columnas;
+            filas=parseInt(document.getElementById("filas").value);
+            columnas=parseInt(document.getElementById("columnas").value);
+            let crow, ccolum, tabla;
+            tabla=document.createElement("table");
+
+            for(let i=0 ; i<filas ;i++){
+                crow=document.createElement("tr");
+                for(let j=0; j<columnas; j++){
+                    ccolum=document.createElement("td");
+                    ccolum.textContent="fila: " +i+ " columna: " +j;
+                    if(j%2==0){
+                        ccolum.style.backgroundColor="pink";
+                    }
+                    crow.append(ccolum);
+                }
+                tabla.append(crow);
+            }
+            document.getElementById("demo").append(tabla);
+        }
+    </script>
+</head>
+<body>
+    <h2>Basándose en el script anterior hacer las modificaciones oportunas para que ahora las columnas pares e impares sean diferentes.</h2>
+
+    <label>Filas</label>
+    <input type="text" id="filas">
+    <label>Columnas</label>
+    <input type="text" id="columnas">
+
+    <button onclick="crearTabla()">Crear tabla</button>
+
+    <div id="demo"></div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function redondearBordes(imagen){
+            imagen.style.borderRadius="25px";
+        }
+
+        function borderNormal(imagen){
+            imagen.style.borderRadius="0px";
+        }
+    </script>
+</head>
+<body>
+    <h2>Crear un documento html con 3 imágenes y mediante javascript controlar el evento onmouseover sobre cada imagen para que le ponga los bordes redondeados a la imagen sobre la cual estamos pasando.</h2>
+
+    <img src="imagenes/Burns.webp" onmouseover="redondearBordes(this)" onmouseleave="borderNormal(this)">
+    <img src="imagenes/goku.jpg" onmouseover="redondearBordes(this)" onmouseleave="borderNormal(this)">
+    <img src="imagenes/monty.jpg" onmouseover="redondearBordes(this)" onmouseleave="borderNormal(this)">
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function numerosPares(cuadro){
+            document.getElementById("demo").innerHTML="";
+            let tabla=document.createElement("table");
+            let fila;
+            let celda;
+            for(let i = 0; i< parseInt(cuadro.value)+1; i++){
+                if(i%2===0){
+                    fila=document.createElement("tr");
+                    celda=document.createElement("td");
+                    celda.textContent=i+"";
+                    fila.append(celda);
+                    tabla.append(fila);
+                } 
+            }
+            document.getElementById("demo").append(tabla);
+
+        }
+    </script>
+</head>
+<body>
+    <h2>Crear una web que tenga un cuadro de texto y en su evento onchange cree una tabla mediante un bucle con una columna y en las filas insertamos los números pares existentes entre 0 y el valor introducido en el cuadro de texto. </h2>
+    <textarea id="numero" onchange="numerosPares(this)"></textarea>
+    <div id="demo"></div>
+</body>
+</html>

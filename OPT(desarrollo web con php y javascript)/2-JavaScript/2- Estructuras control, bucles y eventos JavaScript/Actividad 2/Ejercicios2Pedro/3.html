@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function enfocado(cuadro){
+            /*
+            document.getElementById(cuadro).style.backgroundColor="lightgray";
+            document.getElementById(cuadro).style.color="blue";
+            */
+            cuadro.style.backgroundColor="lightgray";
+            cuadro.style.color="blue";
+        }
+
+        function desenfocado(cuadro){
+            /*
+            document.getElementById(cuadro).style.backgroundColor="white";
+            document.getElementById(cuadro).style.color="black";
+            */
+            cuadro.style.backgroundColor="white";
+            cuadro.style.color="black";
+        }
+
+        function borrarContenido(){
+            let i, elementos;
+            elementos=document.getElementsByTagName("input");
+            for(i=0; i < elementos.length ; i++){
+                elementos[i].value="";
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <h2>Modificar el ejercicio anterior y añadir un botón que sirva para poder borrar todos los contenidos de los cuadros de texto de golpe. Usad un bucle y la función getElementsByTagName().</h2>
+
+    <textarea id="uno" onfocus="enfocado(this)" onblur="desenfocado(this)"></textarea>
+    <textarea id="dos" onfocus="enfocado(this)" onblur="desenfocado(this)"></textarea>
+    <textarea id="tres" onfocus="enfocado(this)" onblur="desenfocado(this)"></textarea>
+
+    <button onclick="borrarContenido()">Borrar contenido</button>
+</body>
+</html>

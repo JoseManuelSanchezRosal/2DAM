@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function comprobarCuadros(){
+            let cuadros=document.getElementsByTagName("textarea");
+
+            for(let i=0; i<cuadros.length;i++){
+                if(!isNaN(cuadros[i].value) || cuadros[i].value==""){
+                    cuadros[i].style.backgroundColor="red";
+                }else{
+                    cuadros[i].style.backgroundColor="white";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Crear un formulario con 4 cuadros de texto y un botón. Al pulsar el botón se llamará a una función que ponga en rojo aquellos cuadros de texto que estén vacíos o tengan números.</h2>
+
+    <textarea></textarea>
+    <textarea></textarea>
+    <textarea></textarea>
+    <textarea></textarea>
+
+    <button onclick="comprobarCuadros()">Comprobar</button>
+</body>
+</html>

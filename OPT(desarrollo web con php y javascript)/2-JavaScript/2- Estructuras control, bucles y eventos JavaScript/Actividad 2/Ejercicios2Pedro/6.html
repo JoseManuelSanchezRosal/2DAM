@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function cambioImagen(){
+            document.getElementById("img1").src="imagenes/monty.jpg";
+
+            document.getElementById("img2").src="imagenes/Burns.webp";
+        }
+
+        function imagenOriginal(){
+            document.getElementById("img1").src="imagenes/Burns.webp";
+
+            document.getElementById("img2").src="imagenes/monty.jpg";
+        }
+    </script>
+</head>
+<body>
+    <h2>Crear una web con dos imágenes cualesquiera 1.jpeg y 2.jpeg. Controlar el evento onmouseover de ambas imágenes para que cuando el usuario pase con el ratón se intercambien las imágenes de sitio. Usarás el if para saber que imagen hay en cada posición.</h2>
+
+    <img src="imagenes/Burns.webp" id="img1" onmouseenter="cambioImagen()" onmouseleave="imagenOriginal()">
+    <img src="imagenes/monty.jpg" id="img2" onmouseenter="cambioImagen()" onmouseleave="imagenOriginal()">
+</body>
+</html>

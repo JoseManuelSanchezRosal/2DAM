@@ -6,31 +6,44 @@
     <title>Ejercicio 6</title>
 
     <script>
-        //CAMBIAR POR OBJETO CONSTRUCTOR MIRAR VALIDACIONES
+        
         function Cliente(nombre, saldo){
             // Variables privadas con let
-            let _nombre = nombre;
-            let _saldo = saldo;
+            this.nombre = nombre;
+            this.saldo = saldo;
 
             // Ingresar
             this.ingreso = function(cantidad){
                 if (cantidad > 0 ){
-                    _saldo+=cantidad;
+                    this.saldo+=cantidad;
+                    document.getElementById("salidaInfo").textContent = "Dinero ingresado";
+                }else if(cantidad === 0){
+                    document.getElementById("salidaInfo").textContent = "La cantidad debe ser un numero superior a 0";
+                }else{
+                    document.getElementById("salidaInfo").textContent = "Ingrese una cantidad antes de ingresar";
                 }
             }
            // Retirar
             this.retiro = function(cantidad){
-                if (cantidad > 0 && cantidad <= _saldo){
-                    _saldo -= cantidad;
+                if (cantidad > 0 && cantidad <= this.saldo){
+                    this.saldo -= cantidad;
+                    document.getElementById("salidaInfo").textContent = "Dinero retirado";
+                }else if(cantidad > 0 && cantidad > this.saldo){
+                    document.getElementById("salidaInfo").textContent = "No dispone de fondos suficientes";
+                }else if (cantidad === 0){
+                    document.getElementById("salidaInfo").textContent = "No puede retirar 0 euros";
+                }else{
+                    document.getElementById("salidaInfo").textContent = "Ingrese una cantidad antes de retirar";
                 }
             }
             // Mostrar cuenta
             this.mostrarInfo = function(){
-                return "Cliente: " + _nombre + ". Saldo: " + _saldo;
+                return "Cliente: " + this.nombre + ". Saldo: " + this.saldo;
             }
         }
 
         // Creamos el cliente
+
         let cliente1 = new Cliente ("Antonio", 1000);
 
         // Funciones para ingresar y retirar dinero y mostrar estado de cuenta

@@ -1,0 +1,275 @@
+Perfecto ✅, este tipo de examen es muy típico en módulos de Programación o Acceso a Datos en 1º DAM, y la trampa está en detalles pequeños del flujo del parser (DOM/SAX) y cómo manejan los bucles o las asignaciones.
+Voy a darte un análisis profundo de en qué debes fijarte en cada tipo de pregunta para no caer en los errores más comunes.
+Lo dividiré por bloques conceptuales (DOM, SAX y ficheros de texto), explicando en qué línea o detalle hay que poner especial atención y por qué, con ejemplos de tus preguntas.
+
+🧠 1️⃣ DOM Parser — Claves para no fallar
+💡 Concepto general:
+
+DOM carga todo el XML completo en memoria como un árbol de nodos (Document).
+Cada getElementsByTagName("X") devuelve una lista de todos los nodos “X” descendientes del nodo actual, no solo los hijos directos.
+
+⚠️ Puntos críticos donde debes fijarte:
+
+getElementsByTagName() incluye descendientes
+
+Ejemplo (pregunta 1):
+
+<book><title>Java</title><extra><title>DOM</title></extra></book>
+
+
+Cuando haces:
+
+NodeList titles = b.getElementsByTagName("title");
+
+
+El primer <book> tiene dos títulos (Java y DOM), aunque uno esté dentro de <extra>.
+→ Por tanto imprime 2 1.
+
+✅ Atención:
+
+No confundas hijo directo con descendiente.
+
+Siempre piensa: “¿cuántos <title> hay dentro de este <book>, aunque estén anidados?”
+
+item(0) puede ser null si no existe ningún nodo
+
+Ejemplo (pregunta 4):
+
+<book></book>
+
+
+Al hacer:
+
+b.getElementsByTagName("title").item(0).getTextContent();
+
+
+item(0) es null → NullPointerException.
+
+✅ Atención:
+
+Si ves .item(0) sin comprobación previa de getLength(), sospecha de un NullPointerException.
+
+Bucles con índices desplazados
+
+Ejemplo (pregunta 9): empieza en for (int i = 1; i < books.getLength(); i++).
+Esto omite el primer <book>, así que solo suma los precios del 2º y 3º.
+→ Suma = 5 + 20 = 25.
+
+✅ Atención:
+
+Mira siempre si el bucle empieza en 0 o 1.
+
+Si empieza en 1, descarta el primer elemento.
+
+Ámbito del Element y conversión de tipos
+
+Si ves Integer.parseInt(...), asegúrate de que getTextContent() no tiene espacios o texto vacío.
+
+🧠 2️⃣ SAX Parser — Claves para no fallar
+💡 Concepto general:
+
+SAX no carga todo el XML: recorre el documento y lanza eventos (startElement, characters, endElement).
+
+⚠️ Puntos donde siempre debes mirar con lupa:
+🔹 1. sb.setLength(0) (reinicialización del StringBuilder)
+
+Si no se limpia el StringBuilder en startElement, el texto se acumula de etiquetas anteriores.
+
+Ejemplo (pregunta 2):
+No se reinicia sb en startElement, por lo que al final de <library>, sb contiene JavaXMLSAX, pero last guarda solo el último título (“SAX”).
+→ Imprime SAX.
+
+✅ Atención:
+
+Si ves que no se hace sb.setLength(0) dentro de startElement("title"), los textos se van concatenando.
+
+Si se hace, se limpia en cada título (buen uso).
+
+🔹 2. Condiciones dentro de endElement
+
+Mira qué etiqueta provoca el System.out.println:
+
+Si es "library", se imprime solo una vez, al final.
+
+Si fuera "title", se imprimiría por cada título.
+
+✅ Atención:
+
+Pregúntate: “¿cuándo se imprime el resultado?”.
+
+El println casi siempre está en el cierre de "library" → resultado final acumulado.
+
+🔹 3. Control de banderas (inTitle, inPrice, primary, etc.)
+
+Si una bandera no se reinicia correctamente (inTitle = false;), puede afectar al siguiente elemento.
+
+Ejemplo (pregunta 3):
+
+if("title".equals(q)){
+  inTitle=true;
+  sb.setLength(0);
+}
+
+
+Limpia correctamente, y luego cuenta mayúsculas con Character.isUpperCase.
+
+✅ Atención:
+
+Si falta el sb.setLength(0) o el inTitle=false, la lectura se arruina.
+
+🔹 4. Uso de += o = en acumulaciones numéricas
+
+Fíjate si el código hace:
+
+sum = Integer.parseInt(sb.toString().trim());
+
+
+o
+
+sum += Integer.parseInt(sb.toString().trim());
+
+
+→ En el primer caso solo guarda el último valor, en el segundo acumula todos.
+
+Ejemplo (pregunta 7):
+Usa sum = ... → solo queda el último precio EUR (20).
+
+✅ Atención:
+
+Pregunta mental: “¿está acumulando o sobrescribiendo?”
+
+🔹 5. trim() y espacios invisibles
+
+Si hay espacios dentro del texto (" C "), trim() los quita antes de comprobar longitud o letra inicial.
+
+Si no se usa trim(), el texto puede parecer vacío o mal interpretado.
+
+Ejemplo (pregunta 8):
+Se hace sb.toString().trim().length()>0, así cuenta solo autores primarios con texto real (A y C).
+→ Resultado: 2.
+
+✅ Atención:
+
+Comprueba si el código usa .trim(), y si las condiciones dependen de texto vacío o mayúsculas/minúsculas.
+
+🔹 6. Combinaciones lógicas (varias banderas)
+
+Ejemplo (pregunta 10):
+Solo suma si se cumplen 3 condiciones simultáneas:
+
+startsC && bookPrimary && priceEUR
+
+
+Debes revisar:
+
+startsC: ¿Empieza por “C” mayúscula?
+
+bookPrimary: ¿tiene autor role="primary"?
+
+priceEUR: ¿tiene currency="EUR"?
+Solo el libro <title> Clean </title> cumple todo → suma = 10.
+
+✅ Atención:
+
+Cuando hay varias if anidadas, traduce mentalmente:
+“¿Cuándo se pone true esta bandera?” y “¿Cuándo se imprime/suma?”
+
+🧠 3️⃣ Lectura y escritura de ficheros de texto
+💡 Concepto general:
+
+Se trata de analizar ficheros con separadores tipo | y ;.
+
+⚠️ Puntos críticos:
+
+Expresión regular para split
+
+split("\\|") separa por |.
+
+Pero si ves split("\\\\|") (doble barra), está mal escapado:
+dividirá de forma incorrecta, dejando el texto en un solo bloque o ArrayIndexOutOfBounds.
+
+En tu examen, todas las que tienen split("\\\\|") → significa split("\|"), es correcto en Java si la cadena original está escapada.
+Así que no te líes: es un split correcto por |.
+
+✅ Atención:
+
+Asegúrate de qué parte del array (p[2], p[3]) estás usando.
+
+Verifica que el .replace(";", "") se aplica antes de convertir a número.
+
+Multiplicaciones o acumulaciones
+
+Ejemplo (pregunta 8 o 13):
+
+total += Integer.parseInt(p[2]) * Double.parseDouble(p[3].replace(";", ""));
+
+
+→ 2×15 + 3×10 = 60.
+Si los índices están invertidos, da otro valor.
+
+✅ Atención:
+
+Verifica orden: el int suele ser unidades, el double suele ser precio.
+
+Creación de archivos: try-with-resources
+
+Si usas try(PrintWriter pw = ...), el archivo se crea y sobrescribe antes de leerlo.
+
+Si luego se vuelve a abrir en lectura, se empieza desde cero.
+
+✅ Atención:
+
+No busques “acumulación” entre dos try distintos: cada uno genera un nuevo archivo.
+
+Secuencia de lectura y escritura
+
+A veces se escribe un archivo, luego se crea otro (por ejemplo, ofertas.txt).
+
+Fíjate cuál se lee al final:
+
+br = new BufferedReader(new FileReader("ofertas.txt"));
+System.out.println(br.readLine());
+
+
+→ solo se imprime la primera línea de ofertas.
+
+✅ Atención:
+
+Si hay condiciones (if (precio >= 10)), solo se imprimen algunas líneas.
+
+🧩 4️⃣ Teoría general DOM vs SAX
+Pregunta 15 — DOM:
+
+✅ Respuesta correcta:
+b. DOM crea una estructura jerárquica en memoria que representa todos los nodos del documento.
+
+💡 Atención en el examen:
+
+Si ves “carga todo el XML en memoria”, eso es DOM.
+
+Si ves “evento, flujo, no guarda todo”, eso es SAX.
+
+Pregunta 1 (teórica SAX):
+
+✅ Respuesta correcta:
+c. SAX procesa el documento como un flujo, generando eventos cuando encuentra elementos o texto.
+
+💡 Atención en el examen:
+
+“Secuencial” o “por eventos” = SAX.
+
+“Árbol completo” o “modificar nodos” = DOM.
+
+🧠 RESUMEN VISUAL DE EN QUÉ FIJARTE EN EL EXAMEN
+Tipo	Detalle crítico	Qué debes mirar
+DOM	getElementsByTagName()	Cuenta descendientes, no hijos directos
+DOM	.item(0)	Puede devolver null
+DOM	Bucle for (int i = 1...)	Omite el primer elemento
+SAX	sb.setLength(0)	Si falta → concatena textos previos
+SAX	println en "library"	Se imprime al final
+SAX	inTitle, inPrice flags	Asegúrate que se reinician
+SAX	sum = vs sum +=	Sobrescribe o acumula
+SAX	.trim()	Evita errores con espacios
+Ficheros	`split("\\	")`
+Ficheros	Índices p[2], p[3]	Revisa orden: unidades y precio
+Ficheros	Condición >= o startsWith	Filtra líneas específicas
