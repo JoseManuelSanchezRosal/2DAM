@@ -1,0 +1,518 @@
+Lee denenidamente: Te voy a pasar una serie de preguntas de analisis de bloque de codigo de lectura y escritura de ficheros, domreader y saxreader con JAVA. Quiero que me hagas una tanda de 15 preguntas del mismo estilo, siendo fiel a la sintaxis, metodologia y escritura que aparece en ellas de cara a una recuperacion del mismo: nota: te pasare bloque de codigo xml y bloque de código java, haz lo mismo tu. no me colorees las clases ni metodos. Dejalas en blanco y negro tanto código como las respuestas (4 posibles, una cierta) El código interactivo para hacer click en la correcta (me explicas porque lo es o no) y hacer click a la siguiente o a la anterior. Preguntas en las que tienes que basar las tuyas (que no sean las mismas):
+
+<library>
+  <book><title>Java</title><extra><title>DOM</title></extra></book>
+  <book><title>XML</title></book>
+</library>
+
+DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+Document doc = db.parse(new File("library.xml"));
+NodeList books = doc.getElementsByTagName("book");
+for (int i = 0; i < books.getLength(); i++) {
+  Element b = (Element) books.item(i);
+  NodeList titles = b.getElementsByTagName("title");
+  System.out.print(titles.getLength() + " ");
+}
+¿Qué imprime?
+
+Pregunta 2Seleccione una:
+
+a.
+2 2
+
+b.
+2 1
+
+c.
+1 2
+
+d.
+1 1 : 
+<library>
+  <book><title>Java</title></book>
+  <book><title>XML</title></book>
+  <book><title>SAX</title></book>
+</library>
+
+public static void main(String[] args) throws Exception {
+  SAXParser p = SAXParserFactory.newInstance().newSAXParser();
+  p.parse(new File("library.xml"), new H());
+}
+static class H extends DefaultHandler {
+  boolean inTitle=false; StringBuilder sb=new StringBuilder(); String last="";
+  public void startElement(String u,String l,String q,Attributes a){
+    if("title".equals(q)) inTitle=true;
+  }
+  public void characters(char[] c,int s,int n){ if(inTitle) sb.append(c,s,n); }
+  public void endElement(String u,String l,String q){
+    if("title".equals(q)){
+      last=sb.toString().trim();
+      inTitle=false;
+    }
+    if("library".equals(q)) System.out.println(last);
+  }
+}
+¿Qué imprime?
+
+Pregunta 3Seleccione una:
+
+a.
+null
+
+b.
+JavaXMLSAX
+
+c.
+XML
+
+d.
+SAX:  
+<library>
+  <book><title>java</title></book>
+  <book><title>Code</title></book>
+  <book><title>XML</title></book>
+</library>
+
+public static void main(String[] args) throws Exception {
+  SAXParser p = SAXParserFactory.newInstance().newSAXParser();
+  p.parse(new File("library.xml"), new H());
+}
+static class H extends DefaultHandler {
+  boolean inTitle=false; StringBuilder sb=new StringBuilder(); int count=0;
+  public void startElement(String u,String l,String q,Attributes a){
+    if("title".equals(q)){ inTitle=true; sb.setLength(0); }
+  }
+  public void characters(char[] c,int s,int n){ if(inTitle) sb.append(c,s,n); }
+  public void endElement(String u,String l,String q){
+    if("title".equals(q)){
+      String text=sb.toString().trim();
+      if(!text.isEmpty() && Character.isUpperCase(text.charAt(0))) count++;
+      inTitle=false;
+    }
+    if("library".equals(q)) System.out.println(count);
+  }
+}
+Pregunta 4Seleccione una:
+
+a.
+0
+
+b.
+3
+
+c.
+2
+
+d.
+1: 
+<library>
+  <book><title>Java</title></book>
+  <book></book>
+  <book><title>XML</title></book>
+</library>
+
+DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+Document doc = db.parse(new File("library.xml"));
+NodeList books = doc.getElementsByTagName("book");
+for (int i = 0; i < books.getLength(); i++) {
+  Element b = (Element) books.item(i);
+  String title = b.getElementsByTagName("title").item(0).getTextContent();
+  System.out.print(title + " ");
+}
+¿Qué ocurre al ejecutar el programa?
+
+Pregunta 5Seleccione una:
+
+a.
+Imprime: Java XML
+
+b.
+Imprime: Java XML
+
+c.
+Lanza NullPointerException
+
+d.
+Imprime: Java null XML:  
+<library>
+  <book>
+    <title>Ja</title>
+    <title>va</title>
+  </book>
+  <book><title>XML</title></book>
+  <book><title>J ava</title></book>
+</library>
+
+public static void main(String[] args) throws Exception {
+  SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+  parser.parse(new File("library.xml"), new Handler());
+}
+static class Handler extends DefaultHandler {
+  boolean inTitle = false;
+  StringBuilder sb = new StringBuilder();
+  int count = 0;
+  public void startElement(String uri, String l, String q, Attributes a) {
+    if ("title".equals(q)) { inTitle = true; sb.setLength(0); }
+  }
+  public void characters(char[] ch, int start, int length) {
+    if (inTitle) sb.append(ch, start, length);
+  }
+  public void endElement(String uri, String l, String q) {
+    if ("title".equals(q)) {
+      if (sb.toString().trim().startsWith("J")) count++;
+      inTitle = false;
+    }
+    if ("library".equals(q)) System.out.println(count);
+  }
+}
+¿Qué imprime?
+
+Pregunta 6Seleccione una:
+
+a.
+0
+
+b.
+2
+
+c.
+3
+
+d.
+1: 
+
+<library>
+  <book><price currency="EUR">10</price></book>
+  <book><price currency="EUR">20</price></book>
+  <book><price currency="USD">5</price></book>
+</library>
+
+public static void main(String[] args) throws Exception {
+  SAXParser p = SAXParserFactory.newInstance().newSAXParser();
+  p.parse(new File("library.xml"), new H());
+}
+static class H extends DefaultHandler {
+  boolean inPrice=false, eur=false; StringBuilder sb=new StringBuilder(); int sum=0;
+  public void startElement(String u,String l,String q,Attributes a){
+    if("price".equals(q)){
+      inPrice=true; sb.setLength(0); eur="EUR".equals(a.getValue("currency"));
+    }
+  }
+  public void characters(char[] c,int s,int n){ if(inPrice) sb.append(c,s,n); }
+  public void endElement(String u,String l,String q){
+    if("price".equals(q)){
+      if(eur) sum=Integer.parseInt(sb.toString().trim());
+      inPrice=false;
+    }
+    if("library".equals(q)) System.out.println(sum);
+  }
+}
+Pregunta 7Seleccione una:
+
+a.
+35
+
+b.
+20
+
+c.
+10
+
+d.
+15: 
+try (PrintWriter pw = new PrintWriter("ventas.txt")) {
+  pw.println("ID|Producto|Unidades|Precio;");
+  pw.println("1|Teclado|2|15;");
+  pw.println("2|Raton|3|10;");
+}
+try (BufferedReader br = new BufferedReader(new FileReader("ventas.txt"))) {
+  br.readLine();
+  String linea; double total = 0;
+  while ((linea = br.readLine()) != null) {
+    String[] p = linea.split("\\\\|");
+    total += Integer.parseInt(p[2]) * Double.parseDouble(p[3].replace(";", ""));
+  }
+  System.out.println(total);
+}
+¿Qué imprime el programa?
+
+Pregunta 8Seleccione una:
+
+a.
+60
+
+b.
+75
+
+c.
+65
+
+d.
+45: 
+
+<library>
+  <book><author role="primary">A</author></book>
+  <book><author role="primary"></author></book>
+  <book><author role="contributor">B</author></book>
+  <book><author role="primary"> C </author></book>
+</library>
+
+public static void main(String[] args) throws Exception {
+  SAXParser p = SAXParserFactory.newInstance().newSAXParser();
+  p.parse(new File("library.xml"), new H());
+}
+static class H extends DefaultHandler {
+  boolean inAuthor=false; boolean primary=false; StringBuilder sb=new StringBuilder(); int count=0;
+  public void startElement(String u,String l,String q,Attributes a){
+    if("author".equals(q)){
+      inAuthor=true;
+      sb.setLength(0);
+      primary="primary".equals(a.getValue("role"));
+    }
+  }
+  public void characters(char[] ch,int s,int n){ if(inAuthor) sb.append(ch,s,n); }
+  public void endElement(String u,String l,String q){
+    if("author".equals(q)){
+      if(primary && sb.toString().trim().length()>0) count++;
+      inAuthor=false;
+    }
+    if("library".equals(q)) System.out.println(count);
+  }
+}
+
+Pregunta 9Seleccione una:
+
+a.
+2
+
+b.
+3
+
+c.
+1
+
+d.
+4: 
+<library>
+  <book id="1"><price>10</price></book>
+  <book id="2"><price>5</price></book>
+  <book id="3"><price>20</price></book>
+</library>
+
+DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+Document doc = db.parse(new File("library.xml"));
+NodeList books = doc.getElementsByTagName("book");
+int sum = 0;
+for (int i = 1; i < books.getLength(); i++) {
+  Element b = (Element) books.item(i);
+  NodeList prices = b.getElementsByTagName("price");
+  if (prices.getLength() > 0)
+    sum += Integer.parseInt(prices.item(0).getTextContent());
+}
+System.out.println(sum);
+¿Qué imprime?
+
+Pregunta 10Seleccione una:
+
+a.
+0
+
+b.
+30
+
+c.
+35
+
+d.
+25: 
+
+<library>
+  <book>
+    <title> Clean</title>
+    <author role="primary">A</author>
+    <price currency="EUR">10</price>
+  </book>
+  <book>
+    <title>Code</title>
+    <author role="contributor">B</author>
+    <price currency="EUR">20</price>
+  </book>
+  <book>
+    <title> clean architecture </title>
+    <author role="primary">C</author>
+    <price currency="USD">30</price>
+  </book>
+  <book>
+    <title>
+      C
+      ore
+    </title>
+    <author role="primary">D</author>
+    <price currency="EUR">15</price>
+  </book>
+</library>
+
+public static void main(String[] args) throws Exception {
+  SAXParser p = SAXParserFactory.newInstance().newSAXParser();
+  p.parse(new File("library.xml"), new H());
+}
+static class H extends DefaultHandler {
+  boolean inTitle=false, inPrice=false, bookPrimary=false, priceEUR=false;
+  StringBuilder title = new StringBuilder(), price = new StringBuilder();
+  int sum=0;
+  public void startElement(String u,String l,String q,Attributes a){
+    if("book".equals(q)){ title.setLength(0); price.setLength(0); bookPrimary=false; priceEUR=false; }
+    if("title".equals(q)){ inTitle=true; }
+    if("author".equals(q)){ if("primary".equals(a.getValue("role"))) bookPrimary=true; }
+    if("price".equals(q)){ inPrice=true; priceEUR="EUR".equals(a.getValue("currency")); price.setLength(0); }
+  }
+  public void characters(char[] ch,int s,int n){
+    if(inTitle) title.append(ch,s,n);
+    if(inPrice) price.append(ch,s,n);
+  }
+  public void endElement(String u,String l,String q){
+    if("title".equals(q)) inTitle=false;
+    if("price".equals(q)) inPrice=false;
+    if("book".equals(q)){
+      String t = title.toString().trim();
+      boolean startsC = !t.isEmpty() && Character.toUpperCase(t.charAt(0))=='C';
+      if(startsC && bookPrimary && priceEUR) sum += Integer.parseInt(price.toString().trim());
+    }
+    if("library".equals(q)) System.out.println(sum);
+  }
+}
+¿Qué imprime?
+
+Pregunta 11Seleccione una:
+
+a.
+15
+
+b.
+20
+
+c.
+10
+
+d.
+25: 
+
+try (PrintWriter pw = new PrintWriter("productos.txt")) {
+  pw.println("1|Teclado|10;");
+  pw.println("2|Raton|5;");
+  pw.println("3|Monitor|15;");
+}
+BufferedReader br = new BufferedReader(new FileReader("productos.txt"));
+PrintWriter pw = new PrintWriter("ofertas.txt");
+String linea;
+while ((linea = br.readLine()) != null) {
+  String[] p = linea.split("\\\\|");
+  int precio = Integer.parseInt(p[2].replace(";", ""));
+  if (precio >= 10) pw.println(p[1] + "|" + (precio - 2));
+}
+br.close();
+pw.close();
+br = new BufferedReader(new FileReader("ofertas.txt"));
+System.out.println(br.readLine());
+br.close();
+¿Qué imprime el programa?
+
+Pregunta 12Seleccione una:
+
+a.
+Teclado|8
+
+b.
+Raton|3
+
+c.
+Raton|5
+
+d.
+Monitor|13:  
+
+try (PrintWriter pw = new PrintWriter("productos.txt")) {
+  pw.println("1|Teclado|10|20;");
+  pw.println("2|Raton|5|15;");
+}
+try (BufferedReader br = new BufferedReader(new FileReader("productos.txt"))) {
+  String linea; double total = 0;
+  while ((linea = br.readLine()) != null) {
+    String[] p = linea.split("\\\\|");
+    total += Double.parseDouble(p[2]) * Integer.parseInt(p[3].replace(";", ""));
+  }
+  System.out.println(total);
+}
+¿Qué imprime el programa?
+
+Pregunta 13Seleccione una:
+
+a.
+275
+
+b.
+25
+
+c.
+250
+
+d.
+35: library.xml
+
+<library>
+  <section>
+    <book><price>10</price></book>
+    <book><price>20</price></book>
+  </section>
+  <book><price>30</price></book>
+</library>
+
+DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+Document doc = db.parse(new File("library.xml"));
+Element library = (Element) doc.getElementsByTagName("library").item(0);
+NodeList prices = library.getElementsByTagName("price");
+System.out.println(prices.getLength());
+¿Qué imprime?
+
+Pregunta 14Seleccione una:
+
+a.
+3
+
+b.
+2
+
+c.
+1
+
+d.
+0: 
+tambien algunas de teoria:  ¿Cuál de las siguientes afirmaciones describe correctamente el funcionamiento del modelo DOM en Java?
+
+Pregunta 15Seleccione una:
+
+a.
+DOM analiza el XML de forma secuencial sin cargarlo completo en memoria.
+
+b.
+DOM crea una estructura jerárquica en memoria que representa todos los nodos del documento.
+
+c.
+DOM requiere un DefaultHandler para procesar los elementos.
+
+d.
+DOM solo puede leer el documento, no modificarlo.: ¿Cuál de las siguientes afirmaciones sobre el modelo SAX es correcta?
+
+Pregunta 1Seleccione una:
+
+a.
+SAX almacena todo el XML en memoria antes de procesarlo.
+
+b.
+SAX permite acceder a cualquier nodo en cualquier momento mediante referencias del árbol.
+
+c.
+SAX procesa el documento como un flujo, generando eventos cuando encuentra elementos o texto.
+
+d.
+SAX requiere crear manualmente un árbol de nodos para poder recorrer el documento.
