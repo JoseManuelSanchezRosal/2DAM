@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+
+    <script>
+        function calcular() {
+            let numero1 = parseFloat(document.getElementById("numero1").value);
+            let numero2 = parseFloat(document.getElementById("numero2").value);
+            let operacion = document.getElementById("operacion").value.toLowerCase();
+
+            let resultado = document.getElementById("resultado");
+            let restoSpan = document.getElementById("resto");
+
+            // Limpiar resto antes de cada cálculo
+            restoSpan.innerText = "";
+
+            if (operacion === "suma") {
+                resultado.innerHTML = numero1 + numero2;
+            } else if (operacion === "resta") {
+                resultado.innerHTML = numero1 - numero2;
+            } else if (operacion === "producto") {
+                resultado.innerHTML = numero1 * numero2;
+            } else if (operacion === "division") {
+                if (numero2 === 0) {
+                    resultado.innerHTML = "No se puede dividir entre 0";
+                } else {
+                    let cociente = Math.floor(numero1 / numero2);
+                    let resto = numero1 % numero2;
+                    resultado.innerHTML = "Cociente: " + cociente;
+                    restoSpan.innerText = resto;
+                }
+            } else {
+                resultado.innerHTML = "Introduzca una operación válida";
+            }
+        }
+    </script>
+
+    </head>
+
+    <body>
+        <h4>Crea un script que reciba dos números y en función de un texto sume, reste, multiplique o divida, en el caso de la división tiene que decir el cociente y el resto de la operación</h4>
+
+        Introduzca número 1 >> 
+        <input id="numero1" type="number"><br><br>
+
+        Introduzca número 2 >> 
+        <input id="numero2" type="number"><br><br>
+
+        Introduzca (suma, resta, producto, division) y Enter >> 
+        <input id="operacion" type="text" onkeyup="if(event.key === 'Enter') calcular()"><br><br><br>
+
+        RESULTADO >> 
+        <p id="resultado"></p>
+        <span>Resto:</span> <span id="resto"></span>
+
+    </body>
+</html>

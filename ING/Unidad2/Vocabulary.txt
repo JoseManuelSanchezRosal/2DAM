@@ -1,0 +1,35 @@
+Ordinalds
+first	second	third	fourth fifth sixth seventh eigth ninth tenth eleventh twelfth	thrirteenth fourteenth fifteenth
+
+Parts of a computer
+cable -- cable
+case -- carcasa
+clip -- 
+front panel -- panel frontal
+power supply -- fuente de alimentación
+side panel -- panel lateral
+slot -- ranura
+socket -- 
+switch -- 
+
+Verbs
+attach --  
+connect -- conectar
+detach -- 
+diconnect -- desconectar
+insert -- insertar
+plug in -- 
+remove -- retirar
+screw --
+turn oof -- apagar
+unscrew -- 
+
+Extra
+cache -- 
+desktop case -- carcasa pc
+disc controller -- 
+expansion cards -- tarjetas de expansion
+IO adapter -- adaptador de entradas y salidas
+Network attached Storage
+optical drive -- salida óptica
+tower case -- 

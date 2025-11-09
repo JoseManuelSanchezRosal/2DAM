@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        #contenedor{
+            display: flex;
+            width: 200px;
+            height: 200px;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        .uno{
+            background-image: url('sources/dado1.png');
+        }
+        .dos{
+            background-image: url('sources/dado2.png');
+        }
+        .tres{
+            background-image: url('sources/dado3.png');
+        }
+        .cuatro{
+            background-image: url('sources/dado4.png');
+        }
+        .cinco{
+            background-image: url('sources/dado5.png');
+        }
+        .seis{
+            background-image: url('sources/dado6.png');
+        }
+
+    </style>
+
+    <script>
+        function tirarDados(){
+            let container = document.getElementById("contenedor");
+
+            container.classList.remove("uno", "dos", "tres", "cuatro", "cinco", "seis")
+            let aleatorio = Math.floor(Math.random()* 6) + 1;
+        console.log(aleatorio);
+       
+        switch(aleatorio){
+            case 1:
+                container.classList.add("uno");
+                break;
+            case 2:
+                container.classList.add("dos");
+                break;
+            case 3:
+                container.classList.add("tres");
+                break;
+            case 4:
+                container.classList.add("cuatro");
+                break;
+            case 5:
+                container.classList.add("cinco");
+                break;
+            case 6:
+                container.classList.add("seis");
+                break;
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <h4>Crea un script que cada vez que responda a un evento (el evento y como activarlo lo elijes tu) se tire un dado aleatorio y este te devuelva el resultado. Descárgate de internet las 6 caras diferentes de un dado y en función del número que salga que muestre una cara u otra</h4>
+    <button id="tirarDados" onclick= "tirarDados()">Tira el dado</button>
+
+    <div id="contenedor"></div>
+    
+</body>
+</html>

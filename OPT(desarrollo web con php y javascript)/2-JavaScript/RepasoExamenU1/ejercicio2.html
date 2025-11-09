@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let aleatorio = Math.floor(Math.random()* 50) + 1;
+        console.log(aleatorio);
+        
+        function comprobar(){
+            let opcion = parseInt(document.getElementById("miNumero").value);
+            if(opcion === aleatorio){
+                document.getElementById("resultado").textContent = "Adivinado!!"
+                document.getElementById("miNumero").value = "";
+            }else if(opcion > aleatorio){
+                document.getElementById("resultado").textContent = "Te has pasado"
+                document.getElementById("miNumero").value = "";
+            }else{
+                document.getElementById("resultado").textContent = "No has llegado"
+                document.getElementById("miNumero").value = "";
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+    <h4>Crea un script que genere un numero aleatorio entre el 1 y el 50 y una entrada de datos para que el usuario intente adivinar que numero es.</h4>
+    Adivine el numero entre el 1 y el 50:
+    <input id="miNumero" type="number">
+    <button id="adivinar" onclick=comprobar()>Comprobar</button> <label id="resultado"></label>
+
+    
+</body>
+</html>

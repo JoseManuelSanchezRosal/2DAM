@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h4>Crea un script que contenga un array de marcas de coches, el programa tiene una entrada de datos y tiene que permitir introducir un elemento o borrarlo dentro del array, el array tiene siempre que estar mostrado en pantalla y cuando se borra o añade un elemento se tiene que actualizar.</h4>
+
+    <input id="marca" placeholder="Ingrese marca de vehiculo"><br>
+
+    <button onclick="borrar()">Borrar</button>
+    <button onclick="agregar()">Anadir</button>
+
+    <h5>Lista de marcas</h5>
+    <div id="lista" ></div>
+
+    <script>
+        let marcas = ["Ford", "Lexus", "Toyota", "Audi"];
+        // Actualizamos lisa
+        mostrar();
+            
+        // Funcion para mostrar las marcas en el div con id 'lista'
+        function mostrar() {
+            //Mostramos las marcas separadas por ", "
+            document.getElementById("lista").innerHTML = marcas.join(", ");
+        }
+            
+        // Funcion para agregar una marca al array
+        function agregar() {
+            // Obtenemos el valor del input
+            let m = document.getElementById("marca").value;
+
+            // Añadimos la nueva marca al array con .push()
+            marcas.push(m);
+
+            // Actualizamos lista
+            mostrar();
+        }
+
+        // Funcion para borrar una marca del array
+        function borrar() {
+            // Obtenemos el valor del input
+            let m = document.getElementById("marca").value;
+
+            // Buscamos el índice de esa marca en el array con .indexOf()
+            let i = marcas.indexOf(m);
+
+            // Si la marca existe en el array (índice >= 0)
+            if (i >= 0) {
+                // La borramos usando splice
+                marcas.splice(i, 1);
+            } 
+
+            // Actualizamos la lista en pantalla
+            mostrar();
+        }
+    </script>
+
+</body>
+</html>
