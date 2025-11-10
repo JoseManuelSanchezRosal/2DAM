@@ -5,7 +5,7 @@ import androidx.core.graphics.toColor
 import kotlin.random.Random
 
 
-class Rectangulo(var color:Int, var ancho:Int, var alto:Int) {
+open class Rectangulo(var color:Int, var ancho:Int, var alto:Int) {
     // Coordenadas iniciales. Propiedades
     var x = 400
     var y = 1000
@@ -39,6 +39,5 @@ class Rectangulo(var color:Int, var ancho:Int, var alto:Int) {
             Random.nextInt(256),
             Random.nextInt(256)
         )
-
     }
 }
