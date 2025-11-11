@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores existentes de tu proyecto -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores suaves añadidos -->
+    <color name="soft_gray">#FFF5F5F5</color> <!-- Un gris muy claro, casi blanco -->
+    <color name="soft_beige">#FFFFFAF0</color> <!-- Tono crema suave -->
+    <color name="soft_blue">#FFE0F7FA</color> <!-- Un azul bebé muy pálido -->
+    <color name="soft_green">#FFE8F5E9</color> <!-- Verde menta suave -->
+    <color name="soft_pink">#FFFFEBEE</color> <!-- Rosa claro apagado -->
+    <color name="soft_peach">#FFFFECB3</color> <!-- Melocotón suave -->
+
+</resources>
