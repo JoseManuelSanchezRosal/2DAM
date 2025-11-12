@@ -113,6 +113,28 @@ LISTA DE PRECIOS:
 2 
 
 
+-------Hacer Pedido de compra ---------
+
+1 Compras >> pedidos >> pedidos de compra  >> nuevo >>
+
+2 Seleccionamos proveedor >> productos y cantidad >> fechas >> Confirmar pedido >> confirmar >> recibir (seleccionamos cantidad recibida) >> validar 
+(Aqui se imprime el Albaran de entrega)
+
+3 para imprimir pedido de compra >> pedidos de compra >> seleccionamos e imprimimos 
+
+5 Crear Factura >> pedido de compra >> marcamos la casilla >> crear factura >> confirmar >> pagar
+-------------------------------------------
+
+----------Hacer albaran a proveedor--------
+
+1 Compras >> pedidos >> pedidos de compra  >> nuevo >>
+
+2 Seleccionamos proveedor >> productos y cantidad >> fechas >> Confirmar pedido >> confirmar >> recibir (seleccionamos cantidad recibida) >> validar >> IMPRIMIMOS ALBARAN de ENTREGA
+
+3
+
+
+
 
 
 
