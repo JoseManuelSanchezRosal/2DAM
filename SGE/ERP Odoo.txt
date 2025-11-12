@@ -23,7 +23,7 @@ Vamos a crear una nueva base de datos
 - En el nombre de la empresa, debemos poner edu. delante, sino nos la borran,
 - Rellenamos campos, dejamos nuestro teléfono y correo y le damos adelante
 
-NUEVO USUARIO:
+----------NUEVO USUARIO:-------------
 1. Opciones Generales >> gestionar usuarios >> nuevo
 2. En función del Rol del nuevo usuario, se añadirán los módulos pertinentes. Compras, productos, materias primas, dar de alta modificar o eliminar productos.
 3. Seleccionar permisos de Usuario a nuevos Clientes, preferiblemente dar pocos permisos de entrada.
@@ -33,8 +33,8 @@ NUEVO USUARIO:
 BBDD >> Ajustes >> compañías >> configurar disenio de impresión 
 A ser posible poner en pie de pagina junto la web, nif y demás, el registro mercantil
 Ademas, con el modo desarrollador activado, se puede acceder a la configuración del html para cambiar estilos
----------DAR ALTA POROVEEDOR---------
 
+---------DAR ALTA POROVEEDOR---------
 1. Compras >> pedidos >> proveedores >> nuevo
 Se marca por por defecto "compañía", habría que marcar individuo si fuera un autónomo o persona física. Aparecería su DNI. 
 
@@ -50,7 +50,7 @@ Desde la emisión de la factura, las opciones que nos aparecen.
 5. TENEMOS QUE DAR DE ALTA METODOS DE PAGO
 Los efectos y las remesas bancarias sirven para emitir recibos de factura. Para pagar a los proveedores, por ejemplo.
 
-6. Pestaña Facturación >> Crear Banco
+6. Pestaña Contabilidad >> diarios >> nuevo diario >> seleccionamos tipo BANCO 
 
 7. En configuración nos viene arriba en el centro nos viene un pequeño resumen de ventas, facturado, reuniones, tareas y compras
 
