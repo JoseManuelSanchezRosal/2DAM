@@ -110,30 +110,36 @@ Una vez que paga, se marca como pagado y se le entrega al administrativo.
 LISTA DE PRECIOS:
 
 1 Ventas >> Presupuestos >> Nuevo >>
-2 
-
 
 -------Hacer Pedido de compra ---------
 
 1 Compras >> pedidos >> pedidos de compra  >> nuevo >>
 
-2 Seleccionamos proveedor >> productos y cantidad >> fechas >> Confirmar pedido >> confirmar >> recibir (seleccionamos cantidad recibida) >> validar 
+2 Seleccionamos proveedor >> productos-cantidad >> fechas >> Confirmar pedido >> confirmar >> IMPRIMIR (pedido de compra)
+
+3 Dentro del pedido de compra pulsamos >> recibir (seleccionamos cantidad recibida) >> validar >> IMPRIMIR (albaran de entrega)
 (Aqui se imprime el Albaran de entrega)
 
-3 para imprimir pedido de compra >> pedidos de compra >> seleccionamos e imprimimos 
+4 Pedidos de compra >> marcamos la casilla de nuestro pedido >> CREAR FACTURAS >> confirmar >> PAGAR >> seleccionamos banco, fechas >> CREAR PAGO >> Arriba centro pulsamos pagos >> VALIDAR
 
-5 Crear Factura >> pedido de compra >> marcamos la casilla >> crear factura >> confirmar >> pagar
+Crear Factura >> pedido de compra >> marcamos la casilla >> crear factura >> confirmar >> pagar
 -------------------------------------------
 
-----------Hacer albaran a proveedor--------
+----------Hacer pedido de venta----------
 
-1 Compras >> pedidos >> pedidos de compra  >> nuevo >>
+1 Ventas >> pedidos >> pedidos de venta >> nuevo
 
-2 Seleccionamos proveedor >> productos y cantidad >> fechas >> Confirmar pedido >> confirmar >> recibir (seleccionamos cantidad recibida) >> validar >> IMPRIMIMOS ALBARAN de ENTREGA
+2 Para que nos salga la casilla de descuento en pedido de venta >> Ventas >> Configuración >> Ajustes y marcamos en Precio la casilla descuentos en líneas de los pedidos de ventas
 
-3
+3 Seleccionamos Cliente >> seleccionamos productos y cantidad >> Aplicamos o no descuento en producto >> Fechas >> CONFIRMAR
 
+4 ENTREGAR >> Pedidos de venta >> seleccionamos el pedido >> entrega >> Confirmar
 
+4 Pedidos de venta >> seleccionamos pedido >> crear facturas >> factura normal >> crear borrador
+(aquí, si solo queremos hacer la factura de un solo producto, eliminamos y dejamos al que queremos hacerle la factura)
+>> CONFIRMAR
+
+5 Verificar bajada stock >> inventario >> informes >> stock
 
 
 
