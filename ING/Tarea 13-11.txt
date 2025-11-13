@@ -1,0 +1,38 @@
+Numbers and dates
+
+1.
+1- the first
+2- the second
+3- the third
+11- the eleventh
+27- the twenty seventh
+14- the fourteenth
+88- the eighty eighth
+17- the seventeenth
+
+2.
+1- the second
+11- the eleventh
+18- the eighteenth
+23- the twenty third
+17- the seventeenth
+6- the sixth
+15- the fifteenth
+1- the first
+30- the thirtieth
+25- the twenty fifth
+
+3.
+1. N
+2. U
+3. M
+4. B
+5. E
+6. R
+NUMBER
+
+4.
+1. Thursday, the seventh of April 2008
+2. Monday, the twelfth of June 1986
+3. Wednesday, the first of August 2001
+4. Sunday, the eighth of January 2012
