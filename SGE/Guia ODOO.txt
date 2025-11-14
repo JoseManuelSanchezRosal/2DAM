@@ -50,7 +50,7 @@ Desde la emisión de la factura, las opciones que nos aparecen.
 5. TENEMOS QUE DAR DE ALTA METODOS DE PAGO
 Los efectos y las remesas bancarias sirven para emitir recibos de factura. Para pagar a los proveedores, por ejemplo.
 
-6. Pestaña Contabilidad >> diarios >> nuevo diario >> seleccionamos tipo BANCO 
+6. Pestaña Contabilidad >> configuración >> diarios >> nuevo diario >> seleccionamos tipo BANCO 
 
 7. En configuración nos viene arriba en el centro nos viene un pequeño resumen de ventas, facturado, reuniones, tareas y compras
 
@@ -105,11 +105,12 @@ Datos necesarios: NIF, numero factura y fecha de factura.
 13- Después hay que pagar la factura (crear un registro dentro de nuestro software en la tabla de pagos, por ejemplo) en realidad quien se encarga de realizar la transferencia o pago es una persona de CONTABILIDAD.
 
 Una vez que paga, se marca como pagado y se le entrega al administrativo.
-------
+--------------------------------------------
 
 LISTA DE PRECIOS:
 
 1 Ventas >> Presupuestos >> Nuevo >>
+
 
 -------Hacer Pedido de compra ---------
 
@@ -123,7 +124,8 @@ LISTA DE PRECIOS:
 4 Pedidos de compra >> marcamos la casilla de nuestro pedido >> CREAR FACTURAS >> confirmar >> PAGAR >> seleccionamos banco, fechas >> CREAR PAGO >> Arriba centro pulsamos pagos >> VALIDAR
 
 Crear Factura >> pedido de compra >> marcamos la casilla >> crear factura >> confirmar >> pagar
--------------------------------------------
+
+
 
 ----------Hacer pedido de venta----------
 
