@@ -8,7 +8,6 @@ class Person {
         this.age = age
         this.alias = alias
     }
-
 }
 
 // Sintaxis
