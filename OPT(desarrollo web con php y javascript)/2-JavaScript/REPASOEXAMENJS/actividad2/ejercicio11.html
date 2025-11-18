@@ -4,56 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
 
     <script>
-        function dibujarTabla(){
-            // Almacenamos la entrada y salida de datos en variables
+        function crearTabla(){
             const $filas = parseInt(document.getElementById("filas").value)
             const $columnas = parseInt(document.getElementById("columnas").value)
             const $divSalida = document.getElementById("salida")
-
-            // Limpiamos el div
             $divSalida.innerHTML = ""
-            
 
-            // Creamos la tabla y le damos  estilo
             const tabla = document.createElement("table")
             tabla.style.borderCollapse = "collapse"
-
-            // Creamos las filas con su estilo y color
             for (let i = 0; i < $filas; i++){
                 const fila = document.createElement("tr")
-                fila.style.backgroundColor = (i % 2 === 0) ? "red" : "blue"
-                
-                // Creamos las celdas con su estilo
                 for (let j = 0; j < $columnas; j++){
                     const celda = document.createElement("td")
-                    celda.style.border = "1px solid black"
-                    celda.style.width = "50px"
+                    celda.style.backgroundColor = (j % 2 === 0) ? "yellow" : "brown"
                     celda.style.height = "20px"
-                    
-                    // Apendamos celda a fila
+                    celda.style.width = "50px"
+                    celda.style.border = "1px solid black"
+
                     fila.appendChild(celda)
                 }
-                // Fila a tabla
                 tabla.appendChild(fila)
             }
-            // Tabla a div de salida
             $divSalida.appendChild(tabla)
         }
     </script>
 
 </head>
-
 <body>
-    <h3>Crear un script que pida al usuario mediante dos cuadros de texto un número de filas y columnas y dibuje una tabla html con dicho número de filas y columnas. Además las filas pares e impares serán de diferente color.</h3>
-
+    <h3>Basándose en el script anterior hacer las modificaciones oportunas para que ahora las columnas pares e impares sean diferentes.</h3>
     <input type="number" id="filas" placeholder="Introduzca filas">
     <input type="number" id="columnas" placeholder="Introduzca columnas">
-    <button onclick="dibujarTabla()">Dibujar Tabla</button>
+    <button onclick="crearTabla()">Crear Tabla</button>
 
     <div id="salida"></div>
-    
+
 </body>
 </html>
