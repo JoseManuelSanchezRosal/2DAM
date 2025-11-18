@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script defer>
+        function comprobarNumeros(){
+            // Guardamos el valor de nuestro input en una variable
+            const $entrada = document.getElementById("entrada")
+            // y en otra su valor
+            const valor = $entrada.value
+
+            // aqui comparamos si el value NaN, si No es un Numero, se borra el contenido del input
+            if(isNaN(valor)){
+                $entrada.value = ""
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h3>Crear una web con un cuadro de texto en los que cuando el usuario introduzca algo que no sea un dígito numérico se borre todo el contenido de dicho cuadro.</h3>
+
+    <input id="entrada" onkeyup="comprobarNumeros()" type="text" placeholder="escriba numeros">
+    
+</body>
+</html>

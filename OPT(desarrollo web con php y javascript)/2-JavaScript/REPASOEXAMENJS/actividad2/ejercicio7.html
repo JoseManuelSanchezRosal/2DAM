@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        function crearTabla(){
+
+            const $salida = document.getElementById("salida")
+            $salida.innerHTML = ""
+
+            const valor = parseInt(document.getElementById("entrada").value)
+                        
+            // Creamos la tabla
+            const tabla = document.createElement("table")
+
+
+            for(let i = 0; i < valor; i+=2){
+                // Creamos las filas y las celdas
+                const fila = document.createElement("tr")
+                const celda = document.createElement("td")
+
+                // A la celda le damos el valor de i
+                celda.textContent  = i
+
+                // Apendamos la celda a la fila, y la fila a la tabla.
+                fila.appendChild(celda)
+                tabla.appendChild(fila)
+                
+            }
+            // Por ultimo apendamos la tabla al div
+            $salida.append(tabla)
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h3>Crear una web que tenga un cuadro de texto y en su evento onchange cree una tabla mediante un bucle con una columna y en las filas insertamos los números pares existentes entre 0 y el valor introducido en el cuadro de texto.</h3>
+    <tr></tr>
+
+    <textarea name="" id="entrada" onchange="crearTabla()"></textarea>
+    <div id="salida" ></div>
+    
+</body>
+</html>

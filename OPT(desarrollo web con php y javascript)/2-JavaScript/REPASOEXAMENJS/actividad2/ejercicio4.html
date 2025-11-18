@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .divs{
+            height: 50px;
+            width: 50px;
+            border: 1px solid black;
+        }
+    </style>
+
+    <script>
+
+        function colorFondo(){
+            const $divs = document.getElementsByClassName("divs")
+            const $selectorColor = document.getElementById("colores")
+
+            for(let i = 0; i < $divs.length; i++){
+                $divs[i].style.backgroundColor = $selectorColor.value
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h3>Crear una web que tenga cuatro divs y un cuadro de lista desplegable que tenga las siguientes opciones red, blue, green, lightgrey. Codificar una función que para el evento onchange del cuadro de lista cambie el color de fondo de los divs</h3>
+    <br>
+
+    <div class="divs"></div>
+    <div class="divs"></div>
+    <div class="divs"></div>
+    <div class="divs"></div>
+    <br>
+
+    <label for="colores">Elige un color</label>
+    <select onchange="colorFondo()" name="colores" id="colores">
+        <option value="red">Rojo</option>
+        <option value="blue">Azul</option>
+        <option value="green">Verde</option>
+        <option value="lightgrey">Rosa Claro</option>
+    </select>
+    
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script defer>
+        function crearTabla(){
+            const $num1 = parseInt(document.getElementById("num1").value)
+            const $num2 = parseInt(document.getElementById("num2").value)
+            const $tabla = document.getElementById("tabla")
+
+            $tabla.innerHTML = `<tr><td>${$num1}</td></tr><tr><td>${$num2}</td></tr>`
+        
+        }
+    </script>
+
+</head>
+
+<body>
+    <h3>Modificar el ejercicio anterior para que en lugar del alert con la función innerHTML se muestre en una tabla el contenido de cada cuadro de texto</h3>
+    <input type="number" placeholder="Escriba un numero" id="num1">
+    <input type="number" placeholder="Escriba otro numero" id="num2">
+    
+    <button onclick="crearTabla()">Crear Tabla</button>
+    <table id="tabla" ></table>
+    
+</body>
+</html>

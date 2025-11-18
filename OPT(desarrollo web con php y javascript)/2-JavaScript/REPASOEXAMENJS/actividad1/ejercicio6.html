@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script defer>
+        function cambiarTamano(){
+            const $imagen = document.getElementById("imagen")
+            const $ancho = parseInt(document.getElementById("ancho").value)
+            const $alto = parseInt(document.getElementById("alto").value)
+
+            const estilo = `width: ${$ancho}px; height: ${$alto}px`
+
+            $imagen.style.cssText = estilo
+        }
+    </script>
+
+</head>
+
+<body>
+    <h3>Modificar el ejercicio anterior para incluir dos cuadros de texto en los que se puedan poner los valores para el ancho y alto de la imagen. Incluir también un botón para que cuando lo pulsemos se redimensione la imagen a los valores introducidos en los cuadros de texto</h3>
+
+    <input id="ancho" placeholder="introduzca ancho">
+    <input id="alto" placeholder="introduzca alto">
+    <button onclick="cambiarTamano()">Cambiar Tamanio</button>
+    <br><br>
+    <img id="imagen" src="sources/relax.jpg" alt="">
+
+</body>
+</html>

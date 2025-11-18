@@ -1,0 +1,1 @@
+En este paquete se guardan los repositorios. Un repositorio se encarga de realizar operaciones con un modelo o entidad, como por ejemplo, guardar, actualizar, buscar o eliminar.

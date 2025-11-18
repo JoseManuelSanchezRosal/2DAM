@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function crearTabla(){
+            // Cogemos la id de la tabla del HTML
+            const $tabla = document.getElementById("tabla")
+            $tabla.innerHTML = "<tr><td>Hola</td></tr><tr><td>Adios</td></tr>"
+
+            // Guardamos en una variable la cadena de estilo
+            const estilo = "font-size: 12pt ; color: blue"
+            // La aplicamos a nuestra tabla con .style.cssText
+            $tabla.style.cssText = estilo
+        }
+
+    </script>
+
+</head>
+
+<body onload="crearTabla()">
+    <h3>Modificar el ejercicio anterior para que el script contenga una variable de cadena de caracteres que guarde la cadena necesaria para darle color de fuente azul y tamaño 12 pto a la tabla del ejercicio anterior.</h3>
+    <table id="tabla" ></table>
+
+</body>
+</html>

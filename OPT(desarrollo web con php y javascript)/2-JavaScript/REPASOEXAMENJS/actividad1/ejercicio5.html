@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script defer>
+        function cambiarTamano(){
+            const $imagen = document.getElementById("imagen")
+            $imagen.style.cssText = "width: 100pt"
+        }
+    </script>
+
+</head>
+<body>
+    <h3>Crear una web que tenga una imagen insertada. Incluirle a dicha web un script que cambie los valores de ancho y alto de esta imagen para que tenga un tamaño de 100x100</h3>
+
+    <button onclick="cambiarTamano()" >Cambiar tamano</button><br>
+    <img id="imagen" src="sources/relax.jpg" alt="">
+    
+</body>
+</html>

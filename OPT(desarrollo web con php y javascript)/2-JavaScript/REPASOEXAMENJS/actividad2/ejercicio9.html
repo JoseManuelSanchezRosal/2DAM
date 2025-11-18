@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function comprobar(event){
+            
+            const $textAreas = document.querySelectorAll("form textarea")
+
+            for (let i = 0; $textAreas.length; i++){
+                const caja = $textAreas[i];
+                const valor = caja.value.trim()
+                const $label = document.getElementById((i+1).toString())
+
+                if(valor === "" || !isNaN(valor)){
+                    caja.style.backgroundColor = "red"
+                    $label.textContent = "El campo esta vacio o es un numero"
+                }
+                else{
+                    caja.style.backgroundColor = ""
+                }
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+    <h3>Modificar el ejercicio anterior para que aparte de mostrar el fondo en rojo también muestre al lado del cuadro el texto “El campo es requerido o es un número”</h3>
+
+     <form action="">
+        <textarea name="" id=""></textarea><label id="1" ></label><br>
+        <textarea name="" id=""></textarea><label id="2" ></label><br>
+        <textarea name="" id=""></textarea><label id="3" ></label><br>
+        <textarea name="" id=""></textarea><label id="4" ></label><br>
+        <button type="button" onclick="comprobar()">Comprobar</button>
+    </form>
+    
+</body>
+</html>

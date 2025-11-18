@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .estilo{
+            background-color:lightgray;
+            color: blue;
+        }
+    </style>
+
+    <script defer>
+        function cambiarEstilo(campo){
+            campo.classList.add("estilo")
+        }
+        function volverOriginal(campo){
+            campo.classList.remove("estilo")
+        }
+        function borrarContenido(){
+            // En este caso $textos es una collecion, no solo un elemento
+            const $textos = document.getElementsByTagName("textarea")
+
+            // Bucle foreach para restablecer los textarea
+            for(const texto of $textos){
+                texto.value = ""
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <h3>Modificar el ejercicio anterior y añadir un botón que sirva para poder borrar todos los contenidos de los cuadros de texto de golpe. Usad un bucle y la función getElementsByTagName().</h3>
+
+    <textarea onfocus="cambiarEstilo(this)" onblur="volverOriginal(this)"></textarea>
+    <textarea onfocus="cambiarEstilo(this)" onblur="volverOriginal(this)"></textarea>
+    <textarea onfocus="cambiarEstilo(this)" onblur="volverOriginal(this)"></textarea>
+    <textarea onfocus="cambiarEstilo(this)" onblur="volverOriginal(this)"></textarea>
+    <button onclick="borrarContenido()" >Borrar Contenido</button>
+
+</body>
+</html>
