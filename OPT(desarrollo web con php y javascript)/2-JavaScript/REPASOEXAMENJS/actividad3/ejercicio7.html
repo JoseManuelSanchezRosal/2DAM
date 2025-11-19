@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        let $crono = document.getElementById("labelCrono")
+        let segundo, minuto
+        segundo = minuto = 0
+        let semaforo
+
+        function contador(){
+            segundo++
+            if(segundo === 60){
+                segundo = 0
+                minuto ++
+            }
+
+            document.getElementById("labelCrono").innerHTML = segundo + " segundos " + minuto + " minutos"
+        }
+
+        function iniciarCrono(){
+            if(!semaforo){
+                semaforo = setInterval(contador, 1000)
+            }
+        }
+
+        function pararCrono(){
+            let $salida = document.getElementById("divRegistros")
+            clearInterval(semaforo)
+            let ciclo = document.createElement("p")
+            ciclo.textContent = segundo + " segundos " + minuto + " minutos"
+            $salida.appendChild(ciclo)
+            semaforo = null
+        }
+
+        function resetearCrono(){
+            clearInterval(semaforo)
+            semaforo = null
+            segundo = minuto = 0
+            document.getElementById("labelCrono").innerHTML = ""
+            document.getElementById("divRegistros").innerHTML = ""
+
+        }
+
+    </script>
+
+
+</head>
+<body>
+    <h3>Modificar el ejercicio anterior para que cada vez que se pare el cronómetro se vayan guardando en un div los tiempos de parada.</h3>
+
+    <button onclick="iniciarCrono()">Iniciar/Reanudar</button>
+    <button onclick="pararCrono()">Parar</button>
+    <button onclick="resetearCrono()">Resetear</button>
+    <label id="labelCrono"></label>
+    <div id="divRegistros"></div>
+    
+</body>
+</html>

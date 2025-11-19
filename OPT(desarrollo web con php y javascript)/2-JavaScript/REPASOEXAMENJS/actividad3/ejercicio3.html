@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        // Contador fuera
+        let segundos = 0
+        let minutos = 0
+
+        function contador(){
+            segundos++
+            // Aumentamos segundos
+            if(segundos === 60){
+                segundos = 0
+                minutos++
+            }
+            if(minutos === 2){
+                window.location.href = 'https://iesantoniogala.es';
+            }
+            // Salida segundos y minutos
+            const seg = document.getElementById("salidaSegundos")
+            seg.textContent = segundos + " segundos"
+            const min = document.getElementById("salidaMinutos")
+            min.textContent = minutos + " minutos"
+        }
+    </script>
+
+</head>
+<body onload="setInterval(contador, 1000)">
+    <h3>Modifica el ejercicio anterior para que a los 2 minutos nos redirija a la web de nuestro centro.<h3>
+
+    <label id="salidaSegundos"></label> <label id="salidaMinutos"></label>
+</body>
+</html>

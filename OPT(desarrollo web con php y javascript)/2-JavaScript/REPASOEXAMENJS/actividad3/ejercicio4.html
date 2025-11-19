@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        td{
+            border-collapse: collapse;
+            width: 100px;
+            height: 50px;
+            border: 1px solid red;
+        }
+    </style>
+
+    <script>
+        function tabla(){
+            // Tomamos div del DOM
+            const $salida = document.getElementById("salida")
+
+            // A los 5 segundos, limpiamos el div
+            $salida.innerHTML = ''
+
+            // Creamos tabla y le damos estilo
+            const tabla = document.createElement("table")
+            
+            
+            // Y dibujamos una tabla de forma dinamica
+            for (let i = 1; i < 6; i++){
+                const fila = document.createElement("tr")
+                for (let j = 1; j < 6; j++){
+                    const celda = document.createElement("td")
+                    
+                    celda.textContent = ("fila:"+i + " celda:"+j)
+                    
+                    fila.appendChild(celda)
+                }
+                tabla.appendChild(fila)
+            }
+            $salida.appendChild(tabla)
+        }
+    </script>
+
+
+</head>
+<body onload="setTimeout(tabla, 100)">
+    <h3>Crear una web que muestre un gif animado (cógelo de la galería de google) durante 5 segundos. Pasado ese tiempo ocultará dicho gif y mostrará una tabla de 5 filas y 5 columnas que se creará dinámicamente.</h3>
+    <div id="salida">
+        <img src="sources/google.gif" alt="">
+    </div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>GIF y Tabla Dinámica</title>
+
+    <style>
+        #gif {
+            position: absolute; /*Clave para el movimiento del gif*/
+            left: 0px;
+            width: 250px;
+        }
+
+        #tabla {
+            border-collapse: collapse;
+            display: none; /*Para que inicialmente no se vea la tabla*/
+        }
+
+        #tabla td,
+        #tabla th {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+
+            // Cogemos los elementos del DOM
+            const gif = document.getElementById("gif");
+            const tabla = document.getElementById("tabla");
+
+            // Seteamos la posicion
+            let posicion = 0;
+
+            // Movimiento cada 100 ms
+            const mover = setInterval(function () {
+                posicion += 10;
+                gif.style.left = posicion + "px";
+            }, 100);
+
+
+            // A los 5 segundos se oculta el GIF y se genera la tabla
+            setTimeout(function () {
+                clearInterval(mover); // Detener movimiento del gif
+                gif.style.display = "none";
+
+                // Crear tabla 5x5 dinámicamente
+                for (let i = 0; i < 5; i++) {
+                    let fila = tabla.insertRow();
+
+                    for (let j = 0; j < 5; j++) {
+                        let celda = fila.insertCell();
+                        celda.textContent = "(" + (i + 1) + ", " + (j + 1) + ")";
+                    }
+                }
+
+                tabla.style.display = "table"; // Mostrar tabla
+            }, 5000);
+
+        };
+    </script>
+
+</head>
+
+<body>
+    <h3>Modificar el ejercicio anterior para que durante los 5 segundos que está el gif mostrándose se mueva de izquierda a derecha de la pantalla de 10 en 10 pixel en intervalos de tiempo de 100 milisegundos.</h3>
+    <img id="gif" src="sources/google.gif">
+    <table id="tabla"></table>
+
+</body>
+</html>

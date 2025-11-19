@@ -26,5 +26,5 @@ function moverGif(){
 function mover(){
     let imagen=document.getElementById("img1");
     imagen.style.marginLeft=movimiento+"px";
-    movimiento+=15;
+    movimiento+=10;
 }

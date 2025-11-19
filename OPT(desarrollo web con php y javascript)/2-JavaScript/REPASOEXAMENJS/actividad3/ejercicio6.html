@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        let segundo, minuto, hora
+        segundo = minuto = hora = 0
+        let semaforo
+
+        // Funcion contador (llamada con el setInterval en iniciarCrono())
+        function contador(){
+            segundo++
+            if(segundo === 60){
+                segundo = 0
+                minuto++
+            }
+            document.getElementById("salida").innerHTML = segundo + " segundos   " + minuto + " minutos"
+        }
+
+        // Funcion para iniciar el cronometro (llamada a contador cada segundo)
+        function iniciarCrono(){
+            if(!semaforo){
+                semaforo = setInterval(contador, 1000)
+            }
+        }
+
+        // Funcion para parar el crono
+        function pararCrono(){
+            clearInterval(semaforo)
+            semaforo = null
+        }
+
+        // Funcion para resetear el crono
+        function resetearCrono(){
+            clearInterval(semaforo)
+            semaforo = null
+            segundo = minuto = hora = 0
+            document.getElementById("salida").innerHTML = ""
+        }
+
+    </script>
+
+</head>
+<body>
+    
+    <h3>Implementar una web que haga las funciones de un cronómetro. Se añadirá un botón desde el que poder iniciar o reanudar el cronómetro, otro botón para parar el cronómetro y otro para resetear los valores y ponerlos a 0.</h3>
+    <button onclick="iniciarCrono()">Iniciar/Reanudar</button>
+    <button onclick="pararCrono()">Parar</button>
+    <button onclick="resetearCrono()">Reset</button>
+    
+    <label id="salida"></label>
+    
+</body>
+</html>

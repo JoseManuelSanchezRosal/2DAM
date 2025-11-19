@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        // Contador fuera
+        let contador = 0
+        function segundos(){
+            // Aumentamos contador
+            contador++
+            // Le pasamos el valor al label de salida
+            const $salida = document.getElementById("salida")
+            $salida.textContent = contador + " segundos"
+        }
+    </script>
+
+
+</head>
+<body onload="setInterval(segundos, 1000)">
+    <h3>Mediante las función setInterval crear una web que permita saber en cada momento cuantos segundos lleva la página abierta. Se mostrará un contador en la parte inferior derecha del navegador en un div lo suficientemente visible.</h3>
+
+    <label id="salida"></label>
+</body>
+</html>
