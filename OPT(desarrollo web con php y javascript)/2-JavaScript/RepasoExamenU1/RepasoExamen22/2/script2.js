@@ -6,8 +6,7 @@ $num.addEventListener('keyup', ({ key }) => {
         return;
     }
     const numRandom = Math.floor(Math.random() * 50 + 1);
-    console.log(numRandom)
-    debugger
+    
     if (numRandom === parseInt($num.value)) {
         $numeroAdivinado.textContent = 'Has adivinado el número';
     } else {

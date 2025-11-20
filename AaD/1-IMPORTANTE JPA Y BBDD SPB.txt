@@ -1,0 +1,20 @@
+1- CAMBIAR A "CREATE"  EL DDL-AUTO CUANDO SE QUIERA CREAR LA BBDD AL ARRRANCAR LA APP
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update         # crea/actualiza tablas en desarrollo # CREATE PARA CADA VEZ QUE ARRANCA LA APLICACION CREA LA BASE DE DATOS DE NUEVO
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.lob.non_contextual_creation: true
+
+
+2- COMANDO PARA ENTRAR DESDE DOCKER EN NUESTRA BASE DE DATOS:
+
+docker exec -it postgres_db psql -U admin -d cine
+
+CON docker ps se ven los contenedores que están levantados.
+
+3- MIRAR COMANDOS PARA VER LAS TABLAS Y ENTIDADES DESDE POWERCELL
+
+4- PARA VERLO DESDE LOCALHOST:8080 PARA VERLO DESDE PGADMIN (INTERFAZ GRAFICA)

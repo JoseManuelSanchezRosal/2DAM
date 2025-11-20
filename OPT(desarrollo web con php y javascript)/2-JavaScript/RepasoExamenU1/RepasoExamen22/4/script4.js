@@ -11,4 +11,5 @@ $factorial.addEventListener('keyup', ({ key }) => {
         factorial *= i;
     }
     $resultado.textContent = factorial;
+    
 });
