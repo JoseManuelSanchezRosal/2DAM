@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script defer>
+        
+        class curso{
+            constructor(nombre, aula, alumno, calificaciones){
+                this.nombre = nombre
+                this.aula = aula
+                this.alumno = alumno
+                this.calificaciones = calificaciones
+            }
+
+            mostrarInfo(idDiv){
+                let div = document.getElementById(idDiv)
+                let html = "Curso " + this.nombre + " Aula" + this.aula + " Alumnos y calificaciones:" + "<br>"
+
+                for (let i = 0; i < this.alumno.length; i++){
+                    html += this.alumno[i] + ": "
+                    for (let j = 0; j < this.calificaciones[i].length; j++){
+                        html += this.calificaciones[i][j]
+                        if (j < this.calificaciones[i].length -1){
+                            html+= ", "
+                        }
+                    }
+                    html+= "<br>"
+                }
+                div.innerHTML = html
+            }
+        }
+        const nombresAlumnos = ["Josema", "Pepe", "Pepito"]
+        const notasAlumnos = [
+            [6,6,6,6,6],
+            [7,7,7,7,7],
+            [8,8,8,8,8]
+        ]
+        const dam2 = new curso("Desarrollo apps mutltip ", " 2DAM ", nombresAlumnos, notasAlumnos)
+
+        function info(){
+            dam2.mostrarInfo("infoCurso")
+        }
+        
+        
+
+    </script>
+</head>
+<body>
+    <button onclick="info()">mostrar curso</button>
+    <div id="infoCurso"></div>
+    
+</body>
+</html>

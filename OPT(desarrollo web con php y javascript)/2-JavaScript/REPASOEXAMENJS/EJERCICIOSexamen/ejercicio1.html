@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Crea un script que reciba dos números y en función de un texto sume, reste, multiplique o divida, en el caso de la división tiene que decir el cociente y el resto de la operación.</h3>
+    <input type="number" id="num1" placeholder="ingrese n1">
+    <input type="number" id="num2" placeholder="ingrese n2">
+    <br><br>
+    <label>Ingrese operacion (suma, resta, producto, division)</label>
+    <input type="text" name="" id="operacion" placeholder="ingrese operacion">
+    <button onclick="mostrarResultado()">Calcular</button>
+    <label id="resultado"></label>
+
+    <script defer>
+       
+
+        function mostrarResultado(){
+            const $numero1 = parseInt(document.getElementById("num1").value)
+            const $numero2 = parseInt(document.getElementById("num2").value)
+            const $operacion = document.getElementById("operacion").value
+            const $resultado = document.getElementById("resultado")
+
+            if ($operacion === "suma") {
+                console.log($operacion)
+                return $resultado.textContent = $numero1 + $numero2
+            }
+            else if ($operacion === "resta"){
+                return $resultado.textContent = $numero1 - $numero2
+                
+            }
+            else if ($operacion === "producto"){
+                return $resultado.textContent = $numero1 * $numero2
+                
+            }
+            else if ($operacion === "division"){
+                return $resultado.textContent = "Cociente:" + ($numero1 / $numero2) + ". Resto: " + ($numero1 % $numero2)
+            }
+            else{
+                return $resultado.textContent = "Ingrese una operacion valida"
+            }
+        }
+    </script>
+    
+</body>
+</html>

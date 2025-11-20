@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+        function Cliente(nombre, saldoInicial){
+            let _nombre = nombre
+            let _saldoInicial = saldoInicial
+
+            this.ingreso = function(cantidad){
+                _saldoInicial += cantidad
+            }
+
+            this.retirada = function(cantidad){
+                _saldoInicial -= cantidad
+            }
+
+            this.consulta = function(){
+                return _nombre + " " + _saldoInicial
+            }
+        }
+
+        const cliente1 = new Cliente("Pepe", 2000)
+
+        function ingreso(){
+            cantidad = parseInt(document.getElementById("labelIngreso").value)
+            cliente1.ingreso(cantidad)
+        }
+
+        function retiro(){
+            cantidad = parseInt(document.getElementById("labelRetiro").value)
+            cliente1.retirada(cantidad)
+        }
+
+        function mostrarInfo(){
+            document.getElementById("info").textContent = cliente1.consulta()
+        }
+
+    </script>
+</head>
+<body>
+    <h3> Define un objeto constructor que sea un cliente, este cliente tiene un nombre y un saldo bancario (variables privadas), crea los métodos ingreso, retirada y consultar para añadir, retirar o consultar el estado de las cuentas.</h3>
+    <input type="number" name="" id="labelIngreso"><button onclick="ingreso()">Ingresar</button>
+    <input type="number" name="" id="labelRetiro"><button onclick="retiro()">Retirar</button><br>
+    <br>
+
+    <button onclick="mostrarInfo()">Mostrar Info</button>
+
+    <div id="info"></div>
+    
+</body>
+</html>

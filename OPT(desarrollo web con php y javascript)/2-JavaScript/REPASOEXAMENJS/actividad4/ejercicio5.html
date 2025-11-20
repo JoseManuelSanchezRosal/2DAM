@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function Producto (precio, descuento){
+            this.precio = parseInt(document.getElementById("precio").value)
+            this.descuento = parseInt(document.getElementById("descuento").value)
+
+            this.neto = function(){
+                return this.precio - ((this.precio * this.descuento)/100)
+            }
+        }
+
+        function mostrarPrecioFinal(){
+            const prod1 = new Producto(this.precio, this.descuento)
+            document.getElementById("labelResultado").textContent = prod1.neto()
+        }
+
+    </script>
+</head>
+<body>
+    <h3>Define un objeto, mediante una expresión, que tenga dos propiedades: precio y descuento y un método neto que devuelve el valor del objeto con el descuento aplicado. El método calculará el precio con el descuento aplicado. Los valores se pedirán por teclado.</h3>
+
+    <input id="precio" type="number" placeholder="Ingrese precio">
+    <input id="descuento" type="number" placeholder="Ingrese descuento">
+    <button onclick="mostrarPrecioFinal()">Mostrar precio con descuento</button><br>
+    <label id="labelResultado"></label>
+
+</body>
+</html>

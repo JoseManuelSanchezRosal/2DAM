@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script>
+        class alumno{
+            constructor(nombre, din, aad, opt, ipe, ingles){
+                this.nombre = nombre
+                this.din = din
+                this.aad = aad
+                this.opt = opt
+                this.ipe = ipe
+                this.ingles = ingles
+    
+            }
+            salidaNombre(){
+                return this.nombre
+            }
+            
+            salidaCalificaciones(){
+                return this.din +", "+this.aad+", "+this.opt+", "+this.ipe+", "+this.ingles
+
+            }
+           salidaMedia(){
+                return ((this.din +this.aad+this.opt+this.ipe+this.ingles)/5)
+            }
+
+        }
+        const josema = new alumno("josema", 9, 9, 9, 9, 9)
+
+        function nombre(){
+            document.getElementById("labelNombre").textContent = josema.salidaNombre()
+        }
+
+        function calificaciones(){
+            document.getElementById("labelCalificaciones").textContent = josema.salidaCalificaciones()
+        }
+
+        function media(){
+            document.getElementById("labelMedia").textContent = josema.salidaMedia()
+
+        }
+    </script>
+
+</head>
+<body>
+
+    <h3>Define un objeto que sea un alumno para guardar sus calificaciones, los módulos que tienen que tener son DIN, AaD, Opt, IPE e Inglés, en la salida tenemos que devolver el nombre del alumno, las diferentes calificaciones y la media.</h3>
+
+    <button onclick="nombre()" >Devolver nombre</button> <label id="labelNombre"></label><br><br>
+    <button onclick="calificaciones()" >Devolver calificaciones</button> <label id="labelCalificaciones"></label><br><br>
+    <button onclick="media()" >Devolver media</button> <label id="labelMedia"></label><br><br>
+
+    
+</body>
+</html>

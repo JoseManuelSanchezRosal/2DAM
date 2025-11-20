@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        class Ficha{
+            constructor(nombre, distancia, sesiones){
+                this.nombre = nombre
+                this.distancia = 0
+                this.sesiones = []
+            }
+                
+            anotar(km){
+                this.distancia = km
+                this.sesiones.push(km)
+                }
+        }
+        function anadirDistancia(){
+            let km = parseInt(document.getElementById("anadirKm").value)
+            
+        }
+
+    </script>
+</head>
+<body>
+    <h3>Crea una clase Ficha, con su constructor, que se usará para almacenar el número de kilómetros recorridos por una persona en cada sesión de ejercicios. Las propiedades de la clase serán: nombre de la persona, distancia, un array con la distancia de cada una de las sesiones. Hay que implementar dos métodos, anotar: anota los kilómetros en el array y media: calcula la media de kilómetros recorridos</h3>
+    <input type="number" id="anadirKm" placeholder="Introducir Km">
+    <button onclick="anadirDistancia()">Anadir km</button>
+    
+</body>
+</html>
