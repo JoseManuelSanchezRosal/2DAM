@@ -8,17 +8,14 @@
     <script>
 
         function crearTabla(){
-
             const $salida = document.getElementById("salida")
             $salida.innerHTML = ""
-
             const valor = parseInt(document.getElementById("entrada").value)
-                        
             // Creamos la tabla
             const tabla = document.createElement("table")
 
 
-            for(let i = 0; i < valor; i+=2){
+            for(let i = 0; i < valor + 1; i+=2){
                 // Creamos las filas y las celdas
                 const fila = document.createElement("tr")
                 const celda = document.createElement("td")
