@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function comprobar(){
+            const $nombre = document.getElementById("nombre")
+            const $telefono = document.getElementById("telefono")
+            const $direccion = document.getElementById("direccion")
+            const $labelNombre = document.getElementById("labelNombre")
+            const $labelTelefono = document.getElementById("labelTelefono")
+            const $labelDireccion = document.getElementById("labelDireccion")
+
+            if($nombre === isNaN){
+                $labelNombre.textContent = $nombre
+            }
+            
+           
+            
+            
+            
+        }
+      
+
+    </script>
+</head>
+
+<body>
+    <h3>Crea un script que compruebe que los datos de un formulario están escritos
+correctamente, los campos del formulario son: Nombre completo, número de
+teléfono y dirección. El nombre completo solo puede tener caracteres, el número de
+teléfono solamente admite dígitos, y la dirección puede tener caracteres alfanuméricos. Debes comprobar que los valores introducidos cumplen con el formato.
+Para extraer los elementos debes usar getElementByTagName. Si algún elemento no
+tuviera el formato adecuado debes borrar el campo y mostrar un mensaje de error.
+(1’5 punto)
+</h3>
+<form action="datos">Formulario</form>
+<input id="nombre" type="text" placeholder="Ingrese nombre"><label id="labelNombre"></label>
+<input id="nombre" type="number" placeholder="Ingrese telefono"><label id="labelTelefono"></label>
+<input id="nombre" placeholder="Ingrese direccion"><label id="labelDireccion"></label>
+<button onclick="comprobar()" type="button">Enviar</button>
+
+
+    
+</body>
+</html>

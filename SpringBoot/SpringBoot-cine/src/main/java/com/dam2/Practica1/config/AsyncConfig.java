@@ -21,7 +21,10 @@ public class AsyncConfig {
     }
     // Ejercicio 4
     /**
-     * Configura un pool de hilos para las votaciones del Jurado
+     * Configura un pool de hilos para las
+     *
+     *
+     * votaciones del Jurado
      * @return un Executor configurado con el nombre "threadsJurado" listo para usarse
      */
     @Bean(name = "threadsJurado")

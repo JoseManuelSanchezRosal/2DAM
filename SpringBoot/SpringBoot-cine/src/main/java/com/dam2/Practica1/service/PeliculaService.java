@@ -1,5 +1,6 @@
 package com.dam2.Practica1.service;
 
+import com.dam2.Practica1.dto.PeliculaDto;
 import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.repository.PeliculaRepository;
 import lombok.*;
@@ -30,17 +31,20 @@ public class PeliculaService {
     @Qualifier("threadsJurado")
     private ThreadPoolTaskExecutor threadsJurado;
 
+    private PeliculaDto toDTO(Pelicula p){
+        return new PeliculaDto(
+                p.getId(),
+                p.getTitulo(),
+                p.getDuracion(),
+                p.getFechaEstreno(),
+                p.getSinopsis(),
+                p.getValoracion()
+        );
+    }
+
 
     private final List<Pelicula> peliculas = new ArrayList<>();
     /*private final PeliculaRepository peliculaRepository;*/
-    public PeliculaService() {
-        peliculas.add(new Pelicula(1L, "Interstellar", 169, LocalDate.of(2014, 11, 7),
-                "Exploradores espaciales buscan un nuevo hogar para la humanidad.",6,null,null,null));
-        peliculas.add(new Pelicula(2L, "The Dark Knight", 152, LocalDate.of(2008, 7, 18),
-                "Batman enfrenta al Joker en una lucha por el alma de Gotham.",4,null,null,null));
-        peliculas.add(new Pelicula(3L, "Soul", 100, LocalDate.of(2020, 12, 25),
-                "Un músico descubre el sentido de la vida más allá de la muerte.",5,null,null,null));
-    }
 
     public List<Pelicula> mejores_peliculas(int valoracion){
         List<Pelicula> peliculas_aux= new ArrayList<>();
@@ -52,8 +56,9 @@ public class PeliculaService {
         return peliculas_aux;
     }
 
-    public List<Pelicula> listar() {
-        return peliculas;
+
+    public List<PeliculaDto> listar() {
+        return peliculaRepository.findAll().stream().map(this::toDTO).toList();
     }
 
     public Pelicula buscarPorId(Long id) {

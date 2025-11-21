@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        let semaforoAvanzar
+        let semaforoRetroceder
+        let contador = 0
+        let $salida = document.getElementById("salida")
+
+        function contadorSegundos(){
+            if(semaforoAvanzar && !semaforoRetroceder){
+                semaforoRetroceder = null
+                contador++
+                
+            }
+            else if(semaforoRetroceder && !semaforoAvanzar){
+                semaforoAvanzar = null
+                contador--
+            }
+            document.getElementById("salida").textContent = contador
+        }
+
+        function avanzar(){
+            if(!semaforoAvanzar){
+                clearInterval(semaforoRetroceder)
+                clearInterval(contadorSegundos)
+                semaforoAvanzar = setInterval(contadorSegundos, 1000)
+            }
+            
+        }
+        function retroceder(){
+            if(!semaforoRetroceder){
+                clearInterval(semaforoAvanzar)
+                clearInterval(contadorSegundos)
+                semaforoRetroceder = setInterval(contadorSegundos, 1000)
+            }
+            
+        }
+        
+
+        
+            
+            
+
+
+    </script>
+
+
+</head>
+<body>
+    <h3>Crea un script que cuando inicie la página se inicie un cronometro, además se
+contara con tres funciones diferentes, avanzar, parar y retroceder. La función
+avanzar incrementará el cronometro en una unidad cada segundo, la función parar
+detendrá el cronometro en el instante en el que se pulse y la función retroceder
+deberá restar una unidad por segundo al cronometro. (1’5 punto)
+Se tiene que implementar 3 botones para las tres funciones anteriores.
+El valor del cronometro no puede exceder las 100 unidades ni tener menos de 0
+unidades.</h3>
+
+<button onclick="avanzar()" >Avanzar</button>
+<button onclick="parar()" >Parar</button>
+<button onclick="retroceder()" >Retroceder</button>
+
+<label id="salida"></label>
+
+    
+</body>
+</html>
