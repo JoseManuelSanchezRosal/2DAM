@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
-package tpv.restaurante;
+
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Jose
  */
-public class TPVRestaurante extends Application {
+public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
