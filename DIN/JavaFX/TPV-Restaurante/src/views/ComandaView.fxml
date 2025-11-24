@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ComandaController">
+   <children>
+      <SplitPane dividerPositions="0.35" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <VBox>
+               <children>
+                  <Label fx:id="labelMesaActual" text="Mesa: --" VBox.vgrow="NEVER">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  
+                  <TableView fx:id="tablaComanda" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="columnaProducto" prefWidth="150.0" text="Producto" />
+                        <TableColumn fx:id="columnaCantidad" minWidth="0.0" prefWidth="50.0" text="Cant." />
+                        <TableColumn fx:id="columnaSubtotal" prefWidth="70.0" text="Subtotal" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  
+                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="10.0" VBox.vgrow="NEVER">
+                     <children>
+                        <Button onAction="#eliminarProducto" text="Eliminar Producto" />
+                        <Label text="TOTAL: " />
+                        <Label fx:id="labelTotalComanda" text="0.00 €" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            
+            <VBox>
+               <children>
+                  <Label text="Toque la Imagen para Añadir" VBox.vgrow="NEVER">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                     <content>
+                        <TilePane fx:id="panelProductos" hgap="10.0" vgap="10.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </TilePane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </items>
+      </SplitPane>
+      
+      <HBox alignment="CENTER" prefHeight="60.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-background-color: #333333;">
+         <children>
+            <Button onAction="#guardarComanda" prefWidth="150.0" text="💾 Guardar Comanda" />
+            <Button onAction="#reiniciarMesa" prefWidth="150.0" style="-fx-text-fill: red;" text="❌ Reiniciar Mesa" />
+            <Button onAction="#sacarTicket" prefWidth="200.0" style="-fx-text-fill: lightgreen;" text="🧾 Sacar Ticket" />
+            <Button onAction="#cerrarComanda" prefWidth="150.0" text="🚪 Salir de Comanda" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

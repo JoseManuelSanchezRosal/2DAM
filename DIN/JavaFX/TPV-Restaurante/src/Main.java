@@ -3,13 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
 
-
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -19,23 +16,26 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+    public void start(Stage primaryStage) throws Exception {
+        // 1. Cargar el FXML.
+        // Asumiendo que TPV.fxml está en el mismo nivel que Main.java
+        // Si Main.java no tiene paquete, y TPV.fxml está en una carpeta 'views', 
+        // la ruta relativa debería ser "./views/TPV.fxml"
+        // Según tu estructura de proyecto, probaremos con la ruta relativa:
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        // La URL de carga debe ser relativa a la ubicación de tu Main.java (o la clase que lo carga)
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/TPV.fxml"));
+        Parent root = loader.load(); // Esto carga el nodo raíz del FXML (el AnchorPane)
         
-        Scene scene = new Scene(root, 300, 250);
+        // Opcional: Si necesitas acceder al controlador para inicialización, hazlo aquí:
+        // TPVController controller = loader.getController();
+        // controller.inicializar(); 
         
-        primaryStage.setTitle("Hello World!");
+        // 2. Crear la escena con el nodo raíz del FXML.
+        Scene scene = new Scene(root);
+        
+        // 3. Configurar y mostrar el Stage.
+        primaryStage.setTitle("TPV Restaurante");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
