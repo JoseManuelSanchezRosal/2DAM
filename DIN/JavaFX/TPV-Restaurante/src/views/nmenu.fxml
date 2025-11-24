@@ -66,60 +66,157 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #87CEEB;">
                      <children>
-                        <ImageView fitHeight="46.0" fitWidth="45.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="134.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/AGUA.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="222.0" layoutY="100.0" text="AGUA" />
+                        <Label layoutX="309.0" layoutY="100.0" text="1 €" />
+                        <Label layoutX="22.0" layoutY="138.0" text="BEBIDAS">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="371.0" layoutY="14.0" text="CARTA">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="22.0" layoutY="352.0" text="ENTRANTES">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="23.0" layoutY="503.0" text="CARNES">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="22.0" layoutY="621.0" text="PESCADOS">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="134.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/RIBERA.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="222.0" layoutY="205.0" text="RIBERA" />
+                        <Label layoutX="309.0" layoutY="205.0" text="4 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="376.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/CERVEZA.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="464.0" layoutY="100.0" text="CERVEZA" />
+                        <Label layoutX="551.0" layoutY="100.0" text="2.5 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="376.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/REFRESCO.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="464.0" layoutY="205.0" text="REFRESCO" />
+                        <Label layoutX="551.0" layoutY="205.0" text="2 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="621.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/ZUMO.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="709.0" layoutY="103.0" text="ZUMO" />
+                        <Label layoutX="796.0" layoutY="103.0" text="2 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="621.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/TINTO.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="709.0" layoutY="208.0" text="TINTO" />
+                        <Label layoutX="796.0" layoutY="208.0" text="2€" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="134.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/ENSALADILLA.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="222.0" layoutY="305.0" text="ENSALADILLA" />
+                        <Label layoutX="313.0" layoutY="305.0" text="4 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="134.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/BRAVAS.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="222.0" layoutY="410.0" text="BRAVAS" />
+                        <Label layoutX="313.0" layoutY="410.0" text="1 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="377.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/GAMBAS.jpeg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="468.0" layoutY="305.0" text="GAMBAS" />
+                        <Label layoutX="555.0" layoutY="305.0" text="5 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="378.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/QUESO.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="468.0" layoutY="410.0" text="QUESO" />
+                        <Label layoutX="555.0" layoutY="410.0" text="5 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="622.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/JAMON.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="713.0" layoutY="308.0" text="JAMON" />
+                        <Label layoutX="800.0" layoutY="308.0" text="5 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="623.0" layoutY="381.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/CROQUETAS.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="713.0" layoutY="413.0" text="CROQUETAS" />
+                        <Label layoutX="800.0" layoutY="413.0" text="6 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="134.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../sources/SOLOMILLO.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="222.0" layoutY="517.0" text="SOLOMILLO" />
+                        <Label layoutX="304.0" layoutY="517.0" text="14 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="134.0" layoutY="590.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../sources/agua.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="67.0" layoutY="12.0" text="Botella de Agua" />
-                        <Label layoutX="155.0" layoutY="33.0" text="cantidad" />
-                        <Button layoutX="110.0" layoutY="31.0" mnemonicParsing="false" text="+" />
-                        <Button layoutX="77.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="24.0" text="-" />
-                        <ImageView fitHeight="46.0" fitWidth="45.0" layoutX="308.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                        <Label layoutX="222.0" layoutY="622.0" text="AGUA" />
+                        <Label layoutX="304.0" layoutY="622.0" text="1 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="371.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../sources/cerveza.png" />
+                              <Image url="@../sources/POLLO.jpg" />
                            </image>
                         </ImageView>
-                        <Label layoutX="361.0" layoutY="20.0" text="Tercio de 1906" />
-                        <Label layoutX="449.0" layoutY="41.0" text="cantidad" />
-                        <Button layoutX="404.0" layoutY="39.0" mnemonicParsing="false" text="+" />
-                        <Button layoutX="371.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="24.0" text="-" />
-                        <ImageView fitHeight="46.0" fitWidth="45.0" layoutX="598.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                        <Label layoutX="459.0" layoutY="517.0" text="POLLO " />
+                        <Label layoutX="546.0" layoutY="517.0" text="15 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="371.0" layoutY="590.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../sources/zumo-naranja.png" />
+                              <Image url="@../sources/agua.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="651.0" layoutY="21.0" text="Zumo de Naranja" />
-                        <Label layoutX="739.0" layoutY="42.0" text="cantidad" />
-                        <Button layoutX="694.0" layoutY="40.0" mnemonicParsing="false" text="+" />
-                        <Button layoutX="661.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="24.0" text="-" />
-                        <ImageView fitHeight="46.0" fitWidth="45.0" layoutX="16.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                        <Label layoutX="459.0" layoutY="622.0" text="AGUA" />
+                        <Label layoutX="546.0" layoutY="622.0" text="1 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="623.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../sources/copa-ribera.png" />
+                              <Image url="@../sources/PLUMA.jpg" />
                            </image>
                         </ImageView>
-                        <Label layoutX="69.0" layoutY="100.0" text="Copa de Ribera" />
-                        <Label layoutX="157.0" layoutY="121.0" text="cantidad" />
-                        <Button layoutX="112.0" layoutY="119.0" mnemonicParsing="false" text="+" />
-                        <Button layoutX="79.0" layoutY="119.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="24.0" text="-" />
-                        <ImageView fitHeight="46.0" fitWidth="45.0" layoutX="311.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+                        <Label layoutX="709.0" layoutY="520.0" text="PLUMA" />
+                        <Label layoutX="791.0" layoutY="520.0" text="12 €" />
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="616.0" layoutY="593.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../sources/copa-ribera.png" />
+                              <Image url="@../sources/agua.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="364.0" layoutY="101.0" text="Copa de Ribera" />
-                        <Label layoutX="452.0" layoutY="122.0" text="cantidad" />
-                        <Button layoutX="407.0" layoutY="120.0" mnemonicParsing="false" text="+" />
-                        <Button layoutX="374.0" layoutY="120.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="24.0" text="-" />
-                        <ImageView fitHeight="46.0" fitWidth="45.0" layoutX="598.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../sources/copa-ribera.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="651.0" layoutY="101.0" text="Copa de Ribera" />
-                        <Label layoutX="739.0" layoutY="122.0" text="cantidad" />
-                        <Button layoutX="694.0" layoutY="120.0" mnemonicParsing="false" text="+" />
-                        <Button layoutX="661.0" layoutY="120.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="24.0" text="-" />
+                        <Label layoutX="710.0" layoutY="625.0" text="AGUA" />
+                        <Label layoutX="791.0" layoutY="625.0" text="1 €" />
                      </children>
                   </AnchorPane>
                </content></Tab>
