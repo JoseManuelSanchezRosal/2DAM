@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ComandaController">
    <children>
-      <SplitPane dividerPositions="0.35" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.3" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <VBox>
                <children>
@@ -26,9 +26,9 @@
                   
                   <TableView fx:id="tablaComanda" VBox.vgrow="ALWAYS">
                      <columns>
-                        <TableColumn fx:id="columnaProducto" prefWidth="150.0" text="Producto" />
-                        <TableColumn fx:id="columnaCantidad" minWidth="0.0" prefWidth="50.0" text="Cant." />
-                        <TableColumn fx:id="columnaSubtotal" prefWidth="70.0" text="Subtotal" />
+                        <TableColumn fx:id="columnaProducto" prefWidth="80.0" text="Producto" />
+                        <TableColumn fx:id="columnaCantidad" minWidth="0.0" prefWidth="20.0" text="Cant." />
+                        <TableColumn fx:id="columnaSubtotal" prefWidth="40.0" text="Subtotal" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -216,7 +216,7 @@
                         <Label layoutX="791.0" layoutY="520.0" text="12 €" />
                         <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="623.0" layoutY="593.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../sources/LUUBINA.jpg" />
+                              <Image url="@../sources/LUBINA.jpg" />
                            </image>
                         </ImageView>
                         <Label layoutX="717.0" layoutY="625.0" text="LUBINA" />
@@ -228,22 +228,22 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #F08080;">
                      <children>
-                        <ImageView fx:id="mesa1" fitHeight="120.0" fitWidth="120.0" layoutX="110.0" layoutY="81.0" onMouseClicked="#mesaClick" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mesa1" fitHeight="120.0" fitWidth="120.0" layoutX="110.0" layoutY="81.0" onMouseClicked="#mesaClick" pickOnBounds="true" preserveRatio="true" styleClass="mesa-pulsable">
                            <image>
                               <Image url="@../sources/mesa.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="mesa2" fitHeight="120.0" fitWidth="120.0" layoutX="290.0" layoutY="81.0" onMouseClicked="#mesaClick" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mesa2" fitHeight="120.0" fitWidth="120.0" layoutX="290.0" layoutY="81.0" onMouseClicked="#mesaClick" pickOnBounds="true" preserveRatio="true" styleClass="mesa-pulsable">
                            <image>
                               <Image url="@../sources/mesa.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="mesa3" fitHeight="120.0" fitWidth="120.0" layoutX="470.0" layoutY="81.0" onMouseClicked="#mesaClick" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mesa3" fitHeight="120.0" fitWidth="120.0" layoutX="470.0" layoutY="81.0" onMouseClicked="#mesaClick" pickOnBounds="true" preserveRatio="true" styleClass="mesa-pulsable">
                            <image>
                               <Image url="@../sources/mesa.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="mesa4" fitHeight="120.0" fitWidth="120.0" layoutX="650.0" layoutY="81.0" onMouseClicked="#mesaClick" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mesa4" fitHeight="120.0" fitWidth="120.0" layoutX="650.0" layoutY="81.0" onMouseClicked="#mesaClick" pickOnBounds="true" preserveRatio="true" styleClass="mesa-pulsable">
                            <image>
                               <Image url="@../sources/mesa.png" />
                            </image>
