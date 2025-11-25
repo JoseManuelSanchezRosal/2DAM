@@ -150,7 +150,7 @@
                            </image>
                         </ImageView>
                         <Label layoutX="222.0" layoutY="410.0" text="BRAVAS" />
-                        <Label layoutX="313.0" layoutY="410.0" text="1 €" />
+                        <Label layoutX="313.0" layoutY="410.0" text="4 €" />
                         <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="377.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../sources/GAMBAS.jpeg" />
@@ -165,7 +165,7 @@
                         </ImageView>
                         <Label layoutX="468.0" layoutY="410.0" text="QUESO" />
                         <Label layoutX="555.0" layoutY="410.0" text="5 €" />
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="622.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="622.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius:: 15px;">
                            <image>
                               <Image url="@../sources/JAMON.jpg" />
                            </image>

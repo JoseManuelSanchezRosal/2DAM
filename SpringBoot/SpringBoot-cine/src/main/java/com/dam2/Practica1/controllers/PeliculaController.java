@@ -1,8 +1,8 @@
 package com.dam2.Practica1.controllers;
 
 
-import com.dam2.Practica1.dto.ImportarPeliculaDto;
-import com.dam2.Practica1.dto.PeliculaDto;
+import com.dam2.Practica1.dto.PeliculaDTO.ImportarPeliculaDto;
+import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
 import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.service.PeliculaService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class PeliculaController {
     private PeliculaService service;
 
     @GetMapping
-    public List<PeliculaDto> listar() {
+    public List<PeliculaDTO> listar() {
         return service.listar();
     }
 

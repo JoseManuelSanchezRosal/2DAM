@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "peliculas")
+@Table(name = "peliculas") // Los nombres en la BBDD, preferiblemente PLURAL
 @Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
 public class Pelicula {
 

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "ficha_tecnica")
+@Table(name = "fichas_tecnicas")
 @Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
 @AllArgsConstructor      // ✅ genera constructor con todos los campos
 @NoArgsConstructor

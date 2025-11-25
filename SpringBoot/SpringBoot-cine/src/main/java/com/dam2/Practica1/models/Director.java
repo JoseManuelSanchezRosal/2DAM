@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "director")
+@Table(name = "directores")
 @Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
 @AllArgsConstructor      // ✅ genera constructor con todos los campos
 @NoArgsConstructor

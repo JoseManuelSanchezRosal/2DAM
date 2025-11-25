@@ -1,6 +1,6 @@
 package com.dam2.Practica1.service;
 
-import com.dam2.Practica1.dto.PeliculaDto;
+import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
 import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.repository.PeliculaRepository;
 import lombok.*;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
+
 import java.util.*;
 import org.springframework.scheduling.annotation.Async;
 import java.util.concurrent.CompletableFuture;
@@ -31,8 +31,8 @@ public class PeliculaService {
     @Qualifier("threadsJurado")
     private ThreadPoolTaskExecutor threadsJurado;
 
-    private PeliculaDto toDTO(Pelicula p){
-        return new PeliculaDto(
+    private PeliculaDTO toDTO(Pelicula p){
+        return new PeliculaDTO(
                 p.getId(),
                 p.getTitulo(),
                 p.getDuracion(),
@@ -57,7 +57,7 @@ public class PeliculaService {
     }
 
 
-    public List<PeliculaDto> listar() {
+    public List<PeliculaDTO> listar() {
         return peliculaRepository.findAll().stream().map(this::toDTO).toList();
     }
 
