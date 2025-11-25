@@ -1,5 +1,6 @@
 package com.dam2.Practica1.service;
 
+import com.dam2.Practica1.dto.PeliculaDTO.PeliculaCreateUpdateDTO;
 import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
 import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.repository.PeliculaRepository;
@@ -56,29 +57,72 @@ public class PeliculaService {
         return peliculas_aux;
     }
 
-
+    //--------------CRUD DTO----------------------------------
+    /**
+     * Metodo que devuelve una lista de PeliculaDTO
+     * peliculaRepository.findAll() ---> 1 Obtiene todas las entidades Pelicula de la base de datos
+     * .stream() -----------------------> 2 Convierte la lista en un Stream para poder procesarla
+     * .map(this::toDTO) ---------------> 3 Transforma cada Pelicula en PeliculaDTO usando el metodo toDTO()
+     * .toList() -----------------------> 4 Convierte el Stream resultante en una lista de PeliculaDTO
+     * @return una List de PeliculasDTO
+     */
     public List<PeliculaDTO> listar() {
-        return peliculaRepository.findAll().stream().map(this::toDTO).toList();
+        return peliculaRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .toList();
     }
 
-    public Pelicula buscarPorId(Long id) {
-        for (Pelicula p : peliculas) {
-            if (p.getId().equals(id)) {
-                return p;
-            }
+    /**
+     * Metodo para buscar una Pelicula por id
+     * peliculaRepository.findById(id) ----> Devuelve la Pelicula o Null (si no encuentra la id)
+     * .map(this::toDTO) ------------------> Si existe, convierte la entidad Pelicula a PeliculaDTO
+     * .orElse(null) ----------------------> Si no encuentra coincidencia, devuelve null
+     * @param id Se pasa por parametro la id a buscar en la bbdd
+     * @return PeliculaDTO si la encuentra, null si no.
+     */
+    public PeliculaDTO buscarPorId(Long id){
+        return peliculaRepository.findById(id)
+                .map(this::toDTO)
+                .orElse(null);
+    }
+
+    // COMENTAR------------------------
+    public PeliculaDTO agregar(PeliculaCreateUpdateDTO peliculaDto) {
+        Pelicula p = new Pelicula();
+        p.setTitulo(peliculaDto.getTitulo());
+        p.setDuracion(peliculaDto.getDuracion());
+        p.setFechaEstreno(peliculaDto.getFechaEstreno());
+        p.setSinopsis(peliculaDto.getSinopsis());
+        p.setValoracion(peliculaDto.getValoracion());
+        peliculaRepository.save(p);
+        return toDTO(p);
+    }
+
+    // COMENTAR-----------------------------------
+    public PeliculaDTO actualizar(Long id, PeliculaCreateUpdateDTO peliculaDto) {
+        Optional<Pelicula> optionalPelicula = peliculaRepository.findById(id);
+        if (!optionalPelicula.isPresent()){
+            throw new RuntimeException("Pelicula no encontrada"); // tambien se podria return null;
         }
-        return null;
-        /*
-        * return peliculas.stream()                 // convierte la lista en un flujo de datos
-        .filter(p -> p.getId().equals(id)) // se queda solo con las películas cuyo id coincide
-        .findFirst()                       // toma la primera coincidencia (si existe)
-        .orElse(null);                     // devuelve esa película o null si no hay
-        * */
+        Pelicula p = optionalPelicula.get();
+        p.setTitulo(peliculaDto.getTitulo());
+        p.setDuracion(peliculaDto.getDuracion());
+        p.setFechaEstreno(peliculaDto.getFechaEstreno());
+        p.setSinopsis(peliculaDto.getSinopsis());
+        p.setValoracion(peliculaDto.getValoracion());
+
+        peliculaRepository.save(p);
+
+        return toDTO(p);
     }
 
-    public void agregar(Pelicula pelicula) {
-        peliculas.add(pelicula);
+    // COMENTAR ---------------------
+    public void eliminar(Long id) {
+        peliculaRepository.deleteById(id);
     }
+
+
 
     // Ejercicio 1.1 Metodo Sync
     public String tareaLentaSync(String titulo) {
@@ -223,4 +267,6 @@ public class PeliculaService {
                 .forEachOrdered(entry -> ranking.put(entry.getKey(), entry.getValue()));
         return ranking;
     }
+
+
 }

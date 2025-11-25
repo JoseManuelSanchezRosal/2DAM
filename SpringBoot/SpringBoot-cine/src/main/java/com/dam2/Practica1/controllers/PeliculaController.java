@@ -2,6 +2,7 @@ package com.dam2.Practica1.controllers;
 
 
 import com.dam2.Practica1.dto.PeliculaDTO.ImportarPeliculaDto;
+import com.dam2.Practica1.dto.PeliculaDTO.PeliculaCreateUpdateDTO;
 import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
 import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.service.PeliculaService;
@@ -21,24 +22,43 @@ public class PeliculaController {
     @Autowired
     private PeliculaService service;
 
+    //---------------FUNCIONALIDAD CRUD CLASE 3 PeliculaDTO-----------------------
+    // GET /peliculas
     @GetMapping
     public List<PeliculaDTO> listar() {
         return service.listar();
     }
 
+    // GET /peliculas/{id}
     @GetMapping("/{id}")
-    public Pelicula buscarPorId(@PathVariable Long id) {
+    public PeliculaDTO buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
+    }
+
+    // POST
+    // COMENTAR ------------------------
+    @PostMapping
+    public PeliculaDTO agregar(@RequestBody PeliculaCreateUpdateDTO peliculaDto) {
+        return service.agregar(peliculaDto);
+    }
+
+    // PUT
+    // COMENTAR -----------------------
+    @PutMapping("/{id}")
+    public PeliculaDTO actualizar(@PathVariable Long id, @RequestBody PeliculaCreateUpdateDTO peliculaDto){
+        return service.actualizar(id, peliculaDto);
+    }
+
+    // DELETE
+    // COMENTAR-----------------------
+    @DeleteMapping("{id}")
+    public void eliminar(@PathVariable Long id){
+        service.eliminar(id);
     }
 
     @GetMapping("/peliculas-mejores")
     public List<Pelicula> mejores_peliculas() {
         return service.mejores_peliculas(5);
-    }
-
-    @PostMapping
-    public void agregar(@RequestBody Pelicula pelicula) {
-        service.agregar(pelicula);
     }
 
     // Ejercicio 1.2 y 1.3

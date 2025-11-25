@@ -10,3 +10,37 @@ Best wishes,
 
 José Manuel
 Team Leader Programmer.
+
+
+
+To all employees
+From Jose Manuel
+Subject: New employee
+
+Dear all,
+As of today we have got a new employee in the company, her name is Meli and she will be working as software programmer. She is 25 years old and she is from palma del rio. She doesn´t have a previous position because she finish her studies right now.
+I´m sure we all wish melisa good luck in her first job.
+
+
+Best wishes,
+Jose Manuel
+Team leader programmer
+
+To: all employees
+From: José Manuel
+Subject: New employee
+
+Dear all,
+As of today, we have got a new employee in the company, her name is Melissa and she will be working as software programmer. She is 25 years old and she is from Palma del Rio. She doesn´t have a previous position because she finish her studies right now.
+I´m sure we all wish Melissa good luck in her first job
+
+Best wishes,
+Jose Manuel,
+Team leader programmer.
+
+
+
+
+
+
+

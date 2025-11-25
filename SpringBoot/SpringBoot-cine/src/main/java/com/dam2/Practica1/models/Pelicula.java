@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "peliculas") // Los nombres en la BBDD, preferiblemente PLURAL
 @Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
-public class Pelicula {
+public class Pelicula { // Los de la clase, en singular
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
