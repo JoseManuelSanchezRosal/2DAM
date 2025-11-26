@@ -111,7 +111,6 @@ public class PeliculaService {
         p.setFechaEstreno(peliculaDto.getFechaEstreno());
         p.setSinopsis(peliculaDto.getSinopsis());
         p.setValoracion(peliculaDto.getValoracion());
-
         peliculaRepository.save(p);
 
         return toDTO(p);
@@ -121,8 +120,6 @@ public class PeliculaService {
     public void eliminar(Long id) {
         peliculaRepository.deleteById(id);
     }
-
-
 
     // Ejercicio 1.1 Metodo Sync
     public String tareaLentaSync(String titulo) {
@@ -267,6 +264,4 @@ public class PeliculaService {
                 .forEachOrdered(entry -> ranking.put(entry.getKey(), entry.getValue()));
         return ranking;
     }
-
-
 }
