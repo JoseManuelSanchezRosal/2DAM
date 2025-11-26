@@ -1,0 +1,19 @@
+WIFI: 192.168.0.1
+
+SSID: DemoCasa/75247881
+admin/admin
+
+YUBII HOME: 
+Cloud:
+a.moreno@synergyatech.com
+pwd: Ant0n1006#1973
+
+YH-00057173
+pwd AP: reGYM2xy
+192.168.0.10
+admin/dN7wN8V.m?
+
+YH-00056667
+pwd AP: 5BFukUdP
+192.168.0.20
+admin/dN7wN8V.m?

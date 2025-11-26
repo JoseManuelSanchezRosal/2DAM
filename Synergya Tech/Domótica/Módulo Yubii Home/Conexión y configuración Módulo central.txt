@@ -1,9 +1,22 @@
+ENTRAR APP Y MODULO
 1- Conectarlo y esperar a led fijo (rojo=no conectado a red, verde=conectado a red). También se puede forzar el modo AP para conexión a través de IP: 
 
 2- Entrar por el cloud de Yubii Home en Fibaro
 3- Entrar en el módulo correspondiente con su admin y contraseña
-4- Para desvincular un dispositivo, entrar en el propio dispositivo desde la app, pulsar en eliminar del dispositivo a desvincular, pulsar modo de exclusión y luego iniciar el protocolo de exclusión, en este caso pulsar 3 veces seguidas el botón del enchufe y listo.
+
+DESVINCULAR DISPOSITIVO (ENCHUFE)
+1- Para desvincular un dispositivo, entrar en el propio dispositivo desde la app.
+2- Pulsar en eliminar el dispositivo a desvincular, luego pulsar modo de exclusión en el PC y luego iniciar el protocolo de exclusión en el enchufe, en este caso pulsar 3 veces seguidas el botón del enchufe y verificar que ya no aparece el mismo en la app.
+
+Se desvinculan:
+1- Enchufe Mesita (en modo exclusión, pulsar 3 veces seguidas)
+2- Boton Escenas o SOS (en modo de exclusión, pulsar 6 veces seguidas)
+3- Mando (en modo exclusión, pulsar "menos" y "circulo" a la vez, luego "triangulo" o "cruz" hasta que el led se ilumine en verde, por último pulsar "mas" y esperar proceso de eliminación)
+4- Sensor Movimiento (pulsar 3 veces seguidas en modo exclusión)
+5- Sensor Humo
 
 
-5- Conectar el enchufe al otro módulo Yubii
+VINCULAR DISPOSITIVO
+En modo de vinculación -->> pulsar 3 veces el botón B
+
 

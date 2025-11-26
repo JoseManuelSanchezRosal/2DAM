@@ -1,0 +1,42 @@
+package com.dam2.Practica1.controllers;
+
+import com.dam2.Practica1.dto.DirectorDTO.DirectorCreateUpdateDTO;
+import com.dam2.Practica1.dto.DirectorDTO.DirectorDTO;
+import com.dam2.Practica1.service.DirectorService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/director")
+@RequiredArgsConstructor
+
+public class DirectorController {
+    private DirectorService service;
+
+    @GetMapping
+    private List<DirectorDTO> listar(){
+        return service.listar();
+    }
+
+    @GetMapping("/{id}")
+    private DirectorDTO buscarPorId(@PathVariable Long id){
+        return service.buscarPorId(id);
+    }
+
+    @PostMapping
+    private DirectorDTO agregar(@RequestBody DirectorCreateUpdateDTO directorDto){
+        service.agregar(directorDto);
+    }
+
+    @PutMapping("/{id}")
+    private DirectorDTO actualizar(@PathVariable Long id, @RequestBody DirectorCreateUpdateDTO directorDto){
+        return service.actualizar(id, directorDto);
+    }
+
+    @DeleteMapping("/{id}")
+    private void eliminar(@PathVariable Long id){
+        service.eliminar(id);
+    }
+}

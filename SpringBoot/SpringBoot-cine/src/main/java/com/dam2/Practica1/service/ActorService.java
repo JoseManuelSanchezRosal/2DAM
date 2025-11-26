@@ -41,8 +41,11 @@ public class ActorService {
 
     public ActorDTO agregar(ActorCreateUpdateDTO actorDto) {
         Actor a = new Actor();
+
         a.setNombre(actorDto.getNombre());
+
         actorRepository.save(a);
+
         return toDTO(a);
     }
 
