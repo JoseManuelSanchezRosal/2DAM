@@ -3,6 +3,7 @@ package com.dam2.Practica1.controllers;
 import com.dam2.Practica1.dto.IdiomaDTO.IdiomaCreateUpdateDTO;
 import com.dam2.Practica1.dto.IdiomaDTO.IdiomaDTO;
 import com.dam2.Practica1.service.IdiomaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +29,12 @@ public class IdiomaController {
     }
 
     @PostMapping
-    private IdiomaDTO agregar(IdiomaCreateUpdateDTO idiomaDto){
+    private IdiomaDTO agregar(@RequestBody @Valid IdiomaCreateUpdateDTO idiomaDto){
         return service.agregar(idiomaDto);
     }
 
     @PutMapping("/{id}")
-    private IdiomaDTO actualizar(@PathVariable Long id, IdiomaCreateUpdateDTO idiomaDto){
+    private IdiomaDTO actualizar(@PathVariable Long id, @RequestBody @Valid IdiomaCreateUpdateDTO idiomaDto){
        return service.actualizar(id, idiomaDto);
     }
 

@@ -3,6 +3,7 @@ package com.dam2.Practica1.controllers;
 import com.dam2.Practica1.dto.PlataformaDTO.PlataformaCreateUpdateDTO;
 import com.dam2.Practica1.dto.PlataformaDTO.PlataformaDTO;
 import com.dam2.Practica1.service.PlataformaService;
+import jakarta.validation.Valid;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,12 @@ public class PlataformaController {
     }
 
     @PostMapping
-    private PlataformaDTO agregar(@RequestBody PlataformaCreateUpdateDTO plataformaDto){
+    private PlataformaDTO agregar(@RequestBody @Valid PlataformaCreateUpdateDTO plataformaDto){
         return service.agregar(plataformaDto);
     }
 
     @PutMapping("/{id}")
-    private PlataformaDTO actualizar(@PathVariable Long id, PlataformaCreateUpdateDTO plataformaDto){
+    private PlataformaDTO actualizar(@PathVariable Long id, @RequestBody @Valid PlataformaCreateUpdateDTO plataformaDto){
         return service.actualizar(id, plataformaDto);
     }
 

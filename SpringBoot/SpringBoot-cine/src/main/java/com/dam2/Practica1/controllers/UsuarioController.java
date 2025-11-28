@@ -4,6 +4,7 @@ package com.dam2.Practica1.controllers;
 import com.dam2.Practica1.dto.UsuarioDTO.UsuarioCreateUpdateDTO;
 import com.dam2.Practica1.dto.UsuarioDTO.UsuarioDTO;
 import com.dam2.Practica1.service.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.aop.target.LazyInitTargetSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public UsuarioDTO agregar(@RequestBody UsuarioCreateUpdateDTO usuarioDto){
+    public UsuarioDTO agregar(@RequestBody @Valid UsuarioCreateUpdateDTO usuarioDto){
         return service.agregar(usuarioDto);
     }
 
     @PutMapping("/{id}")
-    public UsuarioDTO actualizar(@PathVariable Long id, @RequestBody UsuarioCreateUpdateDTO usuarioDto){
+    public UsuarioDTO actualizar(@PathVariable Long id, @RequestBody @Valid UsuarioCreateUpdateDTO usuarioDto){
         return service.actualizar(id, usuarioDto);
     }
 

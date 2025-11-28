@@ -3,6 +3,7 @@ package com.dam2.Practica1.controllers;
 import com.dam2.Practica1.dto.DirectorDTO.DirectorCreateUpdateDTO;
 import com.dam2.Practica1.dto.DirectorDTO.DirectorDTO;
 import com.dam2.Practica1.service.DirectorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,12 @@ public class DirectorController {
     }
 
     @PostMapping
-    private DirectorDTO agregar(@RequestBody DirectorCreateUpdateDTO directorDto){
+    private DirectorDTO agregar(@RequestBody @Valid DirectorCreateUpdateDTO directorDto){
         return service.agregar(directorDto);
     }
 
     @PutMapping("/{id}")
-    private DirectorDTO actualizar(@PathVariable Long id, @RequestBody DirectorCreateUpdateDTO directorDto){
+    private DirectorDTO actualizar(@PathVariable Long id, @RequestBody @Valid DirectorCreateUpdateDTO directorDto){
         return service.actualizar(id, directorDto);
     }
 

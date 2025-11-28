@@ -3,6 +3,7 @@ package com.dam2.Practica1.controllers;
 import com.dam2.Practica1.dto.CategoriaDTO.CategoriaCreateUpdateDTO;
 import com.dam2.Practica1.dto.CategoriaDTO.CategoriaDTO;
 import com.dam2.Practica1.service.CategoriaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +31,12 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public CategoriaDTO agregar(@RequestBody CategoriaCreateUpdateDTO categoriaDto){
+    public CategoriaDTO agregar(@RequestBody @Valid CategoriaCreateUpdateDTO categoriaDto){
         return service.agregar(categoriaDto);
     }
 
     @PutMapping("{id}")
-    public CategoriaDTO actualizar(@PathVariable Long id, @RequestBody CategoriaCreateUpdateDTO categoriaDto){
+    public CategoriaDTO actualizar(@PathVariable Long id, @RequestBody @Valid CategoriaCreateUpdateDTO categoriaDto){
         return service.actualizar(id, categoriaDto);
     }
 

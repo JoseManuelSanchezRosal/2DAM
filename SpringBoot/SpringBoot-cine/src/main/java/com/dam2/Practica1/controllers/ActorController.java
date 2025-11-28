@@ -3,6 +3,7 @@ package com.dam2.Practica1.controllers;
 import com.dam2.Practica1.dto.ActorDTO.ActorCreateUpdateDTO;
 import com.dam2.Practica1.dto.ActorDTO.ActorDTO;
 import com.dam2.Practica1.service.ActorService;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,12 @@ public class ActorController {
     }
 
     @PostMapping
-    public ActorDTO agregar(@RequestBody ActorCreateUpdateDTO actorDto){
+    public ActorDTO agregar(@RequestBody @Valid ActorCreateUpdateDTO actorDto){
         return service.agregar(actorDto);
     }
 
     @PutMapping("{id}")
-    public ActorDTO actualizar(@PathVariable Long id, @RequestBody ActorCreateUpdateDTO actorDto){
+    public ActorDTO actualizar(@PathVariable Long id, @RequestBody @Valid ActorCreateUpdateDTO actorDto){
         return service.actualizar(id, actorDto);
     }
 

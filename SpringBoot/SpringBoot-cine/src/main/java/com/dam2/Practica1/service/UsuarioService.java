@@ -1,15 +1,12 @@
 package com.dam2.Practica1.service;
 
-import com.dam2.Practica1.dto.CategoriaDTO.CategoriaDTO;
 import com.dam2.Practica1.dto.UsuarioDTO.UsuarioCreateUpdateDTO;
 import com.dam2.Practica1.dto.UsuarioDTO.UsuarioDTO;
 import com.dam2.Practica1.models.Usuario;
 import com.dam2.Practica1.repository.UsuarioRepository;
 import lombok.Getter;
-import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +46,7 @@ public class UsuarioService {
         u.setUserName(usuarioDto.getUserName());
         u.setEmail(usuarioDto.getEmail());
         u.setPassword(usuarioDto.getPassword());
-        u.getRol(usuarioDto.getRol();
+        u.setRol(usuarioDto.getRol());
         usuarioRepository.save(u);
 
         return toDTO(u);
@@ -71,6 +68,6 @@ public class UsuarioService {
     }
 
     public void eliminar(Long id) {
-        usuarioRepository.delete(id);
+        usuarioRepository.deleteById(id);
     }
 }

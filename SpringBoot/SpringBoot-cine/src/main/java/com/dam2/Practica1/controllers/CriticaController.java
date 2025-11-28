@@ -3,6 +3,7 @@ package com.dam2.Practica1.controllers;
 import com.dam2.Practica1.dto.CriticaDTO.CriticaCreateUpdateDTO;
 import com.dam2.Practica1.dto.CriticaDTO.CriticaDTO;
 import com.dam2.Practica1.service.CriticaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +30,12 @@ public class CriticaController {
     }
 
     @PostMapping("/{id}")
-    private CriticaDTO agregar(@RequestBody CriticaCreateUpdateDTO criticaDto){
+    private CriticaDTO agregar(@RequestBody @Valid CriticaCreateUpdateDTO criticaDto){
         return service.agregar(criticaDto);
     }
 
     @PutMapping("/{id}")
-    private CriticaDTO actualizar(@PathVariable Long id, @RequestBody CriticaCreateUpdateDTO criticaDto){
+    private CriticaDTO actualizar(@PathVariable Long id, @RequestBody @Valid CriticaCreateUpdateDTO criticaDto){
         return service.actualizar(id, criticaDto);
     }
 

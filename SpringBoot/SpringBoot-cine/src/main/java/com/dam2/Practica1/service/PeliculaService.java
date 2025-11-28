@@ -4,14 +4,22 @@ import com.dam2.Practica1.dto.PeliculaDTO.PeliculaCreateUpdateDTO;
 import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
 import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.repository.PeliculaRepository;
+
+import jakarta.validation.Valid;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.util.*;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.concurrent.CompletableFuture;
 import java.io.*;
 import java.nio.file.Files;
@@ -43,20 +51,6 @@ public class PeliculaService {
         );
     }
 
-
-    private final List<Pelicula> peliculas = new ArrayList<>();
-    /*private final PeliculaRepository peliculaRepository;*/
-
-    public List<Pelicula> mejores_peliculas(int valoracion){
-        List<Pelicula> peliculas_aux= new ArrayList<>();
-        for (Pelicula p : peliculas) {
-            if (p.getValoracion()>=valoracion) {
-                peliculas_aux.add(p);
-            }
-        }
-        return peliculas_aux;
-    }
-
     //--------------CRUD DTO----------------------------------
     /**
      * Metodo que devuelve una lista de PeliculaDTO
@@ -66,6 +60,7 @@ public class PeliculaService {
      * .toList() -----------------------> 4 Convierte el Stream resultante en una lista de PeliculaDTO
      * @return una List de PeliculasDTO
      */
+    @Transactional(readOnly = true)
     public List<PeliculaDTO> listar() {
         return peliculaRepository.findAll()
                 .stream()
@@ -81,6 +76,7 @@ public class PeliculaService {
      * @param id Se pasa por parametro la id a buscar en la bbdd
      * @return PeliculaDTO si la encuentra, null si no.
      */
+    @Transactional(readOnly = true)
     public PeliculaDTO buscarPorId(Long id){
         return peliculaRepository.findById(id)
                 .map(this::toDTO)
@@ -88,7 +84,8 @@ public class PeliculaService {
     }
 
     // COMENTAR------------------------
-    public PeliculaDTO agregar(PeliculaCreateUpdateDTO peliculaDto) {
+    @Transactional
+    public PeliculaDTO agregar(@RequestBody @Valid PeliculaCreateUpdateDTO peliculaDto) {
         Pelicula p = new Pelicula();
         p.setTitulo(peliculaDto.getTitulo());
         p.setDuracion(peliculaDto.getDuracion());
@@ -100,7 +97,8 @@ public class PeliculaService {
     }
 
     // COMENTAR-----------------------------------
-    public PeliculaDTO actualizar(Long id, PeliculaCreateUpdateDTO peliculaDto) {
+    @Transactional
+    public PeliculaDTO actualizar(@PathVariable Long id,@RequestBody @Valid PeliculaCreateUpdateDTO peliculaDto) {
         Optional<Pelicula> optionalPelicula = peliculaRepository.findById(id);
         if (!optionalPelicula.isPresent()){
             throw new RuntimeException("Pelicula no encontrada"); // tambien se podria return null;
@@ -117,6 +115,7 @@ public class PeliculaService {
     }
 
     // COMENTAR ---------------------
+    @Transactional
     public void eliminar(Long id) {
         peliculaRepository.deleteById(id);
     }

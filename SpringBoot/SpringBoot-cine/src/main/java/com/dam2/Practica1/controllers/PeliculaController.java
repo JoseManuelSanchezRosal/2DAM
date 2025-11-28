@@ -6,6 +6,7 @@ import com.dam2.Practica1.dto.PeliculaDTO.PeliculaCreateUpdateDTO;
 import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
 import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.service.PeliculaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,14 +40,14 @@ public class PeliculaController {
     // POST
     // COMENTAR ------------------------
     @PostMapping
-    public PeliculaDTO agregar(@RequestBody PeliculaCreateUpdateDTO peliculaDto) {
+    public PeliculaDTO agregar(@RequestBody @Valid PeliculaCreateUpdateDTO peliculaDto) {
         return service.agregar(peliculaDto);
     }
 
     // PUT
     // COMENTAR -----------------------
     @PutMapping("/{id}")
-    public PeliculaDTO actualizar(@PathVariable Long id, @RequestBody PeliculaCreateUpdateDTO peliculaDto){
+    public PeliculaDTO actualizar(@PathVariable Long id, @RequestBody @Valid PeliculaCreateUpdateDTO peliculaDto){
         return service.actualizar(id, peliculaDto);
     }
 
@@ -57,10 +58,6 @@ public class PeliculaController {
         service.eliminar(id);
     }
 
-    @GetMapping("/peliculas-mejores")
-    public List<Pelicula> mejores_peliculas() {
-        return service.mejores_peliculas(5);
-    }
 
     // Ejercicio 1.2 y 1.3
     @GetMapping("/procesar")
