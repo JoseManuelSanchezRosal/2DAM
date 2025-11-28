@@ -1,0 +1,13 @@
+1- Introducción -------------ok
+2- Definición del problema---ok
+3- Objetivos-----------------ok
+4- Antecedentes--------------ok
+5- Recursos------------------ok
+6- Bibliografía-------------falta
+
+
+
+Recuperación JavaScript
+hasta 8.5 puntos. Ejercicios (4 problemas mas 1 ejercicio de clases) 
+
+subida de nota tipo test (subir 1.5 hacerlo)

@@ -1,0 +1,17 @@
+para entregar el domingo
+
+3 entidades crud completo
+pelicula perfecto
+director
+actor
+validaciones @valid en CreateUpdateDTO
+
+mapeadas
+
+examen
+mapeado
+relaciones
+endpoints
+pooltask
+
+                                                                              

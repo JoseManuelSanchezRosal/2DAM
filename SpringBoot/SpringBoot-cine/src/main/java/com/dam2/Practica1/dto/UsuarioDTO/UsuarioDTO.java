@@ -16,5 +16,6 @@ public class UsuarioDTO {
     private Long id;
     private String userName;
     private String email;
-    private boolean administrador;
+    private String password;
+    private String rol;
 }

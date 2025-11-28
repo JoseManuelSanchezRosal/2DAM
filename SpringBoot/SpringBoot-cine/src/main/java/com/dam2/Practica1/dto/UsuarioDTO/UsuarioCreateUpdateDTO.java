@@ -12,5 +12,5 @@ public class UsuarioCreateUpdateDTO {
     private String userName;
     private String email;
     private String password; // Se incluye para poder ser creada/modificada por el ususario
-    private boolean administrador;
+    private String rol;
 }

@@ -19,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/peliculas")
 @RequiredArgsConstructor
 public class PeliculaController {
+
     @Autowired
     private PeliculaService service;
 

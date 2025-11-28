@@ -4,6 +4,7 @@ import com.dam2.Practica1.dto.CriticaDTO.CriticaCreateUpdateDTO;
 import com.dam2.Practica1.dto.CriticaDTO.CriticaDTO;
 import com.dam2.Practica1.service.CriticaService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class CriticaController {
+
+    @Autowired
     private CriticaService service;
 
     @GetMapping

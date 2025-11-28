@@ -23,5 +23,5 @@ public class Usuario {
     private String password;
 
     @Column(nullable = false, length = 120)
-    private boolean administrador;
+    private String rol;
 }

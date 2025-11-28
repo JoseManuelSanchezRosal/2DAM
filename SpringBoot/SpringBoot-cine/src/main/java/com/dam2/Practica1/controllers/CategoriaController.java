@@ -1,13 +1,10 @@
 package com.dam2.Practica1.controllers;
 
-import com.dam2.Practica1.dto.ActorDTO.ActorCreateUpdateDTO;
-import com.dam2.Practica1.dto.ActorDTO.ActorDTO;
 import com.dam2.Practica1.dto.CategoriaDTO.CategoriaCreateUpdateDTO;
 import com.dam2.Practica1.dto.CategoriaDTO.CategoriaDTO;
-import com.dam2.Practica1.service.ActorService;
 import com.dam2.Practica1.service.CategoriaService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,6 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class CategoriaController {
+
+    @Autowired
     private CategoriaService service;
 
     //----------CRUD ACTOR-----------
@@ -29,6 +28,7 @@ public class CategoriaController {
     public CategoriaDTO buscarPorId(@PathVariable Long id){
         return service.buscarPorId(id);
     }
+
     @PostMapping
     public CategoriaDTO agregar(@RequestBody CategoriaCreateUpdateDTO categoriaDto){
         return service.agregar(categoriaDto);

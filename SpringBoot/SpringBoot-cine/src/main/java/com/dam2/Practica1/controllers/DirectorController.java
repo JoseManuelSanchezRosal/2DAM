@@ -4,6 +4,7 @@ import com.dam2.Practica1.dto.DirectorDTO.DirectorCreateUpdateDTO;
 import com.dam2.Practica1.dto.DirectorDTO.DirectorDTO;
 import com.dam2.Practica1.service.DirectorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class DirectorController {
+
+    @Autowired
     private DirectorService service;
 
     @GetMapping
@@ -27,7 +30,7 @@ public class DirectorController {
 
     @PostMapping
     private DirectorDTO agregar(@RequestBody DirectorCreateUpdateDTO directorDto){
-        service.agregar(directorDto);
+        return service.agregar(directorDto);
     }
 
     @PutMapping("/{id}")
