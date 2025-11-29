@@ -15,6 +15,7 @@ import java.util.Optional;
 @Getter
 
 public class DirectorService {
+
     @Autowired
     DirectorRepository directorRepository;
 
@@ -40,7 +41,10 @@ public class DirectorService {
 
     public DirectorDTO agregar(DirectorCreateUpdateDTO directorDto) {
         Director d = new Director();
-        d.setNombre(d.getNombre());
+        d.setNombre(directorDto.getNombre());
+
+        directorRepository.save(d);
+
         return toDTO(d);
     }
 
@@ -50,6 +54,8 @@ public class DirectorService {
             throw new RuntimeException("Director no encontrado");
         }
         Director d = optionalDirector.get();
+        directorRepository.save(d);
+
         d.setNombre(directorDto.getNombre());
 
         return toDTO(d);

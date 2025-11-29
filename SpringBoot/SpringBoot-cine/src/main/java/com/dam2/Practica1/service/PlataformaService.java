@@ -45,6 +45,7 @@ public class PlataformaService {
         Plataforma p = new Plataforma();
         p.setNombre(plataformaDto.getNombre());
         p.setUrl(plataformaDto.getUrl());
+
         plataformaRepository.save(p);
 
         return toDTO(p);
@@ -55,10 +56,10 @@ public class PlataformaService {
         if (!optionalPlataforma.isPresent()) {
             throw new RuntimeException("Plataforma no encontrada");
         }
-
         Plataforma p = optionalPlataforma.get();
         p.setNombre(plataformaDto.getNombre());
         p.setUrl(plataformaDto.getUrl());
+
         plataformaRepository.save(p);
 
         return toDTO(p);

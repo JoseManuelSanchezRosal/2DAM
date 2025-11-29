@@ -1,0 +1,6 @@
+Mostrar contenedores activos: docker ps
+Mostrar todos los contenedores: docker ps -a
+Crear y arrancar un contenedor: docker run ... (imagen) ...
+Eliminar contenedor: docker rm (nombre o ID del contenedor)
+Mirar imágenes: docker images
+Eliminar imagen: docker rmi (nombre imagen)

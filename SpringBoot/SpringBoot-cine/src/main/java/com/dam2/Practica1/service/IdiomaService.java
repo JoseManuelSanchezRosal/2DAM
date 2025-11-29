@@ -45,6 +45,7 @@ public class IdiomaService {
     public IdiomaDTO agregar(IdiomaCreateUpdateDTO idiomaDto) {
         Idioma i = new Idioma();
         i.setNombre(idiomaDto.getNombre());
+        idiomaRepository.save(i);
         return toDTO(i);
     }
 
@@ -55,7 +56,9 @@ public class IdiomaService {
         }
         Idioma i = optionalIdioma.get();
         i.setNombre(idiomaDto.getNombre());
+
         idiomaRepository.save(i);
+
         return toDTO(i);
     }
 

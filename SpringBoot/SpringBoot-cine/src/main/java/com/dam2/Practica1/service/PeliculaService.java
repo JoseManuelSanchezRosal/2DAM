@@ -4,22 +4,17 @@ import com.dam2.Practica1.dto.PeliculaDTO.PeliculaCreateUpdateDTO;
 import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
 import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.repository.PeliculaRepository;
-
 import jakarta.validation.Valid;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-
-import java.beans.Transient;
 import java.util.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.concurrent.CompletableFuture;
 import java.io.*;
 import java.nio.file.Files;

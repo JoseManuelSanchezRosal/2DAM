@@ -7,7 +7,6 @@ import com.dam2.Practica1.repository.ActorRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +40,6 @@ public class ActorService {
 
     public ActorDTO agregar(ActorCreateUpdateDTO actorDto) {
         Actor a = new Actor();
-
         a.setNombre(actorDto.getNombre());
 
         actorRepository.save(a);
@@ -56,6 +54,7 @@ public class ActorService {
         }
         Actor a = optionalActor.get();
         a.setNombre(actorDto.getNombre());
+
         actorRepository.save(a);
 
         return toDTO(a);

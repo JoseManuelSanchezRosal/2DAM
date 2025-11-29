@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/director")
+@RequestMapping("/api/directores")
 @RequiredArgsConstructor
-
 public class DirectorController {
-
     @Autowired
     private DirectorService service;
 

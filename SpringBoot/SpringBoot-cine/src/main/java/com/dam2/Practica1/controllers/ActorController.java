@@ -4,8 +4,9 @@ import com.dam2.Practica1.dto.ActorDTO.ActorCreateUpdateDTO;
 import com.dam2.Practica1.dto.ActorDTO.ActorDTO;
 import com.dam2.Practica1.service.ActorService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class ActorController {
+
+    @Autowired
     private ActorService service;
 
     //----------CRUD ACTOR-----------

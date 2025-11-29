@@ -12,48 +12,38 @@
 
 <AnchorPane id="AnchorPane" prefHeight="721.0" prefWidth="989.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TPVController">
    <children>
-      <TabPane fx:id="tab" nodeOrientation="LEFT_TO_RIGHT" prefHeight="721.0" prefWidth="989.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMinHeight="90.0" tabMinWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="tab" nodeOrientation="LEFT_TO_RIGHT" prefHeight="721.0" prefWidth="989.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMinHeight="80.0" tabMinWidth="220.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab id="home" styleClass="botonesMenu">
                <content>
                   <AnchorPane prefHeight="631.0" prefWidth="989.0" style="-fx-background-color: #90EE90;">
                      <children>
-                        <Label layoutX="166.0" layoutY="81.0" prefHeight="20.0" prefWidth="453.0" text="HOME: aquí encontrará una pequeña guía de Usabilidad de la aplicación">
+                        <Label layoutX="166.0" layoutY="107.0" prefHeight="20.0" prefWidth="453.0" text="HOME: aquí encontrará una pequeña guía de Usabilidad de la aplicación">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="71.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="71.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../sources/flecha.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="166.0" layoutY="251.0" prefHeight="20.0" prefWidth="453.0" text="CARTA: para ver la carta del Restaurante">
+                        <Label layoutX="166.0" layoutY="341.0" prefHeight="20.0" prefWidth="453.0" text="CARTA: para ver la carta del Restaurante">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="71.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="71.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../sources/flecha.png" />
                            </image>
                         </ImageView>
-                        <Label layoutX="166.0" layoutY="439.0" prefHeight="20.0" prefWidth="453.0" text="RESTAURANTE: para ver las mesas y llevar las comandas">
+                        <Label layoutX="166.0" layoutY="588.0" prefHeight="20.0" prefWidth="453.0" text="RESTAURANTE: para ver las mesas y llevar las comandas">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="71.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../sources/flecha.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="166.0" layoutY="601.0" prefHeight="20.0" prefWidth="453.0" text="INVENTARIO: para poder ver y modificar el Stock">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="71.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="71.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../sources/flecha.png" />
                            </image>
@@ -258,20 +248,6 @@
                            </font>
                         </Label>
                         <AnchorPane fx:id="comandaContainer" layoutX="30.0" layoutY="219.0" prefHeight="489.0" prefWidth="838.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="220.0" />
-                     </children></AnchorPane>
-               </content></Tab>
-          <Tab id="inventario" styleClass="botonesMenu">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" />
-               </content>
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FFFACD;">
-                     <children>
-                        <Label layoutX="395.0" layoutY="14.0" text="INVENTARIO">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
                      </children></AnchorPane>
                </content></Tab>
         </tabs>

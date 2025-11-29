@@ -5,6 +5,7 @@ pelicula perfecto
 director
 actor
 validaciones @valid en CreateUpdateDTO
+crear carpeta collection de peticiones de Postman para el crudJos
 
 mapeadas
 
@@ -13,5 +14,10 @@ mapeado
 relaciones
 endpoints
 pooltask
+                                                        
+MIRAR COMO EXPORTAR CARPETA POSTMAN PETICIONES
+  
 
-                                                                              
+ME falta
+Esquemas E-R
+Mapeado a bbdd de las entidades y sus relaciones

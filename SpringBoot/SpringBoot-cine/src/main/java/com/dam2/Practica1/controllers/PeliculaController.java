@@ -1,16 +1,13 @@
 package com.dam2.Practica1.controllers;
 
-
 import com.dam2.Practica1.dto.PeliculaDTO.ImportarPeliculaDto;
 import com.dam2.Practica1.dto.PeliculaDTO.PeliculaCreateUpdateDTO;
 import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
-import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.service.PeliculaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +16,7 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/api/peliculas")
 @RequiredArgsConstructor
+
 public class PeliculaController {
 
     @Autowired

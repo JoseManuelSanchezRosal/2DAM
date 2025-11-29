@@ -41,7 +41,9 @@ public class CategoriaService {
     public CategoriaDTO agregar(CategoriaCreateUpdateDTO categoriaDto) {
         Categoria c = new Categoria();
         c.setNombre(categoriaDto.getNombre());
+
         categoriaRepository.save(c);
+
         return toDTO(c);
     }
 
@@ -52,6 +54,7 @@ public class CategoriaService {
         }
         Categoria c = optionalCategoria.get();
         c.setNombre(categoriaDto.getNombre());
+
         categoriaRepository.save(c);
 
         return toDTO(c);

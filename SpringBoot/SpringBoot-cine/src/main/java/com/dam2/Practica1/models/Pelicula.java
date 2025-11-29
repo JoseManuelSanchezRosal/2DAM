@@ -29,10 +29,6 @@ public class Pelicula { // Los de la clase, en singular
 
     private int valoracion;
 
-    @OneToOne
-    @JoinColumn(name = "ficha_id") // FK en la tabla Pelicula
-    private FichaTecnica fichaTecnica;
-
     @ManyToOne
     @JoinColumn(name = "director_id", nullable = true) // FK en PELICULA (nullable a true para dejar meter pelis sin director)
     @JsonManagedReference // Lado principal para Json
@@ -42,14 +38,13 @@ public class Pelicula { // Los de la clase, en singular
     private List<Actor> actors = new ArrayList<>();
     @JsonIgnore // No saque actores
 
-    public Pelicula(Long id, String titulo, int duracion, LocalDate fechaEstreno, String sinopsis, int valoracion, FichaTecnica fichaTecnica, Director director, List<Actor> actors) {
+    public Pelicula(Long id, String titulo, int duracion, LocalDate fechaEstreno, String sinopsis, int valoracion, Director director, List<Actor> actors) {
         this.id = id;
         this.titulo = titulo;
         this.duracion = duracion;
         this.fechaEstreno = fechaEstreno;
         this.sinopsis = sinopsis;
         this.valoracion = valoracion;
-        this.fichaTecnica = fichaTecnica;
         this.director = director;
         this.actors = actors;
     }
@@ -103,14 +98,6 @@ public class Pelicula { // Los de la clase, en singular
 
     public void setValoracion(int valoracion) {
         this.valoracion = valoracion;
-    }
-
-    public FichaTecnica getFichaTecnica() {
-        return fichaTecnica;
-    }
-
-    public void setFichaTecnica(FichaTecnica fichaTecnica) {
-        this.fichaTecnica = fichaTecnica;
     }
 
     public Director getDirector() {

@@ -8,12 +8,10 @@ import lombok.Data;
 @Table(name = "idiomas")
 @Data
 public class Idioma {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = true, length = 120, unique = true)
     private String nombre;
-
 }

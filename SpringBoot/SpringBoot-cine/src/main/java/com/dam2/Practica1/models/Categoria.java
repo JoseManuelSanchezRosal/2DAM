@@ -1,7 +1,6 @@
 package com.dam2.Practica1.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity

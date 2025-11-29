@@ -47,6 +47,7 @@ public class UsuarioService {
         u.setEmail(usuarioDto.getEmail());
         u.setPassword(usuarioDto.getPassword());
         u.setRol(usuarioDto.getRol());
+
         usuarioRepository.save(u);
 
         return toDTO(u);
@@ -62,6 +63,7 @@ public class UsuarioService {
         u.setEmail(usuarioDto.getEmail());
         u.setPassword(usuarioDto.getPassword());
         u.setRol(usuarioDto.getRol());
+
         usuarioRepository.save(u);
 
         return toDTO(u);
