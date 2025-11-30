@@ -18,3 +18,4 @@ c.setComentario(criticaDto.getComentario());
 No cogia los datos de nota y fecha desde el CreateUpdatedDTO, sino del objeto c.....MALLLLLLLL
 
 3- Cardinalidades, es mejor poner (0,n) para poder tener registrados actores y mas tarde, asignarle una pelicula y viceversa
+EN EL DOMINIO DE MI PROBLEMA, PUEDO DAR DE ALTA PELICULAS QUE NO TENGAN CRITICAS, POR EJEMPLO

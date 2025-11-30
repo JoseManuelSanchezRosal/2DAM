@@ -1,15 +1,17 @@
 para entregar el domingo
 
-3 entidades crud completo----------------------hecho
-pelicula perfecto------------------------------hecho
-director---------------------------------------hecho
-actor------------------------------------------hecho
-validaciones @valid en CreateUpdateDTO---------hecho
-collection en postman y compartir carpeta------hecho
-video MAPPED-----------------------------------FALTA
-mapeadas---------------------------------------FALTA
-esquema E-R------------------------------------FALTA
-PONER BONITO CUANDO ALGUN UPDATE se pone mal---HECHO
+8(pide3) entidades crud completo---------------------hecho
+pelicula perfecto------------------------------------hecho
+director---------------------------------------------hecho
+actor------------------------------------------------hecho
+validaciones @valid en CreateUpdateDTO---------------hecho
+collection en postman y compartir carpeta------------hecho
+
+video MAPPED-----------------------------------------FALTA
+mapeadas---------------------------------------------FALTA
+
+esquema E-R------------------------------------------HECHO
+PONER BONITO CUANDO ALGUN UPDATE se pone mal---------HECHO
 >> Crear un BlobalExceptionHandler
 
 
@@ -25,7 +27,3 @@ pooltask
 MIRAR COMO EXPORTAR 
   
 
-ME falta:
-Esquemas E-R
-Mapeado a bbdd de las entidades y sus relaciones
-Video
