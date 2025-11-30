@@ -1,0 +1,20 @@
+Problemas encontrados durante la puesta en marcha del proyecto de CINE en SPB
+1- Guardado en UPDATED Director DTO: hacia directorRepository.save(d)
+antes del d.setNombre(directorDto.getNombre()). con lo que nunca lo actualizaba n la bbdd
+
+2-En CriticaService, cuando hago esto: 
+c.setComentario(criticaDto.getComentario());
+        c.setNota(criticaDto.getNota());
+        c.setFecha(criticaDto.getFecha());
+
+        criticaRepository.save(c);
+hacia:
+c.setComentario(criticaDto.getComentario());
+        c.setNota(c.getNota());
+        c.setFecha(c.getFecha());
+
+        criticaRepository.save(c);
+
+No cogia los datos de nota y fecha desde el CreateUpdatedDTO, sino del objeto c.....MALLLLLLLL
+
+3- Cardinalidades, es mejor poner (0,n) para poder tener registrados actores y mas tarde, asignarle una pelicula y viceversa

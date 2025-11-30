@@ -46,8 +46,8 @@ public class CriticaService {
         Critica c = new Critica();
 
         c.setComentario(criticaDto.getComentario());
-        c.setNota(c.getNota());
-        c.setFecha(c.getFecha());
+        c.setNota(criticaDto.getNota());
+        c.setFecha(criticaDto.getFecha());
 
         criticaRepository.save(c);
 

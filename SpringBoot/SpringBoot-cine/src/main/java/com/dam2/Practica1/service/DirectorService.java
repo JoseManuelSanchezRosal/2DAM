@@ -54,9 +54,10 @@ public class DirectorService {
             throw new RuntimeException("Director no encontrado");
         }
         Director d = optionalDirector.get();
+        d.setNombre(directorDto.getNombre());
+
         directorRepository.save(d);
 
-        d.setNombre(directorDto.getNombre());
 
         return toDTO(d);
     }

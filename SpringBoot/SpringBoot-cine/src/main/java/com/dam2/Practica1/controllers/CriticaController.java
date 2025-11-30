@@ -29,7 +29,7 @@ public class CriticaController {
         return service.buscarPorId(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping
     private CriticaDTO agregar(@RequestBody @Valid CriticaCreateUpdateDTO criticaDto){
         return service.agregar(criticaDto);
     }

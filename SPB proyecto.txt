@@ -1,23 +1,31 @@
 para entregar el domingo
 
-3 entidades crud completo
-pelicula perfecto
-director
-actor
-validaciones @valid en CreateUpdateDTO
-crear carpeta collection de peticiones de Postman para el crudJos
+3 entidades crud completo----------------------hecho
+pelicula perfecto------------------------------hecho
+director---------------------------------------hecho
+actor------------------------------------------hecho
+validaciones @valid en CreateUpdateDTO---------hecho
+collection en postman y compartir carpeta------hecho
+video MAPPED-----------------------------------FALTA
+mapeadas---------------------------------------FALTA
+esquema E-R------------------------------------FALTA
+PONER BONITO CUANDO ALGUN UPDATE se pone mal---HECHO
+>> Crear un BlobalExceptionHandler
 
-mapeadas
 
+
+
+-----------------------------------------------
 examen
 mapeado
 relaciones
 endpoints
 pooltask
-                                                        
-MIRAR COMO EXPORTAR CARPETA POSTMAN PETICIONES
+-----------------------------------------------                                        
+MIRAR COMO EXPORTAR 
   
 
-ME falta
+ME falta:
 Esquemas E-R
 Mapeado a bbdd de las entidades y sus relaciones
+Video
