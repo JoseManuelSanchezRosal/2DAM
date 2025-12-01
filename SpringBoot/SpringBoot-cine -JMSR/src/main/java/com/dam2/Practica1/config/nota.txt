@@ -1,1 +1,0 @@
-En este paquete se guardarán archivos de configuración del proyecto (OJO: el .env no se guarda aquí, se guarda en la raíz del proyecto)

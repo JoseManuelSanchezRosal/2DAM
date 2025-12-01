@@ -1,6 +1,0 @@
-- Diseño prototipos e interfaz final.
-- Documentación
-- Pruebas
-
-Proyecto final
-La finalidad de esta asign

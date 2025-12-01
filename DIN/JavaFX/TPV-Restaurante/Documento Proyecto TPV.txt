@@ -1,1 +1,0 @@
-Crear un documento que describa el dominio de nuestro problema y las soluciones implementadas en nuestro programa. Definir también los patrones de usabilidad definidos'905678¡23490'¡567'1780923¡3 en la interfaz y su modo de navegación.

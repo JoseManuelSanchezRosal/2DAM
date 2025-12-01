@@ -1,1 +1,0 @@
-En este paquete, se guardan los controladores del proyecto. Un controlador es donde se guardan los end-points de la API REST y se comunican con el código

@@ -1,0 +1,340 @@
+Te voy a pasar un proyecto de CINE con Java SpringBoot. Tenemos 8 entidades, te pasaré el código en JAVA. Te pasaré también el esquema Entidad-Relación y con todo esto, quiero que me generes un documento con el mapeado de las interrelaciones de las entidades. 
+ACTOR: package com.dam2.Practica1.models;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "actores")
+@Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
+@AllArgsConstructor      // ✅ genera constructor con todos los campos
+@NoArgsConstructor
+
+public class Actor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nombre;
+
+
+    /**
+     * ManyToMany crea una tabla intermedia
+     * name ================> define el nombre de la tabla: actor_pelicula
+     * joinColumns =========> la columna FK que apunta a esta entidad (actor_id)
+     * InverseJoinColumns===> la columna FK que apunta al otro lado de la relacion (pelicula_id)
+     */
+    @ManyToMany
+    @JoinTable(
+            name="actor_pelicula",
+            joinColumns = @JoinColumn(name="actor_id"),
+            inverseJoinColumns = @JoinColumn(name="pelicula_id"))
+    private List<Pelicula> peliculas = new ArrayList<>();
+
+    /**
+     * Metodo Helper que se encarga de escribir en las dos listas al mismo tiempo ((List<Actor> en Pelicula) y (List<Pelicula> en Actor))
+     * @param p Pelicula que desde Actor añadimos a nuestra lista y a su vez, el actor a la lista de actores de la clase pelicula
+     */
+    public void addPelicula(Pelicula p){
+        // 1 Añado una pelicula a mi lista (yo como Actor)
+        peliculas.add(p);
+
+        // 2 Cojo la pelicula, busco su lista de actores y me añado a mi mismo (yo como Actor)
+        p.getActors().add(this);
+    }
+}
+CATEGORIA: package com.dam2.Practica1.models;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="categorias")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Categoria {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = true, length = 120, unique = true)
+    private String nombre;
+}
+CRITICA: package com.dam2.Practica1.models;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "criticas")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Critica {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String comentario;
+
+    @Column(nullable = false)
+    private int nota; // ¿Esta nota no tiene nada que ver con la valoracion cierto?
+
+    @Column(nullable = false)
+    private String fecha;
+
+}
+DIRECTOR: package com.dam2.Practica1.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "directores")
+@Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
+@AllArgsConstructor      // ✅ genera constructor con todos los campos
+@NoArgsConstructor
+
+public class Director {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = true, unique = true)
+    private String nombre;
+
+    // Relación 1:N con Pelicula
+    @OneToMany(mappedBy = "director")
+    @JsonBackReference
+    private List<Pelicula> peliculas;
+
+
+}
+IDIOMA: package com.dam2.Practica1.models;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "idiomas")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Idioma {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = true, length = 120, unique = true)
+    private String nombre;
+}
+PELICULA: package com.dam2.Practica1.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "peliculas") // Los nombres en la BBDD, preferiblemente PLURAL
+@Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
+
+public class Pelicula { // Los de la clase, en singular
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 120)
+    private String titulo;
+
+    private int duracion;              // minutos
+
+    @Column(name = "fecha_estreno")
+    private LocalDate fechaEstreno;
+
+    private String sinopsis;
+
+    private int valoracion;
+
+    /**
+     * RELACION ManyToOne con Director
+     */
+    @ManyToOne
+    @JoinColumn(name = "director_id", nullable = true) // FK en PELICULA (nullable a true para dejar meter pelis sin director)
+    @JsonManagedReference // Lado principal para Json
+    private Director director;
+
+    @ManyToMany(mappedBy = "peliculas")
+    private List<Actor> actors = new ArrayList<>();
+    @JsonIgnore // No saque actores
+
+    public Pelicula(Long id, String titulo, int dur1acion, LocalDate fechaEstreno, String sinopsis, int valoracion, Director director, List<Actor> actors) {
+        this.id = id;
+        this.titulo = titulo;
+        this.duracion = duracion;
+        this.fechaEstreno = fechaEstreno;
+        this.sinopsis = sinopsis;
+        this.valoracion = valoracion;
+        this.director = director;
+        this.actors = actors;
+    }
+
+    public Pelicula() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public int getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+
+    public LocalDate getFechaEstreno() {
+        return fechaEstreno;
+    }
+
+    public void setFechaEstreno(LocalDate fechaEstreno) {
+        this.fechaEstreno = fechaEstreno;
+    }
+
+    public String getSinopsis() {
+        return sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
+    }
+
+    public int getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(int valoracion) {
+        this.valoracion = valoracion;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
+}
+PLATAFORMA: package com.dam2.Practica1.models;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.tool.schema.spi.SchemaTruncator;
+import org.springframework.boot.autoconfigure.web.WebProperties;
+
+@Entity
+@Table(name="plataformas")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Plataforma {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = true, length = 120)
+    private String nombre;
+
+    @Column(nullable = true, length = 255)
+    private String url;
+}
+USUARIO: package com.dam2.Practica1.models;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.catalina.LifecycleState;
+
+import java.util.List;
+
+@Entity
+@Table(name="usuarios")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 120, unique = true)
+    private String userName;
+
+    @Column(nullable = false, length = 120)
+    private String email;
+
+    @Column(nullable = false, length = 120)
+    private String password;
+
+    @Column(nullable = false, length = 120)
+    private String rol;
+
+
+}
+ESQUEMA ENTIDAD-RELACION: FOTO
+Quisiera que me incluyeras el codigo en cada clase, explicando porque detalladamente y con comentarios en el propio codigo, tambien dime porque has elegido el poner la clave en un sitio u otro. Explica todas las anotaciones de JPA y para que sirven, las que se necesitan en mi proyecto al menos

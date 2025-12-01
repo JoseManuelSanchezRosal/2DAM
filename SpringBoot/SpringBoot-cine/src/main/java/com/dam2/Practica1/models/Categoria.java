@@ -1,11 +1,15 @@
 package com.dam2.Practica1.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="categorias")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Categoria {
 

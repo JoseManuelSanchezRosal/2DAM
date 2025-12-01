@@ -1,1 +1,0 @@
-En este paquete se guardan las clases equivalentes a las tablas de la base de datos. Es el paquete más cercano a la base de datos

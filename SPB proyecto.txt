@@ -8,7 +8,7 @@ validaciones @valid en CreateUpdateDTO---------------hecho
 collection en postman y compartir carpeta------------hecho
 
 video MAPPED-----------------------------------------FALTA
-mapeadas---------------------------------------------FALTA
+mapeadas---------------------------------------------FALTAn las nuevas
 
 esquema E-R------------------------------------------HECHO
 PONER BONITO CUANDO ALGUN UPDATE se pone mal---------HECHO

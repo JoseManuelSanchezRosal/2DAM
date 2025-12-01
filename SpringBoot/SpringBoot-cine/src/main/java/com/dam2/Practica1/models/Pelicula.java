@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "peliculas") // Los nombres en la BBDD, preferiblemente PLURAL
 @Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
+
 public class Pelicula { // Los de la clase, en singular
 
     @Id
@@ -29,6 +30,9 @@ public class Pelicula { // Los de la clase, en singular
 
     private int valoracion;
 
+    /**
+     * RELACION ManyToOne con Director
+     */
     @ManyToOne
     @JoinColumn(name = "director_id", nullable = true) // FK en PELICULA (nullable a true para dejar meter pelis sin director)
     @JsonManagedReference // Lado principal para Json
@@ -38,7 +42,7 @@ public class Pelicula { // Los de la clase, en singular
     private List<Actor> actors = new ArrayList<>();
     @JsonIgnore // No saque actores
 
-    public Pelicula(Long id, String titulo, int duracion, LocalDate fechaEstreno, String sinopsis, int valoracion, Director director, List<Actor> actors) {
+    public Pelicula(Long id, String titulo, int dur1acion, LocalDate fechaEstreno, String sinopsis, int valoracion, Director director, List<Actor> actors) {
         this.id = id;
         this.titulo = titulo;
         this.duracion = duracion;

@@ -2,11 +2,16 @@ package com.dam2.Practica1.models;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "criticas")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class Critica {
 
     @Id
@@ -21,4 +26,8 @@ public class Critica {
 
     @Column(nullable = false)
     private String fecha;
+
+    @ManyToOne
+    private Usuario usuario;
+
 }
