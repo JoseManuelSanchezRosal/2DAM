@@ -1,0 +1,534 @@
+tengo un examen tipo test de Programacion de Servicios y Procesos en java Threads, runnable, hilos, pooltaskexecutor etc. te voy a pasar unas clases y me analizas al detalle para explicarme como funcionan todas las clases, metodos y comportamientos que tengan que ver con threads, programacion concurrente, pool de hilos executor etc. de cara a prepararme para el examen, me explicas como funciona todo lo relacionado a lo que te he comentado
+AsyncConfig: package com.dam2.Practica1.config;
+
+import org.springframework.context.annotation.*;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import java.util.concurrent.Executor;
+
+@Configuration
+@EnableAsync
+public class AsyncConfig {
+    // ThreadPoolExecutor para control de Peliculas
+    @Bean(name = "taskExecutor")
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor ex = new ThreadPoolTaskExecutor();
+        ex.setCorePoolSize(3);
+        ex.setMaxPoolSize(6);
+        ex.setQueueCapacity(20);
+        ex.setThreadNamePrefix("psp-");
+        ex.initialize();
+        return ex;
+    }
+    // Ejercicio 4
+    /**
+     * Configura un pool de hilos para las
+     *
+     *
+     * votaciones del Jurado
+     * @return un Executor configurado con el nombre "threadsJurado" listo para usarse
+     */
+    @Bean(name = "threadsJurado")
+    public ThreadPoolTaskExecutor threadsJurado(){
+
+        ThreadPoolTaskExecutor exJu = new ThreadPoolTaskExecutor();
+        exJu.setCorePoolSize(10); // Maximo de hilos vivos
+        exJu.setMaxPoolSize(15); // Maximo de hilos que se crean si se llena la cola
+        exJu.setQueueCapacity(1000); // Capacidad de la cola de espera antes de ser rechazados
+        exJu.setThreadNamePrefix("Thread-"); // Prefijo del hilo
+        exJu.initialize(); // Ejecucion
+        return exJu;
+    }
+}
+peliculaController: package com.dam2.Practica1.controllers;
+
+import com.dam2.Practica1.dto.PeliculaDTO.ImportarPeliculaDto;
+import com.dam2.Practica1.dto.PeliculaDTO.PeliculaCreateUpdateDTO;
+import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
+import com.dam2.Practica1.service.PeliculaService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+@RestController
+@RequestMapping("/api/peliculas")
+@RequiredArgsConstructor
+
+public class PeliculaController {
+
+    @Autowired
+    private PeliculaService service;
+
+    //---------------FUNCIONALIDAD CRUD CLASE 3 PeliculaDTO-----------------------
+    // GET /peliculas
+    @GetMapping
+    public List<PeliculaDTO> listar() {
+        return service.listar();
+    }
+
+    // GET /peliculas/{id}
+    @GetMapping("/{id}")
+    public PeliculaDTO buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id);
+    }
+
+    // POST
+    // COMENTAR ------------------------
+    @PostMapping
+    public PeliculaDTO agregar(@RequestBody @Valid PeliculaCreateUpdateDTO peliculaDto) {
+        return service.agregar(peliculaDto);
+    }
+
+    // PUT
+    // COMENTAR -----------------------
+    @PutMapping("/{id}")
+    public PeliculaDTO actualizar(@PathVariable Long id, @RequestBody @Valid PeliculaCreateUpdateDTO peliculaDto){
+        return service.actualizar(id, peliculaDto);
+    }
+
+    // DELETE
+    // COMENTAR-----------------------
+    @DeleteMapping("{id}")
+    public void eliminar(@PathVariable Long id){
+        service.eliminar(id);
+    }
+
+
+    // Ejercicio 1.2 y 1.3
+    @GetMapping("/procesar")
+    public String procesarPeliculas() {
+        return this.service.procesarPeliculas();
+    }
+
+    // Ejercicio 1.5
+    @GetMapping("/procesar-async")
+    public CompletableFuture<String> procesarAsync() {
+        return this.service.procesarPeliculasAsync();
+    }
+
+    // A4 - Ejercicio 2
+    @GetMapping("/reproducir")
+    public String reproducirAsync() {
+        return this.service.reproducirAsync();
+    }
+
+    // A4 - Ejercicio 3
+    @PostMapping("/importar-peliculas")
+    public CompletableFuture<String> importarPeliculas(@RequestBody ImportarPeliculaDto importarPeliculaDto) throws IOException {
+            return this.service.importarPeliculas(importarPeliculaDto.path());
+    }
+
+    // A4 - Ejercicio 4
+    /**
+     * Endpoint REST para iniciar la votacion del Jurado
+     * @param numeroJurados es la cantidad de Jurados (hilos) van a realizar la votacion
+     * @return un Map con Nombre y Valoracion de cada pelicula
+     * @throws InterruptedException
+     */
+    @GetMapping("/oscar/{numeroJurados}")
+    public Map<String, Integer> votacion(@PathVariable int numeroJurados) throws InterruptedException {
+        return service.realizarVotaciones(numeroJurados);
+    }
+}
+PeliculaService: package com.dam2.Practica1.service;
+
+import com.dam2.Practica1.dto.PeliculaDTO.PeliculaCreateUpdateDTO;
+import com.dam2.Practica1.dto.PeliculaDTO.PeliculaDTO;
+import com.dam2.Practica1.models.Pelicula;
+import com.dam2.Practica1.repository.PeliculaRepository;
+import jakarta.validation.Valid;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Service;
+import java.util.*;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import java.util.concurrent.CompletableFuture;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
+@Service
+@Getter
+public class PeliculaService {
+    @Autowired
+    private PeliculaRepository peliculaRepository;
+    @Autowired
+    private TareaAsync tareaAsync;
+
+    // Para sacar info de nuestro Executor de hilos @Async
+    @Autowired
+    @Qualifier("threadsJurado")
+    private ThreadPoolTaskExecutor threadsJurado;
+
+    private PeliculaDTO toDTO(Pelicula p){
+        return new PeliculaDTO(
+                p.getId(),
+                p.getTitulo(),
+                p.getDuracion(),
+                p.getFechaEstreno(),
+                p.getSinopsis(),
+                p.getValoracion()
+        );
+    }
+
+    //--------------CRUD DTO----------------------------------
+    /**
+     * Metodo que devuelve una lista de PeliculaDTO
+     * peliculaRepository.findAll() ---> 1 Obtiene todas las entidades Pelicula de la base de datos
+     * .stream() -----------------------> 2 Convierte la lista en un Stream para poder procesarla
+     * .map(this::toDTO) ---------------> 3 Transforma cada Pelicula en PeliculaDTO usando el metodo toDTO()
+     * .toList() -----------------------> 4 Convierte el Stream resultante en una lista de PeliculaDTO
+     * @return una List de PeliculasDTO
+     */
+    @Transactional(readOnly = true)
+    public List<PeliculaDTO> listar() {
+        return peliculaRepository.findAll()
+                .stream()
+                .map(this::toDTO)
+                .toList();
+    }
+
+    /**
+     * Metodo para buscar una Pelicula por id
+     * peliculaRepository.findById(id) ----> Devuelve la Pelicula o Null (si no encuentra la id)
+     * .map(this::toDTO) ------------------> Si existe, convierte la entidad Pelicula a PeliculaDTO
+     * .orElse(null) ----------------------> Si no encuentra coincidencia, devuelve null
+     * @param id Se pasa por parametro la id a buscar en la bbdd
+     * @return PeliculaDTO si la encuentra, null si no.
+     */
+    @Transactional(readOnly = true)
+    public PeliculaDTO buscarPorId(Long id){
+        return peliculaRepository.findById(id)
+                .map(this::toDTO)
+                .orElse(null);
+    }
+
+    // COMENTAR------------------------
+    @Transactional
+    public PeliculaDTO agregar(@RequestBody @Valid PeliculaCreateUpdateDTO peliculaDto) {
+        Pelicula p = new Pelicula();
+        p.setTitulo(peliculaDto.getTitulo());
+        p.setDuracion(peliculaDto.getDuracion());
+        p.setFechaEstreno(peliculaDto.getFechaEstreno());
+        p.setSinopsis(peliculaDto.getSinopsis());
+        p.setValoracion(peliculaDto.getValoracion());
+        peliculaRepository.save(p);
+        return toDTO(p);
+    }
+
+    // COMENTAR-----------------------------------
+    @Transactional
+    public PeliculaDTO actualizar(@PathVariable Long id,@RequestBody @Valid PeliculaCreateUpdateDTO peliculaDto) {
+        Optional<Pelicula> optionalPelicula = peliculaRepository.findById(id);
+        if (!optionalPelicula.isPresent()){
+            throw new RuntimeException("Pelicula no encontrada"); // tambien se podria return null;
+        }
+        Pelicula p = optionalPelicula.get();
+        p.setTitulo(peliculaDto.getTitulo());
+        p.setDuracion(peliculaDto.getDuracion());
+        p.setFechaEstreno(peliculaDto.getFechaEstreno());
+        p.setSinopsis(peliculaDto.getSinopsis());
+        p.setValoracion(peliculaDto.getValoracion());
+        peliculaRepository.save(p);
+
+        return toDTO(p);
+    }
+
+    // COMENTAR ---------------------
+    @Transactional
+    public void eliminar(Long id) {
+        peliculaRepository.deleteById(id);
+    }
+
+    // Ejercicio 1.1 Metodo Sync
+    public String tareaLentaSync(String titulo) {
+        try {
+            System.out.println("Iniciando tarea para " + titulo + " en " + Thread.currentThread().getName());
+            Thread.sleep(3000); // simula proceso lento (3 segundos)
+            System.out.println("Terminando tarea para " + titulo);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return "Procesada " + titulo;
+    }
+
+    public String procesarPeliculas() {
+        long inicio = System.currentTimeMillis();
+        this.tareaLentaSync("Interstellar");
+        this.tareaLentaSync("The Dark Knight");
+        this.tareaLentaSync("Soul");
+        long fin = System.currentTimeMillis();
+        return "Tiempo total: " + (fin - inicio) + " ms";
+    }
+
+    // La tareaLenta2Async se tiene que usar en otra clase diferente porque las anotaciones solo se ejecutan cuando son ejecutados los métodos desde otra clase distinta
+    public CompletableFuture<String> procesarPeliculasAsync() {
+        long inicio = System.currentTimeMillis();
+
+        var t1 = this.tareaAsync.tareaLenta2Async("🍿 Interstellar");
+        var t2 = this.tareaAsync.tareaLenta2Async("🦇 The Dark Knight");
+        var t3 = this.tareaAsync.tareaLenta2Async("🎵 Soul");
+        var t4 = this.tareaAsync.tareaLenta2Async("🎵 Soul");
+        var t5 = this.tareaAsync.tareaLenta2Async("🎵 Soul");
+        var t6 = this.tareaAsync.tareaLenta2Async("🎵 Soul");
+        //var t7 = service.tareaLenta2("🎵 Soul");
+
+        // Ejercicio 1.6 Espera a que terminen todas las tareas
+        CompletableFuture.allOf(t1, t2, t3,t4,t5,t6).join();
+
+        // Ejercicio 1.7 Calcular tiempo total
+        long fin = System.currentTimeMillis();
+        return CompletableFuture.completedFuture("Tiempo total (asíncrono): " + (fin - inicio) + " ms");
+    }
+
+    public String reproducirAsync() {
+        long inicio = System.currentTimeMillis();
+
+        var t1 = this.reproducir("🍿 Interstellar");
+        var t2 = this.reproducir("🦇 The Dark Knight");
+        var t3 = this.reproducir("🎵 Soul");
+
+        // Espera a que terminen todas las tareas
+        CompletableFuture.allOf(t1, t2, t3).join();
+
+        long fin = System.currentTimeMillis();
+        return "Tiempo total (asíncrono): " + (fin - inicio) + " ms";
+    }
+
+    // Ejercicio 1.4
+
+    // Ejercicio 2 Crear metodo Async que simule reproduccion de peliculas con tiempo aleatorio entre 1 y 5 sg
+    @Async("taskExecutor")
+    public CompletableFuture<String> reproducir(String titulo) {
+        Long inicio = System.currentTimeMillis();
+        try {
+            System.out.println("Reproduciendo " + titulo + " en " + Thread.currentThread().getName());
+            // Generamos el random entre 1 y 5 segundos
+            int timeX = (int) (Math.random() * 5000) + 1;
+
+            Thread.sleep(timeX);
+
+            System.out.println("Terminando " + titulo);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        // Calculamos tiempo de reproduccion
+        Long fin = System.currentTimeMillis();
+        return CompletableFuture.completedFuture("Procesada " + titulo + " en " + ((fin - inicio)/1000) + " segundos");
+    }
+
+    // Ejercicio 3
+    public CompletableFuture<String> importarPeliculas(String rutaCarpeta) throws IOException {
+        long inicio = System.currentTimeMillis();
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
+        try (Stream<Path> paths = Files.list(Paths.get(rutaCarpeta))) {
+            paths.filter(Files::isRegularFile).forEach(path -> {
+                        String nombre = path.toString().toLowerCase();
+                        if (nombre.endsWith(".csv") || nombre.endsWith(".txt")) {
+                            futures.add(this.tareaAsync.importarCsvAsync(path));
+                        } else if (nombre.endsWith(".xml")) {
+                            futures.add(this.tareaAsync.importarXmlAsync(path));
+                        }
+                    });
+        }
+        // Esperar a que terminen todas las tareas asíncronas
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+
+        long fin = System.currentTimeMillis();
+        return CompletableFuture.completedFuture("Importación completa en " + (fin - inicio) + " ms");
+    }
+
+    // Ejercicio 4 - Premios Oscar
+    /**
+     * Metodo para ejecutar la votacion concurrente
+     * @param numJurados indica el numero de Jurados (obtenido de la ruta)
+     * @return el Map de Ranking de Peliculas la suma de Votos
+     * @throws InterruptedException
+     */
+    public Map<String, Integer> realizarVotaciones(int numJurados) throws InterruptedException {
+
+        // Inicializamos Mapa a 0 puntos
+        Map<String, Integer> resultados = new HashMap<>();
+        resultados.put("Avatar", 0);
+        resultados.put("Interestellar", 0);
+        resultados.put("The Avengers", 0);
+
+        // Lista para guardar las referencias a las tareas futuras
+        List<CompletableFuture<Void>> futuros = new ArrayList<>();
+
+        Long inicio = System.currentTimeMillis();
+        // Lanzamos los hilos (cada Jurado realiza 3 votaciones, una por pelicula)
+        for (int i = 1; i <= numJurados; i++) {
+            futuros.add(tareaAsync.votar(resultados, i));
+        }
+        // Una vez todos los hilos hayan terminado, se completara el Future
+        CompletableFuture.allOf(futuros.toArray(new CompletableFuture[0])).join();
+        Long fin = System.currentTimeMillis();
+
+        // Y retornamos el Ranking (ordenado con el metodo rankingOrdenado())
+        Long tiempo = fin - inicio;
+        // Para ver numero de hilos activos
+        System.out.println();
+        System.out.println("Hilos Activos:" + threadsJurado.getCorePoolSize() + ". Numero Jurados: " + numJurados + ". Tiempo: " + tiempo + " ms");
+        return rankingOrdenado(resultados);
+    }
+    // Ordena las películas por puntuación descendente (GPT)
+    private Map<String, Integer> rankingOrdenado(Map<String, Integer> resultados) {
+        Map<String, Integer> ranking = new LinkedHashMap<>();
+        resultados.entrySet()
+                .stream()
+                // compara por valor y revierte cadena:
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                // asegura que los datos del nuevo mapa se introduzcan en el mismo orden que el original:
+                .forEachOrdered(entry -> ranking.put(entry.getKey(), entry.getValue()));
+        return ranking;
+    }
+
+
+}
+TareaAsync: package com.dam2.Practica1.service;
+
+import com.dam2.Practica1.models.Pelicula;
+import com.dam2.Practica1.repository.PeliculaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+
+@Service
+public class TareaAsync {
+    @Autowired
+    private PeliculaRepository peliculaRepository;
+
+    // Tarea 3 - Importar CSV
+    @Async("taskExecutor")
+    public CompletableFuture<Void> importarCsvAsync(Path fichero) {
+        try {
+            System.out.println("Procesando CSV: " + fichero + " en " + Thread.currentThread().getName());
+
+            List<Pelicula> lista = new ArrayList<>();
+
+            List<String> lineas = Files.readAllLines(fichero);
+            lineas.remove(0); // suponemos encabezado
+
+            for (String linea : lineas) {
+                String[] campos = linea.split(";");
+                Pelicula p = new Pelicula();
+                p.setTitulo(campos[0]);
+                p.setDuracion(Integer.parseInt(campos[1]));
+                p.setFechaEstreno(String.valueOf(campos[2]));
+                p.setSinopsis(campos[3]);
+                lista.add(p);
+            }
+
+            peliculaRepository.saveAll(lista);
+
+            System.out.println("Finalizado CSV: " + fichero);
+
+        } catch (Exception e) {
+            System.err.println("Error en CSV " + fichero + ": " + e.getMessage());
+        }
+
+        return CompletableFuture.completedFuture(null);
+    }
+
+    // Tarea 3 -Importar XML
+    @Async("taskExecutor")
+    public CompletableFuture<Void> importarXmlAsync(Path fichero) {
+        try {
+            System.out.println("Procesando XML: " + fichero + " en " + Thread.currentThread().getName());
+
+            List<Pelicula> lista = new ArrayList<>();
+
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+
+            Document doc = builder.parse(fichero.toFile());
+            NodeList nodos = doc.getElementsByTagName("pelicula");
+
+            for (int i = 0; i < nodos.getLength(); i++) {
+                Element e = (Element) nodos.item(i);
+
+                Pelicula p = new Pelicula();
+                p.setTitulo(e.getElementsByTagName("titulo").item(0).getTextContent());
+                p.setDuracion(Integer.parseInt(e.getElementsByTagName("duracion").item(0).getTextContent()));
+                p.setFechaEstreno(String.valueOf(e.getElementsByTagName("fechaEstreno").item(0).getTextContent()));
+                p.setSinopsis(e.getElementsByTagName("sinopsis").item(0).getTextContent());
+
+                lista.add(p);
+            }
+            peliculaRepository.saveAll(lista);
+
+            System.out.println("Finalizado XML: " + fichero);
+
+        } catch (Exception e) {
+            System.err.println("Error en XML " + fichero + ": " + e.getMessage());
+        }
+        return CompletableFuture.completedFuture(null);
+    }
+
+    // Ejercicio 1.4 - Reproducir @Async
+    @Async("taskExecutor")
+    public CompletableFuture<String> tareaLenta2Async(String titulo) {
+        try {
+            System.out.println("Iniciando " + titulo + " en " + Thread.currentThread().getName());
+            Thread.sleep(3000);
+            System.out.println("Terminando " + titulo);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return CompletableFuture.completedFuture("Procesada " + titulo);
+    }
+
+    // Ejercicio 4 - Votacion a Oscars
+    private final Random random = new Random();
+    /**
+     * Metodo para lanzar hilos (jurados) a votar con ThreadPoolExecutor
+     * @param votos es nuestro Mapa de acumulacion de votos
+     * @param juradoId identificador del Jurado
+     * @return el CompetableFuture null para decirle al orquestador que la tarea ha terminado
+     * @throws InterruptedException
+     */
+
+    @Async("threadsJurado")
+    public CompletableFuture<Void> votar(Map<String, Integer> votos, int juradoId) throws InterruptedException {
+        String[] peliculas = {"Interestellar", "Avatar", "The Avengers"};
+
+        for (String pelicula : peliculas) {
+            int puntos = random.nextInt(11); // 0-10 puntos
+            synchronized (votos) {
+                votos.put(pelicula, votos.get(pelicula) + puntos);
+            }
+            System.out.println("Jurado nº:" + juradoId + " vota: " + puntos + " puntos a " + pelicula);
+        }
+        return CompletableFuture.completedFuture(null);
+    }
+}

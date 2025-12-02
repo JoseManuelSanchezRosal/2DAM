@@ -32,10 +32,13 @@ public class AsyncConfig {
 
         ThreadPoolTaskExecutor exJu = new ThreadPoolTaskExecutor();
         exJu.setCorePoolSize(10); // Maximo de hilos vivos
+        exJu.setQueueCapacity(100); // Capacidad de la cola de espera antes de ser rechazados
         exJu.setMaxPoolSize(15); // Maximo de hilos que se crean si se llena la cola
-        exJu.setQueueCapacity(1000); // Capacidad de la cola de espera antes de ser rechazados
         exJu.setThreadNamePrefix("Thread-"); // Prefijo del hilo
         exJu.initialize(); // Ejecucion
         return exJu;
     }
 }
+
+
+

@@ -3,7 +3,6 @@ package com.dam2.Practica1.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
