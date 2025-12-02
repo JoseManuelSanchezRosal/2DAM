@@ -1,11 +1,13 @@
 package com.dam2.Practica1.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.tool.schema.spi.SchemaTruncator;
-import org.springframework.boot.autoconfigure.web.WebProperties;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="plataformas")
@@ -24,4 +26,11 @@ public class Plataforma {
 
     @Column(nullable = true, length = 255)
     private String url;
+
+    //-----------------------------INTERRELACIONES---------------------------------------
+
+    // N:M con PELICULAS (lado inverso
+    @ManyToMany(mappedBy = "plataformas") // Busca polataformas en "clase pelicula"
+    @JsonIgnore // Cortamos el bucle radicalmente, no muestra pelis al pedir plataforma
+    private List<Pelicula> peliculas = new ArrayList<>();
 }

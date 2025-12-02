@@ -4,9 +4,8 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
-
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,7 +20,7 @@ public class PeliculaCreateUpdateDTO {
     private int duracion;
 
     @NotNull(message = "La fecha de estreno debe ser obligatoria")
-    private LocalDate fechaEstreno;
+    private String fechaEstreno;
 
     @Size(max = 500, message = "La sinopsis no puede ser mayor a 500 caracteres")
     private String sinopsis;
@@ -29,4 +28,12 @@ public class PeliculaCreateUpdateDTO {
     @Min(value = 0, message = "La valoracion minima es 0")
     @Max(value = 10, message = "La valoracion maxima es de 10")
     private int valoracion;
+
+    /*// NUEVOS CAMPOS PARA LAS RELACIONES N:M (ENTRADA DE ID'S)
+    // Listas de ID's
+    private List<Long> categoriaIds;
+    private List<Long> plataformaIds;
+    private List<Long> idiomaIds;
+
+    // private List<Long> actorIds; (si decidimos implementarlo en el servicio)*/
 }

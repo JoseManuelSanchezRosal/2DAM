@@ -1,25 +1,40 @@
+server:
+  port: 8081                   # Puerto 8081 para no chocar con otros servicios
+
 spring:
+  application:
+    name: Practica1
+
+  # CONEXIÓN BASE DE DATOS
   datasource:
+    # Si ejecutas la app en local y la BBDD en Docker, 'localhost' es correcto.
     url: jdbc:postgresql://localhost:5432/cine
     username: admin
     password: admin123
+    driver-class-name: org.postgresql.Driver
+
+  # CONFIGURACIÓN JPA / HIBERNATE
   jpa:
-    open-in-view: false
+    open-in-view: false        # Buena práctica: cierra la sesión de Hibernate tras la query
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true             # Muestra las queries en consola
     hibernate:
-      ddl-auto: update         # crea/actualiza tablas en desarrollo # CREATE PARA CADA VEZ QUE ARRANCA LA APLICACION CREA LA BASE DE DATOS DE NUEVO
+      ddl-auto: update         # Crea las tablas si no existen (como actor_pelicula)
     properties:
       hibernate:
-        format_sql: true
-        jdbc.lob.non_contextual_creation: true
+        format_sql: true       # Pone el SQL bonito
+        jdbc:
+          lob:
+            non_contextual_creation: true # Evita un warning típico de Postgres con OIDs
 
-  # Soporte de Spring Boot 3.1+ para Docker Compose (opcional)
+  # DOCKER COMPOSE SUPPORT (Spring Boot 3.1+)
+  # Esto buscará un archivo 'compose.yaml' en la raíz de tu proyecto al arrancar.
+  # Si tienes la BBDD levantada manualmente en Docker Desktop, pon esto en FALSE.
   docker:
     compose:
-      enabled: true            # si usas `spring-boot:run` con Compose
+      enabled: false           # RECOMENDACIÓN: Ponlo en false por ahora si no tienes el archivo compose.yaml configurado
 
-server:
-  port: 8081                   # evita conflicto con pgAdmin (8080 en el host)
-
+# LOGGING (Para ver los valores de los interrogantes ? en SQL)
 logging:
   level:
     org.hibernate.SQL: debug

@@ -1,12 +1,12 @@
 package com.dam2.Practica1.models;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.LifecycleState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,8 +33,10 @@ public class Usuario {
     @Column(nullable = false, length = 120)
     private String rol;
 
-    @OneToMany
-    private List<Critica> criticas;
+    //------------------------------------- INTERRELACIONES---------------------------------------
 
-
+    // Relación 1:N con CRÍTICA
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore // Para no ver todas las críticas cuando carguemos el usuario
+    private List<Critica> criticasRealizadas = new ArrayList<>();
 }

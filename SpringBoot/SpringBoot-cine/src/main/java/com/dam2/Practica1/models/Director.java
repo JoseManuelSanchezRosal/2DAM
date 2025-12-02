@@ -1,9 +1,11 @@
 package com.dam2.Practica1.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,10 +22,10 @@ public class Director {
     @Column(nullable = true, unique = true)
     private String nombre;
 
+    //-------------------INTERRELACIONES----------------
+
     // Relación 1:N con Pelicula
     @OneToMany(mappedBy = "director")
-    @JsonBackReference
-    private List<Pelicula> peliculas;
-
-
+    @JsonIgnore
+    private List<Pelicula> peliculas = new ArrayList<>();
 }

@@ -44,7 +44,7 @@ public class TareaAsync {
                 Pelicula p = new Pelicula();
                 p.setTitulo(campos[0]);
                 p.setDuracion(Integer.parseInt(campos[1]));
-                p.setFechaEstreno(LocalDate.parse(campos[2]));
+                p.setFechaEstreno(String.valueOf(campos[2]));
                 p.setSinopsis(campos[3]);
                 lista.add(p);
             }
@@ -80,7 +80,7 @@ public class TareaAsync {
                 Pelicula p = new Pelicula();
                 p.setTitulo(e.getElementsByTagName("titulo").item(0).getTextContent());
                 p.setDuracion(Integer.parseInt(e.getElementsByTagName("duracion").item(0).getTextContent()));
-                p.setFechaEstreno(LocalDate.parse(e.getElementsByTagName("fechaEstreno").item(0).getTextContent()));
+                p.setFechaEstreno(String.valueOf(e.getElementsByTagName("fechaEstreno").item(0).getTextContent()));
                 p.setSinopsis(e.getElementsByTagName("sinopsis").item(0).getTextContent());
 
                 lista.add(p);

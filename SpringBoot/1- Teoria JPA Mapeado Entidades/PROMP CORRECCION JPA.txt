@@ -1,0 +1,421 @@
+te voy a pasar mi codigo para que me lo analices y me digas si es consistente, asi como el esquema entidad-relacion de mi proyecto de SpringBoot CINE:
+FOTO: entidad-relacion
+ACTOR: package com.dam2.Practica1.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "actores")
+@Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
+@AllArgsConstructor      // ✅ genera constructor con todos los campos
+@NoArgsConstructor
+
+public class Actor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nombre;
+
+    //---------------------INTERRELACIONES--------------------------
+    /**
+     * ManyToMany crea una tabla intermedia (EN EL LADO PROPIETARIO, EN ESTE CASO, ACTOR)
+     * name ================> define el nombre de la tabla INTERMEDIA: actor_pelicula
+     * joinColumns =========> la columna FK que apunta a esta entidad ((actor_id) MI ID)
+     * InverseJoinColumns===> la columna FK que apunta al otro lado de la relacion ((pelicula_id) ID DEL INVITADO)
+     */
+    //ACTOR--N:M--PELICULA
+    @ManyToMany
+    @JoinTable(
+            name="actor_pelicula",
+            joinColumns = @JoinColumn(name="actor_id"),
+            inverseJoinColumns = @JoinColumn(name="pelicula_id"))
+    @JsonIgnoreProperties("actores")
+    private List<Pelicula> peliculas = new ArrayList<>();
+
+    /**
+     * Metodo Helper que se encarga de escribir en las dos listas al mismo tiempo ((List<Actor> en Pelicula) y (List<Pelicula> en Actor))
+     * @param p Pelicula que desde Actor añadimos a nuestra lista y a su vez, el actor a la lista de actores de la clase pelicula
+     */
+    public void addPelicula(Pelicula p){
+        // 1 Añado una pelicula a mi lista (yo como Actor)
+        this.peliculas.add(p);
+
+        // 2 Cojo la pelicula, busco su lista de actores y me añado a mi mismo (yo como Actor)
+        p.getActors().add(this);
+    }
+}
+CATEGORIA: package com.dam2.Practica1.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="categorias")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Categoria {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = true, length = 120, unique = true)
+    private String nombre;
+
+    //-----------------------INTERRELACIONES---------------------
+    //CATEGORIA--N:M--PELICULA
+    @ManyToMany(mappedBy = "categorias")
+    @JsonIgnore
+    private List<Pelicula> peliculas = new ArrayList<>(); //Es importante inicializar
+}
+CRITICA: package com.dam2.Practica1.models;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "criticas")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Critica {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String comentario;
+
+    @Column(nullable = false)
+    private int nota; // ¿Esta nota no tiene nada que ver con la valoracion cierto?
+
+    @Column(nullable = false)
+    private String fecha;
+
+    // -----------------------------INTERRELACIONES------------------------------------
+
+    // CRITICA--N:1--USUARIO
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+
+    // CRITICA--N:1--PELÍCULA
+    @ManyToOne
+    @JoinColumn(name = "pelicula_id", nullable = false)
+    private Pelicula pelicula;
+}
+DIRECTOR: package com.dam2.Practica1.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "directores")
+@Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
+@AllArgsConstructor      // ✅ genera constructor con todos los campos
+@NoArgsConstructor
+
+public class Director {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = true, unique = true)
+    private String nombre;
+
+    //-------------------INTERRELACIONES----------------
+
+    // Relación 1:N con Pelicula
+    @OneToMany(mappedBy = "director")
+    @JsonBackReference
+    private List<Pelicula> peliculas = new ArrayList<>();
+}
+IDIOMA:package com.dam2.Practica1.models;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "idiomas")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Idioma {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = true, length = 120, unique = true)
+    private String nombre;
+
+    //-----------------INTERRELACIONES---------------------
+
+    // IDIOMA--N:M--PELICULAS
+    @JsonIgnore
+    private List<Pelicula> peliculas = new ArrayList<>();
+}
+PELICULA: package com.dam2.Practica1.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "peliculas") // Los nombres en la BBDD, preferiblemente PLURAL
+@Data  // ✅ Lombok genera getters, setters, toString, equals, hashCode
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Pelicula { // Los de la clase, en singular
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 120)
+    private String titulo;
+
+    private int duracion;              // minutos
+
+    @Column(name = "fecha_estreno")
+    private LocalDate fechaEstreno;
+
+    private String sinopsis;
+    private int valoracion;
+
+    //----------------------------------INTERRELACIONES-----------------------------------------
+
+    // PELICULA--1:N--CRITICA
+    // Ponemos Cascade.ALL para eliminar las criticas de una pelicula al eliminar esta
+    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("pelicula")
+    private List<Critica> listaCriticas = new ArrayList<>();
+
+    // PELICULA--N:1--DIRECTOR
+    @ManyToOne // NO SE PONE CASCADE, para no borrar al director al borrar la pelicula.
+    @JoinColumn(name = "director_id", nullable = true) // FK en PELICULA (nullable a true para dejar meter pelis sin director)
+    @JsonIgnoreProperties("peliculas") // Serializa al director cuando pidamos la pelicula
+    private Director director;
+
+    // PELICULA--N:M--ACTOR
+    @ManyToMany(mappedBy = "peliculas")
+    @JsonIgnore
+    private List<Actor> actors = new ArrayList<>();
+
+    // PELICULA--N:M--CATEGORIAS
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "pelicula_categoria",
+            joinColumns = @JoinColumn(name = "pelicula_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    @JsonIgnoreProperties("peliculas")
+    private List<Categoria> categorias = new ArrayList<>();
+
+    // PELICULA--N:M--PLATAFORMA
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "pelicula_plataforma",
+            joinColumns = @JoinColumn(name = "pelicula_id"),
+            inverseJoinColumns = @JoinColumn(name = "plataforma_id"))
+    @JsonIgnoreProperties("peliculas")
+    private List<Plataforma> plataformas = new ArrayList<>();
+
+    // PELICULA--N:M--IDIOMA
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "pelicula_idioma",
+            joinColumns = @JoinColumn(name = "pelicula_id"),
+            inverseJoinColumns = @JoinColumn(name = "idioma_id"))
+            @JsonIgnoreProperties("peliculas")
+    private List<Idioma> idiomas = new ArrayList<>();
+
+
+    //-----------------------------HELPERS-----------------------------------------
+
+    // 1- Metodo Helper ADD CATEGORIA
+    public void addCategoria(Categoria c){
+        // Paso A: proteccion defensiva
+        // evita anadir duplicados si ya existen en la lista
+        if(c == null || this.categorias.contains(c)){
+            return;
+        }
+        // Paso B: Actualizar el lado "YO" (pelicula)
+        // Anado la categoria a mi lista interna
+        this.categorias.add(c);
+
+        // Paso C: Actualizo el lado "OTRO" (categoria)
+        // Cojo el objeto categoria y le digo: "Oye, agregame a mi (this) a tu lista de Peliculas
+        c.getPeliculas().add(this);
+    }
+
+    // 2 Metodo Helper REMOVE CATEGORIA
+    public void removeCategoria(Categoria c){
+        if(c == null){
+            return;
+        }
+        // Paso A: Me quito la categoria a mi mismo (Pelicula)
+        this.categorias.remove(c);
+
+        // Paso B: Le digo a categoria que me olvide a mi (Pelicula)
+        // Si no hacemos esto, la categoria sigue teniendo en memoria una referencia a esta pelicula
+        c.getPeliculas().remove(this);
+    }
+
+    // Metodo Helper ADD PLATAFORMA
+    public void addPlataforma(Plataforma p){
+        // 1 Evita anadir plataformas duplicadas
+        if(p == null || this.plataformas.contains(p)){
+            return;
+        }
+        // 2 Anado esta plataforma a mi lista
+        this.plataformas.add(p);
+
+        // Me anado a la lista de peliculas en el objeto Plataforma
+        p.getPeliculas().add(this);
+    }
+
+    // Metodo Helper REMOVE PLATAFORMA
+    public void removePlataforma(Plataforma p){
+        // 1 Me quito la plataforma a mi mismo (Pelicula)
+        this.plataformas.remove(p);
+
+        // 2 Le digo a Plataforma que se olvide de mi (Pelicula)
+        p.getPeliculas().remove(this);
+    }
+
+    // Metodo Helper ADD IDIOMA
+    public void addIdioma(Idioma i){
+        if(i == null || this.idiomas.contains(i)){
+            return;
+        }
+        this.idiomas.add(i);
+        i.getPeliculas().add(this);
+    }
+
+    // Metodo Helper REMOVE IDIOMA
+    public void removeIdioma(Idioma i){
+        this.idiomas.remove(i);
+        i.getPeliculas().remove(this);
+    }
+}
+PLATAFORMA: package com.dam2.Practica1.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="plataformas")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Plataforma {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = true, length = 120)
+    private String nombre;
+
+    @Column(nullable = true, length = 255)
+    private String url;
+
+    //-----------------------------INTERRELACIONES---------------------------------------
+
+    // N:M con PELICULAS
+    @ManyToMany(mappedBy = "plataformas")
+    @JsonIgnoreProperties("plataformas")
+    private List<Pelicula> peliculas = new ArrayList<>();
+}
+USUARIO: package com.dam2.Practica1.models;
+
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.catalina.LifecycleState;
+
+import java.util.List;
+
+@Entity
+@Table(name="usuarios")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 120, unique = true)
+    private String userName;
+
+    @Column(nullable = false, length = 120)
+    private String email;
+
+    @Column(nullable = false, length = 120)
+    private String password;
+
+    @Column(nullable = false, length = 120)
+    private String rol;
+
+    //------------------------------------- INTERRELACIONES---------------------------------------
+
+    // Relación 1:N con CRÍTICA
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore // Para no ver todas las críticas cuando carguemos el usuario
+    private List<Critica> criticasRealizadas;
+
+
+}, corrigemelo
