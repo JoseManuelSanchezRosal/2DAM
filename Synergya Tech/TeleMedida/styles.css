@@ -30,7 +30,7 @@ body {
 
 
 h2{
-    color: #2c3e50;
+    color: #063b4c;
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
@@ -54,7 +54,7 @@ form {
 /* Etiquetas */
 label {
     font-size: 1.4rem;
-    color: #555;
+    color: #063b4c;
     font-weight: 700;
     margin-bottom: 0.5rem;
     margin-top: 2.2rem;
@@ -86,8 +86,9 @@ input[type="text"] {
 }
 
 input:focus {
-    border-color: #177fc4;
+    border-color: #08d59f;
     background-color: #fff;
+    border: 2px solid #08d59f;
     box-shadow: 0 0 0 3px rgba(23, 127, 196, 0.15);
 }
 
@@ -160,9 +161,10 @@ button:active {
 
 /* Botón Enviar */
 .submit {
-    background: #2c3e50;
+    background: #08d59f;
     color: white;
-    box-shadow: 0 4px 6px rgba(44, 62, 80, 0.2);
+    box-shadow: 0 0px 6px rgba(44, 62, 80, 0.2);
+    border: 2px solid #08d59f;
 }
 
 .submit:hover {
