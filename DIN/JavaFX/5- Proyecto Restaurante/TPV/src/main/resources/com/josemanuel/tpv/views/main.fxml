@@ -14,8 +14,11 @@
             <children>
                 <VBox alignment="CENTER">
                     <children>
-                        <Label text="Restaurante" />
-                        <TilePane fx:id="tilePaneMesas" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" />
+                        <Label text="Restaurante">
+                     <font>
+                        <Font size="20.0" />
+                     </font></Label>
+                        <TilePane fx:id="tilePaneMesas" alignment="CENTER" prefHeight="172.0" prefWidth="900.0" />
                         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900">
                             <children>
                                 <SplitPane dividerPositions="0.3" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -87,7 +90,7 @@
                <children>
                   <Label text="Inventario">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                   </Label>
                   <TilePane fx:id="tilePaneInventarioItems" alignment="CENTER" prefHeight="629.0" prefWidth="892.0" />
