@@ -1,0 +1,8 @@
+mapeo
+dto
+service
+controller
+back reference
+jsonignore
+JsonManagedIgnore
+JsonBackReference
