@@ -1,0 +1,18 @@
+[options]
+; Ruta de los addons
+addons_path = /opt/odoo/odoo-18.0/addons
+
+; Configuración de la base de datos
+db_host = False
+db_port = False
+db_user = odoo
+db_password = 1234
+
+; Archivo de log
+logfile = /var/log/odoo/odoo.log
+
+; Puerto del servidor Odoo
+xmlrpc_port = 8069
+
+acceso a odoo
+http://localhost:8069/odoo/discuss
