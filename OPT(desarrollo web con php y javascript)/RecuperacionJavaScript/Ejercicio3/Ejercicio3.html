@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer>
+        // "Crea los diferentes array correctamente"
+        let imagenes = [];
+        let frases = [];
+
+        
+        function iniciarPrograma() {
+            // Llenamos el array de imágenes usando un bucle (más eficiente)
+            // Se asume que tienes fotos llamadas 0.jpg, 1.jpg, ..., 9.jpg en una carpeta "images"
+            for(let i = 0; i < 10; i++) {
+                imagenes.push("images/" + i + ".jpg");
+            }
+
+            // Llenamos el array de frases manualmente
+            frases = [
+                "La perseverancia es la clave del éxito",
+                "Hoy es un gran día para aprender JavaScript",
+                "El código limpio es código feliz",
+                "No olvides descansar la vista cada hora",
+                "Un error es una oportunidad de aprender",
+                "La práctica hace al maestro",
+                "Mantén la calma y sigue programando",
+                "Recuerda hidratarte bien",
+                "El CSS es arte, el JS es magia",
+                "Revisa la consola si algo falla"
+            ];
+
+            // --- 3. FUNCIÓN DE TIEMPO ---
+            // "Crea la función de tiempo correctamente"
+            // "Cada 5 segundos" (5000 milisegundos)
+            setInterval(generarAleatorio, 1000);
+        }
+
+        function generarAleatorio() {
+            // "Para generar el numero aleatorio: Math.floor(Math.random() * 10)"
+            let numero = Math.floor(Math.random() * 10);
+
+            // "Modifica estilos, parámetros o elementos de las etiquetas mediante JavaScript"           
+            // Acceso al DOM
+            let imgElemento = document.getElementById("imagen-mostrada");
+            let textoElemento = document.getElementById("frase-mostrada");
+
+            // Usamos el 'numero' como índice para acceder a ambos arrays a la vez
+            imgElemento.src = imagenes[numero];
+            textoElemento.innerHTML = frases[numero];
+            
+            // Cambiar estilo co JS en funcion de si el numero Random es o no PAR
+            // Por ejemplo, cambiar el color del texto aleatoriamente entre dos colores
+            if(numero % 2 === 0) {
+                textoElemento.style.color = "blue";
+            } else {
+                textoElemento.style.color = "red";
+            }
+        }
+    </script>
+</head>
+<body onload="iniciarPrograma()">
+    <h1>Galería Aleatoria</h1>
+    
+    <img id="imagen-mostrada" src="images/0.jpg" alt="Imagen aleatoria" width="300px" height="300px">
+    <div id="frase-mostrada">Esperando primer cambio...</div>
+    
+</body>
+</html>

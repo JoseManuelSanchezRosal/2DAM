@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer>
+        function cambio(){
+
+            const $cantidad = parseFloat(document.getElementById("cantidad").value)
+            const $salida = document.getElementById("salida")
+            const $monedaEntrada = document.getElementById("monedaEntrada").value
+            const $monedaSalida = document.getElementById("monedaSalida").value
+            
+            
+
+            if ($monedaEntrada === "euro"){
+                if($monedaSalida === "euro"){
+                $salida.textContent = $cantidad
+                }else if($monedaSalida === "libra"){
+                    $salida.textContent = $cantidad * 0.87
+                }else if($monedaSalida === "dolar"){
+                    $salida.textContent = $cantidad * 1.16                    
+                }
+
+            }else if($monedaEntrada === "dolar"){
+                if($monedaSalida === "euro"){
+                    $salida.textContent = $cantidad * 0.86
+                }else if($monedaSalida === "dolar"){
+                    $salida.textContent = $cantidad
+                }else if($monedaSalida === "libra"){
+                    $salida.textContent = $cantidad * 0.75
+                }
+
+            }else if($monedaEntrada === "libra"){
+                if($monedaSalida === "euro"){
+                    $salida.textContent = $cantidad * 1.15
+                }else if($monedaSalida === "libra"){
+                    $salida.textContent = $cantidad
+                }else if($monedaSalida === "dolar"){
+                    $salida.textContent = $cantidad * 1.33
+                }
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <input type="number" id="cantidad" placeholder="introduzca cantidad">
+    <select id="monedaEntrada" name=>
+        <option value="euro">Euros</option>
+        <option value="dolar">Dolares</option>
+        <option value="libra">Libras</option>
+    </select>
+    <label>Son:</label> <label id="salida"></label>
+    <select id="monedaSalida" name=>
+        <option value="euro">Euros</option>
+        <option value="dolar">Dolares</option>
+        <option value="libra">Libras</option>
+    </select>
+    <button onclick="cambio()">Cambio</button>
+
+</body>
+</html>

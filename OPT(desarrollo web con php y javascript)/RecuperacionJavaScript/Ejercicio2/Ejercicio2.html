@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function comprobar(){
+            // Limpiamos todos los campos
+            document.getElementById("errorNombre").textContent = ""
+            document.getElementById("errorTelefono").textContent = ""
+            document.getElementById("errorDireccion").textContent = ""
+
+            // Guardamos el contenido de cada campo en una variable
+            const $nombreCompleto = document.getElementById("lblNombre")
+            const $telefono = document.getElementById("lblTelefono")
+            const $direccion = document.getElementById("lblDireccion")
+
+            // Realizamos las operaciones de comprobacion para cada campo
+            // 1 Nombre
+            if(!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test($nombreCompleto.value)){
+                $nombreCompleto.value = ""
+                document.getElementById("errorNombre").textContent = "No es un nombre"
+            }
+
+            // 2 Telefono
+            if(!/^\d+$/.test($telefono.value)){
+                $telefono.value = ""
+                document.getElementById("errorTelefono").textContent = "No son numeros"
+            }
+
+            // 3 Direccion
+            if(!/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,ºª.-]+$/.test($direccion.value)){
+                $direccion.value = ""
+                document.getElementById("errorDireccion").textContent = "Contiene parametros incorrectos"
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <form>
+        <label for="nombre">Nombre completo:</label><br>
+        <input type="text" id="lblNombre" name="fname"> <label id="errorNombre"></label>
+        <br>
+        <label for="telefono">Telefono:</label><br>
+        <input type="text" id="lblTelefono" name="lname"> <label id="errorTelefono"></label>
+        <br>
+        <label for="direccion">Direccion:</label><br>
+        <input type="text" id="lblDireccion" name="lname"> <label id="errorDireccion"></label>
+        <br><br>
+        <button type="button" onclick="comprobar()">Comprobar</button>
+    </form>
+    
+</body>
+</html>
