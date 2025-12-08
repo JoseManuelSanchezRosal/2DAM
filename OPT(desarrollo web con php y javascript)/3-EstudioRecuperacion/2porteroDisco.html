@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Tienes que validar si una persona tiene edad válida para entrar, pero tienes prohibido usar IDs en los inputs.</h3>
+
+    <input placeholder="nombre">
+    <input placeholder="apellido">
+    <input placeholder="edad">
+    <button onclick="validar()">Validar</button>
+    
+    <script>
+        function validar(){
+            // 1 Capturamos los elementos del HTML (CAPTURAMOS SOLO LA CAJA, SIN .VALUE)
+            const $inputs = document.getElementsByTagName("input")
+
+            // 2 Sacamos el valor "CRUDO" (String)
+            const textoEdad = $inputs[2].value //puede ser "pepe", "" o 25
+            $inputs
+
+            // 3 hacemos comprobaciones oportunas (Primero si el campo esta vacio)
+            if(textoEdad === ""){
+                alert("campo obligatorio edad")
+                return
+            }
+
+            // Si el campo edad no esta vacio hacemos conversion
+            const numeroEdad = Number(textoEdad)
+            // 4 Si no es un numero o edad < 18
+            if(isNaN(numeroEdad) || numeroEdad < 18){
+                $inputs[2].style.borderColor = "red"
+                return
+            }
+
+            // 5 Si edad >= 18
+            $inputs[2].style.borderColor = "green"
+            
+        }
+
+    </script>
+</body>
+</html>

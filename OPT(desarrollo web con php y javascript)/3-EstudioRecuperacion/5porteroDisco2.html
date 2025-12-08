@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Comprobar entrada a Discoteque</h3>
+    <input id="edad">
+    <button onclick="comprobar()">Comprobar entrada</button>
+    <p id="resultado"></p>
+    
+    <script>
+        function comprobar(){
+            // 1 Capturar elementos del HTML
+            const $edad = document.getElementById("edad")
+            const $resultado = document.getElementById("resultado")
+
+            // Ponemos el focus al principio de la funcion
+            $edad.focus()
+
+
+            // 2 Validamos vacio o < 0
+            if($edad.value.trim() === "" || $edad.value.trim() < 0){
+                $resultado.textContent = "El campo edad no puede estar vacio o < 0"
+                $resultado.style.color = "red"
+                return
+            }
+
+            // Validamos edad < 18
+            if($edad.value < 18){
+                $resultado.textContent = "No puedes pasar"
+                $resultado.style.color = "red"
+                return
+            }
+            
+            // Validamos edad >= 18 y <= 65
+            if($edad.value <= 65){
+                $resultado.textContent = "Bienvenido, la entrada son 10 euros"
+                $resultado.style.color = "green"
+                return
+            }
+            $resultado.textContent = "Bienvenido, pase VIP Gratis"
+            $resultado.style.color = "gold"
+        }
+        /*
+ * EJERCICIO: El Portero de Discoteca
+ * ---------------------------------------------
+ * 1. HTML: Input (id="edad"), Botón, Párrafo resultado.
+ * 2. JS - Validación: Vacío o < 0 -> "Error..." (Rojo).
+ * 3. JS - Reglas:
+ * - < 18: "No puedes pasar" (Rojo).
+ * - 18-65: "Bienvenido, 10€" (Verde).
+ * - > 65: "VIP Gratis" (Dorado).
+ */
+    </script>
+</body>
+</html>

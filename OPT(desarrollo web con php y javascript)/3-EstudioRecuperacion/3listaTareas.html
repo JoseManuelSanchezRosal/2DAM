@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Crea una lista de tareas. Al pulsar el botón, añade el texto del input como un nuevo elemento &lt;li&gt; a la lista. Valida que no esté vacío, limita a un máximo de 5 tareas y limpia el input tras agregar. (Usa getElementById).</h3>
+    <input type="text" id="entrada" placeholder="introducir tarea...">
+    <button onclick="agregarTarea()">Agregar tarea</button>
+
+    <ol id="salida">
+
+    </ol>
+    
+    <script>
+        function agregarTarea(){
+            // 1 Capturamos elementos
+            const $entrada = document.getElementById("entrada")
+            const $salida = document.getElementById("salida")
+
+            // 2 Validamos que no este vacia
+            if($entrada.value === ""){
+                alert("La tarea no puede estar vacia")
+                return
+
+            }
+            // 3 Agregamos <li> mientras la cantidad de ul.children(li).length sea menor o igual a 5
+            if($salida.children.length >= 5){
+                alert("Numero maximo de tareas")
+                return
+
+            }else{
+                // 4 Creamos el boton de CIERRE, para asignarlo a su tarea
+                const cierreTarea = document.createElement("button")
+                cierreTarea.textContent = "X"
+                // 5 Asignamos funcion al boton
+                cierreTarea.onclick = function(){
+                    $salida.removeChild(tarea)
+                }
+                // 6 Creamos la tarea
+                const tarea = document.createElement("li")
+                
+                
+                // 7 Una vez capturamos EL VALOR de entrada.value, limpiamos el imput
+                tarea.textContent = $entrada.value
+                tarea.appendChild(cierreTarea)
+                $entrada.value = ""
+                $entrada.focus()
+                $salida.appendChild(tarea)
+                console.log("Numero de Tareas en lista: " + $salida.children.length)
+            }
+        }
+    </script>
+</body>
+</html>

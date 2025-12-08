@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Crear una aplicacion que calcule el precio final de un producto rebajado. Input precio, input descuento, button calcular y parrafo para mostrar resultado. Validar que los campos no esten vacios o sean 0, error "datos invalidos" en rojo</h3>
+    
+    <input id="precio" placeholder="ingrese precio">
+    <input id="descuento" placeholder="ingrese descuento (%)">
+    <button onclick="calcularPrecioFinal()">Calcular precio final</button>
+    <p id="resultado"></p>
+
+    <script>
+        function calcularPrecioFinal(){
+            //0 Quitamos estilos
+            
+            // 1 Capturamos los elementos del HTML
+            const $precio = document.getElementById("precio")
+            const $descuento = document.getElementById("descuento")
+            const $resultado = document.getElementById("resultado")
+            $resultado.style.color = ""
+
+            //2 Validamos que ningun campo este vacio
+            if($precio.value === "" || $descuento.value === ""){
+                $resultado.textContent = "Error, no pueden haber campos vacios"
+                $resultado.style.color = "red"
+                return
+            }
+
+            // Convertimos String a number de los campos precio y descuento
+            const cantidadPrecio = Number($precio.value)
+            const cantidadDescuento = Number($descuento.value)
+
+            // Validamos que la cantidad de algun campo no sea 0
+            if(cantidadPrecio <= 0 || cantidadDescuento <= 0){
+                $resultado.textContent = "Los campos no pueden valer 0"
+                $resultado.style.color = "red"
+                return
+
+            }else{
+                const ahorro = (cantidadPrecio * cantidadDescuento) / 100
+                const precioFinal = cantidadPrecio - ahorro
+                
+                $resultado.textContent = `El precio final es de: ${precioFinal.toFixed(2)} euros, te has ahorrado ${ahorro.toFixed(2)} euros`
+                $resultado.style.color = "green"
+            }
+        }
+    </script>
+
+</body>
+</html>

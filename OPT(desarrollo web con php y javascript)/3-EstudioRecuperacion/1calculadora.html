@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Crea un script que tome dos números introducidos por el usuario, los sume y muestre el resultado en pantalla con una frase completa (ej: "El total es 20").</h3>
+
+    <input id="numero1">
+    <input id="numero2">
+    <button onclick="sumar()">Sumar</button>
+    <h3 id="resultado"></h3>
+    
+    <script>
+        function sumar(){
+            // 1 Capturamos los elementos del HTML
+            const $num1 = document.getElementById("numero1")
+            const $num2 = document.getElementById("numero2")
+            const $resultado = document.getElementById("resultado")
+
+            // 2 Comprobamos si estan o no vacios
+            if ($num1.value === "" || $num2.value === ""){
+                $resultado.textContent = "Rellene los dos campos"
+                $resultado.style.color = "red"
+                return
+            }
+
+            // 3 Si estan rellenos, hacemos conversion (Number mantiene decimales, igual que parsefloat)
+            const n1 = Number($num1.value)
+            const n2 = Number($num2.value)
+            const suma = n1 + n2
+
+            $resultado.textContent = suma
+            $resultado.style.color = "green"
+
+
+        }
+
+    </script>
+</body>
+</html>

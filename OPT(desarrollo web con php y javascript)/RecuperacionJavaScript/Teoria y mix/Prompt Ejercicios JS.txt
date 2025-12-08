@@ -1,0 +1,112 @@
+Te voy a pasar un examen de Javascript, en el cual saque un 2: Examen unidad 1: JavaScript
+Antes de empezar el examen lee atentamente el contenido del mismo.
+Antes de empezar el examen inicia una grabación de pantalla con un programa para
+capturar, si has abierto este documento sin tener activa la grabación avisa al
+profesor.
+La única documentación de la que dispone el alumno es su resumen propio de
+JavaScript y los siguientes recursos para HTML y CSS:
+https://developer.mozilla.org/es/
+https://www.w3schools.com/
+Se disponen de dos horas para realizar los siguientes ejercicios:
+Ejercicio 1
+Crea un script que a través de una entrada de datos te cambie de divisa (por ejemplo,
+que cambie de euros a dólares). Tiene que tener al menos 3 monedas distintas y
+tiene que poder realizar la conversión de cualquiera de ellas. (1 punto)
+ Se debe crear un HTML para probar el ejercicio.
+ Se debe de poder introducir una cantidad monetaria por el documento
+HTML.
+ Debe tener una salida de información (por la vista HTML o por consola, a
+elección del alumno).
+ El script debe permitir la conversión entre los diferentes tipos de divisa.
+Ejercicio 2
+Crea un script que compruebe que los datos de un formulario están escritos
+correctamente, los campos del formulario son: Nombre completo, número de
+teléfono y dirección. El nombre completo solo puede tener caracteres, el número de
+teléfono solamente admite dígitos, y la dirección puede tener caracteres alfanuméricos. Debes comprobar que los valores introducidos cumplen con el formato.
+Para extraer los elementos debes usar getElementByTagName. Si algún elemento no
+tuviera el formato adecuado debes borrar el campo y mostrar un mensaje de error.
+(1’5 punto)
+ Se debe crear un HTML para probar el ejercicio.
+ Los campos del formulario son entradas de datos.
+ Para comprobar los campos debes usar la función getElementByTagName.
+ Se borra la información con el formato erróneo.
+ Muestra el mensaje de error (por pantalla o por consola).
+Ejercicio 3
+Crea un script que contenga un array con al menos 10 frases y 10 imágenes, cada 5
+segundos se debe generar un numero aleatorio entre 0 y 9 y dependiendo del
+número tiene que salir una imagen con su frase correspondiente. Todas las
+imágenes tienen que tener las mismas dimensiones (no es necesario usar
+JavaScript). (1’5 puntos)
+Para generar el numero aleatorio: Math.floor(Math.random() * 10)
+ Se debe crear un HTML para probar el ejercicio.
+ Crea la función de tiempo correctamente
+ Crea los diferentes array correctamente.
+ Modifica estilos, parámetros o elementos de las etiquetas mediante
+JavaScript.
+ Accede a los array correctamente.
+Ejercicio 4
+Crea un script que cuando inicie la página se inicie un cronometro, además se
+contara con tres funciones diferentes, avanzar, parar y retroceder. La función
+avanzar incrementará el cronometro en una unidad cada segundo, la función parar
+detendrá el cronometro en el instante en el que se pulse y la función retroceder
+deberá restar una unidad por segundo al cronometro. (1’5 punto)
+Se tiene que implementar 3 botones para las tres funciones anteriores.
+El valor del cronometro no puede exceder las 100 unidades ni tener menos de 0
+unidades.
+ Se debe crear un HTML para probar el ejercicio.
+ Crea la función de tiempo correctamente
+ Establece diferentes elementos de control para las funciones de tiempo.
+ Realiza las funciones correctamente.
+ Muestra el contador con las unidades (por terminal o en el documento
+HTML)
+Ejercicio 5
+Crea un script con varios cuadros de texto, cuando el ratón esta encima del cuadro
+el color de la letra y el tamaño del texto debe variar, cuando el ratón abandone el
+cuadro de texto vuelva al estado anterior, cuando selecciones el cuadro de texto el
+fondo tiene que cambiar de color y cuando no este seleccionado volver al original.
+Para manipular el tamaño de la fuente por DOM se utiliza fontSize en vez de fontsize. (1 punto)
+ Se debe crear un HTML para probar el ejercicio.
+ Se modifica el cuadro de texto correspondiente al pasar por encima y vuelve
+a su estado anterior.
+ Ocurren las diferentes modificaciones en los cuadros de texto y vuelven al
+estado anterior una vez no está seleccionado.
+ Implementa los diferentes tipos de eventos correctamente.
+Ejercicio 6
+Crea un script que contenga un objeto persona, implementa estos 3 métodos
+diferentes: introducirPersona, introduce una persona al objeto o al elemento que lo
+contenga, si el objeto no está vacío se alertara al usuario que está sustituyendo a la
+persona actual, si el objeto está vacío no se dará ningún aviso; mostrarPersona,
+muestra la persona creada; eliminarPersona, elimina el contenido del objeto o del
+elemento persona. Los atributos que debe de tener el objeto son, nombre, edad,
+teléfono y domicilio. (1 punto)
+ Se debe crear un HTML para probar el ejercicio.
+ Crea el objeto correctamente.
+ Los métodos funcionan de acuerdo al enunciado.
+Ejercicio 7
+Crea un script con dos clases diferentes, una clase denominada asignatura que
+tendrá los siguientes atributos:
+1. Nombre
+2. Nº de créditos
+3. Nº máximo de alumnos
+Crea otra clase llamada curso con los siguientes parámetros:
+1. Nombre del curso
+2. Array de asignaturas
+La clase curso tiene que tener los diferentes métodos:
+1. AnyadirAsignatura: añade una asignatura al curso, se debe comprobar que la
+asignatura no está previamente en el curso.
+2. EliminarAsignatura: recibe una cadena por argumento, elimina la asignatura
+del array (utiliza la función array.splice(índice,1) para eliminar el elemento).
+3. MostrarCurso: muestra el nombre del curso y el número de asignaturas.
+4. ListaAsignaturas: muestra un listado de las asignaturas del curso.
+5. MostrarAsignatura: recibe una cadena con el nombre de la asignatura,
+muesta el nombre, nº de créditos y el número de alumno máximo que pueden
+estar matriculados en la asignatura.
+Se debe mostrar las diferentes salidas de los diferentes métodos, salvo de la función
+AnyadirAsignatura y EliminarAsignatura. (2’5 puntos)
+ Se debe crear un HTML para probar el ejercicio.
+ Se implementa la clase asignatura.
+ Se implementa la clase curso.
+ Se implementan los métodos de la clase curso correctamente.
+ Se muestran las salidas de los métodos (por terminal o por el HTML).
+
+Quiero que lo analices bien y me prepares un documento explicandome cuales son las etiquetas, metodos funciones y clases son mas apropiadas para el intercambio de iformacion entre el HTML y el documento JavaScritp.
