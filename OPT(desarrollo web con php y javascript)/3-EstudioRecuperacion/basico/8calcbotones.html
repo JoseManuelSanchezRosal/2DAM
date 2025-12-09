@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora con Botones</title>
+</head>
+<body>
+    <h3>Calculadora con Botones</h3>
+
+    <input id="num1" type="number" placeholder="Número A">
+    <input id="num2" type="number" placeholder="Número B">
+
+    <br><br>
+
+    <button onclick="realizarOperacion('+')">Sumar</button>
+    <button onclick="realizarOperacion('-')">Restar</button>
+    <button onclick="realizarOperacion('*')">Multiplicar</button>
+    <button onclick="realizarOperacion('/')">Dividir</button>
+
+    <h3>Resultado:</h3>
+    <p id="salida">0</p>
+
+    <script>
+        // La palabra 'signo' aquí atrapa lo que enviaste desde el botón (+, -, *, /)
+        function realizarOperacion(signo) {
+            
+            // 1. Capturamos y convertimos los números
+            const num1 = parseFloat(document.getElementById("num1").value)
+            const num2 = parseFloat(document.getElementById("num2").value)
+            const $salida = document.getElementById("salida")
+
+            // 2. Comprobamos si los números son válidos
+            if (isNaN(num1) || isNaN(num2)) {
+                $salida.textContent = "Por favor, introduce dos números"
+                $salida.style.color = "red"
+                return
+            }
+
+            // 3. El switch decide qué hacer según el 'signo' que llegó del botón
+            switch(signo) {
+                case "+":
+                    $salida.textContent = num1 + num2
+                    break
+                
+                case "-":
+                    $salida.textContent = num1 - num2
+                    break
+
+                case "*":
+                    $salida.textContent = num1 * num2
+                    break
+
+                case "/":
+                    $salida.textContent = num1 / num2
+                    break
+            }
+            
+            // Pongo el color en negro por si antes salió un error rojo
+            $salida.style.color = "black"
+        }
+    </script>
+</body>
+</html>

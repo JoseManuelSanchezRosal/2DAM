@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="nota" placeholder="Introduzca nota">
+    <button onclick="evaluar()">Evaluar</button>
+    <p id="resultado"></p>
+
+    <script>
+        function evaluar(){
+            // 1 Capturamos los elementos del HTML
+            const $nota = document.getElementById("nota")
+            const $salida = document.getElementById("resultado")
+
+            // 2 Guardamos el valor en una variable auxiliar
+            const notaTexto = $nota.value.trim()
+
+            // 3 Limpiamos input y devolvemos FOCUS
+            $nota.value = ""
+            $nota.focus()
+
+            // 4 Validamos si esta vacia
+            if (notaTexto === ""){
+                $salida.textContent = "Entrada de nota vacia"
+                $salida.style.color = "red"
+                return
+                
+            }
+            // 5 Si el valor de la variable no esta vacia, la convertimos a Number
+            const notaValida = Number(notaTexto)
+            
+            // 6 Validamos notas
+            if(notaValida < 0 || notaValida > 10){
+                $salida.textContent = "Nota fuera de rango"
+                $salida.style.color = "red"
+                console.log(notaValida)
+                return
+
+            }else if(notaValida === 0 || notaValida < 5){
+                $salida.textContent = "Suspenso"
+                $salida.style.color = "red"
+                return
+
+            }else if(notaValida < 7){
+                $salida.textContent = "Aprobado"
+                $salida.style.color = "orange"
+                return
+
+            }else if(notaValida < 9){
+                $salida.textContent = "Notable"
+                $salida.style.color = "blue"
+                return
+            }else if(notaValida <=10){
+                $salida.textContent = "Sobresaliente"
+                $salida.style.color = "green"
+
+            }else{
+                $salida.textContent = "Introduzca un numero valido"
+            }
+        }
+
+    </script>
+</body>
+</html>

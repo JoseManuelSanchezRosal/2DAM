@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Gestion de almacen (producto, unidad)</h3>
+    <input id="nombre" placeholder="introduzca nombre producto">
+    <input id="cantidad" type="number" placeholder="introduzca cantidad producto">
+    <button onclick="ficharProducto()">Fichar Producto</button>
+    <button onclick="borrarEspecifico()">Borrar Producto Especifico</button>
+    <button onclick="editarCantidad()">Editar Cantidad Producto</button>
+
+    <h3>Lista de Productos</h3>
+    <ul id="listaVisual" ></ul>
+    <p id="contador"></p>
+    
+    <script>
+        const $listaVisual = document.getElementById("listaVisual")
+        const inventario = []
+        const $nombre = document.getElementById("nombre")
+        const $cantidad = document.getElementById("cantidad")
+        const $contador = document.getElementById("contador")
+        
+
+
+        // 1 Funcion para anadir al inventario productos mediante objetos
+        function ficharProducto(){
+            const nombre = $nombre.value
+            const textoCantidad = $cantidad.value
+
+            if(nombre === "" || textoCantidad === ""){
+                alert("So memo, rellena los campos")
+                return
+            }
+
+            const numeroCantidad = Number(textoCantidad)
+            if(textoCantidad <=0){
+                alert("Que vas a comprar 0 cosas de algo?? no seas malito")
+                return
+            }
+            const producto = {
+                nombre: nombre,
+                cantidad: numeroCantidad
+            }
+
+            inventario.push(producto)
+            // Te imprime una tabla en Inspector >> Console loco!!
+            console.table(inventario)
+            renderizar()
+        }
+
+        // 2 Funcion renderizar() para mostrar nuestro inventario en el HTML
+        function renderizar(){
+            let htmlAcumulator = ""
+            for(let i = 0; i < inventario.length; i++){
+                const elemento = inventario[i]
+                htmlAcumulator += `<li> Producto: ${elemento.nombre} - Unidades: ${elemento.cantidad}</li>`
+            }
+            $listaVisual.innerHTML = htmlAcumulator
+            $nombre.value = ""
+            $cantidad.value = ""
+            $nombre.focus()
+
+            calcularTotal()
+            
+        }
+
+        // 3 Funcion para calcular el total
+        function calcularTotal(){
+            let total = 0
+            
+            for (let i = 0; i < inventario.length; i++){
+                console.log(total)
+                total += inventario[i].cantidad
+            }
+            $contador.innerHTML = `La cantidad total es de ${total} productos`
+        }
+
+        function borrarEspecifico(){
+            const nombreABorrar = $nombre.value
+            if(nombreABorrar === ""){
+                alert("Retarder, mete el nombre del producto a borrar")
+                return
+            }
+
+            /**
+             * findIndex == recorre el array, ejecuta un callback sobre cada elemento, devuelve el indice del primer elemento para el cual la funcion retorna true
+             * 
+             * item => item.nombre === nombreABorrar es una funcion flecha usada como callback. Por cada item del array, comprueba si item.nombre es igual a nombreABorrar
+             */
+            const indice = inventario.findIndex(item => item.nombre === nombreABorrar)
+
+            if(indice === -1){
+                alert("No se encuentra el producto buscado")
+                return
+            }
+            inventario.splice(indice, 1)
+            
+            renderizar()
+        }
+
+        function editarCantidad(){
+            const nombreAModificar = $nombre.value
+            if(nombreAModificar === ""){
+                alert("Ingrese nombre del producto a modificar su Cantidad")
+                return
+            }
+            const indice = inventario.findIndex(item => item.nombre === nombreAModificar)
+
+            if(indice === -1){
+                alert("Producto no encontrado, catetorro")
+                return
+            }
+            // OJO AL PEDIR CON EL PROMP, PORQUE HAY QUE PARSEARLO
+            const nuevaCantidad = prompt("Indroduzca nueva cantidad")
+            inventario[indice].cantidad = Number(nuevaCantidad)
+        
+            renderizar()
+
+        }
+    </script>
+</body>
+</html>

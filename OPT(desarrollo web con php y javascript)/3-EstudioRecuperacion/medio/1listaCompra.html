@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="producto" placeholder="Introduce producto">
+    <button onclick="anadirProducto()" >Pulsa para ANADIR</button>
+    <button onclick="borrarUltimo()">Borrar Ultimo</button>
+    <button onclick="borrarPrimero()">Borrar Primero</button>
+    <button onclick="borrarEspecifico()">Borrar Especifico</button>
+    <button onclick="editarProducto()">Editar Producto</button>
+
+    <br><br>
+    <button onclick="mostrarEnConsola()">Mostrar en Consola</button>
+    <p id="salida"></p>
+    <ul id="listaVisual"></ul>
+
+    <script>
+        const productos = []
+        const lista = document.getElementById("listaVisual")
+        const $input = document.getElementById("producto")
+        const $salida = document.getElementById("salida")
+        const $listaVisual = document.getElementById("listaVisual")
+
+        function editarProducto(){
+            const productoAEditar = document.getElementById("producto").value
+            const indice = productos.indexOf(productoAEditar)
+            if(indice === -1){
+                alert("Pero seras memo, si de eso no hay, como lo vas a editar, que malito estas")
+                return
+            }     
+            const nuevoNombre = prompt("Seleccione nuevo nombre")       
+            productos[indice] = nuevoNombre
+            renderizar()
+        }
+
+        function borrarEspecifico(){
+            const productoABorrar = document.getElementById("producto").value
+            console.log(productoABorrar)
+
+            const indice = productos.indexOf(productoABorrar)
+            if(indice === -1){
+                alert("Capullo, eso no esta en la cesta")
+                return
+            }
+            productos.splice(indice, 1)
+            renderizar()
+
+        }
+
+        function renderizar(){
+            let htmlAcumulado = ""
+            for (let i = 0; i < productos.length; i++){
+                htmlAcumulado += `<li> ${productos[i]} </li>`
+                
+            }
+            $listaVisual.innerHTML = htmlAcumulado
+        }
+
+        function mostrarEnConsola(){
+            for (let i = 0; i < productos.length; i++){
+                console.log(productos[i])
+            }
+            renderizar()
+
+        }
+
+        function anadirProducto(){
+            // 1 Capturamos elementos del DOM
+            const productoNuevo = $input.value
+            if(productoNuevo === ""){
+                alert("Ingrese un producto")
+                return
+            }
+            if(productos.includes(productoNuevo)){
+                alert("Ya tenemos de eso, garrulo")
+                return
+            }
+            productos.push(productoNuevo)
+
+            $salida.textContent = productos
+            $input.value = ""
+            $input.focus()
+            renderizar()
+
+        }
+
+        function borrarPrimero(){
+            productos.shift()
+            $salida.textContent = productos
+            $input.value = ""
+            $input.focus()
+            renderizar()
+
+        }
+
+        function borrarUltimo(){
+            productos.pop()
+            $salida.textContent = productos
+            $input.value = ""
+            $input.focus()
+            renderizar()
+
+        }
+    </script>
+</body>
+</html>
