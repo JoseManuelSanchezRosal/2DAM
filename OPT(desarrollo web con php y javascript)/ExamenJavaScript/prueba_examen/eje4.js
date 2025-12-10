@@ -34,6 +34,8 @@ function avanzarCrono(){
 function pararCrono(){
     clearInterval(semaforo);
     control=0;
+
+    
 }
 
 

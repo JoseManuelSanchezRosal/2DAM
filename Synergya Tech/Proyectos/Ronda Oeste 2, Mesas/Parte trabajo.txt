@@ -1,0 +1,4 @@
+10/12/2025
+- Configurar conexión en Módulo Yubii Home 3 para acceso remoto a través de Plataforma Fibaro
+- Desvincular dispositivos del otro módulo para vincularlos con el módulo del Proyecto .
+- Vincular y configurar 4 enchufes

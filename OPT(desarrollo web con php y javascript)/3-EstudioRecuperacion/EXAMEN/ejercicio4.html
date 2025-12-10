@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="iniciarCrono()">
+    <h3>Control de tiempo</h3>
+    <button onclick="iniciarCrono()">Avanzar</button>
+    <button onclick="pararCrono()">Detener</button>
+    <button onclick="iniciarCronoInv()">Retroceder</button>
+    <label id="demo"></label>
+    
+    
+    <script>
+        let valor = 0
+        let semaforo = false
+
+        function avanzar(){
+            if(valor < 100){
+                valor++
+                document.getElementById("demo").textContent = valor
+            }
+        }
+        function retroceder(){
+            if(valor > 0){
+                valor--
+                document.getElementById("demo").textContent = valor
+            }
+        }
+
+        function iniciarCrono(){
+            if(!semaforo){
+                semaforo = setInterval(avanzar, 1000)
+            }
+        }
+
+        function pararCrono(){
+            clearInterval(semaforo)
+            semaforo = false
+        }
+
+        function iniciarCronoInv(){
+            if(!semaforo){
+                semaforo = setInterval(retroceder, 1000)
+            }
+
+        }
+        
+    </script>
+</body>
+</html>

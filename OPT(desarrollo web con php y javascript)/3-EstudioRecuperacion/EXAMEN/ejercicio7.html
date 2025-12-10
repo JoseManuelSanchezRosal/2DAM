@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="inputNombre" placeholder="Introduzca nombre Asignatura"><br>
+    <input id="inputCreditos" placeholder="Introduzca numero de Creditos"><button onclick="andadirAsignatura()">Anadir asignatura</button><br>
+    <input id="inputAlumnos" placeholder="Introduzca maximo Alumnos">
+
+    
+    
+    <script>
+        class Asignatura {
+            constructor(nombre, creditos, maximoAlumnos) {
+                this.nombre = nombre
+                this.creditos = creditos
+                this.maximoAlumnos = maximoAlumnos
+            }
+        }
+        
+        class Curso {
+            constructor(nombreCurso, asignaturas){
+                this.nombreCurso = nombreCurso
+                this.asignaturas = []
+            }
+
+        }
+
+
+        function andadirAsignatura(){
+
+            const $nombre = document.getElementById("inputNombre").value
+            const $creditos = parseInt(document.getElementById("inputCreditos").value)
+            const $maxAlumnos = parseInt(document.getElementById("inputAlumnos").value)
+
+            const asig = new Asignatura ($nombre, $creditos, $maxAlumnos)
+            asignaturas.push(asig)
+
+            console.table(asignaturas)
+        }
+
+    </script>
+</body>
+</html>

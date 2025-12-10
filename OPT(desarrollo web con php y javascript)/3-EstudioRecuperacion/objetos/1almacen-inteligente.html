@@ -32,13 +32,13 @@
             const textoCantidad = $cantidad.value
 
             if(nombre === "" || textoCantidad === ""){
-                alert("So memo, rellena los campos")
+                alert("Rellene todos los campos")
                 return
             }
 
             const numeroCantidad = Number(textoCantidad)
             if(textoCantidad <=0){
-                alert("Que vas a comprar 0 cosas de algo?? no seas malito")
+                alert("La cantidad debe ser > 0")
                 return
             }
             const producto = {
@@ -82,7 +82,7 @@
         function borrarEspecifico(){
             const nombreABorrar = $nombre.value
             if(nombreABorrar === ""){
-                alert("Retarder, mete el nombre del producto a borrar")
+                alert("Rellene el nombre del producto a borrar")
                 return
             }
 
@@ -111,7 +111,7 @@
             const indice = inventario.findIndex(item => item.nombre === nombreAModificar)
 
             if(indice === -1){
-                alert("Producto no encontrado, catetorro")
+                alert("Producto no encontrado")
                 return
             }
             // OJO AL PEDIR CON EL PROMP, PORQUE HAY QUE PARSEARLO

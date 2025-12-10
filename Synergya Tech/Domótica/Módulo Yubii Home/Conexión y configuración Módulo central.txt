@@ -1,3 +1,6 @@
+- Para actualizar hay que entrar desde la IP del módulo (mesas= http://192.168.18.132) EVITAR versiones BETA
+- Red wifi mesas (http://192.168.18.154)
+
 ENTRAR APP Y MODULO
 1- Conectarlo y esperar a led fijo (rojo=no conectado a red, verde=conectado a red). También se puede forzar el modo AP para conexión a través de IP: 
 
