@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="nombre" placeholder="Nombre y apellidos"><label id="lblNombre"></label><br>
+    <input id="telefono" placeholder="Telefono"><label id="lblTelefono"></label><br>
+    <input id="direccion" placeholder="Direccion"><label id="lblDireccion"></label><br>
+
+
+    <button onclick="comprobar()">Comprobar</button>
+
+    <script>
+        const $lblNombre = document.getElementById("lblNombre")
+        const $lblTelefono = document.getElementById("lblTelefono")
+        const $lblDireccion = document.getElementById("lblDireccion")
+        const $inputs = document.getElementsByTagName("input")
+
+        function comprobar(){
+
+            for(let i = 0; i < $inputs.length; i++){
+               if(i == 0){
+                if(!/^[A-Za-z]*$/.test($inputs[i]).value){
+                    $lblNombre.innerHTML= "Parametros incorrectos"
+                    
+                }
+               }
+                }
+            }
+        
+    </script>
+</body>
+</html>

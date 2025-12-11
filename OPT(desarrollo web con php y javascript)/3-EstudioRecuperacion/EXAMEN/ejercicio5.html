@@ -4,9 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
 </head>
 <body>
-    <textarea onmouseover="mouseOver(this)" onmouseleave="mouseLeave(this)">HOLA</textarea>
+    <textarea onmouseover="mouseOver(this)" onmouseleave="mouseLeave(this)" onfocus="onFocus(this)" onblur="onBlur(this)">HOLA</textarea>
+    <textarea onmouseover="mouseOver(this)" onmouseleave="mouseLeave(this)" onfocus="onFocus(this)" onblur="onBlur(this)">HOLA</textarea>
+    <textarea onmouseover="mouseOver(this)" onmouseleave="mouseLeave(this)" onfocus="onFocus(this)" onblur="onBlur(this)">HOLA</textarea>
+    <textarea onmouseover="mouseOver(this)" onmouseleave="mouseLeave(this)" onfocus="onFocus(this)" onblur="onBlur(this)">HOLA</textarea>
+    
+    <script>
+        // 1 Capturamos el conjunto de Textarea del DOM
+        const textAreas = document.getElementsByTagName("textarea")
+
+        // 2 Creamos las funciones para cambiar los estilos
+        function mouseOver(elemento){
+            elemento.style.fontSize = "20px"
+            elemento.style.color = "red"
+        }
+        function mouseLeave(elemento){
+            elemento.style.fontSize = ""
+            elemento.style.color = ""
+        }
+        function onFocus(elemento){
+            elemento.style.backgroundColor = "blue"
+        }
+        function onBlur(elemento){
+            elemento.style.backgroundColor = ""
+        }
+
+    </script>
     
 </body>
+
 </html>

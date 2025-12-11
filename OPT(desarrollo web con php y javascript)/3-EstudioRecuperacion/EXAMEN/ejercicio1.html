@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="cantidad" placeholder="introduzca cantidad">
+    <select id="monedaEntrada">
+        <option value="euro">euros</option>
+        <option value="dolar">dolares</option>
+        <option value="libra">libras</option>
+    </select>
+    <span> son: </span> <label id="salida"></label>
+
+    <select id="monedaSalida">
+        <option value="euro">euros</option>
+        <option value="dolar">dolares</option>
+        <option value="libra">libras</option>
+    </select>
+    <button onclick="cambiar()">CAMBIAR</button>
+
+    <script>
+        function cambiar(){
+            const $monedaEntrada = document.getElementById("monedaEntrada").value
+            const $monedaSalida = document.getElementById("monedaSalida").value
+            const $cantidad = document.getElementById("cantidad").value
+            const $salida = document.getElementById("salida")
+
+            const valorMoneda = parseInt($cantidad)
+            console.log(valorMoneda)
+            console.log(typeof(valorMoneda))
+
+
+            if($monedaEntrada === "euro"){
+                if($monedaSalida === "euro"){
+                    $salida.textContent = valorMoneda
+
+                    }else if($monedaSalida === "dolar"){
+                        $salida.textContent = (valorMoneda * 1.164).toFixed(2)
+                    }else if($monedaSalida === "libra"){
+                        $salida.textContent = (valorMoneda * 0.873).toFixed(2)
+                
+                    }
+                }
+
+                if($monedaEntrada === "dolar"){
+                    if($monedaSalida === "euro"){
+                        $salida.textContent = (valorMoneda * 0.86).toFixed(2)
+                    }else if($monedaSalida === "dolar"){
+                        $salida.textContent = valorMoneda
+                    }else if($monedaSalida === "libra"){
+                        $salida.textContent = (valorMoneda * 0.75).toFixed(2)
+                    }
+                }
+
+                if($monedaEntrada === "libra"){
+                    if($monedaSalida === "euro"){
+                        $salida.textContent = (valorMoneda * 1.15).toFixed(2)
+                    }else if($monedaSalida === "dolar"){
+                        $salida.textContent = (valorMoneda * 1.33).toFixed(2)
+                    }else if($monedaSalida === "libra"){
+                        $salida.textContent = valorMoneda
+                    }
+                }
+            }
+            
+    </script>
+</body>
+</html>
