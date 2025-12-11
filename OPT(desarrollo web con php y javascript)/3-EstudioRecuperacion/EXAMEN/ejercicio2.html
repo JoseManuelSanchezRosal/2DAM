@@ -14,16 +14,14 @@
     <button onclick="comprobar()">Comprobar</button>
 
     <script>
-        const $lblNombre = document.getElementById("lblNombre")
-        const $lblTelefono = document.getElementById("lblTelefono")
-        const $lblDireccion = document.getElementById("lblDireccion")
+        
         const $inputs = document.getElementsByTagName("input")
 
         function comprobar(){
 
             for(let i = 0; i < $inputs.length; i++){
                if(i == 0){
-                if(!/^[A-Za-z]*$/.test($inputs[i]).value){
+                if(!$inpus[0].value){
                     $lblNombre.innerHTML= "Parametros incorrectos"
                     
                 }

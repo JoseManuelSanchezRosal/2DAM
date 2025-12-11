@@ -1,0 +1,10 @@
+Frontend:
+- Lenguajes: HTML, CSS, JavaScript
+- Librerías: FullCalendar
+
+
+Backend:
+- Lenguajes: Java
+- Framework: Spring Boot
+- Base de datos: MySQL o MariaDB
+Thymeleaf

@@ -1,0 +1,4 @@
+Análisis de Soluciones Existentes: El mercado ofrece soluciones robustas y reconocidas como Booksy, Fresha o Koibox. Son excelentes para grandes establecimientos, pero presentan inconvenientes para el autónomo unipersonal:
+Coste recurrente: suelen funcionar bajo modelos de suscripción mensual o comisiones por cita, lo que incrementa los gastos fijos del autónomo.
+Exceso de funcionalidades: incluyen módulos complejos (gestión del stock masivo, nóminas de empleados, marketing avanzado) que no son necesarios para un solo profesional y complican la curva de aprendizaje.
+Dependencias de terceros: los datos y la disponibilidad dependen de plataformas externas con menor capacidad de personalización a la imagen de la marca de la Profesional.

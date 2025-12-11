@@ -1,4 +1,4 @@
-no, analizame con detenimiento el siguiente proyecto en Java Spring Boot y hazme un test interactivo de analisis de código de 15 preguntas, 4 posibles respuestas, una respuesta correcta, el test permitira avanzar a la siguiente pregunta o retroceder a la anterior. Cuando seleccione la respuesta me diras si es o no la correcta y el porque: Clases
+Analizame con detenimiento el siguiente proyecto en Java Spring Boot y hazme un test interactivo de analisis de código de 15 preguntas, 4 posibles respuestas, una respuesta correcta, el test permitira avanzar a la siguiente pregunta o retroceder a la anterior. Cuando seleccione la respuesta me diras si es o no la correcta y el porque: Clases
 
 package com.dam2.Practica1.config;
 
