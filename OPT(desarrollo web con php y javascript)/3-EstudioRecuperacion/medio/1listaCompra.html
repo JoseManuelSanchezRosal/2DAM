@@ -19,23 +19,44 @@
     <ul id="listaVisual"></ul>
 
     <script>
+
         const productos = []
         const lista = document.getElementById("listaVisual")
         const $input = document.getElementById("producto")
         const $salida = document.getElementById("salida")
         const $listaVisual = document.getElementById("listaVisual")
 
+
+        // Funcion que toma el nombre del producto que tenemos en el input, lo busca en nuestro arrays de productos, y si lo encuentra, lo modifica
         function editarProducto(){
+            // 1 Guardar el nombre del producto
             const productoAEditar = document.getElementById("producto").value
+            console.log("Producto a editar: " + productoAEditar)
+
+            // 2 Buscar el indice del prodcutoAEditar en nuestra lista de productos, si lo encuentra, devuelve el indice (0 o >)
             const indice = productos.indexOf(productoAEditar)
+            console.log("El indice del producto a editar: " + indice)
+
+
+            // Si no lo encuentra te devuelve -1
             if(indice === -1){
                 alert("Pero seras memo, si de eso no hay, como lo vas a editar, que malito estas")
                 return
             }     
-            const nuevoNombre = prompt("Seleccione nuevo nombre")       
+
+            // Pide por consola el nuevo nombre
+            const nuevoNombre = prompt("Seleccione nuevo nombre")  
+            console.log("El nuevo nombre es: " + nuevoNombre)
+            
+            // Cogemos la lista de productos, y al indice a modificar le pasamos el nuevo nombre
             productos[indice] = nuevoNombre
+
+            console.table("La lista actualizada de productos es" + productos)
             renderizar()
         }
+
+
+        
 
         function borrarEspecifico(){
             const productoABorrar = document.getElementById("producto").value

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="avanzar()">
+    
+    <p id="crono"></p>
+    <button onclick="avanzar()">AVANZAR</button>
+    <button onclick="parar()">PARAR</button>
+    <button onclick="retroceder()">RETROCEDER</button>
+
+    <script>
+        // 1 Capturamos elementos DOM
+        const $salidaCrono = document.getElementById("crono")
+
+        // 2 Declaramos varibale del contador
+        let contador = 0
+        let semaforo = false
+
+        // 3 Funcion que se encarga de sumar si esta por debajo de 100 la variable contador
+        function avanzarCrono(){
+            if(contador < 10){
+                contador ++
+                $salidaCrono.textContent = contador
+            }
+        }
+        // 3 Hacemos el set interval de avanzar si no hay un semaforo
+        function avanzar(){
+            if(!semaforo){
+                semaforo = setInterval(avanzarCrono, 1000)
+            }
+        }
+
+        // Paramos y reseteamos el intervalo
+        function parar(){
+            clearInterval(semaforo)
+            semaforo = false
+        }
+
+        // Hacemos setInterval para retroceder el crono
+        function retroceder(){
+            if(!semaforo){
+                semaforo = setInterval(retrocederCrono, 1000)
+            }
+        }
+        // Si el crono es > 0, lo vamos bajando
+        function retrocederCrono(){
+            if(contador > 0){
+                contador--
+                $salidaCrono.textContent = contador
+
+            }
+        }
+    </script>
+    
+</body>
+</html>

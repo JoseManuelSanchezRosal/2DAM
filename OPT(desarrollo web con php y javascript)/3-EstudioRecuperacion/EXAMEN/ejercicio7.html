@@ -7,12 +7,14 @@
 </head>
 <body>
     <input id="inputNombre" placeholder="Introduzca nombre Asignatura"><br>
-    <input id="inputCreditos" placeholder="Introduzca numero de Creditos"><button onclick="andadirAsignatura()">Anadir asignatura</button><br>
-    <input id="inputAlumnos" placeholder="Introduzca maximo Alumnos">
+    <input id="inputCreditos" placeholder="Introduzca numero de Creditos"><br>
+    <input id="inputAlumnos" placeholder="Introduzca maximo Alumnos"><br>
+    <button onclick="andadirAsignatura()">Anadir asignatura</button><br>
 
     
     
     <script>
+        const asignaturas = []
         class Asignatura {
             constructor(nombre, creditos, maximoAlumnos) {
                 this.nombre = nombre
@@ -21,6 +23,19 @@
             }
         }
         
+        function andadirAsignatura(){
+
+            const $nombre = document.getElementById("inputNombre").value
+            const $creditos = parseInt(document.getElementById("inputCreditos").value)
+            const $maxAlumnos = parseInt(document.getElementById("inputAlumnos").value)
+
+            const asig1 = new Asignatura ($nombre, $creditos, $maxAlumnos)
+            asignaturas.push(asig1)
+
+            console.table(asignaturas)
+        }
+
+
         class Curso {
             constructor(nombreCurso, asignaturas){
                 this.nombreCurso = nombreCurso
@@ -28,19 +43,7 @@
             }
 
         }
-
-
-        function andadirAsignatura(){
-
-            const $nombre = document.getElementById("inputNombre").value
-            const $creditos = parseInt(document.getElementById("inputCreditos").value)
-            const $maxAlumnos = parseInt(document.getElementById("inputAlumnos").value)
-
-            const asig = new Asignatura ($nombre, $creditos, $maxAlumnos)
-            asignaturas.push(asig)
-
-            console.table(asignaturas)
-        }
+        
 
     </script>
 </body>

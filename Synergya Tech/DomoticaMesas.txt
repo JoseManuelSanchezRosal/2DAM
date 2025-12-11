@@ -1,0 +1,30 @@
+1- Conectar el modulo al switch del modem de internet
+
+2- Cuando tengaas la luz fija en verde significa que se ha conectado por cable al modem de la vivienda.
+
+3- Abres la pagina de home.fibaro.com
+4- Te logueas en la pagina con las credenciales de Antonio moreno:
+	USUARIO:a.moreno@synergyatech.com
+	CONTRASEÑA:Ant0n1006#1973
+
+5- Accedes al módulo yubii home acabado en 667 con las credenciales son:
+	USUARIO:admin
+	CONT:dN7wN8V.m?
+
+6- Una vez conectado, ir a AJUSTES, luego entras en RED
+y miras la dirección IP que hay en la conexión de red y la pones igual que se muestra a continuación:
+	http://192.168.18.132
+
+7- Pegas la dirección ip en el navegador y pulsas intro
+
+8- Introduces usuario y contraseña del modulo Yubii
+
+9- Luego otra vez a AJUSTES, luego RED, y ya te tiene que aparecer en el lado derecho para buscar y agregar una red WiFi
+
+10- DAR de alta un nuevo perfil:
+	1 Ir a sección 6. Acceso
+	2 Pulsar Añadir Usuario
+
+11- Validar el usuario con correo de confirmacion
+
+

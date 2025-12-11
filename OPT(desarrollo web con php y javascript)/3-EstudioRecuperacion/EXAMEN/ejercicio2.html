@@ -6,29 +6,51 @@
     <title>Document</title>
 </head>
 <body>
-    <input id="nombre" placeholder="Nombre y apellidos"><label id="lblNombre"></label><br>
-    <input id="telefono" placeholder="Telefono"><label id="lblTelefono"></label><br>
-    <input id="direccion" placeholder="Direccion"><label id="lblDireccion"></label><br>
-
+    <input type="text" placeholder="Nombre y apellidos"><label id="lblNombre"></label><br>
+    <input type="text" placeholder="Telefono"><label id="lblTelefono"></label><br>
+    <input type="text" placeholder="Direccion"><label id="lblDireccion"></label><br>
 
     <button onclick="comprobar()">Comprobar</button>
 
     <script>
-        
+        // 1 Capturar elementos del DOM (Entrada)
         const $inputs = document.getElementsByTagName("input")
 
-        function comprobar(){
+        // 2 Capturamos los elementos del DOM (Salida)
+        const $labelNombre = document.getElementById("lblNombre")
+        const $labelTelefono = document.getElementById("lblTelefono")
+        const $labelDireccion = document.getElementById("lblDireccion")
 
-            for(let i = 0; i < $inputs.length; i++){
-               if(i == 0){
-                if(!$inpus[0].value){
-                    $lblNombre.innerHTML= "Parametros incorrectos"
-                    
-                }
-               }
-                }
-            }
+        function comprobar(){
+            //3 Comparamos lo que hay en cada input
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test($inputs[0].value)){
+            $labelNombre.textContent = "Parametros nombre incorrectos"
+            $inputs[0].value = ""
+        }else {
+            $labelNombre.textContent = ""
+        }
+
+        if(!/^\d*$/.test($inputs[1].value)){
+            $labelTelefono.textContent = "Parametros tlfno incorrectos"
+            $inputs[1].value = ""
+        }else {
+            $labelTelefono.textContent = ""
+        }
+
+        if(!/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,.\/\-ºª]+$/.test($inputs[2].value)){
+            $labelDireccion.textContent = "Parametros direccion incorrectos"
+            $inputs[2].value = ""
+        }else {
+            $labelDireccion.textContent = ""
+        }
+
+        }
         
+
+
+        
+
+
     </script>
 </body>
 </html>

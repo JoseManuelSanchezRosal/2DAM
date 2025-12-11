@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="cargarDatos(), setInterval(cambio,1000)">
+    <img id="images" src="0.jpg" alt="" width="200px" height="200px" style="object-fit: contain;">
+    <p id="frases"></p>
+    
+
+    <script>
+        // 1 Capturamos los elementos del DOM
+        const $imagenes = document.getElementById("images")
+        const $frases = document.getElementById("frases")
+
+        // Creamos arrays vacios
+        let imagenes = []
+        let frases = []
+
+        function cargarDatos(){
+            // 2 Carga imagenes con FOR
+            for (let i = 0; i < 10; i++){
+                imagenes.push("images/"+i+".jpg")
+            }
+
+            // 3 Carga de Frases con FOR
+            for (let i = 0; i < 10; i++){
+                frases.push("miscojones"+i)
+            }
+        }
+
+        function cambio(){
+            // 4 Creamos random del 0 al 9
+            let numeroRandom = Math.floor(Math.random()*10)
+
+            // 5 Usamos el random para asignar una posicion del array de imagenes y frases
+            $imagenes.src = imagenes[numeroRandom]
+            $frases.innerHTML = frases[numeroRandom]
+        }
+
+    </script>
+</body>
+</html>
