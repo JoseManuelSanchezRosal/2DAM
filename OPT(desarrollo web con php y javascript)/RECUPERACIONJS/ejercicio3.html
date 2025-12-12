@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <img id="divImagen" src="images/0.jpg" width="300px" height="300px" style="object-fit: contain;">
+
+    <button onclick="cargarDatos()" >Cargar DAtos</button>
+    <button onclick="iniciar()" >Iniciar</button>
+    <button onclick="parar()" >Parar</button>
+    <button onclick="cambiarTamano()" >Cambiar tamano</button>
+
+
+    <script>
+        // HECHO 2
+        let $imagenes = document.getElementById("divImagen")
+        let images = []
+
+        function cambiarTamano(){
+            $imagenes.style.width = "100px"
+            $imagenes.style.height = "100px"
+
+        }
+        // Variable del setInterval 
+        let semaforo = false
+
+        // 1 capturamos los elementos del DOM
+        
+
+        // Cargamos imagenes OK
+        function cargarDatos(){
+            for(let i = 0; i < 3; i++){
+                images.push("images/"+i+".jpg")
+            }
+            console.log(images.length)
+        }
+        
+        // Creamos las funciones
+        function iniciar(){
+            if(!semaforo){
+                semaforo = setInterval(iniciarBucle, 1000)
+            }
+        }
+
+        function parar(){
+            clearInterval(semaforo)
+            semaforo = false
+        }
+
+        let contador = 0
+        function iniciarBucle(){
+            if(contador < 3){
+                $imagenes.src = images[contador]
+                console.log(images[contador])
+                contador++
+                console.log(contador)
+            }else{
+                contador = 0
+            }
+        }
+
+    </script>
+    
+</body>
+</html>

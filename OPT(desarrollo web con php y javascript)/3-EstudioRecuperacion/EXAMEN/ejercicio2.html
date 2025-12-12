@@ -6,14 +6,16 @@
     <title>Document</title>
 </head>
 <body>
+    <!--3 inputs para los campos-->
     <input type="text" placeholder="Nombre y apellidos"><label id="lblNombre"></label><br>
     <input type="text" placeholder="Telefono"><label id="lblTelefono"></label><br>
     <input type="text" placeholder="Direccion"><label id="lblDireccion"></label><br>
 
+    <!--Boton para comprobar-->
     <button onclick="comprobar()">Comprobar</button>
 
     <script>
-        // 1 Capturar elementos del DOM (Entrada)
+        // 1 Capturar elementos del DOM agrupados(Entrada)
         const $inputs = document.getElementsByTagName("input")
 
         // 2 Capturamos los elementos del DOM (Salida)
@@ -21,26 +23,33 @@
         const $labelTelefono = document.getElementById("lblTelefono")
         const $labelDireccion = document.getElementById("lblDireccion")
 
+        // Funcion comprobar, usamos la posicion de cada elemento para comprobar cada campo
         function comprobar(){
             //3 Comparamos lo que hay en cada input
+            // Si no es nombre damos error y limpiamos entrada
         if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test($inputs[0].value)){
             $labelNombre.textContent = "Parametros nombre incorrectos"
             $inputs[0].value = ""
         }else {
+            // Si lo es, limpiamos error
             $labelNombre.textContent = ""
         }
 
+        // Para telefono
         if(!/^\d*$/.test($inputs[1].value)){
             $labelTelefono.textContent = "Parametros tlfno incorrectos"
             $inputs[1].value = ""
         }else {
+            // Si lo es, limpiamos error
             $labelTelefono.textContent = ""
         }
 
+        // Para direccion
         if(!/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s,.\/\-ºª]+$/.test($inputs[2].value)){
             $labelDireccion.textContent = "Parametros direccion incorrectos"
             $inputs[2].value = ""
         }else {
+            // Si lo es, limpiamos error
             $labelDireccion.textContent = ""
         }
 

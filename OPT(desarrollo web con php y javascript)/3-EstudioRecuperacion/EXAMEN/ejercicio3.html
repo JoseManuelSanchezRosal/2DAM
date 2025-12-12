@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<!--En el body, aplicamos el onload CON LA CARGA DE DATOS Y EL SET INTERVAL DE CAMBIO-->
 <body onload="cargarDatos(), setInterval(cambio,1000)">
     <img id="images" src="0.jpg" alt="" width="200px" height="200px" style="object-fit: contain;">
     <p id="frases"></p>
@@ -19,6 +20,7 @@
         let imagenes = []
         let frases = []
 
+        // Creamos la funcion de carga de datos (FRASES E IMAGENES EN los arrays vacios)
         function cargarDatos(){
             // 2 Carga imagenes con FOR
             for (let i = 0; i < 10; i++){
@@ -31,6 +33,7 @@
             }
         }
 
+        // Creamos la funcion cambio para crear un aleatorio y asignarlo a la posicion de los arrays
         function cambio(){
             // 4 Creamos random del 0 al 9
             let numeroRandom = Math.floor(Math.random()*10)

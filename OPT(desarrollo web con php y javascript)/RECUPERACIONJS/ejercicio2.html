@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="numeroEntrada" type="number" placeholder="ingrese un numero entero positivo">
+    <button onclick="realizarFibonacci()" >Realizar Fibonazzi</button>
+    <p id="salidaFibo" ></p>
+
+    <script>
+        // COMPLETO 1
+        // 1 Capturamos los elementos del DOM 
+        const $salida = document.getElementById("salidaFibo")
+
+        // 2 Realizamos funcion fibo
+        function realizarFibonacci(){
+            const $numeroEntrada = parseInt(document.getElementById("numeroEntrada").value)
+            console.log($numeroEntrada)
+            console.log(typeof($numeroEntrada))
+
+            let nume1 = 0
+            let num2 = 1
+            let suma = 0
+            for(let i = 0; i < $numeroEntrada; i++){
+                suma = nume1 + num2
+                nume1 = num2
+                num2 = suma
+            }
+            $salida.textContent = suma
+        }
+        
+    </script>
+    
+</body>
+</html>

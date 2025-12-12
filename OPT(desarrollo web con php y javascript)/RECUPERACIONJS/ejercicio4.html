@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="entrada" placeholder="introduzca cadena">
+    <button onclick="comprobar()" >Comprobar contenido de cadana</button>
+    <p id="salida" ></p>
+
+    <script>
+        // COMPLETADO 1.5
+
+        // 1 Capturar los elementos del DOM
+        const $entrada = document.getElementById("entrada")
+        const $salida = document.getElementById("salida")
+
+        // 2 Creamos la funcion para comprobar la cadena introducida
+        function comprobar(){
+            $salida.textContent = ""
+            
+            if(/[0-9]/.test($entrada.value)){
+                $salida.textContent = "Contiene caracteres numericos"
+            }
+            else if(/[a-zA-Z]/.test($entrada.value)){
+                $salida.textContent = "Contiene caracteres alfabeticos"
+            }
+            else if(!/[0-9]&&[a-zA-Z]/.test($entrada.value)){
+                $salida.textContent = "Contiene caracteres especiales"
+            }
+
+            $entrada.value = ""
+            $entrada.focus()
+        }
+    </script>
+    
+</body>
+</html>

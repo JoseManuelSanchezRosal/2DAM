@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="nombreP" type="text" placeholder="Introduce nomb Producto"><br>
+    <input id="precioP" type="text" placeholder="Introduce precio Producto"><br>
+    <input id="disponibleP" type="text" placeholder="Introduce si o no"><br>
+    <input id="descripcionP" type="text" placeholder="Introduce desc Producto"><br><br>
+    <button onclick="anadirProducto()">Anadir producto</button>
+    <p id="salida"></p>
+
+    
+    <script>
+        // 3 de 5
+        // Implementar clase producto
+        class Producto {
+            constructor(nombre, precio, disponible, descipcion){
+                this.nomb = nombre
+                this.precio = precio
+                this.disp = disponible
+                this.desc = descipcion
+            }
+        }
+
+        // Implementar clase sucursal
+        class Sucursal {
+            constructor(codigo, nombreSucursal, stock){
+                this.cod = codigo
+                this.nomb = nombreSucursal
+                this.stock = []
+            }
+        }
+
+        let stock = []
+        // Implemento funcion de anadir producto para probar el HTML y la salida por consola
+        function anadirProducto(){
+            const $nombreProducto = document.getElementById("nombreP").value
+            const $precioProducto = document.getElementById("precioP").value
+            const $disponibleProducto = document.getElementById("disponibleP").value
+            const $descripcionProducto = document.getElementById("descripcionP").value
+
+            const p = new Producto ($nombreProducto, $precioProducto, $disponibleProducto, $descripcionProducto)
+            console.table(p)
+            stock.push(p)
+            console.log(stock.length)
+
+        }
+        
+
+    </script>
+</body>
+</html>

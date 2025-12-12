@@ -6,25 +6,31 @@
     <title>Document</title>
 </head>
 <body>
+    <!--Input cantidad-->
     <input id="cantidad" placeholder="introduzca cantidad">
 
+    <!--Select moneda entrada-->
     <select id="monedaEntrada">
         <option value="euro">euros</option>
         <option value="dolar">dolares</option>
         <option value="libra">libras</option>
     </select>
 
+    <!--Span para mostrar la conversion-->
     <span> son: </span> <label id="salida"></label>
 
+    <!--Select de salida-->
     <select id="monedaSalida">
         <option value="euro">euros</option>
         <option value="dolar">dolares</option>
         <option value="libra">libras</option>
     </select>
 
+    <!--Boton de cambio de moneda-->
     <button onclick="cambiar()">CAMBIAR</button>
 
     <script>
+        // Funcion para cambiar moneda
         function cambiar(){
             // 1 Capturamos elementos del DOM
             const $monedaEntrada = document.getElementById("monedaEntrada").value
@@ -32,8 +38,11 @@
             const $cantidad = document.getElementById("cantidad").value
             const $salida = document.getElementById("salida")
 
+
+            // Parseamos para despues aplicar la tasa de cambio
             const valorMonedaEntrada = parseInt($cantidad)
             
+            // Para euros a --
             if($monedaEntrada === "euro"){
                 if($monedaSalida === "euro"){
                     $salida.textContent = valorMonedaEntrada
@@ -47,6 +56,7 @@
                     }
                 }
 
+                // Para dolares a--
                 if($monedaEntrada === "dolar"){
                     if($monedaSalida === "euro"){
                         $salida.textContent = (valorMonedaEntrada * 0.86).toFixed(2)
@@ -59,6 +69,7 @@
                     }
                 }
 
+                // Para libras a--
                 if($monedaEntrada === "libra"){
                     if($monedaSalida === "euro"){
                         $salida.textContent = (valorMonedaEntrada * 1.15).toFixed(2)
