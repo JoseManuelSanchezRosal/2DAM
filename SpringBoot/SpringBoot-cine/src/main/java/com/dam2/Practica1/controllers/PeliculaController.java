@@ -81,6 +81,11 @@ public class PeliculaController {
             return this.service.importarPeliculas(importarPeliculaDto.path());
     }
 
+    public void anadirPelicula(){
+
+        return;
+    }
+
     // A4 - Ejercicio 4
     /**
      * Endpoint REST para iniciar la votacion del Jurado
