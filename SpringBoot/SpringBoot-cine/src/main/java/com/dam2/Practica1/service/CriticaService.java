@@ -3,8 +3,8 @@ package com.dam2.Practica1.service;
 import com.dam2.Practica1.dto.CriticaDTO.CriticaCreateUpdateDTO;
 import com.dam2.Practica1.dto.CriticaDTO.CriticaDTO;
 import com.dam2.Practica1.models.Critica;
+import com.dam2.Practica1.models.Pelicula;
 import com.dam2.Practica1.repository.CriticaRepository;
-import jakarta.persistence.SequenceGenerators;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @Service
 @Getter
-
 public class CriticaService {
 
     @Autowired
@@ -25,7 +24,9 @@ public class CriticaService {
                 c.getId(),
                 c.getComentario(),
                 c.getNota(),
-                c.getFecha()
+                c.getFecha(),
+                // Si el usuario es nulo, mostramos "Anónimo"
+                c.getUsuario() != null ? c.getUsuario().getUserName() : "Anónimo"
         );
     }
 
@@ -42,12 +43,18 @@ public class CriticaService {
                 .orElse(null);
     }
 
-    public CriticaDTO agregar(CriticaCreateUpdateDTO criticaDto) {
+    // --- MÉTODO AGREGAR CORREGIDO ---
+    public CriticaDTO agregar(CriticaCreateUpdateDTO criticaDto, Pelicula pelicula) {
         Critica c = new Critica();
 
         c.setComentario(criticaDto.getComentario());
         c.setNota(criticaDto.getNota());
         c.setFecha(criticaDto.getFecha());
+
+        // VITAL: Enlazamos la crítica con la película
+        c.setPelicula(pelicula);
+
+        // BORRADO: c.setUsuario(); -> No lo necesitamos, se guardará como NULL automáticamente
 
         criticaRepository.save(c);
 

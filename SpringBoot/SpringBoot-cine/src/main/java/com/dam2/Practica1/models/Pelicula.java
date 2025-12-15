@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor // LOMBOK genera un constructor vacio (obligatorio para que Hibernate cree instancias de la clase
 public class Pelicula {
 
+
     @Id // Para marcar el atributo como PK
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTOINCREMENT para MySQL, IDENTITY para SQL Server
     private Long id;
@@ -21,8 +22,26 @@ public class Pelicula {
     private int duracion;              // minutos
     @Column(name = "fecha_estreno") // Mapea camelCase a snake_case para la columna SQL
     private String fechaEstreno;
+    @Column(columnDefinition = "TEXT")
     private String sinopsis;
     private int valoracion;
+
+    // Nuevos campos para la conexion con el front (imagen vertical caratula y fondo horizontal alta resolucion)
+    @Column(name = "poster_path")
+    private String posterPath;
+    @Column(name = "backdrop_path")
+    private String backdropPath;
+    // Nuevo campo para el ID del video de YT
+    private String trailerKey;
+
+    // AÑADE ESTO MANUALMENTE PARA FORZAR QUE EL JSON LO VEA:
+    public String getTrailerKey() {
+        return this.trailerKey;
+    }
+
+    public void setTrailerKey(String trailerKey) {
+        this.trailerKey = trailerKey;
+    }
 
     //----------------------------------INTERRELACIONES-----------------------------------------
 

@@ -17,4 +17,5 @@ public class CriticaCreateUpdateDTO {
     private String comentario;
     private int nota;
     private String fecha;
+    private String nombreUsuario;
 }

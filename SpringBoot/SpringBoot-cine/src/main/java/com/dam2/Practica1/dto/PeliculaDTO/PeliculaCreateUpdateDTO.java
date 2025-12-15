@@ -29,6 +29,10 @@ public class PeliculaCreateUpdateDTO {
     @Max(value = 10, message = "La valoracion maxima es de 10")
     private int valoracion;
 
+    // Nuevos Campos (no suelen ser obligatorios, porque podemos crear la ficha sin foto)
+    private String posterPath;
+    private String backdropPath;
+
     /*// NUEVOS CAMPOS PARA LAS RELACIONES N:M (ENTRADA DE ID'S)
     // Listas de ID's
     private List<Long> categoriaIds;

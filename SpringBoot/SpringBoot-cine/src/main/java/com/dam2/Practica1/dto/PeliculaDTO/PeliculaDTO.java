@@ -1,5 +1,6 @@
 package com.dam2.Practica1.dto.PeliculaDTO;
 
+import com.dam2.Practica1.dto.CriticaDTO.CriticaDTO;
 import com.dam2.Practica1.models.Categoria;
 import com.dam2.Practica1.models.Director;
 import com.dam2.Practica1.models.Idioma;
@@ -24,6 +25,11 @@ public class PeliculaDTO {
     private String fechaEstreno;
     private String sinopsis;
     private int valoracion;
+    // Nuevos campos
+    private String posterPath;
+    private String backdropPath;
+    private String trailerKey;
+    private List<CriticaDTO> criticas;
 
     /*// Nuevos campos para mostrar relaciones (salida REAL)
     // Devolvemos el objeto DIRECTOR para que se vea su nombre

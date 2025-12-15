@@ -15,4 +15,6 @@ public class CriticaDTO {
     private String comentario;
     private int nota;
     private String fecha;
+    // Nuevo, para ver quien escribe la critica
+    private String nombreUsuario;
 }

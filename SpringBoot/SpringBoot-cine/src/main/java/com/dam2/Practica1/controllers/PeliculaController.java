@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-
+// Anadir CrossOrigin para desbloquear puertos (* mientras desarrollamos para permitir conexion desde cualquier origen)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/peliculas")
 @RequiredArgsConstructor
@@ -56,6 +57,18 @@ public class PeliculaController {
         service.eliminar(id);
     }
 
+    // Nuevo endpoint para enriquecer las peliculas de la bbdd con las imagenes y poster hd
+    // A5 - NUEVO: Endpoint para enriquecer la base de datos con imágenes
+    @GetMapping("/sincronizar-imagenes")
+    public String sincronizarImagenes() {
+        // Llamamos al metode mágico del servicio
+        return this.service.sincronizarImagenes();
+    }
+    // Nuevo endpoint para llenar la bbdd con pelis de TMDB
+    @GetMapping("/importar-tmdb")
+    public String importarDeTmdb() {
+        return this.service.importarPeliculasDeTMDB();
+    }
 
     // Ejercicio 1.2 y 1.3
     @GetMapping("/procesar")

@@ -19,7 +19,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true             # Muestra las queries en consola
     hibernate:
-      ddl-auto: update         # Crea las tablas si no existen (como actor_pelicula)
+      ddl-auto: update        # Crea las tablas si no existen (como actor_pelicula)
     properties:
       hibernate:
         format_sql: true       # Pone el SQL bonito
@@ -39,3 +39,11 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+# ----------------------------------------------------
+# CONFIGURACIÓN API EXTERNA (TMDB)
+# ----------------------------------------------------
+tmdb:
+  api:
+    key: "f38986a390633b364e2c7f77ca14ae50"  # <--- IMPORTANTE: Pega tu clave dentro de las comillas
+    url: "https://api.themoviedb.org/3"

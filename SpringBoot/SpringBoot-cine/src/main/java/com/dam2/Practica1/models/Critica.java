@@ -20,7 +20,7 @@ public class Critica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String comentario;
 
     @Column(nullable = false)
@@ -37,7 +37,7 @@ public class Critica {
      * - @JsonIgnoreProperties: Al serializar la crítica, vemos el usuario, pero NO sus otras críticas.
      */
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = true)// Cambiado a true para poder tener criticas con usuario null
     @JsonIgnoreProperties("criticasRealizadas") // Evita bucle con USUARIO
     private Usuario usuario;
 
