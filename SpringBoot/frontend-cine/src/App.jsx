@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-// AÑADIDO: 'User' a los imports
-import { Play, Info, Search, Bell, X, Tv, Home, Film, Bookmark, Facebook, Twitter, Instagram, User } from 'lucide-react'
+// AÑADIDO: Nuevos iconos para el footer (Linkedin, Github, Mail, Phone)
+import { Play, Info, Search, Bell, X, Tv, Home, Film, Bookmark, User, Linkedin, Github, Mail, Phone } from 'lucide-react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
@@ -13,6 +13,22 @@ import MovieModal from './components/MovieModal'
 const IMAGE_URL = "https://image.tmdb.org/t/p/w500"; 
 const GOLD_COLOR = "#E5A909"; 
 
+// --- DATOS FICTICIOS PARA LEGAL ---
+const LEGAL_CONTENT = {
+  aviso: {
+    titulo: "Aviso Legal",
+    texto: "Bienvenido a Joseph_Link. Esta plataforma es un proyecto de demostración propiedad de Joseph_Link S.L. (Sociedad Limitada de Streaming). Todos los contenidos mostrados aquí provienen de APIs públicas (TMDB) y se utilizan únicamente con fines educativos y de desarrollo. No alojamos contenido ilegal en nuestros servidores. Domicilio social: Calle del Código, 123, 28000, Servidor Central."
+  },
+  privacidad: {
+    titulo: "Política de Privacidad",
+    texto: "En Joseph_Link nos tomamos tu privacidad muy en serio (casi tanto como nuestras series). Recopilamos datos básicos de navegación para mejorar tu experiencia de usuario, pero prometemos no venderlos a villanos de películas ni a imperios galácticos malvados. Tus datos están seguros y encriptados bajo protocolos de seguridad de nivel 'Agente Secreto'."
+  },
+  cookies: {
+    titulo: "Política de Cookies",
+    texto: "Utilizamos cookies propias y de terceros. No son de chocolate (lamentablemente), sino pequeños archivos de texto que nos ayudan a recordar si dejaste una película a medias o si prefieres el modo oscuro. Al navegar por Joseph_Link, aceptas que guardemos estas 'migajas' digitales en tu navegador para que la web funcione fluida como una escena de acción bien coreografiada."
+  }
+};
+
 function App() {
   const [movies, setMovies] = useState([])
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,7 +36,8 @@ function App() {
   
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [view, setView] = useState('home');
+  const [view, setView] = useState('home'); 
+  // Las nuevas views serán: 'legal-aviso', 'legal-privacidad', 'legal-cookies', 'help'
 
   const [myList, setMyList] = useState(() => {
     const saved = localStorage.getItem("yosefhflix_mylist");
@@ -201,7 +218,7 @@ function App() {
                 )}
              </div>
 
-             {/* 2. CAMPANA (Ahora clickeable) */}
+             {/* 2. CAMPANA */}
              <div 
                 onClick={() => changeView('news')}
                 className={`flex items-center gap-2 cursor-pointer hover:text-[#E5A909] transition group ${view === 'news' ? 'text-[#E5A909] font-bold' : ''}`}
@@ -210,7 +227,7 @@ function App() {
                 <span className="text-sm font-medium hidden lg:block group-hover:text-[#E5A909]">Novedades</span>
              </div>
 
-             {/* 3. AVATAR (Ahora clickeable) */}
+             {/* 3. AVATAR */}
              <div 
                 onClick={() => changeView('profile')}
                 className="flex items-center gap-2 cursor-pointer group"
@@ -250,7 +267,7 @@ function App() {
                 emptyMessage="No hay películas disponibles."
             />
 
-        /* 4. SERIES (Próximamente) */
+        /* 4. SERIES */
         ) : view === 'series' ? (
             <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in bg-gradient-to-b from-[#141414] to-black">
                 <div className="p-8 bg-[#1f1f1f] rounded-full mb-8 shadow-2xl shadow-[#E5A909]/20 border border-gray-800">
@@ -271,7 +288,7 @@ function App() {
                 </button>
             </div>
 
-        /* 5. NOVEDADES (Igual que series) */
+        /* 5. NOVEDADES */
         ) : view === 'news' ? (
             <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in bg-gradient-to-b from-[#141414] to-black">
                 <div className="p-8 bg-[#1f1f1f] rounded-full mb-8 shadow-2xl shadow-[#E5A909]/20 border border-gray-800">
@@ -292,7 +309,7 @@ function App() {
                 </button>
             </div>
 
-        /* 6. PERFIL (Mensaje específico) */
+        /* 6. PERFIL */
         ) : view === 'profile' ? (
             <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in bg-gradient-to-b from-[#141414] to-black">
                 <div className="p-8 bg-[#1f1f1f] rounded-full mb-8 shadow-2xl shadow-[#E5A909]/20 border border-gray-800">
@@ -312,7 +329,53 @@ function App() {
                 </button>
             </div>
 
-        /* 7. INICIO (HOME) - DEFAULT */
+        /* 7. AYUDA (NUEVO) */
+        ) : view === 'help' ? (
+            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in bg-gradient-to-b from-[#141414] to-black">
+                <div className="p-8 bg-[#1f1f1f] rounded-full mb-8 shadow-2xl shadow-[#E5A909]/20 border border-gray-800">
+                    <Info size={80} className="text-[#E5A909]" />
+                </div>
+                <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight text-center px-4">
+                    Centro de Ayuda
+                </h2>
+                <p className="text-xl md:text-2xl text-gray-400 max-w-2xl text-center leading-relaxed mt-4">
+                    Nuestro equipo de soporte está configurando las líneas. <br/>
+                    Esta sección se abrirá próximamente al público.
+                </p>
+                <button 
+                    onClick={() => changeView('home')} 
+                    className="mt-12 bg-[#E5A909] text-black px-10 py-4 rounded font-bold hover:bg-yellow-500 transition shadow-lg hover:scale-105"
+                >
+                    Volver al Inicio
+                </button>
+            </div>
+
+        /* 8. LEGAL (NUEVO - MANEJA AVISO, PRIVACIDAD, COOKIES) */
+        ) : view.startsWith('legal-') ? (
+            <div className="pt-32 px-4 md:px-12 min-h-[70vh] animate-fade-in max-w-4xl mx-auto">
+                <div className="bg-[#1f1f1f] p-8 md:p-12 rounded-lg border border-gray-800 shadow-2xl">
+                    <h2 className="text-3xl font-bold text-[#E5A909] mb-6">
+                        {view === 'legal-aviso' ? LEGAL_CONTENT.aviso.titulo : 
+                         view === 'legal-privacidad' ? LEGAL_CONTENT.privacidad.titulo : 
+                         LEGAL_CONTENT.cookies.titulo}
+                    </h2>
+                    <div className="prose prose-invert prose-lg text-gray-300 leading-relaxed">
+                        <p>
+                            {view === 'legal-aviso' ? LEGAL_CONTENT.aviso.texto : 
+                             view === 'legal-privacidad' ? LEGAL_CONTENT.privacidad.texto : 
+                             LEGAL_CONTENT.cookies.texto}
+                        </p>
+                        <p className="mt-6 text-sm text-gray-500 italic">
+                            * Última actualización: {new Date().toLocaleDateString()}
+                        </p>
+                    </div>
+                    <button onClick={() => changeView('home')} className="mt-8 text-white hover:text-[#E5A909] underline underline-offset-4 decoration-[#E5A909]">
+                        ← Volver a navegar
+                    </button>
+                </div>
+            </div>
+
+        /* 9. INICIO (HOME) - DEFAULT */
         ) : (
             <>
                 <div className="relative h-[85vh] w-full">
@@ -365,7 +428,7 @@ function App() {
         )}
       </div>
 
-      {/* --- FOOTER DORADO-OSCURO --- */}
+      {/* --- FOOTER DORADO-OSCURO (ACTUALIZADO) --- */}
       <footer className="bg-[#0f0f0f] text-gray-400 py-12 px-4 md:px-12 border-t border-gray-800 animate-fade-in relative z-10">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
               <div>
@@ -380,26 +443,41 @@ function App() {
               <div>
                   <h3 className="text-white font-bold mb-4">Legal</h3>
                   <ul className="space-y-2 text-sm">
-                      <li className="hover:text-[#E5A909] cursor-pointer transition">Aviso Legal</li>
-                      <li className="hover:text-[#E5A909] cursor-pointer transition">Privacidad</li>
-                      <li className="hover:text-[#E5A909] cursor-pointer transition">Cookies</li>
+                      <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('legal-aviso')}>Aviso Legal</li>
+                      <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('legal-privacidad')}>Privacidad</li>
+                      <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('legal-cookies')}>Cookies</li>
                   </ul>
               </div>
               <div>
                   <h3 className="text-white font-bold mb-4">Ayuda</h3>
                   <ul className="space-y-2 text-sm">
-                      <li className="hover:text-[#E5A909] cursor-pointer transition">Preguntas Frecuentes</li>
-                      <li className="hover:text-[#E5A909] cursor-pointer transition">Contacto</li>
-                      <li className="hover:text-[#E5A909] cursor-pointer transition">Soporte</li>
+                      <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('help')}>Preguntas Frecuentes</li>
+                      <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('help')}>Contacto</li>
+                      <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('help')}>Soporte</li>
                   </ul>
               </div>
               <div>
                   <h3 className="text-[#E5A909] font-bold mb-4 text-lg">Joseph_Link</h3>
                   <p className="text-sm mb-4">Tu plataforma de streaming favorita. Versión Gold Edition.</p>
+                  
+                  {/* ICONOS REDES ACTUALIZADOS */}
                   <div className="flex gap-4 mt-4">
-                      <a href="#" className="text-gray-400 hover:text-[#E5A909] transition"><Facebook size={20} /></a>
-                      <a href="#" className="text-gray-400 hover:text-[#E5A909] transition"><Twitter size={20} /></a>
-                      <a href="#" className="text-gray-400 hover:text-[#E5A909] transition"><Instagram size={20} /></a>
+                      {/* LINKEDIN */}
+                      <a href="https://www.linkedin.com/in/josé-manuel-sánchez-rosal-863803114" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#E5A909] transition" title="LinkedIn">
+                          <Linkedin size={20} />
+                      </a>
+                      {/* GITHUB */}
+                      <a href="https://github.com/JoseManuelSanchezRosal" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#E5A909] transition" title="GitHub">
+                          <Github size={20} />
+                      </a>
+                      {/* EMAIL */}
+                      <a href="mailto:j.manuel25@outlook.es" className="text-gray-400 hover:text-[#E5A909] transition" title="Enviar Correo">
+                          <Mail size={20} />
+                      </a>
+                      {/* TELEFONO */}
+                      <a href="tel:649745624" className="text-gray-400 hover:text-[#E5A909] transition" title="Llamar">
+                          <Phone size={20} />
+                      </a>
                   </div>
               </div>
           </div>
