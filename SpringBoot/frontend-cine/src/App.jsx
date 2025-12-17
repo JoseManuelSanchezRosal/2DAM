@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-// AÑADIDO: Nuevos iconos para el footer (Linkedin, Github, Mail, Phone)
-import { Play, Info, Search, Bell, X, Tv, Home, Film, Bookmark, User, Linkedin, Github, Mail, Phone } from 'lucide-react'
+// AÑADIDO: Importamos los iconos Sun, Cloud, Moon
+import { Play, Info, Search, Bell, X, Tv, Home, Film, Bookmark, User, Linkedin, Github, Mail, Phone, Sun, Cloud, Moon } from 'lucide-react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
@@ -9,11 +9,45 @@ import 'swiper/css/effect-fade';
 
 import MovieRow from './components/MovieRow'
 import MovieModal from './components/MovieModal'
+import MovieGrid from './components/MovieGrid'
 
 const IMAGE_URL = "https://image.tmdb.org/t/p/w500"; 
 const GOLD_COLOR = "#E5A909"; 
 
-// --- DATOS FICTICIOS PARA LEGAL ---
+// --- CONFIGURACIÓN DE TEMAS ---
+const THEMES = {
+  day: {
+    id: 'day',
+    bg: 'bg-[#f3f4f6]', // Gris muy claro (casi blanco)
+    text: 'text-gray-900', // Texto oscuro
+    navbarBg: 'bg-white',
+    footerBg: 'bg-gray-200',
+    heroHex: '#f3f4f6', // <--- AÑADIDO: Color exacto para el degradado (Día)
+    icon: <Sun size={20} className="text-orange-500 fill-orange-500" />,
+    label: 'Día'
+  },
+  afternoon: {
+    id: 'afternoon',
+    bg: 'bg-[#475569]', // Slate-600 (Azul grisáceo medio)
+    text: 'text-white', // Texto blanco
+    navbarBg: 'bg-[#334155]',
+    footerBg: 'bg-[#1e293b]',
+    heroHex: '#475569', // <--- AÑADIDO: Color exacto para el degradado (Tarde)
+    icon: <Cloud size={20} className="text-blue-300 fill-blue-300" />,
+    label: 'Tarde'
+  },
+  night: {
+    id: 'night',
+    bg: 'bg-[#141414]', // Tu negro original
+    text: 'text-white', // Texto blanco
+    navbarBg: 'bg-[#141414]',
+    footerBg: 'bg-[#0f0f0f]',
+    heroHex: '#141414', // <--- AÑADIDO: Color exacto para el degradado (Noche)
+    icon: <Moon size={20} className="text-[#E5A909] fill-[#E5A909]" />,
+    label: 'Noche'
+  }
+};
+
 const LEGAL_CONTENT = {
   aviso: {
     titulo: "Aviso Legal",
@@ -37,7 +71,9 @@ function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [view, setView] = useState('home'); 
-  // Las nuevas views serán: 'legal-aviso', 'legal-privacidad', 'legal-cookies', 'help'
+  
+  // AÑADIDO: Estado para el tema (por defecto noche)
+  const [currentTheme, setCurrentTheme] = useState('night');
 
   const [myList, setMyList] = useState(() => {
     const saved = localStorage.getItem("yosefhflix_mylist");
@@ -47,6 +83,13 @@ function App() {
   useEffect(() => {
     localStorage.setItem("yosefhflix_mylist", JSON.stringify(myList));
   }, [myList]);
+
+  // AÑADIDO: Función para rotar tema (Día -> Tarde -> Noche)
+  const cycleTheme = () => {
+    if (currentTheme === 'day') setCurrentTheme('afternoon');
+    else if (currentTheme === 'afternoon') setCurrentTheme('night');
+    else setCurrentTheme('day');
+  };
 
   const toggleMyList = (movie) => {
     if (myList.some(m => m.id === movie.id)) {
@@ -104,48 +147,23 @@ function App() {
       document.body.style.overflow = 'unset';
   }
 
-  // --- REJILLA CON TOQUES DORADOS ---
-  const MovieGrid = ({ title, movieList, emptyMessage }) => (
-      <div className="pt-32 px-4 md:px-12 min-h-[70vh] animate-fade-in">
-          <h2 className="text-3xl font-bold text-white mb-8 border-l-4 border-[#E5A909] pl-4">{title}</h2>
-          
-          {movieList.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                  {movieList.map(movie => (
-                      <div 
-                        key={movie.id} 
-                        onClick={() => handleMovieClick(movie)}
-                        className="relative group cursor-pointer transition-all duration-300 hover:scale-105 hover:z-50"
-                      >
-                          <img 
-                            src={movie.posterPath ? `${IMAGE_URL}${movie.posterPath}` : "https://via.placeholder.com/500x750"} 
-                            alt={movie.titulo}
-                            className="rounded-md w-full h-auto object-cover shadow-lg aspect-[2/3] group-hover:ring-2 group-hover:ring-[#E5A909]" 
-                          />
-                          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4 rounded-md">
-                                <h3 className="text-sm font-bold text-white">{movie.titulo}</h3>
-                                <div className="flex items-center gap-2 text-xs text-[#E5A909] mt-1 font-bold">
-                                    <span>★ {movie.valoracion} / 10</span>
-                                </div>
-                          </div>
-                      </div>
-                  ))}
-              </div>
-          ) : (
-              <div className="flex flex-col items-center justify-center mt-20 text-gray-500 h-[40vh]">
-                  <div className="text-6xl mb-4 text-[#E5A909]">☹️</div>
-                  <p className="text-xl">{emptyMessage}</p>
-                  <button onClick={() => changeView('home')} className="mt-6 bg-white text-black px-6 py-2 rounded font-bold hover:bg-[#E5A909] hover:text-white transition">
-                      Volver al Inicio
-                  </button>
-              </div>
-          )}
-      </div>
-  );
-
   return (
-    <div className="min-h-screen bg-[#141414] text-white font-sans overflow-x-hidden selection:bg-[#E5A909] selection:text-black flex flex-col justify-between">
+    // AÑADIDO: Clase dinámica de tema en el div principal
+    <div className={`min-h-screen font-sans overflow-x-hidden selection:bg-[#E5A909] selection:text-black flex flex-col justify-between transition-colors duration-500 ease-in-out ${THEMES[currentTheme].bg} ${THEMES[currentTheme].text} theme-${currentTheme}`}>
       
+      {/* AÑADIDO: ESTILOS FORZADOS PARA MODO DÍA */}
+      {/* Esto arregla que no se vean las letras en blanco sobre blanco */}
+      <style>{`
+        /* Si el tema es día, forzamos los textos blancos a ser oscuros */
+        .theme-day .text-white { color: #1f2937 !important; }
+        .theme-day .text-gray-300 { color: #4b5563 !important; }
+        .theme-day .text-gray-400 { color: #6b7280 !important; }
+        /* Excepción: Textos sobre imágenes o botones que SIEMPRE deben ser blancos */
+        .theme-day .bg-black .text-white, 
+        .theme-day button.text-white,
+        .theme-day .gold-glow h3 { color: #ffffff !important; }
+      `}</style>
+
       {selectedMovie && (
           <MovieModal 
             movie={selectedMovie} 
@@ -156,9 +174,9 @@ function App() {
       )}
 
       {/* NAVBAR */}
-      <nav className={`fixed top-0 w-full p-4 px-4 md:px-10 z-40 flex items-center justify-between transition-all duration-500 ${isScrolled ? 'bg-[#141414] shadow-lg border-b border-gray-800' : 'bg-gradient-to-b from-black/90 to-transparent'}`}>
+      {/* AÑADIDO: El background del navbar ahora cambia según el tema si haces scroll */}
+      <nav className={`fixed top-0 w-full p-4 px-4 md:px-10 z-40 flex items-center justify-between transition-all duration-500 ${isScrolled ? `${THEMES[currentTheme].navbarBg} shadow-lg border-b border-gray-700/50` : 'bg-gradient-to-b from-black/90 to-transparent'}`}>
           <div className="flex items-center gap-10">
-             {/* LOGO DORADO */}
              <h1 
                 className="text-3xl md:text-4xl font-extrabold text-[#E5A909] cursor-pointer tracking-tighter drop-shadow-md"
                 style={{ textShadow: "0px 0px 10px rgba(229, 169, 9, 0.3)" }}
@@ -168,28 +186,28 @@ function App() {
              </h1>
              
              {!isSearchOpen && (
-                 <ul className="hidden md:flex gap-6 text-sm text-gray-300 font-medium items-center">
+                 <ul className={`hidden md:flex gap-6 text-sm font-medium items-center ${currentTheme === 'day' && isScrolled ? 'text-gray-800' : 'text-gray-300'}`}>
                     <li 
                         onClick={() => changeView('home')}
-                        className={`cursor-pointer transition hover:text-[#E5A909] flex items-center gap-2 ${view === 'home' ? 'font-bold text-white' : ''}`}
+                        className={`cursor-pointer transition hover:text-[#E5A909] flex items-center gap-2 ${view === 'home' ? 'font-bold text-[#E5A909]' : ''}`}
                     >
                         <Home size={18} /> Inicio
                     </li>
                     <li 
                         onClick={() => changeView('series')}
-                        className={`cursor-pointer transition hover:text-[#E5A909] flex items-center gap-2 ${view === 'series' ? 'font-bold text-white' : ''}`}
+                        className={`cursor-pointer transition hover:text-[#E5A909] flex items-center gap-2 ${view === 'series' ? 'font-bold text-[#E5A909]' : ''}`}
                     >
                         <Tv size={18} /> Series
                     </li>
                     <li 
                         onClick={() => changeView('movies')}
-                        className={`cursor-pointer transition hover:text-[#E5A909] flex items-center gap-2 ${view === 'movies' ? 'font-bold text-white' : ''}`}
+                        className={`cursor-pointer transition hover:text-[#E5A909] flex items-center gap-2 ${view === 'movies' ? 'font-bold text-[#E5A909]' : ''}`}
                     >
                         <Film size={18} /> Películas
                     </li>
                     <li 
                         onClick={() => changeView('mylist')}
-                        className={`cursor-pointer transition hover:text-[#E5A909] flex items-center gap-2 ${view === 'mylist' ? 'font-bold text-white' : ''}`}
+                        className={`cursor-pointer transition hover:text-[#E5A909] flex items-center gap-2 ${view === 'mylist' ? 'font-bold text-[#E5A909]' : ''}`}
                     >
                         <Bookmark size={18} /> Mi Lista
                     </li>
@@ -197,8 +215,17 @@ function App() {
              )}
           </div>
 
-          <div className="flex items-center gap-6 text-gray-300">
+          <div className={`flex items-center gap-6 ${currentTheme === 'day' && isScrolled ? 'text-gray-800' : 'text-gray-300'}`}>
              
+             {/* AÑADIDO: EL BOTÓN DE CAMBIO DE TEMA */}
+             <button 
+                onClick={cycleTheme}
+                className="cursor-pointer hover:scale-110 transition-transform p-2 rounded-full hover:bg-white/10 flex items-center justify-center border border-transparent hover:border-[#E5A909]/50"
+                title={`Cambiar a modo: ${currentTheme === 'day' ? 'Tarde' : currentTheme === 'afternoon' ? 'Noche' : 'Día'}`}
+             >
+                {THEMES[currentTheme].icon}
+             </button>
+
              {/* 1. BUSCADOR */}
              <div className={`flex items-center border border-white/0 ${isSearchOpen ? 'bg-black/80 border-[#E5A909]/50 px-2 py-1' : ''} transition-all duration-300 rounded`}>
                 <div className="flex items-center gap-2 cursor-pointer hover:text-[#E5A909]" onClick={() => setIsSearchOpen(!isSearchOpen)}>
@@ -249,6 +276,8 @@ function App() {
                 title={`Resultados: "${searchTerm}"`} 
                 movieList={searchResults} 
                 emptyMessage="No encontramos nada con ese nombre."
+                handleMovieClick={handleMovieClick}
+                changeView={changeView}
             />
 
         /* 2. MI LISTA */
@@ -257,6 +286,8 @@ function App() {
                 title="Mi Lista Personal" 
                 movieList={myList} 
                 emptyMessage="Aún no has añadido ninguna película a tu lista."
+                handleMovieClick={handleMovieClick}
+                changeView={changeView}
             />
 
         /* 3. PELÍCULAS */
@@ -265,15 +296,17 @@ function App() {
                 title="Catálogo Completo" 
                 movieList={movies} 
                 emptyMessage="No hay películas disponibles."
+                handleMovieClick={handleMovieClick}
+                changeView={changeView}
             />
 
         /* 4. SERIES */
         ) : view === 'series' ? (
-            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in bg-gradient-to-b from-[#141414] to-black">
+            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in pt-32">
                 <div className="p-8 bg-[#1f1f1f] rounded-full mb-8 shadow-2xl shadow-[#E5A909]/20 border border-gray-800">
                     <Tv size={80} className="text-[#E5A909]" />
                 </div>
-                <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight text-center">
+                <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight text-center">
                     Próximamente...
                 </h2>
                 <p className="text-xl md:text-2xl text-gray-400 max-w-2xl text-center leading-relaxed">
@@ -290,11 +323,11 @@ function App() {
 
         /* 5. NOVEDADES */
         ) : view === 'news' ? (
-            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in bg-gradient-to-b from-[#141414] to-black">
+            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in pt-32">
                 <div className="p-8 bg-[#1f1f1f] rounded-full mb-8 shadow-2xl shadow-[#E5A909]/20 border border-gray-800">
                     <Bell size={80} className="text-[#E5A909]" />
                 </div>
-                <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight text-center">
+                <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight text-center">
                     Próximamente...
                 </h2>
                 <p className="text-xl md:text-2xl text-gray-400 max-w-2xl text-center leading-relaxed">
@@ -311,11 +344,11 @@ function App() {
 
         /* 6. PERFIL */
         ) : view === 'profile' ? (
-            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in bg-gradient-to-b from-[#141414] to-black">
+            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in pt-32">
                 <div className="p-8 bg-[#1f1f1f] rounded-full mb-8 shadow-2xl shadow-[#E5A909]/20 border border-gray-800">
                     <User size={80} className="text-[#E5A909]" />
                 </div>
-                <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight text-center px-4">
+                <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight text-center px-4">
                     Próximamente se habilitará la página al público
                 </h2>
                 <p className="text-xl md:text-2xl text-gray-400 max-w-2xl text-center leading-relaxed mt-4">
@@ -331,11 +364,11 @@ function App() {
 
         /* 7. AYUDA (NUEVO) */
         ) : view === 'help' ? (
-            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in bg-gradient-to-b from-[#141414] to-black">
+            <div className="flex flex-col items-center justify-center min-h-[70vh] text-gray-500 animate-fade-in pt-32">
                 <div className="p-8 bg-[#1f1f1f] rounded-full mb-8 shadow-2xl shadow-[#E5A909]/20 border border-gray-800">
                     <Info size={80} className="text-[#E5A909]" />
                 </div>
-                <h2 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight text-center px-4">
+                <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight text-center px-4">
                     Centro de Ayuda
                 </h2>
                 <p className="text-xl md:text-2xl text-gray-400 max-w-2xl text-center leading-relaxed mt-4">
@@ -392,8 +425,18 @@ function App() {
                         {heroMovies.map((movie) => (
                         <SwiperSlide key={movie.id}>
                             <div className="relative h-full w-full bg-cover bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdropPath})` }}>
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/20 to-black/40"></div>
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#141414]/90 via-transparent to-transparent"></div>
+                            
+                            {/* --- AQUÍ ESTÁ EL CAMBIO --- */}
+                            {/* He quitado 'bg-gradient-to-t from-current...' que usaba el color del texto */}
+                            {/* Ahora uso 'style={{ background: ... }}' con el color HEX exacto de cada tema */}
+                            <div 
+                                className="absolute inset-0"
+                                style={{ background: `linear-gradient(to top, ${THEMES[currentTheme].heroHex} 1%, transparent 15%, rgba(0,0,0,0.4) 100%)` }}
+                            ></div>
+                            
+                            {/* Gradiente Lateral (siempre oscuro para que se lea el texto blanco) */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent"></div>
+                            
                             <div className="absolute bottom-32 left-4 md:left-16 max-w-2xl p-4 animate-fade-in-up">
                                 <h2 className="text-5xl md:text-7xl font-extrabold drop-shadow-2xl mb-4 leading-none text-white">{movie.titulo}</h2>
                                 <p className="text-lg md:text-xl text-gray-200 drop-shadow-md mb-8 line-clamp-3 font-medium">{movie.sinopsis}</p>
@@ -428,11 +471,11 @@ function App() {
         )}
       </div>
 
-      {/* --- FOOTER DORADO-OSCURO (ACTUALIZADO) --- */}
-      <footer className="bg-[#0f0f0f] text-gray-400 py-12 px-4 md:px-12 border-t border-gray-800 animate-fade-in relative z-10">
+      {/* --- FOOTER (CON FONDO ADAPTATIVO) --- */}
+      <footer className={`py-12 px-4 md:px-12 border-t border-gray-800 animate-fade-in relative z-10 ${THEMES[currentTheme].footerBg} transition-colors duration-500`}>
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
               <div>
-                  <h3 className="text-white font-bold mb-4">Navegación</h3>
+                  <h3 className={`font-bold mb-4 ${currentTheme === 'day' ? 'text-gray-800' : 'text-white'}`}>Navegación</h3>
                   <ul className="space-y-2 text-sm">
                       <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('home')}>Inicio</li>
                       <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('movies')}>Películas</li>
@@ -441,7 +484,7 @@ function App() {
                   </ul>
               </div>
               <div>
-                  <h3 className="text-white font-bold mb-4">Legal</h3>
+                  <h3 className={`font-bold mb-4 ${currentTheme === 'day' ? 'text-gray-800' : 'text-white'}`}>Legal</h3>
                   <ul className="space-y-2 text-sm">
                       <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('legal-aviso')}>Aviso Legal</li>
                       <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('legal-privacidad')}>Privacidad</li>
@@ -449,7 +492,7 @@ function App() {
                   </ul>
               </div>
               <div>
-                  <h3 className="text-white font-bold mb-4">Ayuda</h3>
+                  <h3 className={`font-bold mb-4 ${currentTheme === 'day' ? 'text-gray-800' : 'text-white'}`}>Ayuda</h3>
                   <ul className="space-y-2 text-sm">
                       <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('help')}>Preguntas Frecuentes</li>
                       <li className="hover:text-[#E5A909] cursor-pointer transition" onClick={() => changeView('help')}>Contacto</li>
@@ -460,22 +503,22 @@ function App() {
                   <h3 className="text-[#E5A909] font-bold mb-4 text-lg">Joseph_Link</h3>
                   <p className="text-sm mb-4">Tu plataforma de streaming favorita. Versión Gold Edition.</p>
                   
-                  {/* ICONOS REDES ACTUALIZADOS */}
+                  {/* ICONOS REDES */}
                   <div className="flex gap-4 mt-4">
                       {/* LINKEDIN */}
-                      <a href="https://www.linkedin.com/in/josé-manuel-sánchez-rosal-863803114" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#E5A909] transition" title="LinkedIn">
+                      <a href="https://www.linkedin.com/in/josé-manuel-sánchez-rosal-863803114" target="_blank" rel="noopener noreferrer" className="hover:text-[#E5A909] transition" title="LinkedIn">
                           <Linkedin size={20} />
                       </a>
                       {/* GITHUB */}
-                      <a href="https://github.com/JoseManuelSanchezRosal" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#E5A909] transition" title="GitHub">
+                      <a href="https://github.com/JoseManuelSanchezRosal" target="_blank" rel="noopener noreferrer" className="hover:text-[#E5A909] transition" title="GitHub">
                           <Github size={20} />
                       </a>
                       {/* EMAIL */}
-                      <a href="mailto:j.manuel25@outlook.es" className="text-gray-400 hover:text-[#E5A909] transition" title="Enviar Correo">
+                      <a href="mailto:j.manuel25@outlook.es" className="hover:text-[#E5A909] transition" title="Enviar Correo">
                           <Mail size={20} />
                       </a>
                       {/* TELEFONO */}
-                      <a href="tel:649745624" className="text-gray-400 hover:text-[#E5A909] transition" title="Llamar">
+                      <a href="tel:649745624" className="hover:text-[#E5A909] transition" title="Llamar">
                           <Phone size={20} />
                       </a>
                   </div>
