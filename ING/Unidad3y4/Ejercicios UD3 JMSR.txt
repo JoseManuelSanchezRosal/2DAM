@@ -30,7 +30,7 @@
 4- Over
 5- Next to
 6- Under
-7- Behind
-8- Beside
+7- Behind -- Mas bien next to
+8- Beside -- behind (debajo)
 9- Below
 10- On

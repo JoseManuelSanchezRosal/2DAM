@@ -23,26 +23,26 @@ Ejercicios Unidad 3.
 2- True
 3- False
 4- True
-5- False
+5- False -- true
 6- True
 7- True
 
 7.
-1- Full stop
-2- Comma
-3- Exclamation mark
-4- Question mark
-5- Colon
-6- Semicolon
-7- Quotation marks
-8- Apostrophe
-9- Brackets
-10- At symbol
-11- Asterisk
-12- Slash
-13- Hyphen
-14- And symbol
-15- Underscores
+1- Full stop -- punto
+2- Comma -- coma
+3- Exclamation mark -- signo exclamación
+4- Question mark -- signo interrogación
+5- Colon -- dos puntos
+6- Semicolon -- punto y coma
+7- Quotation marks -- comillas dobles
+8- Apostrophe -- apostrofo
+9- Brackets -- paréntesis
+10- At symbol -- arroba
+11- Asterisk -- asterisco
+12- Slash -- barra
+13- Hyphen -- guion
+14- And symbol -- símbolo ampersand
+15- Underscores -- guion bajo
 
 8.
 1- The letter H is in the middle of the keyboards letters.
@@ -50,9 +50,6 @@ Ejercicios Unidad 3.
 3- The B is between the V key and the N key
 4- The number keys are beside the arrow keys
 5- The shift key is next to the Z key
-
-
-
 
 
 
