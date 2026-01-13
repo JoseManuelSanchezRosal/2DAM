@@ -20,7 +20,7 @@ public class DataLoader implements CommandLineRunner {
 
     private final UsuarioRepository usuarioRepository;
     private final ServicioRepository servicioRepository;
-    private final CitaRepository citaRepository; // Necesitas inyectar esto
+    private final CitaRepository citaRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -82,6 +82,7 @@ public class DataLoader implements CommandLineRunner {
             System.out.println(">>> Creado usuario2 y su cita.");
         }
 
+        // Creamos por defecto el usuario de Administrador!!!! ouhh yea!!Come on baby
         // --- 4. CREAR ADMINISTRADOR ---
         if (usuarioRepository.findByEmail("admin@test.com").isEmpty()) {
             Usuario admin = new Usuario();
@@ -89,7 +90,7 @@ public class DataLoader implements CommandLineRunner {
             admin.setEmail("admin@test.com");
             admin.setPassword(passwordEncoder.encode("admin123"));
             admin.setTelefono("600000000");
-            admin.setRol("ADMIN"); // Rol Admin
+            admin.setRol("ADMIN"); // Rol Administrador, con todos los privilegios
             usuarioRepository.save(admin);
             System.out.println(">>> Creado admin.");
         }
