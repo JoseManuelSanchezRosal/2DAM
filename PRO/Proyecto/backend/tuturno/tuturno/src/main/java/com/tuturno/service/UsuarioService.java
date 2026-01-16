@@ -40,6 +40,10 @@ public class UsuarioService {
         return repositorio.findById(id).orElse(null);
     }
 
+    public Optional<Usuario> buscarPorEmail(String email) {
+        return this.buscarPorEmail(email);
+    }
+
     public void eliminar(Long id) {
         repositorio.deleteById(id);
     }

@@ -2,7 +2,9 @@ package com.tuturno.controller;
 
 import com.tuturno.dto.usuario.UsuarioRequestDTO;
 import com.tuturno.dto.usuario.UsuarioResponseDTO;
+import com.tuturno.model.Rol;
 import com.tuturno.model.Usuario;
+import com.tuturno.service.RolService;
 import com.tuturno.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +15,12 @@ import java.util.List;
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
 public class UsuarioController {
-
-    private final UsuarioService service;
+    private final RolService rolService;
+    private final UsuarioService usuarioService;
 
     @GetMapping
     public List<UsuarioResponseDTO> listar() {
-        return service.listarTodos().stream()
+        return usuarioService.listarTodos().stream()
                 .map(this::convertirADTO)
                 .toList();
     }
@@ -30,15 +32,16 @@ public class UsuarioController {
         usuario.setEmail(request.email());
         usuario.setPassword(request.password());
         usuario.setTelefono(request.telefono());
-        usuario.setRol("CLIENTE");
+        Rol rolCliente = this.rolService.filtrarPorNombre("cliente");
+        usuario.setRol(rolCliente);
 
-        Usuario guardado = service.guardar(usuario);
+        Usuario guardado = usuarioService.guardar(usuario);
         return convertirADTO(guardado);
     }
 
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
-        service.eliminar(id);
+        usuarioService.eliminar(id);
     }
 
     private UsuarioResponseDTO convertirADTO(Usuario usuario) {
@@ -47,7 +50,7 @@ public class UsuarioController {
                 usuario.getNombre(),
                 usuario.getEmail(),
                 usuario.getTelefono(),
-                usuario.getRol()
+                usuario.getRol().getNombre()
         );
     }
 }

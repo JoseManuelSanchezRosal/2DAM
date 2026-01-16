@@ -3,6 +3,7 @@ package com.tuturno.controller;
 import com.tuturno.dto.cita.CitaRequestDTO;
 import com.tuturno.dto.cita.CitaResponseDTO;
 import com.tuturno.model.Cita;
+import com.tuturno.model.Servicio;
 import com.tuturno.service.CitaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -51,16 +53,14 @@ public class CitaController {
 
     private CitaResponseDTO convertirADTO(Cita cita) {
         // Manejo seguro de nulos en precio
-        Double precioVal = (cita.getServicio().getPrecio() != null)
-                ? cita.getServicio().getPrecio().doubleValue()
-                : 0.0;
+        Double precioVal = cita.getServicios().stream().mapToDouble(Servicio::getPrecio).reduce(0.0, Double::sum);
 
         return new CitaResponseDTO(
                 cita.getId(),
-                cita.getFechaHoraInicio(),
-                cita.getFechaHoraFin(),
+                LocalDateTime.now(),
+                LocalDateTime.now(),
                 cita.getUsuario().getNombre(),
-                cita.getServicio().getNombre(),
+                List.of(""),
                 precioVal
         );
     }

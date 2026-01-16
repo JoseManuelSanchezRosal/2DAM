@@ -24,7 +24,7 @@ public class DetalleUsuarioService implements UserDetailsService {
         return User.builder()
                 .username(usuario.getEmail())
                 .password(usuario.getPassword()) // Spring verificará si coincide
-                .roles(usuario.getRol())
+                .roles(usuario.getRol().getNombre())
                 .build();
     }
 }

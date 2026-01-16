@@ -2,7 +2,9 @@ package com.tuturno.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "citas")
@@ -10,16 +12,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cita {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "fecha_hora_inicio", nullable = false)
-    private LocalDateTime fechaHoraInicio;
+    @Column(name = "fecha", nullable = false)
+    private LocalDate fecha;
 
-    @Column(name = "fecha_hora_fin", nullable = false)
-    private LocalDateTime fechaHoraFin;
+    @Column(nullable = false)
+    private Integer hora;
+
+    @Column(nullable = false)
+    private Integer minutos;
+
+    @Column(nullable = false)
+    private Integer segundos;
 
     // Relación Muchos a Uno: Muchas citas pueden ser de un Usuario
     @ManyToOne
@@ -27,7 +34,11 @@ public class Cita {
     private Usuario usuario;
 
     // Relación Muchos a Uno: Muchas citas pueden tener el mismo Servicio
-    @ManyToOne
-    @JoinColumn(name = "servicio_id", nullable = false)
-    private Servicio servicio;
+    @ManyToMany
+    @JoinTable(
+            name = "Cita_Servicio",
+            joinColumns = { @JoinColumn(name = "id_cita") },
+            inverseJoinColumns = { @JoinColumn(name = "id_servicio") }
+    )
+    private List<Servicio> servicios;
 }

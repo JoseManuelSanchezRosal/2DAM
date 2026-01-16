@@ -23,8 +23,7 @@ public class ServicioController {
         servicio.setPrecio(request.precio());
 
         // CORRECCIÓN: El DTO trae 'duracionMinutos', lo metemos en 'duracion' del modelo
-        servicio.setDuracion(request.duracionMinutos());
-        servicio.setActivo(true); // Esto ya funcionará porque añadimos el campo al modelo
+        servicio.setDuracionMinutos(request.duracionMinutos());
 
         Servicio guardado = servicioRepository.save(servicio);
         return ResponseEntity.ok(convertirADTO(guardado));
@@ -42,8 +41,7 @@ public class ServicioController {
                 servicio.getNombre(),
                 servicio.getDescripcion(),
                 servicio.getPrecio(),
-                servicio.getDuracion(), // Usamos getDuracion()
-                servicio.getActivo()    // Usamos getActivo()
+                servicio.getDuracionMinutos() // Usamos getDuracion()
         );
     }
 }

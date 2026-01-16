@@ -37,15 +37,15 @@ public class CitaService {
 
         Cita cita = new Cita();
         cita.setUsuario(usuario);
-        cita.setServicio(servicio);
-        cita.setFechaHoraInicio(fechaInicio);
+        /*cita.setServicio(servicio);
+        cita.setFechaHoraInicio(fechaInicio);*/
 
         // CORRECCIÓN: Ahora servicio.getDuracion() existe gracias al paso 1
-        if (servicio.getDuracion() != null) {
+        /*if (servicio.getDuracion() != null) {
             cita.setFechaHoraFin(fechaInicio.plusMinutes(servicio.getDuracion()));
         } else {
             cita.setFechaHoraFin(fechaInicio.plusMinutes(60));
-        }
+        }*/
 
         return citaRepository.save(cita);
     }

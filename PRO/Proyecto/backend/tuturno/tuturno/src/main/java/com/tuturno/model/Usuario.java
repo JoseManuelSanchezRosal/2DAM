@@ -26,7 +26,7 @@ public class Usuario {
 
     private String telefono;
 
-    // Por defecto, si no decimos nada, será CLIENTE
-    @Column(nullable = false)
-    private String rol = "CLIENTE";
+    @ManyToOne
+    @JoinColumn(name = "id_rol", nullable = false)
+    private Rol rol;
 }
