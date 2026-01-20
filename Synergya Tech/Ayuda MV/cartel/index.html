@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartel Curso Ofimática - Fuente Palmera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Handlee&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #008CBA; 
+            --dark-blue: #003d66;    
+            --accent-red: #e74c3c;   
+            --white: #ffffff;
+            --light-gray: #f9f9f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .poster-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            position: relative;
+            color: var(--dark-blue);
+            
+            /* --- IMAGEN DE FONDO --- */
+            background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* --- CAMBIO PRINCIPAL AQUÍ: Menos transparencia blanca --- */
+        .poster-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* He bajado mucho los valores (0.50 y 0.25) para que se vea bien la foto */
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.50), rgba(255, 255, 255, 0.25));
+            z-index: 0; 
+        }
+
+        .top-logos, .content, .contact-section, .sticker-msg {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* CABECERA */
+        .top-logos {
+            padding: 30px 20px 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-header-img {
+            height: 190px;
+            width: auto;
+            object-fit: contain;
+            /* Pequeña sombra para separar el logo del fondo ahora más visible */
+            filter: drop-shadow(0 2px 4px rgba(255,255,255,0.8));
+        }
+
+        /* MENSAJE FLOTANTE */
+        .sticker-msg {
+            margin: 10px 30px;
+            color: var(--primary-blue);
+            font-family: 'Handlee', cursive;
+            font-size: 1.6rem;
+            font-weight: bold;
+            transform: rotate(-2deg);
+            text-shadow: 1px 1px 0px rgba(255,255,255,1), 0 0 10px rgba(255,255,255,0.5);
+            line-height: 1.2;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        .content {
+            /* Añadido un fondo muy sutil y difuminado detrás del texto para asegurar lectura */
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(3px);
+            margin: 10px 20px 20px 20px;
+            padding: 20px 30px;
+            border-radius: 15px;
+        }
+
+        .tag-curso {
+            display: inline-block;
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            font-weight: 800;
+            /* Sombra blanca para contraste */
+            text-shadow: 0 1px 5px rgba(255,255,255,0.8);
+        }
+
+        h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: #222; /* Texto un poco más oscuro */
+            line-height: 1.4;
+            /* Sombra blanca para contraste */
+            text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+        }
+
+        h2 strong {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        /* GRID DE INFORMACIÓN */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 25px;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .location-box {
+            background-color: rgba(255,255,255,0.9); /* Más sólido */
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .location-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--dark-blue);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .location-title i {
+            color: var(--accent-red);
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+
+        .details-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 10px;
+        }
+
+        .detail-item {
+            text-align: center;
+        }
+
+        .detail-item i {
+            font-size: 1.8rem;
+            color: var(--primary-blue); 
+            margin-bottom: 8px;
+            display: block;
+            /* Sombra para el icono */
+            filter: drop-shadow(0 1px 2px rgba(255,255,255,0.8));
+        }
+
+        .detail-item span {
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: block;
+            color: var(--dark-blue);
+        }
+        
+        .detail-item small {
+            color: #444; /* Más oscuro */
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* CONTACTO */
+        .contact-section {
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.8); /* Más sólido */
+        }
+        
+        .whatsapp-box {
+            display: flex;
+            align-items: center;
+        }
+
+        .whatsapp-icon {
+            font-size: 2.5rem;
+            background-color: #25D366;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .phones {
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--dark-blue);
+        }
+
+        /* FOOTER */
+        .logos-footer {
+            position: relative;
+            z-index: 3;
+            background: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-logo {
+            height: 40px;
+            width: auto;
+            max-width: 32%;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="poster-container">
+        <div class="top-logos">
+            <img src="images/logociacTrans.png" alt="CIAC Formación" class="logo-header-img">
+        </div>
+        
+        <div class="sticker-msg">
+            ¡Impulsa tu carrera<br>administrativa!
+        </div>
+
+        <div class="content">
+            <span class="tag-curso">Curso Gratuito</span>
+            <h1>OFIMÁTICA</h1>
+            <h2><strong>ADGGD57PO:</strong> Aplicaciones Informáticas de Gestión</h2>
+
+            <div class="info-grid">
+                <div class="location-box">
+                    <div class="location-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Fuente<br>Palmera
+                    </div>
+                </div>
+
+                <div class="details-list">
+                    <div class="detail-item">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Presencial</span>
+                        <small>Modalidad</small>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-city"></i>
+                        <span>En tu municipio</span>
+                        <small>Local</small>
+                    </div>
+                    <div class="detail-item">
+                        <i class="far fa-clock"></i>
+                        <span>50 Horas</span>
+                        <small>Duración</small>
+                    </div>
+                    <div class="detail-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Febrero</span>
+                        <small>Inicio</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <div class="whatsapp-box">
+                <div class="whatsapp-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="phones">
+                    <div>602 299 495</div>
+                    <div>621 317 852</div>
+                </div>
+            </div>
+            <div style="text-align: right; font-size: 0.9rem; font-weight: 700; color: var(--accent-red);">
+                ¡Plazas<br>Limitadas!
+            </div>
+        </div>
+
+        <div class="logos-footer">
+            <img src="images/logoMinisterioEducacion.png" alt="Ministerio de Educación" class="footer-logo">
+            <img src="images/andaluciaEmpleo.png" alt="Andalucía Empleo" class="footer-logo">
+            <img src="images/ciacfooter.png" alt="CIAC Footer" class="footer-logo">
+        </div>
+    </div>
+
+</body>
+</html>
