@@ -3,9 +3,9 @@
 
 Este proyecto implementa una solución de gestión de datos para la asignatura de Acceso a Datos. Se abordan dos tecnologías principales de persistencia: **Bases de Datos Relacionales (SQLite)** y **Bases de Datos Nativas XML (DOM/Nativo)**.
 
-El objetivo es demostrar la consecución de los Resultados de Aprendizaje **RA2** y **RA5** mediante una aplicación Java modular e interactiva.
+El objetivo es demostrar la consecución de los Resultados de Aprendizaje RA2 y RA5 mediante una aplicación Java modular e interactiva.
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 
 El proyecto está organizado bajo el paquete `org.AF4` y consta de los siguientes módulos:
 
@@ -20,7 +20,7 @@ Raíz del proyecto/
 
 ```
 
-## 🚀 Instrucciones de Ejecución
+## 1. Instrucciones de Ejecución
 
 1. **Requisitos**: Java JDK instalado y entorno IntelliJ IDEA.
 2. **Dependencias**: El proyecto requiere el driver JDBC de SQLite (`sqlite-jdbc`).
@@ -33,7 +33,7 @@ Raíz del proyecto/
 
 ---
 
-## ✅ Evidencias de Evaluación (Checklist de Criterios)
+## 2. Evidencias de Evaluación (Checklist de Criterios)
 
 A continuación, se detalla cómo se cumple cada criterio de evaluación solicitado en el documento *AF4 AD dual.pdf*, indicando la clase y método donde se implementa.
 
@@ -66,7 +66,7 @@ A continuación, se detalla cómo se cumple cada criterio de evaluación solicit
 
 ---
 
-## 🧠 Memoria Técnica y Reflexión
+## 3. Memoria Técnica y Reflexión
 
 ### Reflexión sobre RA2 (Bases de Datos Relacionales)
 
@@ -83,4 +83,5 @@ A continuación, se detalla cómo se cumple cada criterio de evaluación solicit
 * **Ventajas:** Al usar XML nativo con **DOM**, obtenemos una estructura jerárquica y autodescriptiva, ideal para datos complejos que no encajan bien en tablas planas. Es un formato universal y legible por humanos.
 * **Inconvenientes:** Frente a JSON, es más verboso (ocupa más espacio). Frente a SQL, el acceso es más lento ya que requiere parsear el documento completo en memoria.
 
+**PVI:** Para hacer pruebas en local borrar los archivos .db y .xml para verificar creación de los mismos al ejecutas los programas.
 ```
