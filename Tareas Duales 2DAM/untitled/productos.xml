@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tienda>
+        
+    <producto id="1">
+                
+        <nombre>Monitor</nombre>
+                
+        <descripcion>Samsung 30 pulgadas</descripcion>
+                
+        <precio>255</precio>
+                
+        <stock>15</stock>
+            
+    </producto>
+    
+    <producto id="2">
+        <nombre>Portatil</nombre>
+        <descripcion>Dell 16 pulgadas i9</descripcion>
+        <precio>1222</precio>
+        <stock>10</stock>
+    </producto>
+</tienda>
