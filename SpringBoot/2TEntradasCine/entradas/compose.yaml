@@ -1,0 +1,15 @@
+services:
+  postgres-cine:
+    image: postgres:15-alpine
+    container_name: cine_db_manual
+    ports:
+      - "5433:5432"  # PUERTO CLAVE: 5433 (Externo) -> 5432 (Interno)
+    environment:
+      POSTGRES_DB: cinedb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+    volumes:
+      - cine_data:/var/lib/postgresql/data
+
+volumes:
+  cine_data:
