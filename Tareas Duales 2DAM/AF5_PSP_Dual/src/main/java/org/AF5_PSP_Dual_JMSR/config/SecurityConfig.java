@@ -20,8 +20,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // RA5.j y RA5.k: Definimos usuarios y roles (Esquemas basados en roles). [cite: 123, 124]
-    // RA5.h: Aplicamos principios de seguridad (Autenticación). [cite: 121]
+    // RA5.j. y RA5.k.: Definimos usuarios y roles (Esquemas basados en roles)
+    // RA5.h.: Aplicamos principios de seguridad (Autenticación)
     @Bean
     public UserDetailsService users() {
         // Creamos un usuario "visitante" que solo podrá leer
@@ -42,7 +42,7 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user, admin);
     }
 
-    // RA5.j: Definimos políticas para limitar el acceso. [cite: 123]
+    // RA5.j.: Definimos políticas para limitar el acceso.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -51,7 +51,7 @@ public class SecurityConfig {
 
                 // Configuramos las reglas de autorización
                 .authorizeHttpRequests(auth -> auth
-                        // RA5: Restringimos acceso. Solo ADMIN puede escribir (POST, PUT, DELETE) [cite: 91]
+                        // RA5: Restringimos acceso. Solo ADMIN puede escribir (POST, PUT, DELETE)
                         .requestMatchers(HttpMethod.POST, "/api/productos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
@@ -62,7 +62,7 @@ public class SecurityConfig {
                         // Cualquier otra cosa requiere autenticación
                         .anyRequest().authenticated()
                 )
-                // RA4.b y RA5.n: Usamos HTTP Basic (Estándar sencillo de autenticación). [cite: 113, 127]
+                // RA4.b y RA5.n: Usamos HTTP Basic (Estándar sencillo de autenticación)
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
