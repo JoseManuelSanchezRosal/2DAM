@@ -51,7 +51,7 @@ public class CineDataLoader implements CommandLineRunner {
         Actor jackson = actorRepo.save(new Actor(null, "Samuel L. Jackson"));
         Actor thurman = actorRepo.save(new Actor(null, "Uma Thurman"));
 
-        // Classics & Others
+        // Classicos
         Actor deniro = actorRepo.save(new Actor(null, "Robert De Niro"));
         Actor pacino = actorRepo.save(new Actor(null, "Al Pacino"));
         Actor brando = actorRepo.save(new Actor(null, "Marlon Brando"));
