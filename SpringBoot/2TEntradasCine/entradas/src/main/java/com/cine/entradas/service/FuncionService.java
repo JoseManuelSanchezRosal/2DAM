@@ -25,6 +25,8 @@ public class FuncionService {
     private final SalaRepository salaRepo;
     private final FuncionMapper funcionMapper;
 
+
+
     @Transactional(readOnly = true)
     public List<FuncionResponseDTO> findAll() {
         return funcionRepo.findAll().stream()

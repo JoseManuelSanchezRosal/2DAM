@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Promesas</h1>
+<h2>El metodo then()</h2>
+
+<p>Despues de 3 segundos aparece un mensaje</p>
+
+<h1 id="demo"></h1>
+
+<script>
+  const miPrimesa = new Promise(function(exito, fracaso) {
+    setTimeout(function(){ exito("Este mensaje se muestras despues de 3 segundos desde que se inicia la aplicacion"); }, 3000);
+  });
+
+  miPrimesa.then(function(value) {
+    document.getElementById("demo").innerHTML = value;
+  });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>JavaScript async / await</h1>
+<p id="demo"></p>
+
+<script>
+function mostrarMensaje(texto) {
+  document.getElementById("demo").innerHTML = texto;
+}
+
+async function ejemplo() {
+  return "Esto es un texto de ejemplo";
+}
+
+ejemplo().then(
+  function(value) {mostrarMensaje(value);},
+  function(error) {mostrarMensaje(error);}
+);</script>
+
+</body>
+</html>

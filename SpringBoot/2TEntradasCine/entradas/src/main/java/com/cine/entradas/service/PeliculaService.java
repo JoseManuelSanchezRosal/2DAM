@@ -33,6 +33,8 @@ public class PeliculaService {
         // 1. Convertir datos simples (titulo, duración...)
         Pelicula pelicula = peliculaMapper.toEntity(dto);
 
+        
+
         // 2. Resolver relaciones usando los Repositorios (Lógica pura)
         Director director = directorRepository.findById(dto.getDirectorId())
                 .orElseThrow(() -> new EntityNotFoundException("Director no encontrado"));

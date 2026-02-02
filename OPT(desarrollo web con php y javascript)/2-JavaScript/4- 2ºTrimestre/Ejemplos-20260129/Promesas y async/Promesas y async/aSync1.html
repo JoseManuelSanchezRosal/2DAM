@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function espera2seg() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve("El resultado se muestra despues de que se ejecute esta función y no antes");
+            }, 2000);
+        });
+        }
+
+        async function asyncCall() {
+            console.log("Se llama a la función");
+            //const result = espera2seg();
+            const result = await espera2seg();
+            console.log(result);
+            console.log("Se muestra despues de la función");
+        }
+
+        asyncCall();
+    </script>
+</body>
+</html>

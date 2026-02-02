@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Promesas</h2>
+    <input type="text" id="ent1" placeholder="numero 1">
+    <button onclick="numeroMayor()">Sumar</button>
+
+    <script>
+        function alertas(cadena){
+            alert(cadena);
+        }
+
+        function numeroMayor(){
+            let num1=document.getElementById("ent1");
+
+            let promesa = new Promise(function (exito, fracaso){
+                if(num1.value>5){
+                    exito("El numero es mayor que 5");
+                }else{
+                    fracaso("El numero no es mayor que 5");
+                }
+            }
+            )
+
+            promesa.then(
+                function(value){alertas(value);},
+                function(error){alertas(error);}
+            )
+        }
+        
+    </script>
+</body>
+</html>

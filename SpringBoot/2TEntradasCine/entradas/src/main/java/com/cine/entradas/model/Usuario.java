@@ -15,17 +15,19 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
-    private String password; // En un caso real, esto iría cifrado
     private String nombre;
+    private String email;
+    private String password; // ¡Asegúrate de tener este campo!
 
     @OneToMany(mappedBy = "usuario")
     private List<Venta> ventas;
 
-    // Constructor Seeder
-    public Usuario(Long id, String nombre, String email) {
+    // --- AÑADE ESTE CONSTRUCTOR ---
+    // Este es el que busca tu CineDataLoader: (ID, Nombre, Email, Password)
+    public Usuario(Long id, String nombre, String email, String password) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
+        this.password = password;
     }
 }

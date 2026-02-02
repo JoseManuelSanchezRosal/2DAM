@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        async function asyncCall() {
+            console.log("Se llama a la función");
+            const miPromesa = new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("El resultado se muestra despues de que se ejecute esta función y no antes");
+                }, 2000);
+            });
+            miPromesa.then(
+                function(value){
+                    console.log(value);
+                    console.log("Se muestra despues de la función");
+                }
+            )
+        }
+        
+
+        asyncCall();
+    </script>
+</body>
+</html>

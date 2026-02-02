@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <h2>Ejemplo DOM</h2>
+    <h3>Introducimos una operación matemática dentro de una tabla</h3>
+
+    <input type="number" id="num1" placeholder="Numero 1">
+    <select name="operaciones" id="op">
+        <option value="1">+</option>
+        <option value="2">-</option>
+        <option value="3">/</option>
+        <option value="4">*</option>
+    </select>
+    <input type="number" id="num2" placeholder="Numero 2">
+
+    <button onclick="realizarOperacion()">Realizar operación</button>
+
+    <div id="demo">
+        <table id="top" >
+            <tr>
+                <td>Numero 1</td>
+                <td>Operando</td>
+                <td>Numero 2</td>
+                <td>Resultado</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="ejemplo.js"></script>
+</body>
+</html>

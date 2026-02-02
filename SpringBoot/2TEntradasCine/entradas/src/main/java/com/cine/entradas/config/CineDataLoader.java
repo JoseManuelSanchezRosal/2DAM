@@ -4,6 +4,7 @@ import com.cine.entradas.model.*;
 import com.cine.entradas.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,8 @@ public class CineDataLoader implements CommandLineRunner {
     private final SalaRepository salaRepo;
     private final FuncionRepository funcionRepo;
     private final UsuarioRepository usuarioRepo;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -108,11 +111,10 @@ public class CineDataLoader implements CommandLineRunner {
         // ==========================================
         // 6. USUARIOS (Clientes de prueba)
         // ==========================================
-        Usuario pepe = usuarioRepo.save(new Usuario(null, "Pepe Cliente", "pepe@cine.com"));
-        Usuario maria = usuarioRepo.save(new Usuario(null, "Maria Cinefila", "maria@cine.com"));
-        Usuario admin = usuarioRepo.save(new Usuario(null, "Admin Sistema", "admin@cine.com"));
+        // En el método run, al crear usuarios:
+        Usuario pepe = usuarioRepo.save(new Usuario(null, "Pepe", "pepe@cine.com", passwordEncoder.encode("1234")));
+        Usuario admin = usuarioRepo.save(new Usuario(null, "Admin", "admin@cine.com", passwordEncoder.encode("admin")));
 
         System.out.println("--- 🍿 SISTEMA DE CINE REALISTA CARGADO CORRECTAMENTE 🍿 ---");
-        System.out.println("Usuarios Test: ID " + pepe.getId() + " (Pepe), ID " + maria.getId() + " (Maria)");
     }
 }
