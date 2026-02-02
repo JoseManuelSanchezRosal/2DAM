@@ -16,6 +16,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * FILTRO DE AUTENTICACIÓN JWT
+ * ---------------------------
+ * Se ejecuta UNA VEZ por cada petición (OncePerRequestFilter).
+ * Verifica si la petición trae un token válido en la cabecera.
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -30,36 +36,42 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
+        // 1. Obtener la cabecera "Authorization"
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
 
-        // 1. Validar cabecera Authorization: Bearer <token>
+        // 2. Si no hay cabecera o no empieza por "Bearer ", no hacemos nada y dejamos pasar (pueden ser rutas públicas)
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwt = authHeader.substring(7); // Quitar "Bearer "
-        userEmail = jwtService.extractUsername(jwt);
+        // 3. Extraer el token limpio (sin la palabra "Bearer ")
+        jwt = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(jwt); // Extraer email del token
 
-        // 2. Si hay usuario y no está autenticado en el contexto
+        // 4. Si hay email y el usuario NO está autenticado todavía en el contexto actual...
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            // Buscamos al usuario en BD
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-            // 3. Validar Token
+            // 5. Validamos si el token es correcto matemática y temporalmente
             if (jwtService.isTokenValid(jwt, userDetails)) {
+                // Creamos un objeto de autenticación de Spring
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
                         userDetails.getAuthorities()
                 );
+                // Añadimos detalles de la petición (IP, sesión, etc.)
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                // 4. Establecer autenticación en Spring Security
+                // 6. ¡IMPORTANTE! "Logueamos" al usuario manualmente en el contexto de seguridad para esta petición
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
+        // 7. Continuar con el siguiente filtro o llegar al Controlador
         filterChain.doFilter(request, response);
     }
 }

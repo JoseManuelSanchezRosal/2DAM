@@ -10,37 +10,53 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * CONFIGURACIÓN DE SEGURIDAD
+ * --------------------------
+ * Aquí se definen las reglas de acceso HTTP (quién puede ver qué).
+ * Se habilita la seguridad web.
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider; // Inyectado desde ApplicationConfig
+    private final JwtAuthenticationFilter jwtAuthFilter; // Nuestro filtro personalizado
+    private final AuthenticationProvider authenticationProvider; // El proveedor configurado en ApplicationConfig
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Deshabilitamos CSRF porque usamos Tokens
+                // Deshabilitamos CSRF (Cross-Site Request Forgery) porque al usar Tokens no hay sesión de navegador vulnerable
+                .csrf(csrf -> csrf.disable())
+
+                // DEFINICIÓN DE RUTAS (Whitelisting)
                 .authorizeHttpRequests(auth -> auth
-                        // 1. Documentación (Swagger UI y OpenAPI) - AÑADIDO /v3/api-docs explícitamente
+                        // 1. Documentación (Swagger y OpenAPI) -> PÚBLICO
                         .requestMatchers(
                                 "/v3/api-docs/**",
-                                "/v3/api-docs",  // <--- Esta línea soluciona el error de carga
+                                "/v3/api-docs",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
 
-                        // 2. Auth y Endpoints públicos
+                        // 2. Auth (Login) y Catálogos (Películas/Funciones) -> PÚBLICO
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/peliculas", "/api/peliculas/**").permitAll()
                         .requestMatchers("/api/funciones", "/api/funciones/**").permitAll()
 
-                        // 3. Todo lo demás requiere autenticación
+                        // 3. CUALQUIER OTRA COSA (Ventas, Usuarios) -> REQUIERE AUTENTICACIÓN
                         .anyRequest().authenticated()
                 )
+
+                // Gestión de sesión STATELESS (Sin estado).
+                // No guardamos sesión en el servidor. Cada petición debe traer su Token.
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                // Añadimos nuestro proveedor de autenticación
                 .authenticationProvider(authenticationProvider)
+
+                // Añadimos nuestro filtro JWT ANTES del filtro estándar de usuario/password
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

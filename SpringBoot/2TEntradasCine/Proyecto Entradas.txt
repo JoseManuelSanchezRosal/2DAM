@@ -1,0 +1,68 @@
+1. El Núcleo de Seguridad (config y security)
+Es probable que aquí te hagan más preguntas, ya que es la parte más compleja.
+
+SecurityConfig (El Jefe de Seguridad):
+
+Defensa: "Es la clase principal de configuración de Spring Security. Aquí defino el SecurityFilterChain. Su responsabilidad es decidir qué rutas son públicas (como ver películas) y cuáles privadas (como comprar). También deshabilita CSRF (porque usamos Tokens) y configura la sesión como STATELESS (sin estado), lo cual es obligatorio para arquitecturas REST modernas."
+
+JwtAuthenticationFilter (El Portero):
+
+Defensa: "Este filtro intercepta cada petición HTTP antes de que llegue al controlador. Verifica si la petición trae un encabezado Authorization con un token válido. Si el token es real, extrae el usuario y lo autentica en el contexto de Spring para esa petición. Si no, deja pasar la petición como anónima (y SecurityConfig decidirá si la rechaza o no)."
+
+JwtService (La Fábrica de Tickets):
+
+Defensa: "Es una clase utilitaria pura encargada de la criptografía. Tiene dos funciones: Generar tokens firmados digitalmente (cuando el usuario se loguea) y Validar tokens entrantes (comprobar que la firma coincide y que no ha expirado)."
+
+ApplicationConfig (La Configuración de Beans):
+
+Defensa: "Aquí declaro los Beans globales que Spring necesita inyectar en otros lados, principalmente el PasswordEncoder (uso BCrypt para que las contraseñas nunca se guarden en texto plano) y el AuthenticationManager."
+
+OpenApiConfig (La Documentación):
+
+Defensa: "Configura Swagger/OpenAPI. Lo importante aquí es que definí el esquema de seguridad bearerAuth para que aparezca el botón del candado 🔒 en la web de documentación y se puedan probar los endpoints protegidos visualmente."
+
+2. La Lógica de Negocio (service)
+Aquí es donde reside el valor real de tu aplicación.
+
+VentaService (El Cerebro de la Compra):
+
+Defensa: "Es la clase más crítica. No solo guarda datos; orquesta toda la transacción. Verifica que el usuario exista, que la función exista y, lo más importante, valida que el asiento no esté ocupado. Si todo está bien, calcula el precio total y guarda la venta y las entradas en cascada."
+
+UsuarioService:
+
+Defensa: "Maneja el registro de usuarios. Su tarea clave es tomar la contraseña en texto plano que envía el usuario y encriptarla antes de pasarla al repositorio."
+
+CineDataLoader (El Utillero / Seeder):
+
+Defensa: "Es un CommandLineRunner que se ejecuta al iniciar la app. Su función es cargar datos iniciales (películas de Nolan, salas, usuarios de prueba) para que la API no esté vacía al arrancar. Es vital para pruebas y desarrollo ágil."
+
+3. Los Controladores (controller)
+Son la puerta de entrada.
+
+AuthController:
+
+Defensa: "Es el único punto de entrada para obtener acceso. Recibe usuario y contraseña, delega la validación al AuthenticationManager y, si es correcto, devuelve un Token JWT generado por el servicio."
+
+VentaController / PeliculaController, etc.:
+
+Defensa: "Son controladores REST puros. No tienen lógica de negocio; solo reciben JSON, llaman al servicio correspondiente y devuelven el código HTTP adecuado (200, 201, 404, etc.)."
+
+4. Infraestructura de Datos (dto, mapper, repository)
+El soporte técnico.
+
+DTOs (Data Transfer Objects):
+
+Defensa: "Uso DTOs para desacoplar la base de datos de la API externa. Me permite recibir solo los datos necesarios (por ejemplo, recibir solo el ID del director al crear una película) y no exponer datos sensibles (como la contraseña del usuario al listar usuarios)."
+
+Mappers (MapStruct):
+
+Defensa: "Para evitar escribir código repetitivo de conversión (setNombre, setEmail...), uso MapStruct. Convierte automáticamente las Entidades a DTOs y viceversa de forma eficiente."
+
+Repositories:
+
+Defensa: "Son interfaces que extienden de JpaRepository. Me dan acceso directo a la base de datos sin escribir SQL manual, aprovechando Hibernate y Spring Data."
+
+5. Manejo de Errores (exception)
+GlobalExceptionHandler:
+
+Defensa: "Es un manejador centralizado de excepciones (usando @ControllerAdvice). Si ocurre un error en cualquier parte (como 'Asiento Ocupado' o 'Usuario no encontrado'), esta clase captura el error y devuelve un JSON limpio y estandarizado (RFC 7807) con el código HTTP correcto, en lugar de romper la aplicación con un error 500 feo."
