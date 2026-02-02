@@ -1,174 +1,112 @@
-\# AF3: Gestión de Bases de Datos Relacionales (RA2)
+<div align="center">
 
+# 🗄️ AF3: GESTIÓN DE BASES DE DATOS RELACIONALES (AaD y DIN)
 
+**Proyecto para el Resultado de Aprendizaje 2 (RA2)**
+*Persistencia de datos en Java con SQLite y JDBC*
 
-\## 📖 Descripción del Proyecto
+![Java](https://img.shields.io/badge/Java-JDK_21-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![JDBC](https://img.shields.io/badge/Driver-JDBC-red?style=for-the-badge)
+![Maven](https://img.shields.io/badge/Build-Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
 
-Este proyecto consiste en una aplicación de consola desarrollada en \*\*Java\*\* que implementa la persistencia de datos utilizando una base de datos relacional (\*\*SQLite\*\*). El objetivo es demostrar la capacidad de conectar, gestionar y manipular datos desde un lenguaje de programación, asegurando la integridad mediante transacciones.
-
-
-
-El sistema simula la gestión de inventario identificada en el entorno profesional, permitiendo operaciones CRUD (Create, Read, Update, Delete) completas.
-
-
-
-\## ⚙️ Stack Tecnológico
-
-\* \*\*Lenguaje:\*\* Java (JDK 21)
-
-\* \*\*Base de Datos:\*\* SQLite (Base de datos embebida)
-
-\* \*\*Driver:\*\* JDBC (sqlite-jdbc)
-
-\* \*\*Herramienta de Construcción:\*\* Maven
-
-
+</div>
 
 ---
 
+## 📖 Descripción del Proyecto
 
+Este proyecto consiste en una aplicación de consola que implementa un sistema completo de persistencia de datos. El objetivo es simular la gestión de un inventario profesional, demostrando la capacidad de conectar, manipular y asegurar la integridad de la información mediante una base de datos relacional embebida (**SQLite**).
 
-\## 🏢 1. Análisis del Entorno Profesional
-
-\*Reflexión sobre el uso de datos en la empresa actual.\*
-
-
-
-\*\*Proceso Identificado:\*\*
-
-En la empresa, se ha identificado el proceso de `\[EJEMPLO: Gestión de pedidos de clientes / Inventario de almacén]`.
-
-
-
-\*\*Gestión Actual de los Datos:\*\*
-
-Actualmente, estos datos se gestionan mediante `\[EJEMPLO: Hojas de cálculo de Excel compartidas en red / Correos electrónicos / Software legado]`.
-
-
-
-\*\*Ventajas de la Migración a Base de Datos Relacional:\*\*
-
-Implementar una BBDD relacional (como la de este proyecto) aportaría:
-
-1\.  \*\*Integridad de datos:\*\* Evitar duplicidades y errores de formato.
-
-2\.  \*\*Concurrencia:\*\* Permitir que varios usuarios accedan simultáneamente sin corromper el archivo.
-
-3\.  \*\*Seguridad y Consultas:\*\* Capacidad de filtrar datos complejos mediante SQL y establecer permisos.
-
-
+### 🎯 Objetivos (RA2)
+* **Conexión:** Establecer comunicación entre Java y el SGBD.
+* **Manipulación:** Operaciones CRUD (Create, Read, Update, Delete).
+* **Integridad:** Gestión de transacciones (Commit/Rollback).
 
 ---
 
+## ⚙️ Stack Tecnológico
 
-
-\## 💻 2. Implementación Técnica (Criterios RA2)
-
-
-
-La aplicación cumple con los requisitos prácticos del RA2 mediante las siguientes funcionalidades:
-
-
-
-1\.  \*\*Conexión (JDBC):\*\* Se establece conexión con `jdbc:sqlite:tienda.db`.
-
-2\.  \*\*Estructura:\*\* Creación automática de la tabla `productos` si no existe.
-
-3\.  \*\*Operaciones CRUD:\*\*
-
-&nbsp;   \* \*\*Insertar:\*\* Añadir nuevos productos con stock y precio.
-
-&nbsp;   \* \*\*Consultar:\*\* Listado formateado de todos los productos.
-
-&nbsp;   \* \*\*Actualizar:\*\* Modificación del stock de un producto existente.
-
-&nbsp;   \* \*\*Eliminar:\*\* Borrado de registros por ID.
-
-
-
----
-
-
-
-\## 🔄 3. Gestión de Transacciones e Integridad
-
-
-
-Se ha implementado una simulación de transacción en la opción 5 del menú (`simularVentaTransaccional`).
-
-
-
-\*\*Mecanismo:\*\*
-
-\* Se desactiva el `autoCommit` (`conn.setAutoCommit(false)`).
-
-\* Se realizan operaciones de inserción.
-
-\* Si ocurre un error lógico o de SQL, se ejecuta un `ROLLBACK` para deshacer los cambios y volver al estado consistente anterior.
-
-\* Si todo es correcto, se ejecuta `COMMIT` para persistir los datos.
-
-
-
-\*\*Aplicación en la Empresa:\*\*
-
-En un entorno real, esto es vital para procesos como facturación o movimientos de stock: si se descuenta stock pero falla el cobro, el sistema debe deshacer el descuento de stock para evitar descuadres de inventario.
-
-
-
----
-
-
-
-\## 📄 4. Reflexión sobre Formatos: XML vs Otros
-
-
-
-\*\*Uso de XML en la Empresa:\*\*
-
-El formato XML se utiliza frecuentemente para:
-
-\* Facturación Electrónica (Formatos FacturaE).
-
-\* Archivos de configuración de servidores o aplicaciones (ej. `pom.xml` en Maven).
-
-\* Intercambio de datos entre sistemas heterogéneos (Web Services SOAP).
-
-
-
-\*\*XML vs JSON/SQL/CSV:\*\*
-
-\* \*\*Ventajas XML:\*\* Es muy descriptivo, estandarizado y valida esquemas complejos (XSD). Ideal para documentos legales como facturas.
-
-\* \*\*Desventajas:\*\* Es más "verboso" y pesado que JSON. Para APIs REST modernas o bases de datos rápidas, se prefiere JSON por su ligereza o SQL por su potencia de consulta.
-
-
-
----
-
-
-
-\## ✅ Cumplimiento de Criterios (Checklist)
-
-
-
-| Criterio | Descripción | Implementación en Código |
-
+| Componente | Tecnología | Descripción |
 | :--- | :--- | :--- |
+| **Lenguaje** | Java (JDK 21) | Lógica de la aplicación. |
+| **Base de Datos** | SQLite | BBDD relacional ligera y embebida. |
+| **Driver** | `sqlite-jdbc` | Puente de conexión JDBC. |
+| **Gestión** | Maven | Gestión de dependencias y construcción. |
 
-| \*\*RA2.b\*\* | Uso de SGBD embebido | `sqlite-jdbc` / `tienda.db` |
+---
 
-| \*\*RA2.c\*\* | Conector idóneo | Uso de librerías `java.sql.\*` y driver JDBC |
+## 🏢 1. Análisis del Entorno Profesional
 
-| \*\*RA2.d\*\* | Establecer conexión | `DriverManager.getConnection(URL)` |
+*Reflexión sobre la importancia de migrar a Bases de Datos Relacionales.*
 
-| \*\*RA2.e\*\* | Definir estructura | Método `crearTablaProductos` (CREATE TABLE) |
+### 📉 Situación "Legacy" (El Problema)
+En muchas empresas, procesos críticos como la **Gestión de Pedidos** o el **Inventario de Almacén** se gestionan de forma precaria:
+* ❌ Hojas de Excel compartidas en red (riesgo de corrupción).
+* ❌ Envío de datos por correo electrónico (desincronización).
+* ❌ Software legado obsoleto.
 
-| \*\*RA2.f\*\* | Modificar contenido | Métodos `insertar`, `actualizar`, `eliminar` |
+### 📈 La Solución Relacional (Ventajas)
+Implementar este sistema con SQLite/SQL aporta:
+1.  **Integridad de Datos:** Restricciones que evitan duplicados y errores de tipo.
+2.  **Concurrencia:** Múltiples usuarios accediendo sin bloquear o corromper el archivo global.
+3.  **Seguridad y Potencia:** Consultas complejas (filtros, joins) y control de acceso.
 
-| \*\*RA2.g\*\* | Almacenar resultado | Uso de objetos `ResultSet` |
+---
 
-| \*\*RA2.h\*\* | Efectuar consultas | Método `listarProductos` (SELECT) |
+## 💻 2. Implementación Técnica (CRUD)
 
-| \*\*RA2.j\*\* | Transacciones | Método `simularVentaTransaccional` (Commit/Rollback) |
+La aplicación cumple los requisitos mediante las siguientes funcionalidades conectadas a `jdbc:sqlite:tienda.db`:
 
+* **🔌 Conexión:** Uso de `DriverManager` para conectar a la BBDD embebida.
+* **🏗️ Estructura:** Script `CREATE TABLE IF NOT EXISTS` para inicializar la tabla `productos`.
+
+### Operaciones Disponibles
+* **Insertar (`INSERT`):** Alta de nuevos productos (Nombre, Stock, Precio).
+* **Consultar (`SELECT`):** Listado formateado recuperando el `ResultSet`.
+* **Actualizar (`UPDATE`):** Modificación del stock de una referencia existente.
+* **Eliminar (`DELETE`):** Borrado físico de registros por ID.
+
+---
+
+## 🔄 3. Gestión de Transacciones (Atomicidad)
+
+Se incluye una simulación avanzada en la **Opción 5** del menú (`simularVentaTransaccional`) para asegurar la consistencia de los datos.
+
+### Mecanismo Implementado
+1.  **Inicio:** Se desactiva el guardado automático: `conn.setAutoCommit(false)`.
+2.  **Operaciones:** Se ejecutan varias instrucciones SQL (ej. insertar venta, descontar stock).
+3.  **Validación:**
+    * ✅ **Si todo va bien:** Se ejecuta `conn.commit()` (Los cambios se hacen permanentes).
+    * ❌ **Si hay error:** Se ejecuta `conn.rollback()` (Se deshacen todos los cambios, volviendo al estado original).
+
+> **Caso de uso real:** Vital en facturación. Si cobras a un cliente pero falla la actualización de stock, el sistema debe deshacer el cobro para evitar descuadres financieros.
+
+---
+
+## 📄 4. Reflexión: XML vs SQL vs JSON
+
+Aunque este proyecto usa SQL, analizamos su relación con otros formatos en la empresa:
+
+| Formato | Uso Principal | Ventaja | Desventaja |
+| :--- | :--- | :--- | :--- |
+| **SQL** | Base de Datos Transaccional | Integridad y Potencia de consulta | Requiere esquema rígido |
+| **XML** | FacturaE, Configuración (Maven), SOAP | Validación fuerte (XSD) y Estándar legal | Muy verboso (pesado) |
+| **JSON** | APIs REST, NoSQL, Web | Ligero y rápido de parsear | Menor validación nativa |
+
+---
+
+## ✅ Checklist de Evaluación (RA2)
+
+| Criterio | Descripción | Implementación en Código | Estado |
+| :--- | :--- | :--- | :---: |
+| **RA2.b** | Uso de SGBD embebido | Librería `sqlite-jdbc` / Archivo `tienda.db` | ✅ |
+| **RA2.c** | Conector idóneo | Importación `java.sql.*` y Driver Manager | ✅ |
+| **RA2.d** | Establecer conexión | `DriverManager.getConnection(URL)` | ✅ |
+| **RA2.e** | Definir estructura | Método `crearTablaProductos` (DDL) | ✅ |
+| **RA2.f** | Modificar contenido | Métodos para Insertar, Actualizar y Borrar | ✅ |
+| **RA2.g** | Almacenar resultado | Iteración sobre objetos `ResultSet` | ✅ |
+| **RA2.h** | Efectuar consultas | Método `listarProductos` (SELECT) | ✅ |
+| **RA2.j** | Transacciones | Control de `COMMIT` y `ROLLBACK` manual | ✅ |
+
+---
