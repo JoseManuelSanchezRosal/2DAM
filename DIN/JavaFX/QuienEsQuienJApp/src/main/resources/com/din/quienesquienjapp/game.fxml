@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1150.0" 
+            xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.din.quienesquienjapp.GameController">
+   
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="true" text="_Juego">
+                  <items>
+                    <MenuItem mnemonicParsing="true" onAction="#reiniciarJuego" text="_Nuevo Juego" />
+                    <MenuItem mnemonicParsing="true" text="_Salir" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="true" text="_Ayuda">
+                  <items>
+                    <MenuItem mnemonicParsing="true" onAction="#abrirAyuda" text="Ver _Ayuda (F1)" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            
+            <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #f4f4f4; -fx-padding: 15; -fx-border-color: #cccccc; -fx-border-width: 0 0 1 0;">
+               <children>
+                  <Label text="Haz tu pregunta:" textFill="#333333">
+                     <font><Font name="System Bold" size="14.0" /></font>
+                  </Label>
+                  
+                  <ComboBox fx:id="comboPreguntas" prefHeight="35.0" prefWidth="320.0" promptText="Selecciona una característica...">
+                     <tooltip>
+                        <Tooltip text="Despliega para ver las preguntas disponibles sobre los personajes" />
+                     </tooltip>
+                  </ComboBox>
+                  
+                  <Button mnemonicParsing="true" onAction="#realizarPregunta" prefHeight="35.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-cursor: hand; -fx-font-weight: bold;" text="_PREGUNTAR">
+                     <font><Font size="13.0" /></font>
+                     <tooltip>
+                        <Tooltip text="Confirmar la pregunta seleccionada (Alt+P)" />
+                     </tooltip>
+                  </Button>
+                  
+                  <Separator orientation="VERTICAL" />
+                  
+                  <Button mnemonicParsing="true" onAction="#reiniciarJuego" prefHeight="35.0" style="-fx-background-color: #4CAF50; -fx-cursor: hand; -fx-font-weight: bold;" text="_NUEVO JUEGO" textFill="WHITE">
+                     <font><Font size="13.0" /></font>
+                     <tooltip>
+                        <Tooltip text="Reiniciar la partida y elegir un nuevo personaje oculto (Alt+N)" />
+                     </tooltip>
+                  </Button>
+                  
+                  <Separator orientation="VERTICAL" />
+                  
+                  <Button mnemonicParsing="true" onAction="#abrirAyuda" prefHeight="35.0" style="-fx-background-color: #FFC107; -fx-cursor: hand; -fx-font-weight: bold;" text="A_yuda (?)" textFill="#333333">
+                     <font><Font size="13.0" /></font>
+                     <tooltip>
+                        <Tooltip text="Abrir el manual de usuario y reglas (F1 o Alt+Y)" />
+                     </tooltip>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   
+   <left>
+      <VBox prefWidth="240.0" style="-fx-background-color: #eef2f5; -fx-border-color: #cccccc; -fx-border-width: 0 1 0 0;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #dfe6e9; -fx-padding: 12; -fx-border-color: #ccc; -fx-border-width: 0 0 1 0;" text="HISTORIAL DE PREGUNTAS" textFill="#2d3436">
+               <font><Font name="System Bold" size="13.0" /></font>
+               <tooltip>
+                  <Tooltip text="Lista de preguntas realizadas y respuestas de la máquina" />
+               </tooltip>
+            </Label>
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="vboxHistorial" spacing="8.0" style="-fx-padding: 10; -fx-background-color: #eef2f5;" />
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </left>
+   
+   <center>
+      <TilePane fx:id="tablero" hgap="25.0" prefColumns="4" style="-fx-background-color: #e0e0e0; -fx-padding: 25;" vgap="25.0" BorderPane.alignment="CENTER" />
+   </center>
+   
+   <right>
+      <VBox alignment="TOP_CENTER" prefWidth="220.0" spacing="15.0" style="-fx-background-color: #2d3436; -fx-padding: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, -5, 0);" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="PERSONAJE" textFill="WHITE">
+               <font><Font name="System Bold" size="18.0" /></font>
+            </Label>
+            <Label text="OCULTO" textFill="#2196f3">
+               <font><Font name="System Bold" size="26.0" /></font>
+            </Label>
+            <Label text="(Tu Rival: La Máquina)" textFill="#b2bec3" />
+            
+            <Separator opacity="0.3" prefWidth="200.0" />
+            
+            <VBox alignment="CENTER" prefHeight="220.0" prefWidth="180.0" style="-fx-background-color: #222; -fx-border-color: white; -fx-border-width: 4; -fx-border-radius: 5; -fx-background-radius: 5;">
+               <children>
+                  <Label text="?" textFill="WHITE">
+                     <font><Font name="System Bold" size="120.0" /></font>
+                     <tooltip>
+                        <Tooltip text="Este es el personaje que debes adivinar" />
+                     </tooltip>
+                  </Label>
+               </children>
+            </VBox>
+            
+            <Label text="Utiliza las preguntas para descartar opciones hasta que solo quede uno." textAlignment="CENTER" textFill="#dfe6e9" wrapText="true">
+               <font><Font size="11.0" /></font>
+            </Label>
+         </children>
+      </VBox>
+   </right>
+   
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="55.0" style="-fx-background-color: #2d3436; -fx-border-color: #555; -fx-border-width: 1 0 0 0;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblFeedback" text="Bienvenido. Selecciona una pregunta para comenzar." textFill="WHITE">
+               <font><Font name="System Bold" size="16.0" /></font>
+            </Label>
+         </children>
+      </HBox>
+   </bottom>
+   
+</BorderPane>
