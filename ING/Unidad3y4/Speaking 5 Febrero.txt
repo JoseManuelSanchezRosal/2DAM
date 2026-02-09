@@ -1,0 +1,25 @@
+Speaking Pg.12
+
+José Manuel >>>> Hello, this is Jose in IT.
+
+Ester>>>>Hi, Jose. This is Ester. I’m calling from the 3rd floor. I’ve a problem with my monitor.
+
+José Manuel >>>> Good morning, Ester. Is it a new monitor or an old one?
+
+Ester >>>> It’s an old one and the screen is completely black. It won’t turn on!
+
+José Manuel >>>> Holly molly! So first, make sure the power cable is connected. Then, unplug the cable from your PC. Next, blow on the connector gently.
+
+Ester >>>> What? Are you sure?
+
+José Manuel >>>> Yes, if the cable has dust inside, the signal sometimes gets lost.
+
+Ester >>>> Ok, I did it. Now what should I do?
+
+José Manuel >>>> Now plug the monitor in again. Press the power button and see what happens.
+
+Ester >>>> Oh great! It’s working now…wait, the picture is flickering. It’s going on and off.
+
+José Manuel >>>> Alright, I’ll come and take a look. We’ll try changing the cable.
+
+Ester >>>> Thank you, Jose. See you in a bit.

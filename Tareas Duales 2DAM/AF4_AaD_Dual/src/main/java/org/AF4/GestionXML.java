@@ -296,12 +296,14 @@ public class GestionXML {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         return dBuilder.parse(archivo);
+
     }
 
     private static void guardarXML(Document doc, File archivo) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         // Formateo para que se vea bonito con saltos de línea
+        // Hay que seguir avanzando.
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(archivo);

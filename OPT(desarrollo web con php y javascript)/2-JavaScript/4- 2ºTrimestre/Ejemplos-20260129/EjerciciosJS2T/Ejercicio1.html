@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor Simple</title>
+    <style>
+        /* Estilos mínimos para alinear */
+        .fila-tarea {
+            display: flex;       
+            align-items: center; 
+            gap: 10px;           /* Espacio entre elementos */
+            margin-bottom: 5px;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        /* El texto ocupa todo el espacio disponible empujando botones a la derecha */
+        .texto { flex-grow: 1; } 
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <h1>Mis Tareas</h1>
+        <input type="text" id="inputTarea" placeholder="Escribe algo...">
+        <button id="btnPrincipal">Agregar</button>
+        
+        <div id="contenedorLista"></div>
+    </div>
+
+<script>
+    // 1. Referencias a los elementos
+    const input = document.getElementById('inputTarea');
+    const boton = document.getElementById('btnPrincipal');
+    const lista = document.getElementById('contenedorLista');
+
+    // 2. Variable global para saber qué estamos editando (si está null, es modo agregar)
+    let tareaEnEdicion = null; 
+
+    // 3. Lógica ÚNICA y centralizada
+    boton.addEventListener('click', () => {
+        
+        const textoIngresado = input.value.trim();
+        if (textoIngresado === "") return; // Si está vacío, no hace nada
+
+        // --- MODO EDICIÓN ---
+        // Si 'tareaEnEdicion' tiene datos, significa que pulsamos "Editar" antes
+        if (tareaEnEdicion) {
+            tareaEnEdicion.textContent = textoIngresado; // Actualizamos el texto del span
+            
+            // Reseteamos todo al estado original
+            tareaEnEdicion = null;
+            boton.textContent = "Agregar";
+        } 
+        
+        // --- MODO CREACIÓN ---
+        // Si no estamos editando, creamos una nueva fila
+        else {
+            const fila = document.createElement('div');
+            fila.className = 'fila-tarea'; // Clase para CSS Flexbox
+
+            // Elemento de texto (Span)
+            const spanTexto = document.createElement('span');
+            spanTexto.textContent = textoIngresado;
+            spanTexto.className = 'texto';
+
+            // Botón Editar (definimos su comportamiento aquí mismo)
+            const btnEditar = document.createElement('button');
+            btnEditar.textContent = 'Editar';
+            btnEditar.onclick = () => {
+                input.value = spanTexto.textContent; // Subir texto al input
+                tareaEnEdicion = spanTexto;          // Guardar referencia
+                boton.textContent = "Actualizar";    // Cambiar botón principal
+            };
+
+            // Botón Borrar (definimos su comportamiento aquí mismo)
+            const btnBorrar = document.createElement('button');
+            btnBorrar.textContent = 'Borrar';
+            btnBorrar.onclick = () => {
+                // Si borramos la tarea que estamos editando justo ahora, limpiamos el input
+                if (tareaEnEdicion === spanTexto) {
+                    tareaEnEdicion = null;
+                    boton.textContent = "Agregar";
+                    input.value = "";
+                }
+                fila.remove(); // Elimina la fila del HTML
+            };
+
+            // Juntamos todo en la fila y lo añadimos a la lista
+            fila.append(spanTexto, btnEditar, btnBorrar);
+            lista.appendChild(fila);
+        }
+
+        // Limpiar input al finalizar cualquier acción
+        input.value = "";
+    });
+
+</script>
+</body>
+</html>
