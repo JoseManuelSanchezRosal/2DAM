@@ -1,0 +1,13 @@
+form {
+    display: flex;
+    flex-direction: column;
+    row-gap: .4rem;
+    margin-bottom: 2rem;
+    max-width: 200px;
+}
+
+.resultado,
+.form-field {
+    display: flex;
+    flex-direction: column;
+}

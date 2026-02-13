@@ -1,0 +1,5 @@
+1 Vamos a tener que leer 2 json y 2 xml
+2 Cae intercambio información con el DOM (ejercicios ejemplos DOM) apendar botón para borrar (modificar no cae)
+3 Se puede hacer todo con fetch
+4 El ejemplo del fetch2 cae
+5 Cae borrar memoria del almacenamiento local ejemplo 2 (localstorage)

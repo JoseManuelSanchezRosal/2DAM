@@ -1,20 +1,33 @@
-/DIN/JavaFX/prueba/nbproject/private/
-/DIN/JavaFX/prueba/build/
-/DIN/JavaFX/CalculadoraFX/nbproject/private/
-/DIN/JavaFX/CalculadoraFX/build/
-/DIN/JavaFX/FxMultivista/nbproject/private/
-/DIN/JavaFX/FxMultivista/build/
-/DIN/JavaFX/CalculadoraFX/dist/
-/DIN/JavaFX/Frigo/nbproject/private/
-/DIN/JavaFX/Frigo/build/
-/DIN/JavaFX/Frigo/dist/
-/DIN/JavaFX/ElementosTablaCompleto/nbproject/private/
-/DIN/JavaFX/ElementosTablaCompleto/build/
-/DIN/JavaFX/ElementosTablaCompleto/dist/
-/DIN/JavaFX/TPV-Restaurante/nbproject/private/
-/DIN/JavaFX/TPV-Restaurante/dist/
-/DIN/JavaFX/TPV-Restaurante/build/
-/DIN/JavaFX/TPV/nbproject/private/
-/DIN/JavaFX/TPV/build/
-/DIN/JavaFX/TPV/dist/
-/DIN/JavaFX/QuienEsQuienJApp/target/
+# --- ARCHIVOS GIGANTES Y TEMPORALES ---
+*.hprof
+*.log
+*.pyc
+.DS_Store
+Thumbs.db
+
+# --- REGLAS GENERALES (Detecta build en cualquier subcarpeta) ---
+**/build/
+**/target/
+**/out/
+**/dist/
+**/nbproject/private/
+
+# --- ANDROID & GRADLE (Cualquier nivel) ---
+**/.gradle/
+**/local.properties
+**/.cxx/
+**/.externalNativeBuild/
+**/*.apk
+**/*.ap_
+
+# --- IDEs (IntelliJ, Android Studio, VS Code) ---
+**/.idea/
+**/.vscode/
+**/*.iml
+**/*.ipr
+**/*.iws
+
+# --- KOTLIN/JAVA ---
+**/*.class
+**/intermediates/
+**/generated/

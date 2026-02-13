@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DualClock</string>
+    <string name="check_in">Entrar</string>
+    <string name="check_out">Salir</string>
+    <string name="loading">Cargando...</string>
+    <string name="error">Error</string>
+    <string name="success">Éxito</string>
+</resources>

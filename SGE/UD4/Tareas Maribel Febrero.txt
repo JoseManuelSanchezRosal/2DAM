@@ -1,0 +1,7 @@
+Dar de alta:
+- Cliente
+- Producto
+- Proveedor
+
+- VIERNES 13 Febrero
+Hacer ejercicios pagina 17 de las diapositivas

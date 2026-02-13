@@ -1,0 +1,25 @@
+article {
+    margin-bottom: 1rem;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+.string {
+    background-color: aqua;
+}
+
+.number {
+    background-color: red;
+}
+
+.bool {
+    background-color: lime;
+}

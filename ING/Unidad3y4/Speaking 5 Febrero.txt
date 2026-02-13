@@ -1,25 +1,54 @@
 Speaking Pg.12
 
 José Manuel >>>> Hello, this is Jose in IT.
+		 Hola, soy José de TI.
+
 
 Ester>>>>Hi, Jose. This is Ester. I’m calling from the 3rd floor. I’ve a problem with my monitor.
+	 Hola, José. Esta es Ester. Llamo desde el 3er piso. Tengo un problema con mi monitor.
+
 
 José Manuel >>>> Good morning, Ester. Is it a new monitor or an old one?
+		 Buenos días, Ester. ¿Es un monitor nuevo o viejo?
+
 
 Ester >>>> It’s an old one and the screen is completely black. It won’t turn on!
+	   Es viejo y la pantalla está completamente negra. !No enciende!
+
 
 José Manuel >>>> Holly molly! So first, make sure the power cable is connected. Then, unplug the cable from your PC. Next, blow on the connector gently.
+		 	      Primero, asegúrese de que el cable de alimentación está conectado. Luego, desconéctelo de su PC. A continuación, sople suavemente el conector
+
 
 Ester >>>> What? Are you sure?
+	   ¿Qué? ¿Está seguro
+?
 
 José Manuel >>>> Yes, if the cable has dust inside, the signal sometimes gets lost.
+		 Sí, si el cable tiene polvo en su interior, a veces se pierde la señal.
+
 
 Ester >>>> Ok, I did it. Now what should I do?
+	   Ok, lo hice. ¿Ahora qué debo hacer?
+
 
 José Manuel >>>> Now plug the monitor in again. Press the power button and see what happens.
+		 Ahora vuelve a enchufar el monitor. Presione el botón de encendito y vea qué sucede.
+
 
 Ester >>>> Oh great! It’s working now…wait, the picture is flickering. It’s going on and off.
+	   Oh genial! Está funcionando ahora...espera, la imagen parpadea. Está encendido y apagado.
+
 
 José Manuel >>>> Alright, I’ll come and take a look. We’ll try changing the cable.
+		 Muy bien, paso a echar un vistazo. Intentaremos cambiar el cable.
+
 
 Ester >>>> Thank you, Jose. See you in a bit.
+	   Gracias, José. Nos vemos en un rato
+
+
+
+
+
+

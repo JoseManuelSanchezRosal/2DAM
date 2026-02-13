@@ -1,0 +1,18 @@
+section {
+    max-width: 150px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid black;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+}

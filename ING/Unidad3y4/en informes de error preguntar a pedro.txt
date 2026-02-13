@@ -1,0 +1,2 @@
+Edu comenta que en el informe de errores le salga un desplegable para que deje seleccionar una opción justificando la incidencia.
+

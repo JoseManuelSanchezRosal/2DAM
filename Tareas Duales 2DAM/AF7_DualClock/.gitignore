@@ -1,0 +1,35 @@
+# --- Archivos de Sistema y Errores (CRUCIAL PARA TU ERROR) ---
+*.hprof
+*.pyc
+.DS_Store
+Thumbs.db
+
+# --- Android / Gradle Build ---
+.gradle/
+build/
+app/build/
+out/
+/build
+/local.properties
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.ap_
+
+# --- IntelliJ IDEA / Android Studio ---
+.idea/
+*.iml
+*.ipr
+*.iws
+/out/
+
+# --- VS Code ---
+.vscode/
+*.code-workspace
+
+# --- Kotlin / Java ---
+*.class
+# Archivos intermedios de compilación (como los .dex que daban error)
+**/intermediates/
+**/generated/

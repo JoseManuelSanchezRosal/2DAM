@@ -1,4 +1,0 @@
-Dar de alta:
-- Cliente
-- Producto
-- Proveedor

@@ -1,0 +1,92 @@
+ORDERING
+delivery date		fecha de entrega
+give a discount		tiene descuento
+goods			bienes
+invoice			facturar
+out of stock		sin stock
+payment date		día de pago
+price			precio
+price per unit		precio por unidad
+quality			calidad
+quantity		cantidad
+subtotal		subtotal
+VAT
+
+PAYMENTS
+account			cuenta
+cash			efectivo
+charge it		cobrado
+cheque			cheque
+credit card		tarjeta de crédito
+postage and handling
+shipping		envío
+
+ADJECTIVES
+all-in-one		todo en uno
+built-in
+compact			compactado
+complicated		complicado
+dependable
+ergonomic		ergonomico
+flexible		flexible
+high-resolution		alta resolución o definición
+portable		portable, portátil
+powerful		potente
+practical		práctico
+reliable		confiable
+secure			seguro
+simple			simple
+slimline		fino
+sturdy
+superfast		rapidísimo
+top-of-the-range	tope de gama
+user-friendly		usable
+wide screen		ancho de pantalla
+
+EXTRA!
+accesible
+compatible
+convenient
+delivery fee		precio del envío
+place an order		hacer un pedido
+reduction		reducción
+shortage		escasez
+sophisticated		sofisticado
+spare parts		partes sueltas
+special offer		oferta especial
+specialised		especializado
+stocktaking		inventario
+supply chain		cadena de suministro
+warehouse		almacén
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

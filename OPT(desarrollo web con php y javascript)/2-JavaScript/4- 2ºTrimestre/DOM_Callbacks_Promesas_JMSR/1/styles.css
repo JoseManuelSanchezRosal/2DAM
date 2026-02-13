@@ -1,0 +1,15 @@
+.botones {
+    display: flex;
+    column-gap: .4rem;
+}
+
+#tareas {
+    display: flex;
+    flex-direction: column;
+    row-gap: .6rem;
+}
+
+.tarea-row {
+    display: flex;
+    column-gap: .5rem;
+}
