@@ -10,7 +10,7 @@ price per unit		precio por unidad
 quality			calidad
 quantity		cantidad
 subtotal		subtotal
-VAT
+VAT			IVA
 
 PAYMENTS
 account			cuenta
@@ -18,15 +18,15 @@ cash			efectivo
 charge it		cobrado
 cheque			cheque
 credit card		tarjeta de crédito
-postage and handling
+postage and handling	gastos de envío y manipulación
 shipping		envío
 
 ADJECTIVES
 all-in-one		todo en uno
-built-in
+built-in		integrado
 compact			compactado
 complicated		complicado
-dependable
+dependable		fiable
 ergonomic		ergonomico
 flexible		flexible
 high-resolution		alta resolución o definición
@@ -37,16 +37,16 @@ reliable		confiable
 secure			seguro
 simple			simple
 slimline		fino
-sturdy
+sturdy			robusto
 superfast		rapidísimo
 top-of-the-range	tope de gama
 user-friendly		usable
 wide screen		ancho de pantalla
 
 EXTRA!
-accesible
-compatible
-convenient
+accesible		accesible
+compatible		compatible
+convenient		practico
 delivery fee		precio del envío
 place an order		hacer un pedido
 reduction		reducción

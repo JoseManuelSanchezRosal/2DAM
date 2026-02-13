@@ -1,33 +1,41 @@
 import java.sql.*;
 import java.util.Scanner;
 
-/**
- * CLASE PARA EL RESULTADO DE APRENDIZAJE 2 (RA2)
- * Gestión de información en bases de datos relacionales.
- */
 public class GestionBBDD {
 
-    // [CRITERIO RA2.b]: Utilizamos un gestor de base de datos embebido (SQLite).
-    // [CRITERIO RA2.c]: Usamos el conector idóneo (cadena de conexión JDBC para SQLite).
     private static final String URL = "jdbc:sqlite:tienda.db";
 
     public static void main(String[] args) {
         System.out.println("--- INICIO RA2: GESTIÓN DE PRODUCTOS SQL (INTERACTIVO) ---");
 
-        // [CRITERIO RA2.d]: Establecemos la conexión con la base de datos.
-        // Utilizamos try-with-resources para asegurar el cierre de recursos.
         try (Connection conn = DriverManager.getConnection(URL)) {
 
             if (conn != null) {
-                System.out.println("1. Conexión establecida.");
-
-                // 1. Definición de la estructura (DDL)
                 crearTablaProductos(conn);
+                crearTablaUsuarios(conn);
+                insertarUsuarioPorDefecto(conn);
 
                 Scanner sc = new Scanner(System.in);
+
+                System.out.println("--- SISTEMA DE LOGIN ---");
+                boolean autenticado = false;
+
+                while (!autenticado) {
+                    System.out.print("Usuario: ");
+                    String user = sc.nextLine();
+                    System.out.print("Contraseña: ");
+                    String pass = sc.nextLine();
+
+                    autenticado = validarLogin(conn, user, pass);
+
+                    if (!autenticado) {
+                        System.out.println("[ERROR] Credenciales incorrectas. Inténtalo de nuevo.\n");
+                    }
+                }
+
+                System.out.println("\n[EXITO] ¡Bienvenido al sistema!");
                 int opcion = 0;
 
-                // Bucle del menú interactivo
                 do {
                     mostrarMenu();
                     try {
@@ -37,7 +45,7 @@ public class GestionBBDD {
                     }
 
                     switch (opcion) {
-                        case 1: // Insertar
+                        case 1:
                             System.out.println("\n--- Nuevo Producto ---");
                             System.out.print("Nombre: ");
                             String nombre = sc.nextLine();
@@ -47,46 +55,32 @@ public class GestionBBDD {
                             double precio = Double.parseDouble(sc.nextLine());
                             System.out.print("Stock inicial: ");
                             int stock = Integer.parseInt(sc.nextLine());
-
-                            // Llamada a método de inserción
                             insertarProducto(conn, nombre, desc, precio, stock);
                             break;
-
-                        case 2: // Listar
+                        case 2:
                             System.out.println("\n--- Listado de Productos ---");
-                            // Llamada a método de consulta
                             listarProductos(conn);
                             break;
-
-                        case 3: // Actualizar
+                        case 3:
                             System.out.println("\n--- Actualizar Stock ---");
                             System.out.print("ID del producto: ");
                             int idUpdate = Integer.parseInt(sc.nextLine());
                             System.out.print("Nuevo Stock: ");
                             int nuevoStock = Integer.parseInt(sc.nextLine());
-
-                            // Llamada a método de actualización
                             actualizarStock(conn, idUpdate, nuevoStock);
                             break;
-
-                        case 4: // Eliminar
+                        case 4:
                             System.out.println("\n--- Eliminar Producto ---");
                             System.out.print("ID del producto a eliminar: ");
                             int idDelete = Integer.parseInt(sc.nextLine());
-
-                            // Llamada a método de eliminación
                             eliminarProducto(conn, idDelete);
                             break;
-
-                        case 5: // Transacción
-                            // [CRITERIO RA2.j]: Llamada a la gestión de transacciones.
+                        case 5:
                             simularVentaTransaccional(conn);
                             break;
-
                         case 6:
                             System.out.println("Saliendo del sistema...");
                             break;
-
                         default:
                             System.out.println("Opción no válida. Intente de nuevo.");
                     }
@@ -104,6 +98,44 @@ public class GestionBBDD {
         }
     }
 
+    private static void crearTablaUsuarios(Connection conn) throws SQLException {
+        String sql = "CREATE TABLE IF NOT EXISTS usuarios ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "username TEXT UNIQUE NOT NULL, "
+                + "password TEXT NOT NULL)";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+        }
+    }
+
+    private static void insertarUsuarioPorDefecto(Connection conn) throws SQLException {
+        String sql = "INSERT OR IGNORE INTO usuarios(username, password) VALUES(?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "admin");
+            pstmt.setString(2, "1234");
+            pstmt.executeUpdate();
+        }
+    }
+
+    private static boolean validarLogin(Connection conn, String username, String password) throws SQLException {
+        String sql = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Usuario usuarioLogueado = new Usuario(
+                            rs.getInt("id"),
+                            rs.getString("username"),
+                            rs.getString("password")
+                    );
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private static void mostrarMenu() {
         System.out.println("\nMENÚ DE GESTIÓN:");
         System.out.println("1. Insertar Producto");
@@ -115,7 +147,6 @@ public class GestionBBDD {
         System.out.print("Seleccione una opción: ");
     }
 
-    // [CRITERIO RA2.e]: Definimos la estructura de la base de datos (CREATE TABLE).
     private static void crearTablaProductos(Connection conn) throws SQLException {
         String sql = "CREATE TABLE IF NOT EXISTS productos ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -123,13 +154,11 @@ public class GestionBBDD {
                 + "descripcion TEXT, "
                 + "precio REAL, "
                 + "stock INTEGER)";
-
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
         }
     }
 
-    // [CRITERIO RA2.f]: Aplicación donde modificamos el contenido (INSERT).
     private static void insertarProducto(Connection conn, String nom, String desc, double precio, int stock) throws SQLException {
         String sql = "INSERT INTO productos(nombre, descripcion, precio, stock) VALUES(?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -142,18 +171,13 @@ public class GestionBBDD {
         }
     }
 
-    // [CRITERIO RA2.h]: Aplicación donde efectuamos consultas (SELECT).
     private static void listarProductos(Connection conn) throws SQLException {
         String sql = "SELECT * FROM productos";
-
-        // [CRITERIO RA2.g]: Definimos objetos para almacenar el resultado (ResultSet).
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
-
             boolean hayDatos = false;
             while (rs.next()) {
                 hayDatos = true;
-                // Acceso a los datos almacenados en el ResultSet
                 System.out.printf("ID: %d | %s | %s | %.2f€ | Stock: %d%n",
                         rs.getInt("id"), rs.getString("nombre"),
                         rs.getString("descripcion"), rs.getDouble("precio"),
@@ -165,7 +189,6 @@ public class GestionBBDD {
         }
     }
 
-    // [CRITERIO RA2.f]: Aplicación donde modificamos el contenido (UPDATE).
     private static void actualizarStock(Connection conn, int id, int nuevoStock) throws SQLException {
         String sql = "UPDATE productos SET stock = ? WHERE id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -180,7 +203,6 @@ public class GestionBBDD {
         }
     }
 
-    // [CRITERIO RA2.f]: Aplicación donde modificamos el contenido (DELETE).
     private static void eliminarProducto(Connection conn, int id) throws SQLException {
         String sql = "DELETE FROM productos WHERE id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -194,35 +216,22 @@ public class GestionBBDD {
         }
     }
 
-    // [CRITERIO RA2.j]: Gestionamos las transacciones e integridad (COMMIT / ROLLBACK).
     private static void simularVentaTransaccional(Connection conn) {
         System.out.println("\n--- Iniciando Transacción de Prueba ---");
         try {
-            // 1. Inicio de la transacción: Desactivamos el autocommit
             conn.setAutoCommit(false);
-
-            // Operación: Insertamos un producto de prueba
             insertarProducto(conn, "Teclado Transacción", "Mecánico Prueba", 50.00, 5);
-
-            // Simulación de error lógico para probar la integridad
-            boolean errorEnProceso = false; // Cambiar a 'true' para forzar el ROLLBACK
-
+            boolean errorEnProceso = false;
             if (errorEnProceso) throw new SQLException("Fallo simulado en el sistema de pago.");
-
-            // 2. Confirmación de la transacción (Si todo va bien)
             conn.commit();
             System.out.println("TRANSACCIÓN EXITOSA (COMMIT): Datos guardados permanentemente.");
-
         } catch (SQLException e) {
             try {
-                // 3. Reversión de la transacción (Si algo falla)
-                // Esto asegura la consistencia de los datos
                 conn.rollback();
                 System.out.println("ROLLBACK EJECUTADO: Se han deshecho los cambios por error: " + e.getMessage());
             } catch (SQLException ex) { ex.printStackTrace(); }
         } finally {
             try {
-                // Restauramos el comportamiento por defecto
                 conn.setAutoCommit(true);
             } catch (SQLException e) {}
         }
