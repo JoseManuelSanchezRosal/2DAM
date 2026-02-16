@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Cargamos un fichero JSON</h2>
+<h3>Lista de trabajadores</h3>
+<button onclick="cargarFichero()">Cargar fichero</button>
+<button onclick="guardarMemoria()">Guardar en memoria local</button>
+<button onclick="cargarMemoria()">Cargar de memoria local</button>
+<button onclick="borrarMemoria()">Borrar memoria local</button>
+
+<p id="demo"></p>
+ 
+<script>
+    async function cargarFichero() {
+        
+        const respuesta = await fetch("ejemplo.json");
+        const datos = await respuesta.text();
+
+        const obj = JSON.parse(datos);
+
+        
+        for( let i=0 ; i < obj.employees.length; i++){
+            let parrafo = document.createElement("p");
+            parrafo.textContent= obj.employees[i].firstName + " " + obj.employees[i].lastName;
+
+            document.getElementById("demo").appendChild(parrafo);
+        }
+        
+        // document.getElementById("demo").innerHTML = obj.employees[1].firstName + " " + obj.employees[1].lastName;
+    }
+
+    async function guardarMemoria() {
+        const respuesta = await fetch("ejemplo.json");
+        const datos = await respuesta.text();
+
+        localStorage.setItem("empleados",datos);
+
+    }
+
+    function cargarMemoria(){
+        let datos = localStorage.getItem("empleados");
+        let obj = JSON.parse(datos);
+
+        for( let i=0 ; i < obj.employees.length; i++){
+            let parrafo = document.createElement("p");
+            parrafo.textContent= obj.employees[i].firstName + " " + obj.employees[i].lastName;
+
+            document.getElementById("demo").appendChild(parrafo);
+        }
+
+    }
+
+    function borrarMemoria(){
+        localStorage.clear();
+        //localStorage.removeItem("clickcount");
+        //document.getElementById("demo").innerHTML = localStorage.clickcount;
+    }
+    
+</script>
+
+</body>
+</html>

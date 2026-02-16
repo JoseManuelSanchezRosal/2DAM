@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Ejemplos con localStorage</h2>
+
+<button onclick="clickCounter()" type="button">Crear/Añadir</button>
+<button onclick="borrarDatos()" type="button">Borrar datos</button>
+
+<p>Numero de clicks: <span id="demo"></span></p>
+
+<p>Añadir incrementa el contador interno almacenado de forma local.</p>
+<p>Al cerrar la pestaña o el navegador la información no se pierde, a no ser que la borremos nosotros mismos</p>
+
+<script>
+document.getElementById("demo").innerHTML = localStorage.clickcount;
+
+function clickCounter() {
+  if (localStorage.clickcount) {
+    localStorage.clickcount = Number(localStorage.clickcount)+1;
+  } else {
+    localStorage.clickcount = 1;
+  }
+ 
+document.getElementById("demo").innerHTML = localStorage.clickcount;
+}
+
+function borrarDatos(){
+ 	delete localStorage.clickcount;
+    //localStorage.clear();
+    //localStorage.removeItem("clickcount");
+    
+    document.getElementById("demo").innerHTML = localStorage.clickcount;
+ }
+</script>
+
+</body>
+</html>

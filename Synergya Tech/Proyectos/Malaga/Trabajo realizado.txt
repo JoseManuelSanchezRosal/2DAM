@@ -1,0 +1,6 @@
+Lunes 16/Febrero:
+1- Conexión local al dispositivo Yubii Home
+2- Configuración red Wifi de la oficina.
+3- Conexión local al módulo y actualización del Software.
+4- Instalación y reinicio del sistema.
+5- Análisis del proyecto.

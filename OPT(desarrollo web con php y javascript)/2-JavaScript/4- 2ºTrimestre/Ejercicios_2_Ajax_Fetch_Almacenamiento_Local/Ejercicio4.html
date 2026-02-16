@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronómetro en LocalStorage</title>
+</head>
+
+<body>
+
+    <h2>Cronómetro con Memoria Local</h2>
+    <h1 id="pantalla">0 s</h1>
+
+    <button onclick="iniciar()">Iniciar / Reanudar</button>
+    <button onclick="parar()">Parar</button>
+    <button onclick="borrar()">Borrar Todo</button>
+
+    <p>El tiempo se guarda automáticamente. Si recargas o cierras la pestaña, el cronómetro recordará dónde se quedó.</p>
+
+    <script>
+        // Referencia del temporizador para poder detenerlo más adelante.
+        let intervalo;
+        
+        // Contador principal de tiempo (solo números enteros).
+        let segundos = 0;
+
+        // Se ejecuta al abrir la página: recupera el tiempo de la memoria si existe.
+        window.onload = function() {
+            if (localStorage.getItem("tiempoCrono")) {
+                segundos = parseInt(localStorage.getItem("tiempoCrono"));
+                actualizarPantalla();
+            }
+        };
+
+        // Actualiza el texto de la etiqueta <h1> en el HTML con el valor actual.
+        function actualizarPantalla() {
+            document.getElementById("pantalla").innerHTML = segundos + " s";
+        }
+
+        // Arranca el bucle de tiempo.
+        function iniciar() {
+            // El 'if' evita crear varios temporizadores simultáneos si pulsas varias veces.
+            if (!intervalo) {
+                // setInterval ejecuta el código interno cada 1000 milisegundos (1 segundo real).
+                intervalo = setInterval(function() {
+                    segundos++; // Suma 1 segundo.
+                    localStorage.setItem("tiempoCrono", segundos); // Lo guarda en memoria.
+                    actualizarPantalla(); // Refresca el HTML.
+                }, 1000); 
+            }
+        }
+
+        // Detiene el temporizador y vacía la variable 'intervalo' para permitir reiniciarlo.
+        function parar() {
+            clearInterval(intervalo);
+            intervalo = null; 
+        }
+
+        // Detiene el crono, pone la variable a 0 y limpia la memoria local.
+        function borrar() {
+            parar(); 
+            segundos = 0; 
+            localStorage.removeItem("tiempoCrono"); 
+            actualizarPantalla(); 
+        }
+    </script>
+
+</body>
+
+</html>

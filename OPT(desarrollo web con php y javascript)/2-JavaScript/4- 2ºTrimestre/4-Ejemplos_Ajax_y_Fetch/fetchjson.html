@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Cargamos un fichero JSON</h2>
+<h3>Lista de trabajadores</h3>
+<button onclick="cargarFichero()">Cargar fichero</button>
+
+<p id="demo"></p>
+ 
+<script>
+    async function cargarFichero() {
+        
+        const respuesta = await fetch("ejemplo.json");
+        const datos = await respuesta.text();
+
+        const obj = JSON.parse(datos);
+        
+
+        /*
+        let text = '{"employees":[' +
+        '{"firstName":"John","lastName":"Doe" },' +
+        '{"firstName":"Anna","lastName":"Smith" },' +
+        '{"firstName":"Peter","lastName":"Jones" }]}';
+
+        const obj = JSON.parse(text);
+        */
+
+        document.getElementById("demo").innerHTML = obj.employees[1].firstName + " " + obj.employees[1].lastName;
+    }
+    
+</script>
+
+</body>
+</html>

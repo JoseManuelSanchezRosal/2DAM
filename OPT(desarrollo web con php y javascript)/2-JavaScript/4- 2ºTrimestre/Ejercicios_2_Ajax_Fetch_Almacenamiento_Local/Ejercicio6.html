@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estilos en LocalStorage</title>
+</head>
+
+<body>
+
+    <h2>Selector de Temas</h2>
+    
+    <p id="texto-ejemplo">Este texto cambiará de color y el navegador recordará tu elección.</p>
+
+    <button onclick="cambiarTema('red')">Rojo</button>
+    <button onclick="cambiarTema('blue')">Azul</button>
+    <button onclick="cambiarTema('green')">Verde</button>
+    
+    <button onclick="resetearTema()">Resetear (Negro)</button>
+
+    <script>
+        // 1. window.onload: Este bloque se dispara automáticamente nada más abrir o recargar la página.
+        window.onload = function() {
+            
+            // getItem: Le pedimos a la memoria del navegador que nos dé el valor guardado bajo el nombre "colorFuente".
+            let colorGuardado = localStorage.getItem("colorFuente");
+            
+            // Condición (if): Comprobamos si realmente nos ha devuelto algo. 
+            // (Si es la primera vez que entramos, no habrá nada y se saltará este paso).
+            if (colorGuardado) {
+                // Si hay un color guardado, buscamos el párrafo en el HTML y le aplicamos ese color exacto.
+                document.getElementById("texto-ejemplo").style.color = colorGuardado;
+            }
+        };
+
+        // 2. Función para aplicar y guardar. La variable 'color' recibe lo que le envía el botón (ej: 'red').
+        function cambiarTema(color) {
+            
+            // Primero, buscamos el párrafo y le cambiamos el color al instante para que el usuario vea el efecto.
+            document.getElementById("texto-ejemplo").style.color = color;
+            
+            // Segundo, setItem: Guardamos en la memoria local el color que hemos elegido, bautizándolo como "colorFuente".
+            // Si ya había un color de antes, esto simplemente lo sobrescribe con el nuevo.
+            localStorage.setItem("colorFuente", color);
+        }
+
+        // 3. Función para borrar todo el rastro y volver al inicio.
+        function resetearTema() {
+            
+            // Forzamos visualmente que el párrafo vuelva a ser de color negro.
+            document.getElementById("texto-ejemplo").style.color = "black";
+            
+            // removeItem: Borramos definitivamente la clave "colorFuente" de la memoria del navegador.
+            // Así, la próxima vez que recarguemos la página, el window.onload no encontrará nada y dejará el texto en negro.
+            localStorage.removeItem("colorFuente");
+        }
+    </script>
+
+</body>
+
+</html>

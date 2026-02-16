@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>JavaScript Fetch API</h1>
+<h2>Se utiliza el método fetch()</h2>
+<p id="demo">Este texto va a cambiar cuando se ejecute la función</p>
+
+<script>
+
+
+async function getText(file) {
+  let x = await fetch(file);
+  let y = await x.text();
+  document.getElementById("demo").innerHTML = y;
+}
+
+getText("prueba.txt");
+</script>
+
+</body>
+</html>

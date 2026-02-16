@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de CDs por Año</title>
+</head>
+
+<body>
+    <h2>CDs publicados a partir de 1990</h2>
+    <button onclick="cargarXml()">Cargar XML</button>
+    <p id="demo"></p>
+
+    <script>
+        // NOTA: El XML debe estar en la raíz junto a este archivo, o usar una ruta absoluta.
+        function cargarXml() {
+
+            // 1. Inicia la petición al archivo XML.
+            fetch("catalogo.xml")
+
+                // 2. Extrae la respuesta como texto plano.
+                .then(response => response.text())
+
+                // 3. Procesa el texto extraído ('str').
+                .then(str => {
+
+                    // 4 y 5. Convierte el texto plano en un objeto XML navegable (DOM).
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(str, "text/xml");
+
+                    // 6. Obtiene una lista con todas las etiquetas <CD> (cada bloque de disco).
+                    const cds = xmlDoc.getElementsByTagName("CD");
+
+                    // Variable para almacenar el contenido final.
+                    let txt = "";
+
+                    let contador = 0;
+
+                    // 7. Recorre la lista de CDs uno por uno.
+                    for (let i = 0; i < cds.length; i++) {
+                        
+                        // Extraemos el valor de Título, Artista y Año del CD actual.
+                        let title = cds[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue;
+                        let artist = cds[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue;
+                        let year = cds[i].getElementsByTagName("YEAR")[0].childNodes[0].nodeValue;
+
+                        // 8. Condición: Comprobamos si el año es mayor o igual a 1990.
+                        if (parseInt(year) >= 1990) {
+                            contador += 1
+                            // Si cumple la condición, lo concatenamos a nuestra variable de texto.
+                            txt += contador + "- Titulo>>> " + title + ".  Artista:>>> " + artist + ".  Year>>> " + year + "<br>";
+                        }
+                    }
+
+                    // 9. Inyecta el resultado acumulado en el párrafo con id "demo".
+                    document.getElementById("demo").innerHTML = "Hay " + contador + " CDs a partir de 1990:" + "<br>"
+                    document.getElementById("demo").innerHTML += txt;
+
+                })
+
+                // 10. Captura cualquier error (ej. archivo no encontrado) y lo muestra en consola.
+                .catch(error => console.error("Error en la petición:", error));
+        }
+    </script>
+
+</body>
+
+</html>

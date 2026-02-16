@@ -1,3 +1,5 @@
+CONSIDERACIONES (conexión local vs remota)
+Para acceder al dispositivo y actualizar el software, hay que conectarse al modulo de forma local (mirar web URL dispositivo)
 - Para actualizar hay que entrar desde la IP del módulo (mesas= http://192.168.18.132) EVITAR versiones BETA
 - Red wifi mesas (http://192.168.18.154)
 
@@ -13,7 +15,7 @@ DESVINCULAR DISPOSITIVO (ENCHUFE)
 
 Se desvinculan:
 1- Enchufe Mesita (en modo exclusión, pulsar 3 veces seguidas)
-2- Boton Escenas o SOS (en modo de exclusión, pulsar 6 veces seguidas)
+2- Botón Escenas o SOS (en modo de exclusión, pulsar 6 veces seguidas)
 3- Mando (en modo exclusión, pulsar "menos" y "circulo" a la vez, luego "triangulo" o "cruz" hasta que el led se ilumine en verde, por último pulsar "mas" y esperar proceso de eliminación)
 4- Sensor Movimiento (pulsar 3 veces seguidas en modo exclusión)
 5- Sensor Humo

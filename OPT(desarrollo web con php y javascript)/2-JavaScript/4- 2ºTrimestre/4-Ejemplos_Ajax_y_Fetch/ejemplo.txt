@@ -1,0 +1,1 @@
+AJAX no es un lenguaje de programacion, sino una tecnica para intercambiar información cliente servidor.

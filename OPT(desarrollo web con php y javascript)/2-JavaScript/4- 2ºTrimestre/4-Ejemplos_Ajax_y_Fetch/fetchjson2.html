@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Cargamos un fichero JSON</h2>
+<h3>Lista de trabajadores</h3>
+<button onclick="cargarFichero()">Cargar fichero</button>
+<button onclick="porTerminal()">Mostrar por terminal en formato JSON</button>
+
+<p id="demo"></p>
+ 
+<script>
+    async function cargarFichero() {
+        
+        const respuesta = await fetch("supers.json");
+        const datos = await respuesta.text();
+
+        const obj = JSON.parse(datos);
+
+        let i=0;
+
+        for(i ; i < obj.members.length ; i++){
+            let parrafo = document.createElement("p");
+            parrafo.textContent= obj.members[i].name + ", Identidad secreta: " + obj.members[i].secretIdentity;
+            document.getElementById("demo").appendChild(parrafo);
+        }
+        
+    }
+
+    async function porTerminal() {
+        
+        const respuesta = await fetch("supers.json");
+        const datos = await respuesta.text();
+
+        const obj = JSON.parse(datos);
+
+        const obj2 = JSON.stringify(obj);
+
+        console.log(obj2);
+    }
+    
+</script>
+
+</body>
+</html>

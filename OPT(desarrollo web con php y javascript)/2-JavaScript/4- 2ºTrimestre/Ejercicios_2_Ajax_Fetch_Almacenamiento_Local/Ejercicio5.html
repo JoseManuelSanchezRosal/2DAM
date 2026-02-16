@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro JSON de Superhéroes</title>
+</head>
+
+<body>
+
+    <h2>Cargamos un fichero JSON</h2>
+    <h3>Superhéroes con 3 o menos poderes</h3>
+    
+    <button onclick="filtrarPoderes()">Cargar y Filtrar</button>
+
+    <p id="demo"></p>
+ 
+    <script>
+        // La función es asíncrona (async) para poder usar 'await' y no bloquear el navegador
+        async function filtrarPoderes() {
+            
+            // 1. Inicia la petición HTTP y pausa la ejecución hasta recibir respuesta
+            const respuesta = await fetch("supers.json");
+            
+            // 2. Extrae el contenido de la respuesta como texto plano
+            const datos = await respuesta.text();
+            
+            // 3. Convierte el texto estructurado en un objeto JavaScript real
+            const obj = JSON.parse(datos);
+
+            // 4. Limpia el contenedor HTML para evitar duplicados si se hace clic varias veces
+            document.getElementById("demo").innerHTML = "";
+
+            // 5. Bucle for: Recorre todos los superhéroes dentro del array 'members'
+            for(let i = 0; i < obj.members.length; i++) {
+                
+                // 6. Condición: Comprueba si la longitud del array 'powers' de ese miembro es 3 o menos
+                if(obj.members[i].powers.length <= 3) {
+                    
+                    // 7. Crea un nuevo elemento de párrafo <p> en la memoria
+                    let parrafo = document.createElement("p");
+                    
+                    // 8. Construye el texto usando el nombre del héroe y la cantidad de poderes que tiene
+                    parrafo.textContent = obj.members[i].name + " tiene " + obj.members[i].powers.length + " superpoderes.";
+                    
+                    // 9. Inyecta físicamente el párrafo recién creado dentro del contenedor con id "demo"
+                    document.getElementById("demo").appendChild(parrafo);
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

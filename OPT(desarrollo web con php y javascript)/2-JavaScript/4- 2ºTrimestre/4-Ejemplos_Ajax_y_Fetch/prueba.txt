@@ -1,0 +1,1 @@
+Hola, esta información se ha extraido mediante el método fetch()

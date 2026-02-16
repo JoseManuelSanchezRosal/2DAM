@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtro de CDs con LocalStorage</title>
+</head>
+
+<body>
+    <h2>Gestión de CDs (A partir de 1990)</h2>
+    
+    <button onclick="cargarDatos()">1. Mostrar / Cargar Datos</button>
+    <button onclick="recargarXML()">2. Recargar XML Original</button>
+    <button onclick="borrarTodo()">3. Vaciar Almacenamiento</button>
+
+    <br><br>
+    <p id="demo"></p>
+
+    <script>
+        // Función principal: decide de dónde sacar los datos al empezar
+        function cargarDatos() {
+            // Comprueba si ya hay algo guardado en el LocalStorage
+            const datosGuardados = localStorage.getItem("misCDs");
+
+            if (datosGuardados) {
+                // Si existe, convierte el texto JSON de nuevo a un Array y lo pinta
+                pintarDatos(JSON.parse(datosGuardados));
+            } else {
+                // Si está vacío, hace la petición al archivo original
+                recargarXML();
+            }
+        }
+
+        // 1. Inicia la petición al archivo XML (Sobrescribe lo que haya)
+        function recargarXML() {
+            fetch("catalogo.xml")
+                .then(response => response.text())
+                .then(str => {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(str, "text/xml");
+                    const cds = xmlDoc.getElementsByTagName("CD");
+
+                    // Array vacío donde guardaremos los CDs en forma de "Objetos"
+                    let arrayCDs = [];
+
+                    for (let i = 0; i < cds.length; i++) {
+                        let title = cds[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue;
+                        let artist = cds[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue;
+                        let year = cds[i].getElementsByTagName("YEAR")[0].childNodes[0].nodeValue;
+
+                        // Condición: Solo a partir de 1990
+                        if (parseInt(year) >= 1990) {
+                            // En lugar de texto, guardamos un objeto estructurado en nuestro array
+                            arrayCDs.push({ titulo: title, artista: artist, anio: year });
+                        }
+                    }
+
+                    // 2. Guarda el array en LocalStorage convirtiéndolo antes a cadena de texto (JSON)
+                    localStorage.setItem("misCDs", JSON.stringify(arrayCDs));
+
+                    // 3. Llama a la función que dibuja el HTML
+                    pintarDatos(arrayCDs);
+                })
+                .catch(error => console.error("Error en la petición:", error));
+        }
+
+        // Función encargada EXCLUSIVAMENTE de generar el HTML en pantalla
+        function pintarDatos(datos) {
+            let txt = "";
+
+            // Recorre el array de datos y genera el texto + el botón de borrar por cada uno
+            for (let i = 0; i < datos.length; i++) {
+                // Pasamos la variable 'i' (el índice) a la función borrarElemento para saber cuál eliminar
+                txt += (i + 1) + "- Titulo>>> " + datos[i].titulo + 
+                       ".  Artista:>>> " + datos[i].artista + 
+                       ".  Year>>> " + datos[i].anio + 
+                       " <button onclick='borrarElemento(" + i + ")'>Borrar</button><br><br>";
+            }
+
+            // Inyecta el resultado final en el párrafo "demo"
+            document.getElementById("demo").innerHTML = "Hay " + datos.length + " CDs guardados:<br><br>" + txt;
+        }
+
+        // Función para eliminar un elemento concreto del array y del Storage
+        function borrarElemento(indice) {
+            // 1. Recupera la lista actual del Storage y la convierte en Array
+            let datos = JSON.parse(localStorage.getItem("misCDs"));
+
+            // 2. Elimina 1 elemento en la posición exacta marcada por 'indice'
+            datos.splice(indice, 1);
+
+            // 3. Vuelve a guardar el array actualizado en el LocalStorage
+            localStorage.setItem("misCDs", JSON.stringify(datos));
+
+            // 4. Vuelve a pintar la pantalla para reflejar el cambio
+            pintarDatos(datos);
+        }
+
+        // Función para limpiar completamente el LocalStorage
+        function borrarTodo() {
+            localStorage.removeItem("misCDs");
+            document.getElementById("demo").innerHTML = "<strong>Almacenamiento vaciado. Pulsa 'Recargar XML' para volver a empezar.</strong>";
+        }
+    </script>
+
+</body>
+
+</html>

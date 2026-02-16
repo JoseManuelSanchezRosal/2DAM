@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Cargamos un fichero XML</h2>
+<button onclick="cargarFichero()">Cargar fichero</button>
+
+<p id="demo"></p>
+ 
+<script>
+    function cargarFichero(){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            // Usamos responseXML porque cargamos un archivo XML
+            const xmlDoc = this.responseXML;
+
+            const x = xmlDoc.getElementsByTagName("ARTIST");
+            
+            let txt = "";
+            for (let i = 0; i < x.length; i++) {
+                txt = txt + x[i].childNodes[0].nodeValue + "<br>";
+            }
+            document.getElementById("demo").innerHTML = txt;
+        }
+        xhttp.open("GET", "catalogo.xml");
+        xhttp.send();
+    }
+    
+</script>
+
+</body>
+</html>
