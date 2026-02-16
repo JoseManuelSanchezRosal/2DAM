@@ -10,6 +10,7 @@ public class Usuario {
     }
 
     public int getId() {
+
         return id;
     }
 
@@ -17,7 +18,17 @@ public class Usuario {
         return username;
     }
 
+    // Metodo para verificar la sesion del
+    
+
     public boolean verificarPassword(String inputPassword) {
         return this.password.equals(inputPassword);
     }
 }
+
+
+
+
+
+
+
