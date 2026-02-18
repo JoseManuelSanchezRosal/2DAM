@@ -4,3 +4,8 @@ Lunes 16/Febrero:
 3- Conexión local al módulo y actualización del Software.
 4- Instalación y reinicio del sistema.
 5- Análisis del proyecto.
+
+
+Miércoles 18 febrero:
+1- Configuración y vinculación persiana dorm1
+2- Configuración red emergencia: Synergyatech - 12345678
