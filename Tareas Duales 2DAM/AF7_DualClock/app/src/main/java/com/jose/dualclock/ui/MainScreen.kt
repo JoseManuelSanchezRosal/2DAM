@@ -2,6 +2,7 @@ package com.jose.dualclock.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -36,6 +37,8 @@ fun MainScreen(
 
     var showAdminLogin by remember { mutableStateOf(false) }
     var adminPassword by remember { mutableStateOf("") }
+
+    var showHelpDialog by remember { mutableStateOf(false) } // Estado para el diálogo de ayuda
 
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -106,12 +109,32 @@ fun MainScreen(
         )
     }
 
+    if (showHelpDialog) {
+        AlertDialog(
+            onDismissRequest = { showHelpDialog = false },
+            title = { Text("¿Cómo usar la app?") },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("1. Selecciona tu perfil de trabajador en el desplegable.")
+                    Text("2. Pulsa ENTRAR al comenzar tu jornada y SALIR al finalizarla.")
+                    Text("3. Para reportar una incidencia, pulsa el icono de la advertencia y envíala.")
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showHelpDialog = false }) { Text("Entendido") }
+            }
+        )
+    }
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = { Text("DualClock") },
                 actions = {
+                    IconButton(onClick = { showHelpDialog = true }) { // Botón de ayuda
+                        Icon(Icons.Filled.Info, "Ayuda")
+                    }
                     IconButton(onClick = { showReportDialog = true }) {
                         Icon(Icons.Filled.Warning, "Reportar", tint = MaterialTheme.colorScheme.error)
                     }
@@ -218,6 +241,12 @@ fun MainScreen(
             ) {
                 Text("Desastre (Tarde + Antes)", fontSize = 10.sp)
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Copyright 2026 José Manuel Sánchez Rosal",
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.Gray
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.jose.dualclock.ui.reports
 
+import android.content.Context
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -7,10 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -39,18 +38,19 @@ fun ReportsScreen(
     val selectedUser by viewModel.selectedUser.collectAsState()
     val attendanceList by viewModel.userAttendance.collectAsState()
     val stats by viewModel.stats.collectAsState()
-    val reportsList by viewModel.allReports.collectAsState() // Lista de incidencias
+    val reportsList by viewModel.allReports.collectAsState()
 
     val isSending by viewModel.isSending.collectAsState()
     val notificationMessage by viewModel.notificationMessage.collectAsState()
     val isNotificationSent by viewModel.isNotificationSent.collectAsState()
 
-    var selectedTab by remember { mutableIntStateOf(0) } // 0: Control, 1: Incidencias
+    var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf("Control Horario", "Buzón Incidencias")
 
     var expanded by remember { mutableStateOf(false) }
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     LaunchedEffect(notificationMessage) {
         notificationMessage?.let { scope.launch { snackbarHostState.showSnackbar(it) } }
@@ -65,6 +65,15 @@ fun ReportsScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Volver")
                     }
+                },
+                actions = {
+                    if (selectedTab == 0) { // Solo mostrar si estamos en la pestaña de Control Horario
+                        IconButton(onClick = {
+                            viewModel.generatePdfReport(context, selectedUser, stats, attendanceList)
+                        }) {
+                            Icon(Icons.Filled.Share, contentDescription = "Compartir PDF")
+                        }
+                    }
                 }
             )
         }
@@ -74,7 +83,6 @@ fun ReportsScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            // --- TABS SUPERIORES ---
             TabRow(selectedTabIndex = selectedTab) {
                 tabs.forEachIndexed { index, title ->
                     Tab(
@@ -85,22 +93,18 @@ fun ReportsScreen(
                 }
             }
 
-            // --- CONTENIDO ---
             if (selectedTab == 0) {
-                // VISTA 1: CONTROL HORARIO (Lo que ya tenías)
                 AttendanceControlView(
                     viewModel, selectedUser, expanded,
                     { expanded = it }, stats, isNotificationSent, isSending, attendanceList
                 )
             } else {
-                // VISTA 2: BUZÓN DE INCIDENCIAS (Nuevo)
                 ReportsInboxView(reportsList, viewModel)
             }
         }
     }
 }
 
-// --- VISTA 1: CONTROL HORARIO (Refactorizado para limpiar código) ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AttendanceControlView(
@@ -114,7 +118,6 @@ fun AttendanceControlView(
     attendanceList: List<AttendanceEntity>
 ) {
     Column(modifier = Modifier.padding(16.dp)) {
-        // Selector
         ExposedDropdownMenuBox(
             expanded = expanded,
             onExpandedChange = { setExpanded(!expanded) },
@@ -136,7 +139,6 @@ fun AttendanceControlView(
         }
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Gráficos
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
             val hoursProgress = (stats.totalHours / 8.0).toFloat().coerceIn(0f, 1f)
             val hoursColor = if (stats.totalHours >= 8.0) Color(0xFF4CAF50) else Color(0xFFFF9800)
@@ -152,7 +154,6 @@ fun AttendanceControlView(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Avisos
         if (stats.lateEntries > 0 || stats.earlyExits > 0) {
             Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer), modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -187,7 +188,6 @@ fun AttendanceControlView(
     }
 }
 
-// --- VISTA 2: BUZÓN DE INCIDENCIAS (NUEVA) ---
 @Composable
 fun ReportsInboxView(reports: List<ReportEntity>, viewModel: ReportsViewModel) {
     if (reports.isEmpty()) {
@@ -228,7 +228,6 @@ fun ReportItemRow(report: ReportEntity, onResolve: () -> Unit) {
     }
 }
 
-// --- COMPONENTES AUXILIARES (Donut y Row) SE MANTIENEN IGUAL ---
 @Composable
 fun DonutChart(percentage: Float, displayValue: String, label: String, color: Color, radius: Dp = 60.dp, strokeWidth: Dp = 12.dp) {
     val animatedProgress by animateFloatAsState(targetValue = percentage, animationSpec = tween(1000), label = "progress")

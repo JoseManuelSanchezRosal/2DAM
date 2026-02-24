@@ -12,6 +12,7 @@ quantity		cantidad
 subtotal		subtotal
 VAT			IVA
 
+
 PAYMENTS
 account			cuenta
 cash			efectivo
@@ -20,6 +21,7 @@ cheque			cheque
 credit card		tarjeta de crédito
 postage and handling	gastos de envío y manipulación
 shipping		envío
+
 
 ADJECTIVES
 all-in-one		todo en uno
@@ -42,6 +44,7 @@ superfast		rapidísimo
 top-of-the-range	tope de gama
 user-friendly		usable
 wide screen		ancho de pantalla
+
 
 EXTRA!
 accesible		accesible

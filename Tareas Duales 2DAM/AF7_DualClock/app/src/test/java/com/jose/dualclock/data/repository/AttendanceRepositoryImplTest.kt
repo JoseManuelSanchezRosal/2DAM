@@ -1,6 +1,7 @@
 package com.jose.dualclock.data.repository
 
 import com.jose.dualclock.data.local.datastore.SettingsDataStore
+import com.jose.dualclock.data.local.room.AppDatabase
 import com.jose.dualclock.data.local.room.AttendanceDao
 import com.jose.dualclock.data.local.room.AttendanceEntity
 import kotlinx.coroutines.flow.flowOf
@@ -20,12 +21,20 @@ class AttendanceRepositoryImplTest {
     private lateinit var repository: AttendanceRepositoryImpl
     private lateinit var attendanceDao: AttendanceDao
     private lateinit var settingsDataStore: SettingsDataStore
+    private lateinit var appDatabase: AppDatabase
 
     @Before
     fun setup() {
+        // 1. Simular (mock) tanto el DAO como la base de datos completa
         attendanceDao = mock()
+        appDatabase = mock()
         settingsDataStore = mock()
-        repository = AttendanceRepositoryImpl(attendanceDao, settingsDataStore)
+
+        // 2. Configurar el mock de la base de datos para que devuelva el DAO simulado
+        whenever(appDatabase.attendanceDao()).thenReturn(attendanceDao)
+
+        // 3. Crear el repositorio pasándole el mock de AppDatabase, que es lo que ahora espera
+        repository = AttendanceRepositoryImpl(appDatabase, settingsDataStore)
     }
 
     @Test

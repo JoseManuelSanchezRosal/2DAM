@@ -18,7 +18,7 @@ public class Usuario {
         return username;
     }
 
-    // Metodo para verificar la sesion del
+    // Metodo para verificar la sesion del usuario. Pendiente comprobar!...
     
 
     public boolean verificarPassword(String inputPassword) {
