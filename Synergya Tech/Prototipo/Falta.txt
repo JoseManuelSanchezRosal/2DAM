@@ -1,0 +1,11 @@
+1- Darse de alta para crear BBDD
+2- Crear BBDD
+3- Configuración proyecto con la web
+4- Despliegue y pruebas
+5- (Acceso seguro con credenciales)?
+
+
+petición Antonio
+previsualización de fotografía
+peso limitado de foto
+apertura de camara desde app y encuadrar el contador¿¿¿
