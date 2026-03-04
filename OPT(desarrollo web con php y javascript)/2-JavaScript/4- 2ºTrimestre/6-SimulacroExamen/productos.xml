@@ -1,0 +1,52 @@
+<productos>
+    <producto>
+        <nombre>Leche entera</nombre>
+        <categoria>Lácteos</categoria>
+        <precio moneda="EUR">1.25</precio>
+    </producto>
+    <producto>
+        <nombre>Pan integral</nombre>
+        <categoria>Panadería</categoria>
+        <precio moneda="EUR">1.10</precio>
+    </producto>
+    <producto>
+        <nombre>Arroz</nombre>
+        <categoria>Cereales</categoria>
+        <precio moneda="EUR">0.95</precio>
+    </producto>
+    <producto>
+        <nombre>Huevos (docena)</nombre>
+        <categoria>Huevos</categoria>
+        <precio moneda="EUR">2.40</precio>
+    </producto>
+    <producto>
+        <nombre>Manzanas</nombre>
+        <categoria>Frutas</categoria>
+        <precio moneda="EUR">1.80</precio>
+    </producto>
+    <producto>
+        <nombre>Pechuga de pollo</nombre>
+        <categoria>Carnes</categoria>
+        <precio moneda="EUR">5.75</precio>
+    </producto>
+    <producto>
+        <nombre>Detergente líquido</nombre>
+        <categoria>Limpieza</categoria>
+        <precio moneda="EUR">3.60</precio>
+    </producto>
+    <producto>
+        <nombre>Papel higiénico (6 rollos)</nombre>
+        <categoria>Higiene</categoria>
+        <precio moneda="EUR">2.95</precio>
+    </producto>
+    <producto>
+        <nombre>Yogur natural</nombre>
+        <categoria>Lácteos</categoria>
+        <precio moneda="EUR">0.65</precio>
+    </producto>
+    <producto>
+        <nombre>Café molido</nombre>
+        <categoria>Bebidas</categoria>
+        <precio moneda="EUR">4.20</precio>
+    </producto>
+</productos>

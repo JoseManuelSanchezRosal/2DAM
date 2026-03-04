@@ -1,0 +1,4 @@
+- Extraer info de un documento hacia Odoo
+- Generar documentos con Odoo
+- Hacer un video explicando la metodología
+

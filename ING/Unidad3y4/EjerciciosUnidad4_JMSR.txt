@@ -1,0 +1,92 @@
+PG17
+5.
+1- Price		f- how mucho you pay for something
+2- Quality		e- how good something is
+3- Payments		a- sums of money to pay over time
+4- Give a discount	d- offer for less money
+5- Out of stock		c- having no more, completely sold out
+6- Goods		b- items
+
+6.
+1- invoice
+2- quantity
+3- price per unit
+4- subtotal
+5- VAT
+6- delivery date
+7- payment date
+
+7A
+1- postage and handling
+2- charge it
+3- account
+
+7B
+1- shipping
+2- cheque
+3- credit card
+4- cash
+
+YOUR TURN:
+1-sound cards
+2-35
+3-350
+4-22
+5-1140
+6-1231.20  
+
+
+PG18
+1.
+1- d
+2- b
+3- c
+4- d
+5- a
+
+2.
+1- printers
+2- the office
+3- a fax, too
+4- only €75
+
+3. Practise the dialogue in exercise 2
+
+4.
+1- d- a recommendation
+2- b- ink-jet printers
+3- e- scanners and copiers
+4- a- good reviews
+5- c- a3 paper
+
+PG19
+
+5.
+1- portable - c-easy to carry around
+2- superfast - e-very speedy
+3- dependable - d-not likely to fail
+4- compact - b-using a small space
+5- sturdy - a-built to be a strong
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
