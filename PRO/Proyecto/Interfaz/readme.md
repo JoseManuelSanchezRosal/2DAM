@@ -1,5 +1,7 @@
 # Walkthrough: Aplicación Web Tuturno
 
+> **Nota informativa:** Este es un diseño del posible prototipo de interfaz visual, pudiendo ser alterado según convenga y acorde a las necesidades del desarrollo de la aplicación.
+
 ## Resumen de la Implementación
 El proyecto web *Tuturno* (diseñado para la gestión y reservas de un salón de belleza) se ha desarrollado utilizando HTML semántico, CSS puro de alto rendimiento y JavaScript funcional. Todo el código ha sido configurado en tu directorio `c:\Users\José\Desktop\2DAM\2DAM\2DAM\PRO\Proyecto\Interfaz`.
 
@@ -18,7 +20,7 @@ Se crearon tres archivos principales para garantizar una base libre de dependenc
 
 2. **[style.css](file:///c:/Users/José/Desktop/2DAM/2DAM/2DAM/PRO/Proyecto/Interfaz/style.css)**
    * **Funcionalidad SPA:** Clases como `.view` (oculta por defecto) y `.active` (con animación de `fadeIn`) que permiten permutar de pantallas sin recarga.
-   * **Sistema de Diseño y Tokens:** Uso intensivo de las variables CSS (`:root`) manteniendo la paleta de colores de salón (mármol blanco, oro metálico, y colores mate).
+   * **Sistema de Diseño y Tokens:** Uso intensivo de las variables CSS (`:root`) manteniendo la paleta de colores corporativos del salón (blanco, dorado y negro), elegida para estar acorde con la propia decoración del establecimiento.
    * **Micro-interacciones:** Los botones, tarjetas y pestañas de Login/Registro presentan efectos para sentirse táctiles y dinámicos.
 
 3. **[script.js](file:///c:/Users/José/Desktop/2DAM/2DAM/2DAM/PRO/Proyecto/Interfaz/script.js)**
