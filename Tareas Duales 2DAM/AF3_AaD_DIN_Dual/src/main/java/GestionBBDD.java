@@ -219,20 +219,36 @@ public class GestionBBDD {
     private static void simularVentaTransaccional(Connection conn) {
         System.out.println("\n--- Iniciando Transacción de Prueba ---");
         try {
-            conn.setAutoCommit(false);
-            insertarProducto(conn, "Teclado Transacción", "Mecánico Prueba", 50.00, 5);
-            boolean errorEnProceso = false;
-            if (errorEnProceso) throw new SQLException("Fallo simulado en el sistema de pago.");
-            conn.commit();
+            conn.setAutoCommit(false); // Iniciamos transacción
+
+            // OPERACIÓN 1: Insertamos un nuevo producto
+            System.out.println("Paso 1: Insertando producto promocional...");
+            insertarProducto(conn, "Pack Teclado+Ratón", "Promo", 45.00, 10);
+
+            // OPERACIÓN 2: Simulamos una venta descontando stock del producto ID 1
+            // (Esto cumple el requisito de "operaciones encadenadas")
+            System.out.println("Paso 2: Descontando stock del almacén...");
+            actualizarStock(conn, 1, 0);
+
+            // Simulamos si falla o no (Cámbialo a true para probar el Rollback)
+            boolean errorEnProceso = true;
+            if (errorEnProceso) {
+                throw new SQLException("Fallo simulado en la pasarela de pago.");
+            }
+
+            conn.commit(); // Si todo va bien, guardamos
             System.out.println("TRANSACCIÓN EXITOSA (COMMIT): Datos guardados permanentemente.");
+
         } catch (SQLException e) {
             try {
-                conn.rollback();
-                System.out.println("ROLLBACK EJECUTADO: Se han deshecho los cambios por error: " + e.getMessage());
-            } catch (SQLException ex) { ex.printStackTrace(); }
+                conn.rollback(); // Si falla, deshacemos TANTO el insert COMO el update
+                System.out.println("ROLLBACK EJECUTADO: Se han deshecho todos los cambios por error: " + e.getMessage());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             try {
-                conn.setAutoCommit(true);
+                conn.setAutoCommit(true); // Restauramos el comportamiento por defecto
             } catch (SQLException e) {}
         }
     }

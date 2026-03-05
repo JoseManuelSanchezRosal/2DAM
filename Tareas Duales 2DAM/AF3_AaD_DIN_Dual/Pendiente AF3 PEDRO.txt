@@ -1,2 +1,0 @@
-Implementar un inicio de sesión, que se mantenga iniciada, antes de poder acceder al CRUD de productos
-Hecho!!

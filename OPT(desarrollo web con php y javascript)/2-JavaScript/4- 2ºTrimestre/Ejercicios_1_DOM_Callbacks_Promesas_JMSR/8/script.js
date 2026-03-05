@@ -34,7 +34,7 @@ function obtenerProducto(id) {
 }
 
 // Consumo de la promesa
-obtenerProducto(3) // Buscamos ID 10
+obtenerProducto(4) // Buscamos ID 10
     .then(producto => {
         // Se ejecuta SOLO si se llamó a resolve()
         console.log(producto)

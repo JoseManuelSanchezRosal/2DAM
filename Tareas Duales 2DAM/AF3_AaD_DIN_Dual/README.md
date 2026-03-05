@@ -16,12 +16,12 @@
 
 ## 📖 Descripción del Proyecto
 
-Este proyecto consiste en una aplicación de consola que implementa un sistema completo de persistencia de datos. El objetivo es simular la gestión de un inventario profesional, demostrando la capacidad de conectar, manipular y asegurar la integridad de la información mediante una base de datos relacional embebida (**SQLite**).
+Este proyecto consiste en una aplicación de consola que implementa un sistema completo de persistencia de datos. El objetivo es simular la gestión de un inventario profesional, demostrando la capacidad de conectar, manipular y asegurar la integridad de la información mediante una base de datos relacional embebida (**SQLite**). Además, incorpora un **sistema de autenticación (Login)** para proteger el acceso a las operaciones.
 
 ### 🎯 Objetivos (RA2)
 * **Conexión:** Establecer comunicación entre Java y el SGBD.
-* **Manipulación:** Operaciones CRUD (Create, Read, Update, Delete).
-* **Integridad:** Gestión de transacciones (Commit/Rollback).
+* **Manipulación:** Operaciones CRUD (Create, Read, Update, Delete) y Autenticación.
+* **Integridad:** Gestión de transacciones encadenadas (Commit/Rollback).
 
 ---
 
@@ -54,12 +54,13 @@ Implementar este sistema con SQLite/SQL aporta:
 
 ---
 
-## 💻 2. Implementación Técnica (CRUD)
+## 💻 2. Implementación Técnica (CRUD y Seguridad)
 
 La aplicación cumple los requisitos mediante las siguientes funcionalidades conectadas a `jdbc:sqlite:tienda.db`:
 
 * **🔌 Conexión:** Uso de `DriverManager` para conectar a la BBDD embebida.
-* **🏗️ Estructura:** Script `CREATE TABLE IF NOT EXISTS` para inicializar la tabla `productos`.
+* **🏗️ Estructura:** Script `CREATE TABLE IF NOT EXISTS` para inicializar las tablas `productos` y `usuarios`.
+* **🔒 Seguridad:** Sistema de Login obligatorio validando credenciales contra la base de datos antes de permitir el acceso al menú.
 
 ### Operaciones Disponibles
 * **Insertar (`INSERT`):** Alta de nuevos productos (Nombre, Stock, Precio).
@@ -71,14 +72,18 @@ La aplicación cumple los requisitos mediante las siguientes funcionalidades con
 
 ## 🔄 3. Gestión de Transacciones (Atomicidad)
 
-Se incluye una simulación avanzada en la **Opción 5** del menú (`simularVentaTransaccional`) para asegurar la consistencia de los datos.
+
+
+Se incluye una simulación avanzada en la **Opción 5** del menú (`simularVentaTransaccional`) para asegurar la consistencia de los datos ejecutando **operaciones encadenadas**.
 
 ### Mecanismo Implementado
 1.  **Inicio:** Se desactiva el guardado automático: `conn.setAutoCommit(false)`.
-2.  **Operaciones:** Se ejecutan varias instrucciones SQL (ej. insertar venta, descontar stock).
+2.  **Operaciones Encadenadas:** Se ejecutan dos instrucciones SQL dependientes:
+    * *Paso 1:* Inserción de un nuevo producto promocional.
+    * *Paso 2:* Actualización (descuento) del stock de otro producto en el almacén.
 3.  **Validación:**
-    * ✅ **Si todo va bien:** Se ejecuta `conn.commit()` (Los cambios se hacen permanentes).
-    * ❌ **Si hay error:** Se ejecuta `conn.rollback()` (Se deshacen todos los cambios, volviendo al estado original).
+    * ✅ **Si todo va bien:** Se ejecuta `conn.commit()` (Los cambios de ambas operaciones se hacen permanentes).
+    * ❌ **Si hay error:** Se ejecuta `conn.rollback()` (Se deshacen todos los cambios, garantizando que no se inserte el producto si falla la actualización del stock).
 
 > **Caso de uso real:** Vital en facturación. Si cobras a un cliente pero falla la actualización de stock, el sistema debe deshacer el cobro para evitar descuadres financieros.
 
@@ -103,7 +108,7 @@ Aunque este proyecto usa SQL, analizamos su relación con otros formatos en la e
 | **RA2.b** | Uso de SGBD embebido | Librería `sqlite-jdbc` / Archivo `tienda.db` | ✅ |
 | **RA2.c** | Conector idóneo | Importación `java.sql.*` y Driver Manager | ✅ |
 | **RA2.d** | Establecer conexión | `DriverManager.getConnection(URL)` | ✅ |
-| **RA2.e** | Definir estructura | Método `crearTablaProductos` (DDL) | ✅ |
+| **RA2.e** | Definir estructura | DDL de Tablas Productos y Usuarios | ✅ |
 | **RA2.f** | Modificar contenido | Métodos para Insertar, Actualizar y Borrar | ✅ |
 | **RA2.g** | Almacenar resultado | Iteración sobre objetos `ResultSet` | ✅ |
 | **RA2.h** | Efectuar consultas | Método `listarProductos` (SELECT) | ✅ |
