@@ -1,0 +1,29 @@
+1 Crear el modelo (libros, autores, editoriales)
+2 Crear las vistas de los mismos
+Autor 1----N Libros N----1 Editorial
+--------------------
+1- Hemos creado el modelo libros con los campos del formulario (tecnico-modelos)
+• Autor
+• Categoría
+• Editorial
+• Fecha de publicación
+• Género
+• Título
+• Número de páginas
+
+2- Crear Formulario añadiendo a campos con xml:(tecnico--vistas formulario--libros)
+<form string="Libros">
+                
+                
+                    <field name="x_autor" invisible="1"/>
+                    <field name="x_categoria" invisible="1"/>
+                    <field name="x_editorial" invisible="1"/>
+                    <field name="x_fecha_publicacion" invisible="1"/>
+                    <field name="x_genero" invisible="1"/>
+                    <field name="x_titulo" invisible="1"/>
+                    <field name="x_numero_paginas" invisible="1"/>
+                    
+                  
+            </form>
+
+queda hacer vistas lista y Kanban y acceso al menu libros

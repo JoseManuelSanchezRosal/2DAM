@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Ejercicio 4</h2>
+    <div id="demo"></div>
+
+    <input type="text" id="nombre" placeholder="Introduzca nombre">
+    <input type="number" id="edad" placeholder="Introduzca edad">
+    <input type="text" id="curso" placeholder="Introduzca curso">
+    <button onclick="crearAlumno()">Crear Alumno</button>
+
+    <script>
+        let alumnos =[]
+
+        function crearAlumno(){
+            let alumno = {
+                nombre: "",
+                edad: "",
+                curso: ""
+            }
+            alumno.nombre = document.getElementById("nombre").value
+            alumno.edad = document.getElementById("edad").value
+            alumno.curso = document.getElementById("curso").value
+            alumnos.push(alumno)
+            console.log(alumnos)
+
+            
+            let guardadoLocal = JSON.stringify(alumnos);
+            localStorage.setItem(alumnosL, guardadoLocal)
+
+            guardadoLocal = localStorage.getItem(alumnosL)
+        }
+
+
+    </script>
+    
+</body>
+</html>

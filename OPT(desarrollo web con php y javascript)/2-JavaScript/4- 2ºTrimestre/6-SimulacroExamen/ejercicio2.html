@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="cargarXml('productos.xml')">
+    <h2>Ejercicio 2</h2>
+    <button onclick="filtrado('Lácteos')">Lácteos</button>
+    <button onclick="filtrado('Panadería')">Panadería</button>
+    <button onclick="filtrado('Carnes')">Carnes</button>
+    <button onclick="filtrado('Higiene')">Higiene</button>
+
+    <div id="demo"></div>
+    
+    <script>
+        // Declaramos la variable productos fuera (que ya tiene la info de los nodos "producto" cargado desde la funcion async) para poder acceder a la misma desde la funcion de filtrado
+        let productos
+        async function cargarXml(prod) {
+
+            // 2 Preparamos el documento para que sean legibles todos sus nodos
+            let fichero = await fetch(prod)
+            let datosString = await fichero.text()
+            const parser = new DOMParser();
+            let nodosXml = parser.parseFromString(datosString, "text/xml");
+
+            // 3 Nos quedamos con los nodos CDs
+            productos = nodosXml.getElementsByTagName("producto")
+
+            console.log(productos)
+        }
+
+        function filtrado(filtro){
+            let contenedor = document.getElementById("demo")
+            contenedor.innerHTML = ""
+            let lista = document.createElement("ol")
+
+        
+            for(let i = 0; i < productos.length; i++) {
+                
+                if(productos[i].getElementsByTagName("categoria")[0].childNodes[0].nodeValue == filtro){
+                    
+                    // 6 Preparamos los titulos y los botones y los apendamos a la fila
+                    let fila = document.createElement("li")
+                    let texto = document.createElement("p")
+
+                    texto.textContent = productos[i].getElementsByTagName("nombre")[0].childNodes[0].nodeValue + " " +productos[i].getElementsByTagName("categoria")[0].childNodes[0].nodeValue + " " + productos[i].getElementsByTagName("precio")[0].childNodes[0].nodeValue
+
+                    fila.appendChild(texto)
+
+                    // 7 Apendamos el boton a la fila y la fila a la lista
+                    lista.appendChild(fila)
+                }
+        }
+        contenedor.appendChild(lista)
+    }
+    cargarXml("productos.xml")
+    </script>
+</body>
+</html>

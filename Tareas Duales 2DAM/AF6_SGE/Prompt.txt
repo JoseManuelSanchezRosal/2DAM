@@ -1,0 +1,28 @@
+Tengo que realizar un trabajo de Sistemas de gestion empresarial (Realiza consultas, manipula y explotación de datos
+del ERP usando herramientas y lenguajes propios del
+sistema, verificando el rendimiento del sistema ERPCRM.
+Obtiene datos económicos a partir de un
+documento de venta y documenta las operaciones
+realizadas).
+
+El caso es que tengo que hacer un ejercicio que englobe todos y cada uno de los siguientes criterios de evaluacion:
+
+a-Se han utilizado herramientas y lenguajes de consulta y manipulación de datos proporcionados por los sistemas ERP-CRM
+
+b-Se han generado formularios.
+
+c-Se han generado informes.
+
+d-Se han exportado datos e informes
+
+e- Se han automatizado las extracciones de datos mediante procesos
+
+f- Se ha verificado el rendimiento del sistema ERP-CRM
+
+g- Se ha obtenido informacion relevante a partir de los datos procesados
+
+h- Se han documentado las operaciones realizadas y las incidencias observadas.
+
+Todo esto mediante la aplicacion de Odoo version 18 en Odoo Local en ssoo ubuntu.
+
+Quiero que me des una guia desde 0 paso a paso para hacer los ejercicios mas sencillos posibles pero cumpliendo con todos y cada uno de los criterios de evaluacion expuestos anteriormente.

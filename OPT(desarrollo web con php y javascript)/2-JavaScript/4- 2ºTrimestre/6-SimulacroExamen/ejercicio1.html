@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Ejercicio 1</h2>
+    <div id="demo"></div>
+    
+    <script>
+        async function cargarXml(cd) {
+
+            // 1 Cogemos contenedor del DOM
+            let contenedor = document.getElementById("demo")
+            
+            // 2 Preparamos el documento para que sean legibles todos sus nodos
+            let fichero = await fetch(cd)
+            let datosString = await fichero.text()
+            const parser = new DOMParser();
+            let nodosXml = parser.parseFromString(datosString, "text/xml");
+
+            // 3 Nos quedamos con los nodos CDs
+            let cds = nodosXml.getElementsByTagName("CD")
+
+            // 4 Preparamos la lista de CDs que se ira rellenando en el bucle for
+            const lista = document.createElement("ol")
+
+            for(let i = 0; i < cds.length; i++) {
+
+                // 5 Nos quedamos con los CDs donde la nacionalidad sea UK
+                if(cds[i].getElementsByTagName("COUNTRY")[0].childNodes[0].nodeValue == "UK"){
+
+                    // 6 Preparamos los titulos y los botones y los apendamos a la fila
+                    let fila = document.createElement("li")
+                    let texto = document.createElement("p")
+                    texto.textContent = cds[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue
+
+
+                    fila.appendChild(texto)
+                    let boton = document.createElement("button")
+                    boton.textContent = "Borrar"
+                    boton.addEventListener("click", ()=> {fila.remove()})
+
+                    // 7 Apendamos el boton a la fila y la fila a la lista
+                    fila.appendChild(boton)
+                    lista.appendChild(fila)
+                }
+            }
+            // 8 Apendamos la lista al contenedor
+            contenedor.appendChild(lista)
+        }
+        cargarXml("catalogo.xml")
+    </script>
+</body>
+</html>

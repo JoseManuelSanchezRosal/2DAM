@@ -11,7 +11,7 @@
     </producto>
     <producto>
         <nombre>Arroz</nombre>
-        <categoria>Cereales</categoria>
+        <categoria>Panadería</categoria>
         <precio moneda="EUR">0.95</precio>
     </producto>
     <producto>
@@ -31,7 +31,7 @@
     </producto>
     <producto>
         <nombre>Detergente líquido</nombre>
-        <categoria>Limpieza</categoria>
+        <categoria>Higiene</categoria>
         <precio moneda="EUR">3.60</precio>
     </producto>
     <producto>
