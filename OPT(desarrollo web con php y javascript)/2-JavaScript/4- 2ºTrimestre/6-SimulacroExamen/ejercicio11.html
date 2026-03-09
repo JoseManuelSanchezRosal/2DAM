@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cargar XML y filtrar CD´s por Country UK</h2>
+    <div id="demo"></div>
+
+    <script>
+        async function cargarXML(rutaXML) {
+
+            let contenedor = document.getElementById("demo") // Declaramos contenedor del DOM donde se incluira la INFO
+
+            let fichero = await fetch(rutaXML)                             // 1 Await a la ruta
+            let ficheroTexto = await fichero.text()                        // 2 Await al texto de la ruta
+            const parser = new DOMParser                                   // 3 Instancia DomParser
+            let nodosXml = parser.parseFromString(ficheroTexto, "text/xml")// 4 Parseamos a nodosXML
+
+            let nodoCDs = nodosXml.getElementsByTagName("CD")              // 5 Almacenamos los nodos CDs
+
+            let lista = document.createElement("ol")                       // 6 Creamos la lista donde apendaremos la info de los CDs
+
+            for (let i = 0; i < nodoCDs.length; i++){                      // 7 Recorremos todos los CDs
+                if(nodoCDs[i].getElementsByTagName("COUNTRY")[0].childNodes[0].nodeValue == "UK"){ // Nos quedamos con los que sean "UK" (tambiern vale .textContent)
+                    let fila = document.createElement("li")                // 8 Creamos fila
+                    let texto = document.createElement("span")             // 9 Creamos titulo CD
+                    texto.textContent = nodoCDs[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue // Apendamos titulo
+
+                    fila.appendChild(texto)                                //10 Apendamos el texto a la fila
+
+                    let botonBorrar = document.createElement("button")     //11 Creamos boton de borrar
+                    botonBorrar.textContent = "X"                          //12 Nombramos boton
+                    botonBorrar.addEventListener("click", ()=> {fila.remove()}) // Anadimos evento borrar al boton
+
+                    fila.appendChild(botonBorrar)                          //13 Apendamos boton a fila
+                    lista.appendChild(fila)                                //14 Apendamos fila a lista
+                }
+            }
+            contenedor.appendChild(lista)                                  //15 Apendamos lista a contenedor fuera FOR
+
+        }
+        cargarXML("catalogo.xml")                                          //16 Llamamos a la funcion cargarXML
+            
+    </script>
+    
+</body>
+</html>

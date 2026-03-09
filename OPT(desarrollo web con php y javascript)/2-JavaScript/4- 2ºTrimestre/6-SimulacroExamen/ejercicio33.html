@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cargar JSON y aplicar filtro paisOrigen</h2>
+    <button onclick="filtroPais('Alemania')">Alemania</button>
+    <button onclick="filtroPais('Italia')">Italia</button>
+    <button onclick="filtroPais('Francia')">Francia</button>
+    <button onclick="filtroPais('Japón')">Japón</button>
+    <div id="demo"></div>
+
+    <script>
+        let coches
+
+        async function cargarJSON() {
+            let fichero = await fetch("coche.json")
+            let ficheroTexto = await fichero.text()
+            coches = JSON.parse(ficheroTexto)
+        }
+
+        function filtroPais(filtro){
+            let contenedor = document.getElementById("demo")
+            contenedor.innerHTML = ""
+            let lista = document.createElement("ol")
+
+            for(let i = 0; i < coches.length; i++){
+                if(coches[i].lugar_origen == filtro){
+                    let fila = document.createElement("li")
+                    fila.textContent = coches[i].marca + " " + coches[i].anio_fundacion + " " + coches[i].lugar_origen
+                    lista.appendChild(fila)
+                }
+            }
+            contenedor.appendChild(lista)
+        }
+        cargarJSON()
+    </script>
+    
+</body>
+
+</html>

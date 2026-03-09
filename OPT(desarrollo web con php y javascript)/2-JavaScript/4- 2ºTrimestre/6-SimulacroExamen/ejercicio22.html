@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="cargarXML('productos.xml')"><!--LLAMAMOS A LA FUNCION CARGARXML-->
+    
+    <h2>Cargar XML y filtrar por boton</h2>
+
+    <button onclick="filtroCategoria('Lácteos')">Lacteos</button>
+    <button onclick="filtroCategoria('Panadería')">Panadería</button>
+    <button onclick="filtroCategoria('Higiene')">Higiene</button>
+
+    <div id="demo"></div>
+
+    <script>
+
+        let productos // 1 DECLARAMOS VARIABLE DONDE ALMACENAREMOS LOS PRODUCTOS
+
+        async function cargarXML(prod) {    // CREAMOS LA FUNCION ASINCRONA PARA CARGAR LA RUTA DEL XML
+            let fichero = await fetch(prod) // AWAIT FETCH AL FICHERO XML
+            let ficheroTexto = await fichero.text() // AWAIT AL TEXTO DEL FICHERO
+            let parser = new DOMParser() // INSTANCIAMOS DOMPARSER
+            let nodoProductos = parser.parseFromString(ficheroTexto, "text/xml") // PASAMOS EL TEXTO PLANO DEL ARCHIVO CARGADO A NODOS XML
+
+            productos = nodoProductos.getElementsByTagName("producto") // BUSCAMOS Y ALMACENAMOS LOS NODOS CON EL NOMBRE QUE QUERAMOS
+        }
+
+        function filtroCategoria(filtro){ // FUNCION FILTRO
+            let contenedor = document.getElementById("demo") // DECLARAMOS CONTENEDOR
+            contenedor.innerHTML = ""       // LO LIMPIAMOS
+
+            let lista = document.createElement("ol") // CREAMOS UNA LISTA ORDENADA
+
+            for(let i = 0; i < productos.length; i++){
+                if(productos[i].getElementsByTagName("categoria")[0].childNodes[0].nodeValue == filtro){ // SI LA CAT. DEL PROD. COINCIDE CON EL FILTRO, COGEMOS LA INFO QUE QUERAMOS
+                    let fila = document.createElement("li")     // CREAMOS FILA
+                    let texto = document.createElement("span")  // CREAMOS SPAN
+
+                    // ASIGNAMOS LA INFO QUE QUERAMOS AL SPAN (NOMBRE, CATEGORIA Y PRECIO)
+                    texto.textContent = productos[i].getElementsByTagName("nombre")[0].childNodes[0].nodeValue + " " + productos[i].getElementsByTagName("categoria")[0].childNodes[0].nodeValue + " " + productos[i].getElementsByTagName("precio")[0].childNodes[0].nodeValue
+
+                    fila.appendChild(texto) // APENDAMOS SPAN A FILA
+                    lista.appendChild(fila) // APENDAMOS FILA A LISTA
+                }
+            }
+            contenedor.appendChild(lista)   // APENDAMOS LISTA A CONTENEDOR
+        }
+
+    </script>
+
+    
+</body>
+</html>

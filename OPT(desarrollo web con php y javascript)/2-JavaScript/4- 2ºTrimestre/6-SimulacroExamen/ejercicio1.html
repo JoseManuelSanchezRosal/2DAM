@@ -34,7 +34,9 @@
 
                     // 6 Preparamos los titulos y los botones y los apendamos a la fila
                     let fila = document.createElement("li")
-                    let texto = document.createElement("p")
+                    
+                    //Cambiando el uso de "p" por "span" evitamos que el boton generado se vaya a la linea de debajo
+                    let texto = document.createElement("span")
                     texto.textContent = cds[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue
 
 

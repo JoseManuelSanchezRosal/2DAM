@@ -16,9 +16,9 @@
     <script>
         let coches
         async function cargarJson() {
-            const respuesta = await fetch("coche.json");
-            const datos = await respuesta.text();
-            coches = JSON.parse(datos);
+            const respuesta = await fetch("coche.json")
+            const datos = await respuesta.text()
+            coches = JSON.parse(datos)
         }
 
         function filtrado(filtro){

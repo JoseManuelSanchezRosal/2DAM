@@ -25,7 +25,7 @@
             const parser = new DOMParser();
             let nodosXml = parser.parseFromString(datosString, "text/xml");
 
-            // 3 Nos quedamos con los nodos CDs
+            // 3 Nos quedamos con los nodos producto
             productos = nodosXml.getElementsByTagName("producto")
 
             console.log(productos)
