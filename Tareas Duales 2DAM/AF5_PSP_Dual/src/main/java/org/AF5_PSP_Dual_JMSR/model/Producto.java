@@ -1,23 +1,22 @@
 package org.AF5_PSP_Dual_JMSR.model;
 
+import java.util.Objects;
+
 public class Producto {
 
     private int id;
     private String nombre;
     private double precio;
 
-    // 1. Constructor VACÍO (Obligatorio para que funcione el JSON)
     public Producto() {
     }
 
-    // 2. Constructor con argumentos (Para usarlo nosotros)
     public Producto(int id, String nombre, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
     }
 
-    // 3. Getters y Setters (Obligatorios)
     public int getId() {
         return id;
     }
@@ -40,5 +39,18 @@ public class Producto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Producto producto = (Producto) o;
+        return id == producto.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

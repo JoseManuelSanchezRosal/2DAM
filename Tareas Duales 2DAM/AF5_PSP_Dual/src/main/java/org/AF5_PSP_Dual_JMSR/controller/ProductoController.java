@@ -5,27 +5,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * CONTROLADOR REST - CUMPLE CON EL RA4
- * Gestionamos las peticiones HTTP (GET, POST, PUT, DELETE).
+ * CONTROLADOR REST - CUMPLE CON EL RA4 y RA5
+ * Gestionamos las peticiones HTTP de forma segura y concurrente.
  */
 @RestController
-@RequestMapping("/api/productos") // Ruta base: http://localhost:8080/api/productos
+@RequestMapping("/api/productos")
 public class ProductoController {
 
-    // RA4.d: Simulamos una base de datos en memoria.
-    private List<Producto> inventario = new ArrayList<>();
+    // RA4.e: Uso de colecciones concurrentes (Thread-Safe)
+    // CopyOnWriteArrayList evita excepciones si múltiples hilos leen y escriben a la vez.
+    private final List<Producto> inventario = new CopyOnWriteArrayList<>();
 
-    // CORRECCIÓN: Usamos un contador independiente para los IDs.
-    // Empezamos en 2 porque ya tenemos el ID 1 y 2 creados en el constructor.
-    private int contadorIds = 2;
+    // RA4.e: Uso de variables atómicas para evitar condiciones de carrera al generar IDs.
+    private final AtomicInteger contadorIds = new AtomicInteger(2);
 
     public ProductoController() {
-        // Inicializamos con algunos datos de prueba
         inventario.add(new Producto(1, "Portátil Developer", 1200.00));
         inventario.add(new Producto(2, "Ratón Ergonómico", 45.50));
     }
@@ -36,35 +36,35 @@ public class ProductoController {
         return inventario;
     }
 
-    // --- RA4: Operación AÑADIR (POST) ---
+    // --- RA4 y RA5: Operación AÑADIR (POST) ---
     @PostMapping
     public ResponseEntity<?> anadirProducto(@RequestBody Producto nuevoProducto) {
-        // RA5: Validación básica de datos (Seguridad)
-        if (nuevoProducto.getNombre() == null || nuevoProducto.getNombre().isEmpty()) {
+        // Validación de datos
+        if (!esValido(nuevoProducto)) {
             return ResponseEntity.badRequest().body("Error: El nombre del producto no puede estar vacío.");
         }
 
-        // CORRECCIÓN: Autoincrement real.
-        // Sumamos 1 al contador global, sin importar el tamaño de la lista.
-        contadorIds++;
-        nuevoProducto.setId(contadorIds);
-
+        // Incremento atómico y seguro para entornos multihilo
+        nuevoProducto.setId(contadorIds.incrementAndGet());
         inventario.add(nuevoProducto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoProducto);
     }
 
-    // --- RA4: Operación MODIFICAR (PUT) ---
+    // --- RA4 y RA5: Operación MODIFICAR (PUT) ---
     @PutMapping("/{id}")
     public ResponseEntity<?> modificarProducto(@PathVariable int id, @RequestBody Producto productoEditado) {
-        // Buscamos el producto por ID
+        // Reutilizamos la validación de datos para evitar inyectar nombres vacíos al actualizar
+        if (!esValido(productoEditado)) {
+            return ResponseEntity.badRequest().body("Error: El nombre del producto no puede estar vacío.");
+        }
+
         Optional<Producto> productoEncontrado = inventario.stream()
                 .filter(p -> p.getId() == id)
                 .findFirst();
 
         if (productoEncontrado.isPresent()) {
             Producto p = productoEncontrado.get();
-            // Actualizamos los campos
             p.setNombre(productoEditado.getNombre());
             p.setPrecio(productoEditado.getPrecio());
             return ResponseEntity.ok(p);
@@ -82,5 +82,10 @@ public class ProductoController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se pudo eliminar: ID no existe.");
         }
+    }
+
+    // --- Método auxiliar de validación ---
+    private boolean esValido(Producto producto) {
+        return producto.getNombre() != null && !producto.getNombre().trim().isEmpty();
     }
 }
