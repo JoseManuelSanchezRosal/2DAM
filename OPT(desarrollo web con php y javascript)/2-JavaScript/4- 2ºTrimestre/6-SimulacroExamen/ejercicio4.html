@@ -15,28 +15,20 @@
     <button onclick="crearAlumno()">Crear Alumno</button>
 
     <script>
-        let alumnos =[]
+        let alumnos = JSON.parse(localStorage.getItem("alumnosL")) || [];
 
-        function crearAlumno(){
+        function crearAlumno() {
             let alumno = {
-                nombre: "",
-                edad: "",
-                curso: ""
-            }
-            alumno.nombre = document.getElementById("nombre").value
-            alumno.edad = document.getElementById("edad").value
-            alumno.curso = document.getElementById("curso").value
-            alumnos.push(alumno)
-            console.log(alumnos)
-
+                nombre: document.getElementById("nombre").value,
+                edad: document.getElementById("edad").value,
+                curso: document.getElementById("curso").value
+            };
             
-            let guardadoLocal = JSON.stringify(alumnos);
-            localStorage.setItem("alumnosL", guardadoLocal)
-            guardadoLocal = localStorage.getItem("alumnosL")
+            alumnos.push(alumno);
+            console.log(alumnos);
+
+            localStorage.setItem("alumnosL", JSON.stringify(alumnos));
         }
-
-
     </script>
-    
 </body>
 </html>

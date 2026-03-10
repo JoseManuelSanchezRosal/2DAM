@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>Ejercicio 1 cargar XML con UK</h2>
+    <div id="demo"></div>
+
+    <script>
+        async function cargarXML(rutaXML) {
+            let contenedor = document.getElementById("demo")
+
+            let fichero = await fetch(rutaXML)
+            let textoFichero = await fichero.text()
+            let parser = new DOMParser()
+            let nodosXML = parser.parseFromString(textoFichero, "text/xml")
+
+            let CDs = nodosXML.getElementsByTagName("CD")
+            let lista = document.createElement("ol")
+
+            for(let i = 0; i < CDs.length; i++){
+                if(CDs[i].getElementsByTagName("COUNTRY")[0].textContent == "UK"){
+                    let fila = document.createElement("li")
+                    let texto = document.createElement("span")
+                    texto.textContent = CDs[i].getElementsByTagName("TITLE")[0].textContent
+                    fila.appendChild(texto)
+
+                    let borrar =  document.createElement("Button")
+                    borrar.textContent = "X"
+                    borrar.addEventListener("click", () => {fila.remove()})
+                    fila.appendChild(borrar)
+                    lista.appendChild(fila)
+                }
+            }
+            contenedor.appendChild(lista)
+        }
+        cargarXML("catalogo.xml")
+
+    </script>
+</body>
+</html>

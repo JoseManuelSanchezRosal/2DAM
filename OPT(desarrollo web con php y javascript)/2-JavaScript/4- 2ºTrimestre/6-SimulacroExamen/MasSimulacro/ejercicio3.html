@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cargar JSON y filtrar por pais de origen</h2>
+    <button onclick="filtrar('Japón')">Japón</button>
+    <button onclick="filtrar('Alemania')">Alemania</button>
+    <button onclick="filtrar('Italia')">Italia</button>
+    <div id="demo"></div>
+
+    <script>
+        let coches
+        async function cargarJSON(rutaJSON) {
+            let fichero = await fetch(rutaJSON)
+            let ficheroTexto = await fichero.text()
+            coches = JSON.parse(ficheroTexto)
+        }
+
+        function filtrar(pais){
+            let contenedor = document.getElementById("demo")
+            contenedor.innerHTML = ""
+            let lista = document.createElement("ol")
+            for(let i = 0; i < coches.length; i++){
+                if(coches[i].lugar_origen == pais){
+                    let fila = document.createElement("li")
+                    let datosFila = document.createElement("span")
+                    datosFila.textContent = coches[i].marca + " " + coches[i].anio_fundacion + " " + coches[i].lugar_origen
+                    fila.appendChild(datosFila)
+                    lista.appendChild(fila)
+                }
+            }
+            contenedor.appendChild(lista)
+        }
+        cargarJSON("coche.json")
+    </script>
+    
+</body>
+</html>
