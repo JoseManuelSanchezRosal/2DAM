@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<body>
+    <input id="n" placeholder="producto"><input id="p" placeholder="precio"><button onclick="a()">+</button>
+    <ul id="l"></ul>
+    <script>
+        // 'd' (data): Intenta obtener y parsear la clave 'd' de LocalStorage. Si es null, inicializa un array vacío [].
+        let d = JSON.parse(localStorage.getItem('d')) || [];
+        
+        // 'r' (render): Función encargada de pintar la lista en el DOM y actualizar el LocalStorage.
+        let r = () => {
+            // 'l' hace referencia directa al id="l" del <ul>. 
+            // d.map itera el array. 'x' es el objeto actual, 'i' es su índice.
+            // Los botones generados incluyen la llamada a editar 'e(i)' y la lógica en línea para borrar 'd.splice(i,1); r()'.
+            l.innerHTML = d.map((x, i) => `<li>${x.n} - ${x.p} <button onclick="e(${i})">E</button><button onclick="d.splice(${i},1);r()">X</button></li>`).join('');
+            
+            // Cada vez que se repinta la lista, se sobrescribe el LocalStorage con el estado actual del array 'd'.
+            localStorage.setItem('d', JSON.stringify(d));
+        };
+
+        // 'a' (add): Función que se ejecuta al pulsar el botón '+' para añadir un nuevo elemento.
+        let a = () => {
+            // 'o' (object): Crea un objeto literal capturando el valor de los inputs 'n' (nombre) y 'p' (precio).
+            let o = { n: n.value, p: p.value };
+            
+            // Si tanto 'n' como 'p' tienen valor (truthy), se hace push al array 'd', se vacían los inputs y se llama a 'r()' para repintar.
+            if (o.n && o.p) d.push(o), n.value = p.value = '', r();
+        };
+
+        // 'e' (edit): Función para editar un registro. Recibe 'i' (el índice del elemento en el array).
+        let e = i => {
+            // Lanza dos prompts. Si el usuario escribe algo, se guarda. Si cancela o lo deja vacío, se mantiene el valor original (d[i].n o d[i].p mediante el operador ||).
+            d[i] = { n: prompt("N:", d[i].n) || d[i].n, p: prompt("P:", d[i].p) || d[i].p };
+            
+            // Repinta la lista y guarda en LocalStorage.
+            r();
+        };
+
+        // Llamada inicial a la función 'r' para cargar los elementos guardados al abrir la página.
+        r();
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4 - Alumnos LocalStorage</title>
+</head>
+<body>
+    <h2>Registro de Alumnos</h2>
+
+    <input type="text" id="nombre" placeholder="Nombre del alumno">
+    <input type="number" id="edad" placeholder="Edad">
+    <input type="text" id="curso" placeholder="Curso">
+    <button onclick="crearAlumno()">Guardar Alumno</button>
+
+    <div id="demo"></div>
+
+    <script>
+        // 1 RECUPERAR DATOS: Leemos el LocalStorage al cargar la página. Si no hay nada, inicializamos array vacío [].
+        let alumnos = JSON.parse(localStorage.getItem("alumnosData")) || []
+
+        // 2 FUNCIÓN PARA PINTAR: Borra el contenedor y vuelve a dibujar todo el array actualizado.
+        function pintarDOM() {
+            let contenedor = document.getElementById("demo")     // 2.1 Seleccionamos el contenedor
+            contenedor.innerHTML = ""                            // 2.2 Lo limpiamos (borrón y cuenta nueva)
+
+            let lista = document.createElement("ol")             // 2.3 Creamos una lista ordenada
+
+            for (let i = 0; i < alumnos.length; i++) {           // 2.4 Recorremos el array de alumnos
+                let fila = document.createElement("li")          // 2.5 Creamos un <li> para cada alumno
+                let texto = document.createElement("span")       // 2.6 Creamos un span para el texto
+                
+                // 2.7 Asignamos el texto con los datos del alumno actual
+                texto.textContent = alumnos[i].nombre + " - " + alumnos[i].edad + " años - " + alumnos[i].curso + " "
+
+                // 2.8 BOTÓN BORRAR
+                let btnBorrar = document.createElement("button")
+                btnBorrar.textContent = "Borrar"
+                btnBorrar.onclick = () => borrar(i)              // Llamamos a borrar() pasándole su posición (i)
+
+                // 2.9 BOTÓN EDITAR
+                let btnEditar = document.createElement("button")
+                btnEditar.textContent = "Editar"
+                btnEditar.onclick = () => editar(i)              // Llamamos a editar() pasándole su posición (i)
+
+                fila.appendChild(texto)                          // 2.10 Apendamos texto a la fila
+                fila.appendChild(btnBorrar)                      // 2.11 Apendamos botón borrar a la fila
+                fila.appendChild(btnEditar)                      // 2.12 Apendamos botón editar a la fila
+                lista.appendChild(fila)                          // 2.13 Apendamos la fila a la lista
+            }
+            
+            contenedor.appendChild(lista)                        // 2.14 Apendamos la lista completa al contenedor
+        }
+
+        // 3 FUNCIÓN CREAR: Lee los inputs, crea el objeto y lo guarda.
+        function crearAlumno() {
+            let nuevoAlumno = {                                  // 3.1 Creamos el objeto literal con los datos
+                nombre: document.getElementById("nombre").value,
+                edad: document.getElementById("edad").value,
+                curso: document.getElementById("curso").value
+            }
+
+            alumnos.push(nuevoAlumno)                            // 3.2 Metemos el objeto al final del array
+            actualizarMemoria()                                  // 3.3 Guardamos en LocalStorage y repintamos
+        }
+
+        // 4 FUNCIÓN BORRAR: Elimina un elemento específico.
+        function borrar(indice) {
+            alumnos.splice(indice, 1)                            // 4.1 Corta 1 elemento en la posición 'indice'
+            actualizarMemoria()                                  // 4.2 Guardamos cambios y repintamos
+        }
+
+        // 5 FUNCIÓN EDITAR: Modifica un elemento existente (usamos prompt para hacerlo rápido y fácil en el examen).
+        function editar(indice) {
+            // 5.1 Pedimos nuevos datos. El '||' hace que si se deja en blanco, se quede el valor que ya tenía.
+            let nuevoNombre = prompt("Nuevo nombre:", alumnos[indice].nombre) || alumnos[indice].nombre
+            let nuevaEdad = prompt("Nueva edad:", alumnos[indice].edad) || alumnos[indice].edad
+            let nuevoCurso = prompt("Nuevo curso:", alumnos[indice].curso) || alumnos[indice].curso
+
+            // 5.2 Actualizamos el objeto en esa posición exacta
+            alumnos[indice].nombre = nuevoNombre
+            alumnos[indice].edad = nuevaEdad
+            alumnos[indice].curso = nuevoCurso
+
+            actualizarMemoria()                                  // 5.3 Guardamos cambios y repintamos
+        }
+
+        // 6 FUNCIÓN AUXILIAR: Centraliza el guardado y el repintado para no repetir código.
+        function actualizarMemoria() {
+            localStorage.setItem("alumnosData", JSON.stringify(alumnos)) // 6.1 Convertimos array a JSON y guardamos
+            pintarDOM()                                          // 6.2 Actualizamos la vista
+        }
+
+        // 7 INICIO: Llamamos a pintarDOM() al cargar la página por primera vez para ver los datos ya guardados.
+        pintarDOM()
+
+    </script>
+</body>
+</html>

@@ -7,27 +7,50 @@
 </head>
 <body>
     <h2>Ejercicio 4</h2>
-    <div id="demo"></div>
-
     <input type="text" id="nombre" placeholder="Introduzca nombre">
     <input type="number" id="edad" placeholder="Introduzca edad">
     <input type="text" id="curso" placeholder="Introduzca curso">
     <button onclick="crearAlumno()">Crear Alumno</button>
+    <button onclick="borrarTodo()">Borrar todo</button>
+
+    <div id="demo"></div>
 
     <script>
+        // Carga los datos de LocalStorage (convirtiéndolos a array) o inicializa un array vacío si no hay nada.
         let alumnos = JSON.parse(localStorage.getItem("alumnosL")) || [];
 
+        // Función para recoger datos, pintarlos en pantalla y guardarlos.
         function crearAlumno() {
+            
+            // Crea un objeto literal extrayendo los valores actuales de los inputs.
             let alumno = {
                 nombre: document.getElementById("nombre").value,
                 edad: document.getElementById("edad").value,
                 curso: document.getElementById("curso").value
             };
             
+            // Añade el nuevo objeto al array principal.
             alumnos.push(alumno);
+
+            // Selecciona el contenedor e inyecta el HTML con los datos del alumno sin borrar lo anterior (+=).
+            let divDemo = document.getElementById("demo");
+            divDemo.innerHTML += "<p><strong>Nombre:</strong> " + alumno.nombre + " | <strong>Edad:</strong> " + alumno.edad + " | <strong>Curso:</strong> " + alumno.curso + "</p>";
+
             console.log(alumnos);
 
+            // Convierte el array actualizado a texto (JSON) y lo sobrescribe en LocalStorage.
             localStorage.setItem("alumnosL", JSON.stringify(alumnos));
+        }
+
+        // Función para vaciar la memoria y la vista.
+        function borrarTodo() {
+            // Elimina la clave completa de la memoria del navegador.
+            localStorage.removeItem("alumnosL");
+            
+            // Vacía el array en la ejecución actual.
+            alumnos = [];
+            
+            console.log(alumnos);
         }
     </script>
 </body>

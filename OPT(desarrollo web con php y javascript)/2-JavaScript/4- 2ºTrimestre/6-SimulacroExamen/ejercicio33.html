@@ -14,31 +14,33 @@
     <div id="demo"></div>
 
     <script>
-        let coches
+        let coches                                                     // Declaramos variable global para almacenar el JSON una vez parseado
 
         async function cargarJSON() {
-            let fichero = await fetch("coche.json")
-            let ficheroTexto = await fichero.text()
-            coches = JSON.parse(ficheroTexto)
+            let fichero = await fetch("coche.json")                    // 1 Await a la ruta del JSON
+            let ficheroTexto = await fichero.text()                    // 2 Await al texto de la ruta
+            coches = JSON.parse(ficheroTexto)                          // 3 Parseamos el texto a objeto JS y lo almacenamos en la variable global
         }
 
         function filtroPais(filtro){
-            let contenedor = document.getElementById("demo")
-            contenedor.innerHTML = ""
-            let lista = document.createElement("ol")
+            let contenedor = document.getElementById("demo")           // 4 Declaramos contenedor del DOM donde se incluira la INFO
+            contenedor.innerHTML = ""                                  // 5 Limpiamos el contenedor por si había datos de un filtro anterior
+            
+            let lista = document.createElement("ol")                   // 6 Creamos la lista donde apendaremos los coches
 
-            for(let i = 0; i < coches.length; i++){
-                if(coches[i].lugar_origen == filtro){
-                    let fila = document.createElement("li")
-                    fila.textContent = coches[i].marca + " " + coches[i].anio_fundacion + " " + coches[i].lugar_origen
-                    lista.appendChild(fila)
+            for(let i = 0; i < coches.length; i++){                    // 7 Recorremos todos los coches del array
+                if(coches[i].lugar_origen == filtro){                  // 8 Nos quedamos con los que coincidan con el país del filtro
+                    let fila = document.createElement("li")            // 9 Creamos fila
+                    fila.textContent = coches[i].marca + " " + coches[i].anio_fundacion + " " + coches[i].lugar_origen // 10 Asignamos el texto a la fila
+                    
+                    lista.appendChild(fila)                            // 11 Apendamos fila a lista
                 }
             }
-            contenedor.appendChild(lista)
+            contenedor.appendChild(lista)                              // 12 Apendamos lista a contenedor fuera del FOR
         }
-        cargarJSON()
+        
+        cargarJSON()                                                   // 13 Llamamos a la funcion cargarJSON al iniciar la página
     </script>
     
 </body>
-
 </html>

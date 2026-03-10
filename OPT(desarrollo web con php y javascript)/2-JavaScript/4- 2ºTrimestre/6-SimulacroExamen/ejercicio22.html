@@ -6,9 +6,7 @@
     <title>Document</title>
 </head>
 
-<body onload="cargarXML('productos.xml')"><!--LLAMAMOS A LA FUNCION CARGARXML-->
-    
-    <h2>Cargar XML y filtrar por boton</h2>
+<body>                             <h2>Cargar XML y filtrar por boton</h2>
 
     <button onclick="filtroCategoria('Lácteos')">Lacteos</button>
     <button onclick="filtroCategoria('Panadería')">Panadería</button>
@@ -18,37 +16,38 @@
 
     <script>
 
-        let productos // 1 DECLARAMOS VARIABLE DONDE ALMACENAREMOS LOS PRODUCTOS
+        let productos                                                  // Declaramos variable global donde almacenaremos los productos
 
-        async function cargarXML(prod) {    // CREAMOS LA FUNCION ASINCRONA PARA CARGAR LA RUTA DEL XML
-            let fichero = await fetch(prod) // AWAIT FETCH AL FICHERO XML
-            let ficheroTexto = await fichero.text() // AWAIT AL TEXTO DEL FICHERO
-            let parser = new DOMParser() // INSTANCIAMOS DOMPARSER
-            let nodoProductos = parser.parseFromString(ficheroTexto, "text/xml") // PASAMOS EL TEXTO PLANO DEL ARCHIVO CARGADO A NODOS XML
+        async function cargarXML(prod) {                               // Funcion asincrona para cargar la ruta del XML
+            let fichero = await fetch(prod)                            // 1 Await a la ruta
+            let ficheroTexto = await fichero.text()                    // 2 Await al texto de la ruta
+            let parser = new DOMParser()                               // 3 Instancia DomParser
+            let nodoProductos = parser.parseFromString(ficheroTexto, "text/xml") // 4 Parseamos a nodosXML
 
-            productos = nodoProductos.getElementsByTagName("producto") // BUSCAMOS Y ALMACENAMOS LOS NODOS CON EL NOMBRE QUE QUERAMOS
+            productos = nodoProductos.getElementsByTagName("producto") // 5 Almacenamos los nodos de los productos
         }
 
-        function filtroCategoria(filtro){ // FUNCION FILTRO
-            let contenedor = document.getElementById("demo") // DECLARAMOS CONTENEDOR
-            contenedor.innerHTML = ""       // LO LIMPIAMOS
+        function filtroCategoria(filtro){                              
+            let contenedor = document.getElementById("demo")           // 6 Declaramos contenedor del DOM donde se incluira la INFO
+            contenedor.innerHTML = ""                                  // 7 Lo limpiamos por si había filtros anteriores
 
-            let lista = document.createElement("ol") // CREAMOS UNA LISTA ORDENADA
+            let lista = document.createElement("ol")                   // 8 Creamos la lista donde apendaremos la info
 
-            for(let i = 0; i < productos.length; i++){
-                if(productos[i].getElementsByTagName("categoria")[0].childNodes[0].nodeValue == filtro){ // SI LA CAT. DEL PROD. COINCIDE CON EL FILTRO, COGEMOS LA INFO QUE QUERAMOS
-                    let fila = document.createElement("li")     // CREAMOS FILA
-                    let texto = document.createElement("span")  // CREAMOS SPAN
+            for(let i = 0; i < productos.length; i++){                 // 9 Recorremos todos los productos
+                if(productos[i].getElementsByTagName("categoria")[0].textContent == filtro){ // 10 Nos quedamos con los que coincidan con el filtro
+                    let fila = document.createElement("li")            // 11 Creamos fila
+                    let texto = document.createElement("span")         // 12 Creamos span para el texto
 
-                    // ASIGNAMOS LA INFO QUE QUERAMOS AL SPAN (NOMBRE, CATEGORIA Y PRECIO)
-                    texto.textContent = productos[i].getElementsByTagName("nombre")[0].childNodes[0].nodeValue + " " + productos[i].getElementsByTagName("categoria")[0].childNodes[0].nodeValue + " " + productos[i].getElementsByTagName("precio")[0].childNodes[0].nodeValue
+                                                                       // 13 Asignamos la info al span (nombre, categoria y precio)
+                    texto.textContent = productos[i].getElementsByTagName("nombre")[0].textContent + " " + productos[i].getElementsByTagName("categoria")[0].textContent + " " + productos[i].getElementsByTagName("precio")[0].textContent
 
-                    fila.appendChild(texto) // APENDAMOS SPAN A FILA
-                    lista.appendChild(fila) // APENDAMOS FILA A LISTA
+                    fila.appendChild(texto)                            // 14 Apendamos span a fila
+                    lista.appendChild(fila)                            // 15 Apendamos fila a lista
                 }
             }
-            contenedor.appendChild(lista)   // APENDAMOS LISTA A CONTENEDOR
+            contenedor.appendChild(lista)                              // 16 Apendamos lista a contenedor fuera FOR
         }
+        cargarXML("productos.xml")
 
     </script>
 

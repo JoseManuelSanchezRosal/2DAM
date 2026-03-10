@@ -16,7 +16,7 @@
 
             let fichero = await fetch(rutaXML)                             // 1 Await a la ruta
             let ficheroTexto = await fichero.text()                        // 2 Await al texto de la ruta
-            const parser = new DOMParser                                   // 3 Instancia DomParser
+            const parser = new DOMParser()                                 // 3 Instancia DomParser
             let nodosXml = parser.parseFromString(ficheroTexto, "text/xml")// 4 Parseamos a nodosXML
 
             let nodoCDs = nodosXml.getElementsByTagName("CD")              // 5 Almacenamos los nodos CDs
@@ -24,12 +24,12 @@
             let lista = document.createElement("ol")                       // 6 Creamos la lista donde apendaremos la info de los CDs
 
             for (let i = 0; i < nodoCDs.length; i++){                      // 7 Recorremos todos los CDs
-                if(nodoCDs[i].getElementsByTagName("COUNTRY")[0].childNodes[0].nodeValue == "UK"){ // Nos quedamos con los que sean "UK" (tambiern vale .textContent)
+                if(nodoCDs[i].getElementsByTagName("COUNTRY")[0].textContent == "USA"){ // Nos quedamos con los que sean "UK" (tambiern vale .textContent)
                     let fila = document.createElement("li")                // 8 Creamos fila
                     let texto = document.createElement("span")             // 9 Creamos titulo CD
-                    texto.textContent = nodoCDs[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue // Apendamos titulo
+                    texto.textContent = nodoCDs[i].getElementsByTagName("TITLE")[0].textContent // Apendamos titulo
 
-                    fila.appendChild(texto)                                //10 Apendamos el texto a la fila
+                    fila.appendChild(texto)                                //10 Apendamos el titulo a la fila
 
                     let botonBorrar = document.createElement("button")     //11 Creamos boton de borrar
                     botonBorrar.textContent = "X"                          //12 Nombramos boton
