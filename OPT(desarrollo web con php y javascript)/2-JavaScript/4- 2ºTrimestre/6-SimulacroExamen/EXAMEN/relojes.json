@@ -1,0 +1,122 @@
+[
+  {
+    "modelo": "Submariner",
+    "marca": "Rolex",
+    "sumergible": "si",
+    "precio": 9500
+  },
+  {
+    "modelo": "Daytona",
+    "marca": "Rolex",
+    "sumergible": "no",
+    "precio": 14000
+  },
+  {
+    "modelo": "Datejust",
+    "marca": "Rolex",
+    "sumergible": "no",
+    "precio": 8500
+  },
+  {
+    "modelo": "Sea-Dweller",
+    "marca": "Rolex",
+    "sumergible": "si",
+    "precio": 12000
+  },
+  {
+    "modelo": "Explorer",
+    "marca": "Rolex",
+    "sumergible": "no",
+    "precio": 7200
+  },
+  {
+    "modelo": "F-91W",
+    "marca": "Casio",
+    "sumergible": "no",
+    "precio": 20
+  },
+  {
+    "modelo": "G-Shock GA-2100",
+    "marca": "Casio",
+    "sumergible": "si",
+    "precio": 120
+  },
+  {
+    "modelo": "Edifice EFV-540",
+    "marca": "Casio",
+    "sumergible": "si",
+    "precio": 150
+  },
+  {
+    "modelo": "G-Shock DW-5600",
+    "marca": "Casio",
+    "sumergible": "si",
+    "precio": 110
+  },
+  {
+    "modelo": "Casio A168",
+    "marca": "Casio",
+    "sumergible": "no",
+    "precio": 35
+  },
+  {
+    "modelo": "Pro Trek PRG-270",
+    "marca": "Casio",
+    "sumergible": "si",
+    "precio": 220
+  },
+  {
+    "modelo": "Presage Automatic",
+    "marca": "Seiko",
+    "sumergible": "no",
+    "precio": 450
+  },
+  {
+    "modelo": "Prospex Diver",
+    "marca": "Seiko",
+    "sumergible": "si",
+    "precio": 650
+  },
+  {
+    "modelo": "Seiko 5 Sports",
+    "marca": "Seiko",
+    "sumergible": "si",
+    "precio": 300
+  },
+  {
+    "modelo": "Astron GPS Solar",
+    "marca": "Seiko",
+    "sumergible": "si",
+    "precio": 1800
+  },
+  {
+    "modelo": "Seiko Turtle",
+    "marca": "Seiko",
+    "sumergible": "si",
+    "precio": 520
+  },
+  {
+    "modelo": "Seiko Samurai",
+    "marca": "Seiko",
+    "sumergible": "si",
+    "precio": 480
+  },
+  {
+    "modelo": "Seiko Alpinist",
+    "marca": "Seiko",
+    "sumergible": "no",
+    "precio": 700
+  },
+  {
+    "modelo": "G-Shock Mudmaster",
+    "marca": "Casio",
+    "sumergible": "si",
+    "precio": 350
+  },
+  {
+    "modelo": "Rolex Yacht-Master",
+    "marca": "Rolex",
+    "sumergible": "si",
+    "precio": 11500
+  }
+]

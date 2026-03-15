@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cargar XML y aplicar filtro</h2>
+    <button onclick="filtrar('Lácteos')">Lácteos</button>
+    <button onclick="filtrar('Panadería')">Panadería</button>
+    <button onclick="filtrar('Higiene')">Higiene</button>
+    <button onclick="filtrar('Huevos')">Huevos</button>
+    <div id="demo"></div>
+
+    <script>
+        let productos
+        async function cargarXML(rutaXML) {
+            let fichero = await fetch(rutaXML)
+            let textoFichero = await fichero.text()
+            let parser = new DOMParser()
+            let nodosXML = parser.parseFromString(textoFichero, "text/xml")
+            productos = nodosXML.getElementsByTagName("producto")
+        }
+        function filtrar(cat){
+            let contenedor = document.getElementById("demo")
+            contenedor.innerHTML = ""
+            let lista = document.createElement("ol")
+            for(let i = 0; i < productos.length; i++){
+                if(productos[i].getElementsByTagName("categoria")[0].textContent == cat){
+                    let fila = document.createElement("li")
+                    let texto = document.createElement("span")
+                    texto.textContent = productos[i].getElementsByTagName("nombre")[0].textContent + " " + productos[i].getElementsByTagName("categoria")[0].textContent + " " + productos[i].getElementsByTagName("precio")[0].textContent
+                    fila.appendChild(texto)
+                    lista.appendChild(fila)
+                }
+            }
+            contenedor.appendChild(lista)
+        }
+        cargarXML("productos.xml")
+    </script>
+
+    
+</body>
+</html>

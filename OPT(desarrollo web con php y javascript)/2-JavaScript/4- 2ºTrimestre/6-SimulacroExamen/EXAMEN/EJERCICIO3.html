@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cargar JSON y filtrar Relojes por marca</h2>
+    <button onclick="filtrar('Rolex')">Rolex</button>
+    <button onclick="filtrar('Casio')">Casio</button>
+    <button onclick="filtrar('Seiko')">Seiko</button>
+    <button onclick="borrar()">Borrar div y Memoria Local</button>
+
+
+    <div id="demo"></div>
+
+    <script>
+        let relojes = JSON.parse(localStorage.getItem("relojesLocal")) || []
+        let contenedor = document.getElementById("demo")
+
+        async function cargarJSON(rutaJSON) {
+            let fichero = await fetch(rutaJSON)
+            let textoFichero = await fichero.text()
+            relojes = JSON.parse(textoFichero)
+            
+        }
+        function filtrar(marca){
+            
+            contenedor.innerHTML = ""
+            let lista = document.createElement("ol")
+
+            for(let i = 0; i < relojes.length; i++){
+                if(relojes[i].marca == marca){
+                    let fila = document.createElement("li")
+                    let texto = document.createElement("span")
+                    texto.textContent = relojes[i].marca + " " + relojes[i].modelo + " " + relojes[i].precio
+                    fila.appendChild(texto)
+                    let botonBorrar = document.createElement("button")
+                    botonBorrar.textContent = "X"
+                    botonBorrar.addEventListener("click", () => {fila.remove()})
+                    fila.appendChild(botonBorrar)
+                    lista.appendChild(fila)
+                }
+            }
+            contenedor.appendChild(lista)
+            localStorage.setItem("relojesLocal", JSON.stringify(relojes))
+        }
+        function borrar(){
+            contenedor.innerHTML = ""
+            localStorage.removeItem("relojesLocal")
+        }
+        cargarJSON("relojes.json")
+    </script>
+</body>
+</html>

@@ -15,8 +15,8 @@
     
     <script>
         let coches
-        async function cargarJson() {
-            const respuesta = await fetch("coche.json")
+        async function cargarJson(rutaJSON) {
+            const respuesta = await fetch(rutaJSON)
             const datos = await respuesta.text()
             coches = JSON.parse(datos)
         }
@@ -30,6 +30,10 @@
                 if(coches[i].lugar_origen == filtro){
                     let fila = document.createElement("li")
                     fila.textContent = coches[i].marca + " " + coches[i].anio_fundacion + " " + coches[i].lugar_origen
+                    let botonBorrar = document.createElement("button")
+                    botonBorrar.textContent = "X"
+                    botonBorrar.addEventListener("click", () => {fila.remove()})
+                    fila.appendChild(botonBorrar)
                     lista.appendChild(fila)
                 }
             }
@@ -37,7 +41,7 @@
         }
 
         
-        cargarJson()
+        cargarJson("coche.json")
     </script>
 </body>
 </html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Ejercicio 1 Cargar productos.xml y filtrar por categoria en diferentes DIVs</h2>
+    <button onclick="filtrar('Higiene')">Higiene</button>
+    <div id="higiene">Higiene:</div>
+
+    <button onclick="filtrar('Bebidas')">Bebidas</button>
+     <div id="bebidas">Bebidas:</div>
+
+    <button onclick="filtrar('Alimentos')">Alimentos</button>
+     <div id="alimentos">Alimentos:</div>
+
+    <button onclick="filtrar('Limpieza')">Limpieza</button>
+    <div id="limpieza">Limpieza:</div>
+
+    <script>
+        let productos
+        async function cargarXML(rutaXML) {
+            let fichero = await fetch(rutaXML)
+            let textoFichero = await fichero.text()
+            let parser = new DOMParser()
+            let nodosXML = parser.parseFromString(textoFichero, "text/xml")
+            productos = nodosXML.getElementsByTagName("producto")
+           
+           
+        }
+        function filtrar(cat){
+            let contHigiene = document.getElementById("higiene")
+            let contBebidas = document.getElementById("bebidas")
+            let contAlimentos = document.getElementById("alimentos")
+            let contLimpieza = document.getElementById("limpieza")
+
+
+            let lista = document.createElement("ol")
+            for(let i = 0; i < productos.length; i++){
+                if(productos[i].getElementsByTagName("categoria")[0].textContent == cat){
+                    let fila = document.createElement("li")
+                    let texto = document.createElement("span")
+                    texto.textContent = productos[i].getElementsByTagName("nombre")[0].textContent + " " + productos[i].getElementsByTagName("categoria")[0].textContent + " " + productos[i].getElementsByTagName("precio")[0].textContent
+                    fila.appendChild(texto)
+                    lista.appendChild(fila)
+                    if(cat == "Higiene"){
+                        contHigiene.appendChild(lista)
+                    }else if(cat == "Bebidas"){
+                        contBebidas.appendChild(lista)
+                    }else if(cat == "Alimentos"){
+                        contAlimentos.appendChild(lista)
+                    }else{
+                        contLimpieza.appendChild(lista)
+                    }
+                }
+            }
+           
+        }
+        cargarXML("productos.xml")
+    </script>
+
+    
+</body>
+</html>

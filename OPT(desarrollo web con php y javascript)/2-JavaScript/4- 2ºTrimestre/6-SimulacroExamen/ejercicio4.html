@@ -16,6 +16,11 @@
     <div id="demo"></div>
 
     <script>
+        // FALTARIA FUNCION PARA PINTAR ALUMNOS RECORRIENDO ARRAY
+
+
+
+
         // Carga los datos de LocalStorage (convirtiéndolos a array) o inicializa un array vacío si no hay nada.
         let alumnos = JSON.parse(localStorage.getItem("alumnosL")) || [];
 
@@ -27,6 +32,7 @@
                 nombre: document.getElementById("nombre").value,
                 edad: document.getElementById("edad").value,
                 curso: document.getElementById("curso").value
+                
             };
             
             // Añade el nuevo objeto al array principal.
@@ -51,6 +57,7 @@
             alumnos = [];
             
             console.log(alumnos);
+            
         }
     </script>
 </body>

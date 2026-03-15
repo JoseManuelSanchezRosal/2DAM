@@ -1,0 +1,77 @@
+[
+  {
+    "marca": "Toyota",
+    "anio_fundacion": 1937,
+    "lugar_origen": "Japón"
+  },
+  {
+    "marca": "Ford",
+    "anio_fundacion": 1903,
+    "lugar_origen": "Estados Unidos"
+  },
+  {
+    "marca": "BMW",
+    "anio_fundacion": 1916,
+    "lugar_origen": "Alemania"
+  },
+  {
+    "marca": "Mercedes-Benz",
+    "anio_fundacion": 1926,
+    "lugar_origen": "Alemania"
+  },
+  {
+    "marca": "Audi",
+    "anio_fundacion": 1909,
+    "lugar_origen": "Alemania"
+  },
+  {
+    "marca": "Volkswagen",
+    "anio_fundacion": 1937,
+    "lugar_origen": "Alemania"
+  },
+  {
+    "marca": "Honda",
+    "anio_fundacion": 1948,
+    "lugar_origen": "Japón"
+  },
+  {
+    "marca": "Hyundai",
+    "anio_fundacion": 1967,
+    "lugar_origen": "Corea del Sur"
+  },
+  {
+    "marca": "Ferrari",
+    "anio_fundacion": 1947,
+    "lugar_origen": "Italia"
+  },
+  {
+    "marca": "Peugeot",
+    "anio_fundacion": 1810,
+    "lugar_origen": "Francia"
+  },
+  {
+    "marca": "Renault",
+    "anio_fundacion": 1899,
+    "lugar_origen": "Francia"
+  },
+  {
+    "marca": "Chevrolet",
+    "anio_fundacion": 1911,
+    "lugar_origen": "Estados Unidos"
+  },
+  {
+    "marca": "Nissan",
+    "anio_fundacion": 1933,
+    "lugar_origen": "Japón"
+  },
+  {
+    "marca": "Kia",
+    "anio_fundacion": 1944,
+    "lugar_origen": "Corea del Sur"
+  },
+  {
+    "marca": "Volvo",
+    "anio_fundacion": 1927,
+    "lugar_origen": "Suecia"
+  }
+]

@@ -1,0 +1,97 @@
+<productos>
+    <producto>
+        <nombre>Leche entera</nombre>
+        <categoria>Alimentos</categoria>
+        <precio moneda="EUR">1.25</precio>
+    </producto>
+    <producto>
+        <nombre>Pan de molde</nombre>
+        <categoria>Alimentos</categoria>
+        <precio moneda="EUR">1.45</precio>
+    </producto>
+    <producto>
+        <nombre>Arroz</nombre>
+        <categoria>Alimentos</categoria>
+        <precio moneda="EUR">0.95</precio>
+    </producto>
+    <producto>
+        <nombre>Pasta</nombre>
+        <categoria>Alimentos</categoria>
+        <precio moneda="EUR">1.10</precio>
+    </producto>
+    <producto>
+        <nombre>Huevos (docena)</nombre>
+        <categoria>Alimentos</categoria>
+        <precio moneda="EUR">2.40</precio>
+    </producto>
+    <producto>
+        <nombre>Manzanas</nombre>
+        <categoria>Alimentos</categoria>
+        <precio moneda="EUR">1.80</precio>
+    </producto>
+    <producto>
+        <nombre>Agua mineral</nombre>
+        <categoria>Bebidas</categoria>
+        <precio moneda="EUR">0.70</precio>
+    </producto>
+    <producto>
+        <nombre>Refresco de cola</nombre>
+        <categoria>Bebidas</categoria>
+        <precio moneda="EUR">1.50</precio>
+    </producto>
+    <producto>
+        <nombre>Zumo de naranja</nombre>
+        <categoria>Bebidas</categoria>
+        <precio moneda="EUR">1.65</precio>
+    </producto>
+    <producto>
+        <nombre>Café molido</nombre>
+        <categoria>Bebidas</categoria>
+        <precio moneda="EUR">3.90</precio>
+    </producto>
+    <producto>
+        <nombre>Té</nombre>
+        <categoria>Bebidas</categoria>
+        <precio moneda="EUR">2.20</precio>
+    </producto>
+    <producto>
+        <nombre>Detergente para ropa</nombre>
+        <categoria>Limpieza</categoria>
+        <precio moneda="EUR">4.10</precio>
+    </producto>
+    <producto>
+        <nombre>Limpiador multiusos</nombre>
+        <categoria>Limpieza</categoria>
+        <precio moneda="EUR">2.85</precio>
+    </producto>
+    <producto>
+        <nombre>Lejía</nombre>
+        <categoria>Limpieza</categoria>
+        <precio moneda="EUR">1.35</precio>
+    </producto>
+    <producto>
+        <nombre>Lavavajillas líquido</nombre>
+        <categoria>Limpieza</categoria>
+        <precio moneda="EUR">2.10</precio>
+    </producto>
+    <producto>
+        <nombre>Papel higiénico</nombre>
+        <categoria>Higiene</categoria>
+        <precio moneda="EUR">3.20</precio>
+    </producto>
+    <producto>
+        <nombre>Gel de ducha</nombre>
+        <categoria>Higiene</categoria>
+        <precio moneda="EUR">2.60</precio>
+    </producto>
+    <producto>
+        <nombre>Champú</nombre>
+        <categoria>Higiene</categoria>
+        <precio moneda="EUR">3.10</precio>
+    </producto>
+    <producto>
+        <nombre>Pasta de dientes</nombre>
+        <categoria>Higiene</categoria>
+        <precio moneda="EUR">1.95</precio>
+    </producto>
+</productos>

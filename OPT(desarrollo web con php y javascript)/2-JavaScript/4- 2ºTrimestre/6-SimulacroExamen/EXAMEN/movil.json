@@ -1,0 +1,52 @@
+[
+  {
+    "marca": "Samsung",
+    "anio_fundacion": 1938,
+    "lugar_origen": "Corea del Sur"
+  },
+  {
+    "marca": "Apple",
+    "anio_fundacion": 1976,
+    "lugar_origen": "Estados Unidos"
+  },
+  {
+    "marca": "Huawei",
+    "anio_fundacion": 1987,
+    "lugar_origen": "China"
+  },
+  {
+    "marca": "Xiaomi",
+    "anio_fundacion": 2010,
+    "lugar_origen": "China"
+  },
+  {
+    "marca": "Sony",
+    "anio_fundacion": 1946,
+    "lugar_origen": "Japón"
+  },
+  {
+    "marca": "LG",
+    "anio_fundacion": 1958,
+    "lugar_origen": "Corea del Sur"
+  },
+  {
+    "marca": "Motorola",
+    "anio_fundacion": 1928,
+    "lugar_origen": "Estados Unidos"
+  },
+  {
+    "marca": "Nokia",
+    "anio_fundacion": 1865,
+    "lugar_origen": "Finlandia"
+  },
+  {
+    "marca": "OnePlus",
+    "anio_fundacion": 2013,
+    "lugar_origen": "China"
+  },
+  {
+    "marca": "Oppo",
+    "anio_fundacion": 2004,
+    "lugar_origen": "China"
+  }
+]

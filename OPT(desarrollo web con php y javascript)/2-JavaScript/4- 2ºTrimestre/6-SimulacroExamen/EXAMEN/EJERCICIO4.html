@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Crear Objeto Asignatura, guardar en local, borrar y cargar desde local</h2>
+    <input id="curso" type="text" placeholder="introduzca curso">
+    <input id="nombre" type="text" placeholder="introduzca nombre">
+    <input id="nota" type="number" placeholder="introduzca nota">
+    <button onclick="crearAsignatura()">Crear Asignatura</button>
+    <button onclick="borrarLocal()">Borrar Local</button>
+    <div id="demo"></div>
+
+    <script>
+        let asignaturas = JSON.parse(localStorage.getItem("asigLocal")) || []
+        let contenedor = document.getElementById("demo")
+
+        function crearAsignatura(){
+            let asignatura = {
+                curso: document.getElementById("curso").value,
+                nombre: document.getElementById("nombre").value,
+                nota: document.getElementById("nota").value
+            }
+            asignaturas.push(asignatura)
+            
+            let salto = document.createElement("p")
+            salto.textContent += asignatura.curso + asignatura.nombre + asignatura.nota
+            contenedor.appendChild(salto)
+            localStorage.setItem("asignaturasLocal", JSON.stringify(asignaturas))
+        }
+        function borrarLocal(){
+            contenedor.innerHTML = ""
+            localStorage.removeItem("asignaturasLocal")
+            asignaturas = []
+            
+        }
+    </script>
+    
+</body>
+</html>

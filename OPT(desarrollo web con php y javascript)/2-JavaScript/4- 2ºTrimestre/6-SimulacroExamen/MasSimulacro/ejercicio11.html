@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Cargar XML y mostrar CD´s UK</h2>
+    <div id="demo"></div>
+
+    <script>
+        async function cargarXML(rutaXML) {
+            let contenedor =  document.getElementById("demo")
+            // 1 Cargar XML
+            let fichero = await fetch(rutaXML)
+            let ficheroTexto = await fichero.text()
+            let parser = new DOMParser()
+            let nodosXML = parser.parseFromString(ficheroTexto, "text/xml")
+
+            // 2 Guardar nodos CDS y crear lista
+            let CDs = nodosXML.getElementsByTagName("CD")
+            let lista = document.createElement("ol")
+
+            // 3 Buscar, almacenar y mostrar en lista los CDs que cumplan con nuestro filtro UK
+            for(let i = 0; i < CDs.length; i++){
+                if(CDs[i].getElementsByTagName("COUNTRY")[0].textContent == "UK"){
+                    let fila = document.createElement("li")
+                    let texto = document.createElement("span")
+                    texto.textContent = CDs[i].getElementsByTagName("TITLE")[0].textContent
+                    fila.appendChild(texto)
+                    let boton = document.createElement("button")
+                    boton.textContent = "X"
+                    boton.addEventListener("click", () => {fila.remove()})
+                    fila.appendChild(boton)
+                    lista.appendChild(fila)
+                }
+            }
+            contenedor.appendChild(lista)
+        }
+        cargarXML("catalogo.xml")
+    </script>
+    
+</body>
+</html>

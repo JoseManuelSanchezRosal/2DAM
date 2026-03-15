@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Ejercicio 2, cargar JSON y ordenar por marca en diferentes DIVs</h2>
+    <button onclick="filtrar('Corea del Sur')">Corea del Sur</button>
+    <div id="divCorea">Corea:</div>
+
+    <button onclick="filtrar('Estados Unidos')">Estados Unidos</button>
+     <div id="divEstados">EEUU:</div>
+
+    <button onclick="filtrar('China')">China</button>
+     <div id="divChina">China:</div>
+
+    <button onclick="filtrar('Japón')">Japón</button>
+    <div id="divJapon">Japón:</div>
+
+    <button onclick="filtrar('Finlandia')">Finlandia</button>
+    <div id="divFinlandia">Finlandia:</div>
+
+    <script>
+        let moviles
+        async function cargarJSON(rutaJSON) {
+            let fichero = await fetch(rutaJSON)
+            let textoFichero = await fichero.text()
+            moviles = JSON.parse(textoFichero)
+            
+        }
+        function filtrar(pais){
+            let contCorea = document.getElementById("divCorea")
+            let contEstados = document.getElementById("divEstados")
+            let contChina = document.getElementById("divChina")
+            let contFinlandia = document.getElementById("divFinlandia")
+            let contJapon = document.getElementById("divJapon")
+
+            let lista = document.createElement("ol")
+
+            for(let i = 0; i < moviles.length; i++){
+                if(moviles[i].lugar_origen == pais){
+                    let fila = document.createElement("li")
+                    let texto = document.createElement("span")
+                    texto.textContent = moviles[i].marca + " " + moviles[i].anio_fundacion + " " + moviles[i].anio_fundacion + " " + moviles[i].lugar_origen
+                    fila.appendChild(texto)
+                    lista.appendChild(fila)
+                    if(pais == "Corea del Sur"){
+                        contCorea.appendChild(lista)
+                    }else if(pais == "Estados Unidos"){
+                        contEstados.appendChild(lista)
+                    }else if(pais == "China"){
+                        contChina.appendChild(lista)
+                    }else if(pais == "Japón"){
+                        contJapon.appendChild(lista)
+                    }else {
+                        contFinlandia.appendChild(lista)
+                    }
+                }
+            }
+           
+        }
+        cargarJSON("movil.json")
+    </script>
+    
+</body>
+</html>
