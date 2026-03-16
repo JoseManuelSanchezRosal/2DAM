@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/servicios")
 @RequiredArgsConstructor
@@ -15,18 +18,38 @@ public class ServicioController {
 
     private final ServicioRepository servicioRepository;
 
+    @GetMapping
+    public ResponseEntity<List<ServicioResponseDTO>> listarTodos() {
+        List<ServicioResponseDTO> servicios = servicioRepository.findAll().stream()
+                .map(this::convertirADTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(servicios);
+    }
+
     @PostMapping
     public ResponseEntity<ServicioResponseDTO> crear(@RequestBody ServicioRequestDTO request) {
         Servicio servicio = new Servicio();
         servicio.setNombre(request.nombre());
         servicio.setDescripcion(request.descripcion());
         servicio.setPrecio(request.precio());
-
-        // CORRECCIÓN: El DTO trae 'duracionMinutos', lo metemos en 'duracion' del modelo
         servicio.setDuracionMinutos(request.duracionMinutos());
 
         Servicio guardado = servicioRepository.save(servicio);
         return ResponseEntity.ok(convertirADTO(guardado));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ServicioResponseDTO> actualizar(@PathVariable Long id, @RequestBody ServicioRequestDTO request) {
+        return servicioRepository.findById(id)
+                .map(servicio -> {
+                    servicio.setNombre(request.nombre());
+                    servicio.setDescripcion(request.descripcion());
+                    servicio.setPrecio(request.precio());
+                    servicio.setDuracionMinutos(request.duracionMinutos());
+                    Servicio actualizado = servicioRepository.save(servicio);
+                    return ResponseEntity.ok(convertirADTO(actualizado));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -41,7 +64,7 @@ public class ServicioController {
                 servicio.getNombre(),
                 servicio.getDescripcion(),
                 servicio.getPrecio(),
-                servicio.getDuracionMinutos() // Usamos getDuracion()
+                servicio.getDuracionMinutos()
         );
     }
 }

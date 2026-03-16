@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -35,17 +36,29 @@ public class CitaService {
         Servicio servicio = servicioRepository.findById(servicioId)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
 
+        LocalDateTime fechaFin = fechaInicio.plusMinutes(servicio.getDuracionMinutos() + 15);
+
+        List<Cita> citasDelDia = citaRepository.findByFecha(fechaInicio.toLocalDate());
+        for (Cita c : citasDelDia) {
+            LocalDateTime cInicio = LocalDateTime.of(c.getFecha(), LocalTime.of(c.getHora(), c.getMinutos(), c.getSegundos()));
+            int duracionCita = 15;
+            if (c.getServicios() != null) {
+                duracionCita += c.getServicios().stream().mapToInt(Servicio::getDuracionMinutos).sum();
+            }
+            LocalDateTime cFin = cInicio.plusMinutes(duracionCita);
+
+            if (fechaInicio.isBefore(cFin) && fechaFin.isAfter(cInicio)) {
+                throw new IllegalArgumentException("El tramo horario seleccionado ya se encuentra ocupado. Por favor, elige otro.");
+            }
+        }
+
         Cita cita = new Cita();
         cita.setUsuario(usuario);
-        /*cita.setServicio(servicio);
-        cita.setFechaHoraInicio(fechaInicio);*/
-
-        // CORRECCIÓN: Ahora servicio.getDuracion() existe gracias al paso 1
-        /*if (servicio.getDuracion() != null) {
-            cita.setFechaHoraFin(fechaInicio.plusMinutes(servicio.getDuracion()));
-        } else {
-            cita.setFechaHoraFin(fechaInicio.plusMinutes(60));
-        }*/
+        cita.setFecha(fechaInicio.toLocalDate());
+        cita.setHora(fechaInicio.getHour());
+        cita.setMinutos(fechaInicio.getMinute());
+        cita.setSegundos(fechaInicio.getSecond());
+        cita.setServicios(List.of(servicio));
 
         return citaRepository.save(cita);
     }

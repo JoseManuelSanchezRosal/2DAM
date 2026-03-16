@@ -2,35 +2,231 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>TuTurno - Login</title>
-    <style>
-        body { font-family: sans-serif; padding: 2rem; background-color: #f4f4f4; }
-        .container { max-width: 400px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
-        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        
-        /* Ocultamos el panel de citas al principio */
-        #panel-citas { display: none; }
-        .cita-card { background: #e9ecef; margin: 10px 0; padding: 10px; border-left: 5px solid #007bff; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuTurno - Salón de Belleza RM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <div id="login-section" class="container">
-        <h2 style="text-align: center;">Iniciar Sesión</h2>
-        
-        <input type="email" id="email" placeholder="Email (ej: admin@test.com)">
-        <input type="password" id="password" placeholder="Contraseña">
-        <button onclick="login()">Entrar</button>
-        <p id="error-msg" style="color: red; text-align: center; display: none;">Credenciales incorrectas</p>
-    </div>
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="logo">RM <span>Beauty & Hair</span></div>
+        <nav>
+            <button id="btn-nav-landing" class="nav-btn active" onclick="app.navigateTo('landing')">Inicio</button>
+            <button id="btn-nav-clientes" class="nav-btn highlight" onclick="app.navigateTo('auth')">Zona Clientes</button>
+            <button id="btn-nav-dashboard" class="nav-btn hidden" onclick="app.navigateToDashboard()">Mi Panel</button>
+            <button id="btn-logout" class="nav-btn logout-btn hidden" onclick="app.logout()"><i class="fas fa-sign-out-alt"></i> Salir</button>
+        </nav>
+    </header>
 
-    <div id="panel-citas" class="container">
-        <h2>📅 Mis Citas</h2>
-        <div id="lista-citas"></div>
-        <button onclick="logout()" style="background-color: #dc3545; margin-top: 20px;">Cerrar Sesión</button>
-    </div>
+    <main class="app-container">
+        
+        <!-- ================= VIEW: LANDING ================= -->
+        <section id="view-landing" class="view active-view fade-in">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Tu belleza, nuestra prioridad</h1>
+                    <p>Reserva tu cita online 24/7 y disfruta de una experiencia exclusiva en un ambiente diseñado para tu bienestar.</p>
+                    <button class="btn btn-primary btn-large go-client-zone" onclick="app.navigateTo('auth')">
+                        <i class="far fa-calendar-check"></i> Acceder a Zona Clientes
+                    </button>
+                </div>
+            </div>
+            <div class="features-section">
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Reserva 24/7</h3>
+                    <p>Elige tu momento ideal sin esperas ni llamadas.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-spa"></i>
+                    <h3>Servicios Premium</h3>
+                    <p>Tratamientos personalizados de la más alta calidad.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Fácil y Rápido</h3>
+                    <p>Gestiona tus citas desde tu móvil en segundos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW: AUTH (LOGIN/REGISTER) ================= -->
+        <section id="view-auth" class="view fade-in">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="app.switchAuthTab('login')">Iniciar Sesión</button>
+                    <button class="auth-tab" onclick="app.switchAuthTab('register')">Registrarse</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="form-login" class="auth-form-wrapper active">
+                    <h2>Bienvenido de nuevo</h2>
+                    <form id="loginForm" onsubmit="event.preventDefault(); app.login();">
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="login-email" placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+                        <p id="login-error" class="error-msg"></p>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="form-register" class="auth-form-wrapper">
+                    <h2>Crea tu cuenta</h2>
+                    <form id="registerForm" onsubmit="event.preventDefault(); app.register();">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="reg-name" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="reg-email" placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="reg-phone" placeholder="Teléfono" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="reg-password" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-full">Registrarse</button>
+                        <p id="register-error" class="error-msg"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW: CLIENT DASHBOARD ================= -->
+        <section id="view-client" class="view fade-in">
+            <div class="dashboard-header">
+                <h2>Hola, <span id="client-name-display">Cliente</span></h2>
+                <p>Bienvenido a tu panel de gestión.</p>
+            </div>
+
+            <div class="client-grid">
+                <!-- Left Column: Booking Flow -->
+                <div class="booking-section card">
+                    <h3><i class="far fa-calendar-plus"></i> Nueva Reserva</h3>
+                    
+                    <div id="booking-wizard">
+                        <!-- Step 1: Service -->
+                        <div id="step-1" class="wizard-step active">
+                            <h4>Paso 1: ¿Qué servicio deseas?</h4>
+                            <div class="services-list" id="client-services-list">
+                                <!-- Loaded via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Date/Time -->
+                        <div id="step-2" class="wizard-step">
+                            <h4>Paso 2: ¿Cuándo te viene bien?</h4>
+                            <div class="selected-service-summary" id="selected-service-info"></div>
+                            
+                            <div class="datetime-picker">
+                                <label for="booking-date">Fecha:</label>
+                                <input type="date" id="booking-date" required>
+                                
+                                <label for="booking-time">Hora:</label>
+                                <input type="time" id="booking-time" required>
+                            </div>
+                            
+                            <div class="wizard-actions">
+                                <button class="btn btn-outline" onclick="app.bookingWizard.prevStep()">Volver</button>
+                                <button class="btn btn-primary" onclick="app.bookingWizard.checkAvailabilityAndNext()">Siguiente</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Confirm -->
+                        <div id="step-3" class="wizard-step">
+                            <h4>Paso 3: Confirma tu reserva</h4>
+                            <div class="confirmation-summary">
+                                <p><strong>Servicio:</strong> <span id="confirm-service"></span></p>
+                                <p><strong>Fecha y Hora:</strong> <span id="confirm-datetime"></span></p>
+                                <p><strong>Duración est.:</strong> <span id="confirm-duration"></span> min</p>
+                                <p><strong>Precio:</strong> <span id="confirm-price"></span>€</p>
+                            </div>
+                            <div class="wizard-actions">
+                                <button class="btn btn-outline" onclick="app.bookingWizard.prevStep()">Modificar</button>
+                                <button class="btn btn-success" onclick="app.bookingWizard.confirmBooking()">Confirmar Reserva</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: My Appointments -->
+                <div class="my-appointments-section card">
+                    <h3><i class="far fa-calendar-alt"></i> Mis Próximas Citas</h3>
+                    <div id="client-citas-list" class="citas-container">
+                        <!-- Loaded via JS -->
+                        <p class="empty-state">No tienes citas programadas.</p>
+                    </div>
+                    
+                    <div class="danger-zone mt-4">
+                        <button class="btn btn-danger btn-small" onclick="app.deleteAccount()"><i class="fas fa-user-times"></i> Dar de baja mi cuenta</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW: ADMIN DASHBOARD ================= -->
+        <section id="view-admin" class="view fade-in">
+            <div class="dashboard-header admin-header">
+                <h2>Panel de Administración <span class="badge">PRO</span></h2>
+            </div>
+
+            <div class="admin-grid">
+                <!-- Left: Master Calendar -->
+                <div class="master-calendar-section card">
+                    <h3><i class="fas fa-calendar-alt"></i> Calendario General</h3>
+                    <!-- Simplified list view for the SPA prototype -->
+                    <div class="filter-bar">
+                        <input type="date" id="admin-date-filter" onchange="app.admin.loadCitas()">
+                        <button class="btn btn-secondary btn-small" onclick="app.admin.loadCitas()">Refrescar</button>
+                    </div>
+                    <div id="admin-citas-list" class="citas-container admin-style">
+                        <!-- Loaded via JS -->
+                    </div>
+                </div>
+
+                <!-- Right: Catalog CRUD -->
+                <div class="catalog-section card">
+                    <h3><i class="fas fa-clipboard-list"></i> Catálogo de Servicios</h3>
+                    
+                    <form id="serviceForm" class="service-form" onsubmit="event.preventDefault(); app.admin.saveService();">
+                        <input type="hidden" id="srv-id">
+                        <div class="input-row">
+                            <input type="text" id="srv-name" placeholder="Nombre del servicio" required>
+                            <input type="number" id="srv-price" placeholder="Precio (€)" step="0.01" required>
+                        </div>
+                        <input type="text" id="srv-desc" placeholder="Descripción breve" required>
+                        <div class="input-row">
+                            <input type="number" id="srv-duration" placeholder="Minutos" required>
+                            <button type="submit" class="btn btn-primary" id="btn-save-service">Guardar Nuevo</button>
+                            <button type="button" class="btn btn-outline hidden" id="btn-cancel-edit" onclick="app.admin.resetServiceForm()">Cancelar</button>
+                        </div>
+                    </form>
+
+                    <div id="admin-services-list" class="admin-services-table">
+                        <!-- Loaded via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Toasts/Alerts Container -->
+    <div id="toast-container" class="toast-container"></div>
 
     <script src="app.js"></script>
 </body>

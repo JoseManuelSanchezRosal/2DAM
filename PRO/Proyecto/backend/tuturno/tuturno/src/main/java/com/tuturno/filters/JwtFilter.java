@@ -23,17 +23,22 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (!header.startsWith("Bearer")) {
+
+        // CORRECCIÓN: Comprobamos si el header es nulo O si no empieza por "Bearer "
+        if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
+        // Extraemos el token separando por el espacio
         final String token = header.split(" ")[1];
+
         if (!this.jwtService.isTokenValid(token)) {
             filterChain.doFilter(request, response);
             return;
         }
 
+        // Creamos el token de autenticación para el contexto de Spring Security
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 1, null, List.of()
         );
