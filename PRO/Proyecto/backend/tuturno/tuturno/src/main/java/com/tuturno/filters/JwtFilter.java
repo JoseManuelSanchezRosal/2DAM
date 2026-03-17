@@ -24,26 +24,25 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        // CORRECCIÓN: Comprobamos si el header es nulo O si no empieza por "Bearer "
         if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Extraemos el token separando por el espacio
-        final String token = header.split(" ")[1];
+        final String token = header.substring(7);
 
-        if (!this.jwtService.isTokenValid(token)) {
-            filterChain.doFilter(request, response);
-            return;
+        try {
+            if (this.jwtService.isTokenValid(token)) {
+                Long userId = this.jwtService.getUserIdFromToken(token);
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userId, null, List.of()
+                );
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        } catch (Exception e) {
+            System.err.println("🔴 Error procesando el JWT en el Filtro: " + e.getMessage());
         }
 
-        // Creamos el token de autenticación para el contexto de Spring Security
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                1, null, List.of()
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authToken);
         filterChain.doFilter(request, response);
     }
 }

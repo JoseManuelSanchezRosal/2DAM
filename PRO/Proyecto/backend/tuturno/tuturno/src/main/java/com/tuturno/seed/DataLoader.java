@@ -3,7 +3,7 @@ package com.tuturno.seed;
 import com.tuturno.model.Cita;
 import com.tuturno.model.Servicio;
 import com.tuturno.model.Usuario;
-import com.tuturno.repository.CitaRepository; // IMPORTANTE
+import com.tuturno.repository.CitaRepository;
 import com.tuturno.repository.RolRepository;
 import com.tuturno.repository.ServicioRepository;
 import com.tuturno.repository.UsuarioRepository;
@@ -29,6 +29,6 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         this.rolRepository.saveAllAndFlush(rolesData.getRoles());
         this.usuarioRepository.saveAllAndFlush(usuariosData.getUsuarios());
-        /*this.servicioRepository.saveAllAndFlush(serviciosData.getServicios());*/
+        this.servicioRepository.saveAllAndFlush(serviciosData.getServicios());
     }
 }

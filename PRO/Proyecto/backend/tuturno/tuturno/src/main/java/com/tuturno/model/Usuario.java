@@ -18,7 +18,6 @@ public class Usuario {
     private String nombre;
 
     @Column(nullable = false, unique = true, length = 100)
-
     private String email;
 
     @Column(nullable = false)

@@ -1,6 +1,6 @@
 package com.tuturno.service;
 
-import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -13,11 +13,9 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    // Leemos la variable desde el application.properties
     @Value("${jwt.secret}")
     private String secretKey;
 
-    // Método auxiliar para generar la llave y no repetir código
     private SecretKey getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(this.secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
@@ -26,24 +24,36 @@ public class JwtService {
     public String createToken(Long idUsuario) {
         return Jwts
                 .builder()
-                .claim("id-usuario", idUsuario)
-                // El token expira en 30 minutos
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+                .claim("id-usuario", String.valueOf(idUsuario))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 120))
                 .signWith(getSigningKey())
                 .compact();
     }
 
     public boolean isTokenValid(String token) {
-        JwtParser jwtParser = Jwts
-                .parser()
-                .verifyWith(getSigningKey())
-                .build();
-
         try {
-            jwtParser.parse(token);
+            Jwts.parser()
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(token);
             return true;
         } catch (Exception e) {
+            System.err.println("🔴 Token JWT inválido o expirado: " + e.getMessage());
             return false;
         }
+    }
+
+    public Long getUserIdFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
+        Object idObj = claims.get("id-usuario");
+        if (idObj == null) {
+            throw new RuntimeException("El token no contiene el claim id-usuario");
+        }
+        return Long.parseLong(idObj.toString());
     }
 }

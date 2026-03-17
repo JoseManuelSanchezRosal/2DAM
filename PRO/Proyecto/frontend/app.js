@@ -176,11 +176,8 @@ const app = {
 
     // ======== UTILS ========
     getAuthHeaders: function() {
-        // Fallback to basic auth to match initial snippet pattern just in case API checks it
-        const basicAuth = 'Basic ' + btoa(this.state.userEmail + ':dummyPasswordToPassthrough');
         return {
-            "Authorization": `Bearer ${this.state.token}`, // Preferred
-            "Basic-Auth-Fallback": basicAuth, // If backend uses basic still from earlier snippet
+            "Authorization": `Bearer ${this.state.token}`,
             "Content-Type": "application/json"
         };
     },
@@ -232,32 +229,41 @@ const app = {
 
         loadMisCitas: async function() {
             const container = document.getElementById('client-citas-list');
+            container.innerHTML = '<p class="empty-state">Buscando citas...</p>';
+
             try {
-                // Fetch user specific citas
-                // Note: since the backend expects 'Basic btoa(email:password)', and we only have Token now, 
-                // if JWT is implemented backend will read token. If not, mocking for SPA functionality.
+                console.log("Solicitando citas para el usuario...");
                 const response = await fetch(`${API_URL}/citas`, {
                     headers: app.getAuthHeaders()
                 });
                 
-                let citas = [];
-                if (response.ok) {
-                    citas = await response.json();
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
                 }
 
+                const citas = await response.json();
+                console.log("Citas recibidas del servidor:", citas);
+
                 container.innerHTML = '';
-                if (citas.length === 0) {
+                
+                // Asegurarnos de que es un array y que tiene elementos
+                if (!Array.isArray(citas) || citas.length === 0) {
                     container.innerHTML = '<p class="empty-state">No tienes citas programadas.</p>';
                     return;
                 }
 
                 citas.forEach(cita => {
-                    const servicio = cita.servicios && cita.servicios.length > 0 ? cita.servicios[0] : { nombre: 'Servicio estándar', precio: 0 };
+                    // Accedemos al primer servicio de la lista de forma segura
+                    const servicio = (cita.servicios && cita.servicios.length > 0) 
+                        ? cita.servicios[0] 
+                        : { nombre: 'Servicio estándar', precio: 0 };
                     
                     const div = document.createElement('div');
                     div.className = 'cita-card';
                     div.innerHTML = `
-                        <button class="delete-btn" title="Cancelar Cita" onclick="app.client.cancelCita(${cita.id})"><i class="fas fa-times"></i></button>
+                        <button class="delete-btn" title="Cancelar Cita" onclick="app.client.cancelCita(${cita.id})">
+                            <i class="fas fa-times"></i>
+                        </button>
                         <strong>${servicio.nombre}</strong><br>
                         <span><i class="far fa-calendar"></i> ${cita.fecha} a las ${String(cita.hora).padStart(2,'0')}:${String(cita.minutos).padStart(2,'0')}</span><br>
                         <span><i class="far fa-money-bill-alt"></i> ${servicio.precio}€</span>
@@ -266,16 +272,8 @@ const app = {
                 });
 
             } catch (error) {
-                console.warn("Using mock data for Citas due to connection error");
-                // Fallback Mock View
-                container.innerHTML = `
-                    <div class="cita-card">
-                        <button class="delete-btn" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
-                        <strong>Corte y Peinado Premium</strong><br>
-                        <span><i class="far fa-calendar"></i> 2026-03-20 a las 10:30</span><br>
-                        <span><i class="far fa-money-bill-alt"></i> 25.0€</span>
-                    </div>
-                `;
+                console.error("Fallo completo en loadMisCitas:", error);
+                container.innerHTML = '<p class="error-msg">No se han podido cargar tus citas.</p>';
             }
         },
 
@@ -301,9 +299,17 @@ const app = {
     bookingWizard: {
         step: 1,
         selectedService: null,
+        currentYear: new Date().getFullYear(),
+        currentMonth: new Date().getMonth() + 1, // 1-12
+        selectedDate: null,
+        selectedTime: null,
+        diasDisponiblesMes: [],
         
         init: async function() {
             this.step = 1;
+            this.selectedService = null;
+            this.selectedDate = null;
+            this.selectedTime = null;
             this.updateView();
             
             const services = await app.loadServices();
@@ -326,7 +332,7 @@ const app = {
             });
         },
 
-        selectService: function(id) {
+        selectService: async function(id) {
             document.querySelectorAll('.service-item').forEach(el => el.classList.remove('selected'));
             document.getElementById(`serv-opt-${id}`).classList.add('selected');
             
@@ -338,14 +344,171 @@ const app = {
                 </div>
             `;
             
-            this.nextStep();
+            this.step = 2;
+            this.updateView();
+            await this.loadCalendar();
         },
 
-        nextStep: function() {
-            if (this.step < 3) {
-                this.step++;
-                this.updateView();
+        // --- LÓGICA DE CALENDARIO ---
+        changeMonth: async function(delta) {
+            this.currentMonth += delta;
+            if (this.currentMonth > 12) {
+                this.currentMonth = 1;
+                this.currentYear++;
+            } else if (this.currentMonth < 1) {
+                this.currentMonth = 12;
+                this.currentYear--;
             }
+            await this.loadCalendar();
+        },
+
+        loadCalendar: async function() {
+            document.getElementById('time-slots-container').classList.add('hidden');
+            document.getElementById('btn-next-step2').classList.add('hidden');
+            this.selectedDate = null;
+            this.selectedTime = null;
+
+            // Nombres de meses
+            const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            document.getElementById('calendar-month-year').textContent = `${monthNames[this.currentMonth - 1]} ${this.currentYear}`;
+
+            // Limpiar días anteriores del grid (manteniendo las 7 cabeceras)
+            const calGrid = document.getElementById('calendar-grid');
+            calGrid.querySelectorAll('.cal-day, .loading-text').forEach(el => el.remove());
+
+            // Mostrar texto de carga que ocupa toda la fila
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'loading-text';
+            loadingDiv.textContent = 'Buscando huecos...';
+            calGrid.appendChild(loadingDiv);
+
+            try {
+                const response = await fetch(`${API_URL}/citas/disponibles/mes?anio=${this.currentYear}&mes=${this.currentMonth}&servicioId=${this.selectedService.id}`, {
+                    headers: app.getAuthHeaders()
+                });
+                if (response.ok) {
+                    this.diasDisponiblesMes = await response.json();
+                } else {
+                    this.diasDisponiblesMes = [];
+                }
+            } catch (error) {
+                console.error("Error cargando calendario", error);
+                this.diasDisponiblesMes = [];
+            }
+
+            this.renderCalendarGrid();
+        },
+
+
+        renderCalendarGrid: function() {
+            const calGrid = document.getElementById('calendar-grid');
+            // Eliminar días y texto de carga anteriores (conservar las 7 cabeceras)
+            calGrid.querySelectorAll('.cal-day, .loading-text').forEach(el => el.remove());
+
+            const firstDay = new Date(this.currentYear, this.currentMonth - 1, 1).getDay();
+            const daysInMonth = new Date(this.currentYear, this.currentMonth, 0).getDate();
+            // Empezar semana en Lunes (Dom=0 → 6 vacíos, resto firstDay-1)
+            let emptyCells = firstDay === 0 ? 6 : firstDay - 1;
+
+            // Celdas vacías al inicio
+            for (let i = 0; i < emptyCells; i++) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'cal-day empty';
+                calGrid.appendChild(emptyDiv);
+            }
+
+            // Días del mes
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.textContent = i;
+                if (this.diasDisponiblesMes.includes(i)) {
+                    dayDiv.className = 'cal-day available';
+                    dayDiv.onclick = () => this.selectDate(i);
+                } else {
+                    dayDiv.className = 'cal-day disabled';
+                }
+                calGrid.appendChild(dayDiv);
+            }
+        },
+
+        selectDate: async function(day) {
+            // Remarcar día seleccionado
+            document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
+            event.target.classList.add('selected');
+
+            // Formatear YYYY-MM-DD
+            const monthStr = String(this.currentMonth).padStart(2, '0');
+            const dayStr = String(day).padStart(2, '0');
+            this.selectedDate = `${this.currentYear}-${monthStr}-${dayStr}`;
+            
+            document.getElementById('selected-date-text').textContent = `${day}/${monthStr}/${this.currentYear}`;
+            document.getElementById('time-slots-container').classList.remove('hidden');
+            
+            await this.loadTimeSlots();
+        },
+
+                  
+       loadTimeSlots: async function() {
+            const grid = document.getElementById('time-slots-grid');
+            grid.innerHTML = '<p class="loading-text">Cargando horas...</p>';
+            document.getElementById('btn-next-step2').classList.add('hidden');
+            this.selectedTime = null;
+
+            try {
+                const response = await fetch(`${API_URL}/citas/disponibles?fecha=${this.selectedDate}&servicioId=${this.selectedService.id}`, {
+                    headers: app.getAuthHeaders()
+                });
+
+                if (response.ok) {
+                    const slots = await response.json(); 
+                    grid.innerHTML = '';
+                    
+                    if(slots.length === 0) {
+                        grid.innerHTML = '<p>No quedan horas libres este día.</p>';
+                        return;
+                    }
+
+                    slots.forEach(slot => {
+                        let timeStr = "";
+                        // El backend devuelve SlotDto con campo horaInicio (ej: "10:00:00")
+                        if (Array.isArray(slot.horaInicio)) {
+                            const hora = String(slot.horaInicio[0]).padStart(2, '0');
+                            const min = String(slot.horaInicio[1] || 0).padStart(2, '0');
+                            timeStr = `${hora}:${min}`;
+                        } else {
+                            timeStr = slot.horaInicio.substring(0, 5);
+                        }
+                        
+                        const btn = document.createElement('button');
+                        btn.className = 'btn btn-outline slot-btn';
+                        btn.textContent = timeStr;
+                        btn.onclick = (e) => this.selectTime(timeStr, e.target);
+                        grid.appendChild(btn);
+                    });
+                } else {
+                    console.error("Error del servidor:", response.status);
+                    grid.innerHTML = '<p class="error-msg">Error de permisos o servidor al cargar horas.</p>';
+                }
+            } catch (error) {
+                console.error("Error cargando horas", error);
+                grid.innerHTML = '<p class="error-msg">Error conectando con el servidor.</p>';
+            }
+        },
+
+        selectTime: function(timeStr, btnElement) {
+            document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected-slot'));
+            btnElement.classList.add('selected-slot');
+            this.selectedTime = timeStr;
+            document.getElementById('btn-next-step2').classList.remove('hidden');
+        },
+        
+        goToConfirm: function() {
+            if (!this.selectedDate || !this.selectedTime) {
+                app.showToast("Debes seleccionar una fecha y una hora", "error");
+                return;
+            }
+            this.step = 3;
+            this.updateView();
         },
 
         prevStep: function() {
@@ -360,37 +523,20 @@ const app = {
             document.getElementById(`step-${this.step}`).classList.add('active');
 
             if (this.step === 3) {
-                // Populate confirm screen
-                const date = document.getElementById('booking-date').value;
-                const time = document.getElementById('booking-time').value;
+                // Formatear para visualización
+                const dateParts = this.selectedDate.split('-');
+                const displayDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
                 
                 document.getElementById('confirm-service').textContent = this.selectedService.nombre;
-                document.getElementById('confirm-datetime').textContent = `${date} a las ${time}`;
-                document.getElementById('confirm-duration').textContent = this.selectedService.duracionMinutos + 15; // +15 limpieza visual
+                document.getElementById('confirm-datetime').textContent = `${displayDate} a las ${this.selectedTime}`;
+                document.getElementById('confirm-duration').textContent = this.selectedService.duracionMinutos; 
                 document.getElementById('confirm-price').textContent = this.selectedService.precio;
             }
         },
 
-        checkAvailabilityAndNext: function() {
-            const date = document.getElementById('booking-date').value;
-            const time = document.getElementById('booking-time').value;
-
-            if (!date || !time) {
-                app.showToast("Por favor, selecciona una fecha y hora válidas.", "error");
-                return;
-            }
-
-            // In a real scenario we might ping backend here to tentatively check availability.
-            // For SPA Prototype, we assume UX allows checking locally/continuing to Confirm.
-            this.nextStep();
-        },
-
         confirmBooking: async function() {
-            const date = document.getElementById('booking-date').value;
-            const time = document.getElementById('booking-time').value;
-            
-            // Format to proper structure `YYYY-MM-DDTHH:mm:ss`
-            const fechaInicioStr = `${date}T${time}:00`;
+            // Formato final requerido por el backend: `YYYY-MM-DDTHH:mm:ss`
+            const fechaInicioStr = `${this.selectedDate}T${this.selectedTime}:00`;
 
             try {
                 const response = await fetch(`${API_URL}/citas`, {
@@ -407,20 +553,19 @@ const app = {
                     app.showToast("¡Reserva confirmada con éxito!", "success");
                     app.client.loadMisCitas();
                     this.init(); // Reset wizard
-                } else if (response.status === 400 || response.status === 409) {
-                    // Overlap detection
-                    app.showToast("Ups, ese hueco acaba de ser reservado. Por favor, elige otra hora.", "error");
-                    this.prevStep(); // Go back to date selection
-                } else {
-                    app.showToast("Error al confirmar reserva (Solapamiento detectado)", "error");
+                } else if (response.status === 409 || response.status === 400) {
+                    const msg = await response.text();
+                    app.showToast(msg || "Ese hueco ya no está disponible. Por favor, elige otro.", "error");
                     this.prevStep();
+                    this.loadTimeSlots();
+                } else {
+                    const msg = await response.text();
+                    console.error("Error al confirmar reserva:", response.status, msg);
+                    app.showToast("Error al confirmar reserva: " + (msg || response.status), "error");
                 }
             } catch (error) {
                 console.error("Booking Error", error);
-                // MOCK SUCCESS FOR UI PROTOTYPING IF BACKEND DOWN
-                app.showToast("¡Reserva confirmada con éxito! (Simulado)", "success");
-                app.client.loadMisCitas();
-                this.init();
+                app.showToast("Error de conexión al guardar cita.", "error");
             }
         }
     },

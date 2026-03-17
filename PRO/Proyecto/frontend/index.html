@@ -6,12 +6,10 @@
     <title>TuTurno - Salón de Belleza RM</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Header Navigation -->
     <header class="main-header">
         <div class="logo">RM <span>Beauty & Hair</span></div>
         <nav>
@@ -24,7 +22,6 @@
 
     <main class="app-container">
         
-        <!-- ================= VIEW: LANDING ================= -->
         <section id="view-landing" class="view active-view fade-in">
             <div class="hero-section">
                 <div class="hero-content">
@@ -54,7 +51,6 @@
             </div>
         </section>
 
-        <!-- ================= VIEW: AUTH (LOGIN/REGISTER) ================= -->
         <section id="view-auth" class="view fade-in">
             <div class="auth-container">
                 <div class="auth-tabs">
@@ -62,7 +58,6 @@
                     <button class="auth-tab" onclick="app.switchAuthTab('register')">Registrarse</button>
                 </div>
 
-                <!-- Login Form -->
                 <div id="form-login" class="auth-form-wrapper active">
                     <h2>Bienvenido de nuevo</h2>
                     <form id="loginForm" onsubmit="event.preventDefault(); app.login();">
@@ -79,7 +74,6 @@
                     </form>
                 </div>
 
-                <!-- Register Form -->
                 <div id="form-register" class="auth-form-wrapper">
                     <h2>Crea tu cuenta</h2>
                     <form id="registerForm" onsubmit="event.preventDefault(); app.register();">
@@ -106,7 +100,6 @@
             </div>
         </section>
 
-        <!-- ================= VIEW: CLIENT DASHBOARD ================= -->
         <section id="view-client" class="view fade-in">
             <div class="dashboard-header">
                 <h2>Hola, <span id="client-name-display">Cliente</span></h2>
@@ -114,39 +107,48 @@
             </div>
 
             <div class="client-grid">
-                <!-- Left Column: Booking Flow -->
                 <div class="booking-section card">
                     <h3><i class="far fa-calendar-plus"></i> Nueva Reserva</h3>
                     
                     <div id="booking-wizard">
-                        <!-- Step 1: Service -->
                         <div id="step-1" class="wizard-step active">
                             <h4>Paso 1: ¿Qué servicio deseas?</h4>
                             <div class="services-list" id="client-services-list">
-                                <!-- Loaded via JS -->
-                            </div>
+                                </div>
                         </div>
 
-                        <!-- Step 2: Date/Time -->
                         <div id="step-2" class="wizard-step">
                             <h4>Paso 2: ¿Cuándo te viene bien?</h4>
                             <div class="selected-service-summary" id="selected-service-info"></div>
                             
-                            <div class="datetime-picker">
-                                <label for="booking-date">Fecha:</label>
-                                <input type="date" id="booking-date" required>
-                                
-                                <label for="booking-time">Hora:</label>
-                                <input type="time" id="booking-time" required>
+                            <div class="calendar-controls">
+                                <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <h5 id="calendar-month-year">Cargando...</h5>
+                                <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="calendar-grid" id="calendar-grid">
+                                <div class="cal-header">Lun</div>
+                                <div class="cal-header">Mar</div>
+                                <div class="cal-header">Mié</div>
+                                <div class="cal-header">Jue</div>
+                                <div class="cal-header">Vie</div>
+                                <div class="cal-header">Sáb</div>
+                                <div class="cal-header">Dom</div>
+                            </div>
+                            
+                            <div id="time-slots-container" class="time-slots hidden">
+                                <h5>Horas disponibles para el <span id="selected-date-text"></span></h5>
+                                <div id="time-slots-grid" class="slots-grid">
+                                    </div>
                             </div>
                             
                             <div class="wizard-actions">
-                                <button class="btn btn-outline" onclick="app.bookingWizard.prevStep()">Volver</button>
-                                <button class="btn btn-primary" onclick="app.bookingWizard.checkAvailabilityAndNext()">Siguiente</button>
+                                <button class="btn btn-outline" onclick="app.bookingWizard.prevStep()">Volver al Servicio</button>
+                                <button id="btn-next-step2" class="btn btn-primary hidden" onclick="app.bookingWizard.goToConfirm()">Siguiente</button>
                             </div>
                         </div>
 
-                        <!-- Step 3: Confirm -->
                         <div id="step-3" class="wizard-step">
                             <h4>Paso 3: Confirma tu reserva</h4>
                             <div class="confirmation-summary">
@@ -163,11 +165,9 @@
                     </div>
                 </div>
 
-                <!-- Right Column: My Appointments -->
                 <div class="my-appointments-section card">
                     <h3><i class="far fa-calendar-alt"></i> Mis Próximas Citas</h3>
                     <div id="client-citas-list" class="citas-container">
-                        <!-- Loaded via JS -->
                         <p class="empty-state">No tienes citas programadas.</p>
                     </div>
                     
@@ -178,27 +178,22 @@
             </div>
         </section>
 
-        <!-- ================= VIEW: ADMIN DASHBOARD ================= -->
         <section id="view-admin" class="view fade-in">
             <div class="dashboard-header admin-header">
                 <h2>Panel de Administración <span class="badge">PRO</span></h2>
             </div>
 
             <div class="admin-grid">
-                <!-- Left: Master Calendar -->
                 <div class="master-calendar-section card">
                     <h3><i class="fas fa-calendar-alt"></i> Calendario General</h3>
-                    <!-- Simplified list view for the SPA prototype -->
                     <div class="filter-bar">
                         <input type="date" id="admin-date-filter" onchange="app.admin.loadCitas()">
                         <button class="btn btn-secondary btn-small" onclick="app.admin.loadCitas()">Refrescar</button>
                     </div>
                     <div id="admin-citas-list" class="citas-container admin-style">
-                        <!-- Loaded via JS -->
-                    </div>
+                        </div>
                 </div>
 
-                <!-- Right: Catalog CRUD -->
                 <div class="catalog-section card">
                     <h3><i class="fas fa-clipboard-list"></i> Catálogo de Servicios</h3>
                     
@@ -217,15 +212,13 @@
                     </form>
 
                     <div id="admin-services-list" class="admin-services-table">
-                        <!-- Loaded via JS -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Global Toasts/Alerts Container -->
     <div id="toast-container" class="toast-container"></div>
 
     <script src="app.js"></script>

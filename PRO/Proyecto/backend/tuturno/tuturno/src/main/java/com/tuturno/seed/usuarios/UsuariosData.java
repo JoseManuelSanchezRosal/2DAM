@@ -22,8 +22,6 @@ public class UsuariosData {
         usuario.setTelefono("123456789");
         usuario.setRol(rolService.filtrarPorNombre("cliente"));
 
-        return List.of(
-                usuario
-        );
+        return List.of(usuario);
     }
 }

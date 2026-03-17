@@ -22,7 +22,9 @@ public class Servicio {
     @Column(nullable = false)
     private Double precio;
 
-    // ESTOS CAMPOS FALTABAN:
     @Column(nullable = false)
-    private Integer duracionMinutos; // Lombok generará getDuracion() y setDuracion()
+    private Integer duracionMinutos;
+
+    @Column(nullable = false)
+    private String categoria;
 }
