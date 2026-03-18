@@ -34,10 +34,16 @@
 body {
     font-family: var(--font-body);
     background-color: var(--color-cream);
+    background-image: url('img/marble_bg.png');
+    background-size: cover;
+    background-attachment: fixed; /* Mantiene la textura fija al hacer scroll */
+    background-position: center;
     color: var(--color-dark-text);
     line-height: 1.6;
     overflow-x: hidden;
 }
+
+
 
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
@@ -48,7 +54,7 @@ h1, h2, h3, h4 {
 /* ================= HEADER ================= */
 .main-header {
     background-color: var(--color-white);
-    padding: 1rem 2rem;
+    padding: 0.25rem 2rem; /* Reduced vertical padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,20 +65,16 @@ h1, h2, h3, h4 {
 }
 
 .logo {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-gold);
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-.logo span {
-    color: var(--color-dark);
-    font-size: 0.9rem;
-    display: block;
-    font-family: var(--font-body);
-    letter-spacing: 1px;
+.logo img {
+    height: 160px;
+    width: auto;
+    margin-top: -45px; /* Menos margen negativo para que el header sea un poco más alto */
+    margin-bottom: -45px;
 }
 
 nav {
@@ -180,10 +182,73 @@ nav {
 /* ================= LANDING ================= */
 .hero-section {
     text-align: center;
-    padding: 4rem 1rem;
+    padding: 1.5rem 1rem; /* Reducido espacio vertical para que quepa bien */
     background: linear-gradient(to bottom, var(--color-cream-dark), var(--color-cream));
     border-radius: var(--border-radius);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; /* Reducido también el margen inferior */
+}
+
+.hero-logo {
+    max-width: 550px;
+    height: auto;
+    margin-top: -140px; /* Recortar MÁS el espacio transparente de arriba */
+    margin-bottom: -110px; /* Recortar MÁS el espacio transparente de abajo */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* Sombra eliminada según petición */
+}
+
+.scale-up-anim {
+    animation: scaleUp 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Transición más lenta (2.5s) */
+    opacity: 0;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ================= SPLASH SCREEN ================= */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-cream);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+#splash-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.splash-logo {
+    max-width: 700px;
+    width: 90%;
+    height: auto;
+    margin-top: -100px;
+    margin-bottom: -100px;
+    animation: splashFloat 3s ease-in-out forwards;
+}
+
+@keyframes splashFloat {
+    0% { transform: scale(0.9); opacity: 0; filter: blur(10px); }
+    20% { transform: scale(1.05); opacity: 1; filter: blur(0px); }
+    80% { transform: scale(1); opacity: 1; filter: blur(0px); }
+    100% { transform: scale(1.1); opacity: 0; filter: blur(5px); }
 }
 
 .hero-content h1 {
@@ -805,14 +870,36 @@ nav {
 
 .service-card-app:hover {
     border-color: var(--color-gold);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.45); /* Sombra dorada difuminada */
 }
 
 .service-card-app.selected {
     border-color: var(--color-gold);
     background-color: var(--color-cream);
     box-shadow: 0 0 0 2px var(--color-gold);
+}
+
+.service-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+    width: 75px; 
+    height: 75px;
+    background-color: var(--color-gold); /* El color dorado para la silueta */
+    mix-blend-mode: multiply; /* Fusiona el fondo blanco para hacerlo transparente respecto a la tarjeta */
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.service-custom-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #fff; /* Asegura que no haya grises/transparentes en la imagen original */
+    filter: grayscale(100%) contrast(200%); /* Convierte la silueta en negro puro sobre blanco puro */
+    mix-blend-mode: screen; /* Vuelve la silueta negra transparente, dejando ver el dorado de atrás. El fondo blanco queda blanco (y luego se vuelve transparente por el multiply del wrapper) */
 }
 
 .service-card-left {

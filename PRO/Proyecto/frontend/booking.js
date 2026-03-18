@@ -62,9 +62,12 @@ app.bookingWizard = {
         const getServiceIcon = (nombre, categoria) => {
             const text = (nombre + ' ' + (categoria || '')).toLowerCase();
             if (text.includes('hombre') || text.includes('barba') || text.includes('caballero') || text.includes('niño')) return 'img/icons/icon_hombre.png';
-            if (text.includes('corte') || text.includes('color') || text.includes('mecha') || text.includes('tinte') || text.includes('peinado') || text.includes('lavado') || text.includes('mujer') || text.includes('tijera') || text.includes('balayage') || text.includes('recogido')) return 'img/icons/icon_mujer.png';
-            if (text.includes('manicura') || text.includes('pedicura') || text.includes('uña') || text.includes('esmalte')) return 'img/icons/icon_manos.png';
-            return 'img/icons/icon_spa.png'; // fallback estética
+            if (text.includes('maquillaje') || text.includes('pestaña') || text.includes('ceja') || text.includes('mirada')) return 'img/icons/icon_maquillaje_new.png';
+            if (text.includes('manicura') || text.includes('pedicura') || text.includes('uña') || text.includes('esmalte')) return 'img/icons/icon_unas_new.png';
+            if (text.includes('corte') || text.includes('tijera') || text.includes('cortar')) return 'img/icons/icon_corte_new.png';
+            if (text.includes('peinado') || text.includes('lavado') || text.includes('secado') || text.includes('recogido') || text.includes('brushing')) return 'img/icons/icon_peinado_new.png';
+            if (text.includes('color') || text.includes('mecha') || text.includes('tinte') || text.includes('balayage')) return 'img/icons/icon_mujer.png';
+            return 'img/icons/icon_spa.png'; // fallback estética/otros
         };
 
         list.forEach(s => {

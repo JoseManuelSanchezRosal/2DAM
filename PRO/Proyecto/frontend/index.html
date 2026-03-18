@@ -10,8 +10,25 @@
 </head>
 <body>
 
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen">
+        <img src="img/icons/RosaDorado.png" alt="Cargando Rosa Martínez..." class="splash-logo">
+    </div>
+
+    <script>
+        // Ocultar el splash screen después de 3 segundos
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                if (splash) splash.classList.add('fade-out');
+            }, 3000);
+        });
+    </script>
+
     <header class="main-header">
-        <div class="logo">RM <span>Beauty & Hair</span></div>
+        <div class="logo" onclick="app.navigateTo('landing')">
+            <img src="img/icons/RosaDorado.png" alt="Rosa Martínez Logo">
+        </div>
         <nav>
             <button id="btn-nav-landing" class="nav-btn active" onclick="app.navigateTo('landing')">Inicio</button>
             <button id="btn-nav-facilities" class="nav-btn" onclick="app.navigateTo('facilities')">Instalaciones</button>
@@ -27,6 +44,7 @@
         <section id="view-landing" class="view active-view fade-in">
             <div class="hero-section">
                 <div class="hero-content">
+                    <img src="img/icons/RosaDorado.png" alt="Rosa Martínez Logo" class="hero-logo scale-up-anim">
                     <h1>Tu belleza, nuestra prioridad</h1>
                     <p>Reserva tu cita online 24/7 y disfruta de una experiencia exclusiva en un ambiente diseñado para tu bienestar.</p>
                     <button class="btn btn-primary btn-large go-client-zone" onclick="app.navigateTo('client-zone')">
