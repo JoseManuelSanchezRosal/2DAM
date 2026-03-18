@@ -44,7 +44,7 @@ public class AuthService {
         // porque UsuarioService.guardar() ya se encarga de encriptarla.
         usuario.setPassword(registerRequestDto.password());
 
-        Rol rol = rolRepository.findByNombre("cliente");
+        Rol rol = rolRepository.findByNombre("USER");
         usuario.setRol(rol);
 
         usuarioService.guardar(usuario);

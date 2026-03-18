@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -26,6 +27,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity   // Anotaciones de seguridad
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final DetalleUsuarioService detalleUsuarioService;
@@ -38,9 +40,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/citas/disponibles","/api/citas/disponibles/**").permitAll()
+                        // 🟢 PÚBLICO: Ver días disponibles en el calendario y catálogo
+                        .requestMatchers("/api/citas/disponibles/mes").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/servicios/**").permitAll()
+
+                        // 🔴 PRIVADO: Ver horas exactas y todo lo demás requerirá token
+                        // (La ruta /api/citas/disponibles caerá automáticamente aquí)
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

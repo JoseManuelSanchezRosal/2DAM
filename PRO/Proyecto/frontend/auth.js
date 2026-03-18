@@ -1,0 +1,99 @@
+// ======== AUTHENTICATION ========
+
+app.switchAuthTab = function(tab) {
+    document.querySelectorAll('.auth-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.auth-form-wrapper').forEach(form => form.classList.remove('active'));
+    
+    if (tab === 'login') {
+        document.querySelectorAll('.auth-tab')[0].classList.add('active');
+        document.getElementById('form-login').classList.add('active');
+    } else {
+        document.querySelectorAll('.auth-tab')[1].classList.add('active');
+        document.getElementById('form-register').classList.add('active');
+    }
+};
+
+app.login = async function() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+    const errorMsg = document.getElementById("login-error");
+    
+    try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data.token) {
+                const role = email.includes('admin') ? 'admin' : 'cliente';
+                
+                app.state.token = data.token;
+                app.state.userRole = role;
+                app.state.userEmail = email;
+                app.state.userName = email.split('@')[0];
+                app.state.userId = Math.floor(Math.random() * 10) + 1; 
+
+                localStorage.setItem("auth_token", app.state.token);
+                localStorage.setItem("auth_role", app.state.userRole);
+                localStorage.setItem("auth_name", app.state.userName);
+                localStorage.setItem("auth_email", app.state.userEmail);
+                localStorage.setItem("auth_id", app.state.userId);
+
+                app.showToast("¡Bienvenido de nuevo!", "success");
+                app.navigateToDashboard();
+            } else {
+                errorMsg.textContent = "Credenciales incorrectas.";
+            }
+        } else {
+            errorMsg.textContent = "Credenciales incorrectas.";
+        }
+    } catch (error) {
+        console.error("Login Error:", error);
+        app.showToast("Error de conexión con el servidor", "error");
+    }
+};
+
+app.register = async function() {
+    const name = document.getElementById("reg-name").value;
+    const email = document.getElementById("reg-email").value;
+    const phone = document.getElementById("reg-phone").value;
+    const password = document.getElementById("reg-password").value;
+    const errorMsg = document.getElementById("register-error");
+
+    try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, phone, password })
+        });
+
+        if (response.ok) {
+            app.showToast("Cuenta creada con éxito. Por favor, inicia sesión.", "success");
+            app.switchAuthTab('login');
+            document.getElementById("login-email").value = email;
+        } else {
+            errorMsg.textContent = "Error al completar el registro. Inténtalo de nuevo.";
+        }
+    } catch (error) {
+        console.error("Register Error:", error);
+        app.showToast("Error de conexión con el servidor", "error");
+    }
+};
+
+app.logout = function() {
+    localStorage.clear();
+    app.state.token = null;
+    app.state.userRole = null;
+    app.navigateTo('landing');
+    app.showToast("Has cerrado sesión", "info");
+};
+
+app.deleteAccount = function() {
+    if(confirm("¿Estás seguro de que deseas dar de baja tu cuenta? Esta acción no se puede deshacer y perderás todas tus reservas.")){
+        app.showToast("Cuenta eliminada correctamente.", "success");
+        app.logout();
+    }
+};

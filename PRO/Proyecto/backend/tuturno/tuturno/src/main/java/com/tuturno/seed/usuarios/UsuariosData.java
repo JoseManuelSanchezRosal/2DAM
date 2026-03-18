@@ -15,13 +15,30 @@ public class UsuariosData {
     private final PasswordEncoder passwordEncoder;
 
     public List<Usuario> getUsuarios() {
-        Usuario usuario = new Usuario();
-        usuario.setNombre("Usuario 1");
-        usuario.setEmail("usuario1@test.com");
-        usuario.setPassword(passwordEncoder.encode("1234"));
-        usuario.setTelefono("123456789");
-        usuario.setRol(rolService.filtrarPorNombre("cliente"));
+        // 1. Cliente Registrado (USER)
+        Usuario cliente = new Usuario();
+        cliente.setNombre("Carlos Cliente");
+        cliente.setEmail("cliente@test.com");
+        cliente.setPassword(passwordEncoder.encode("1234"));
+        cliente.setTelefono("600111222");
+        cliente.setRol(rolService.filtrarPorNombre("USER"));
 
-        return List.of(usuario);
+        // 2. Jefe / Empleado (BOSS)
+        Usuario jefe = new Usuario();
+        jefe.setNombre("Laura Jefe");
+        jefe.setEmail("jefe@test.com");
+        jefe.setPassword(passwordEncoder.encode("1234"));
+        jefe.setTelefono("600333444");
+        jefe.setRol(rolService.filtrarPorNombre("BOSS"));
+
+        // 3. Administrador (ADMIN)
+        Usuario admin = new Usuario();
+        admin.setNombre("Admin Sistema");
+        admin.setEmail("admin@test.com");
+        admin.setPassword(passwordEncoder.encode("1234"));
+        admin.setTelefono("600555666");
+        admin.setRol(rolService.filtrarPorNombre("ADMIN"));
+
+        return List.of(cliente, jefe, admin);
     }
 }

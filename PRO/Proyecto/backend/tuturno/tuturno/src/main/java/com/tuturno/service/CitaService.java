@@ -164,27 +164,24 @@ public class CitaService {
     }
 
     // --- NUEVO: MÉTODO PARA MODIFICAR ---
-    public synchronized Cita modificarCita(Long citaId, LocalDateTime nuevaFechaInicio, Long usuarioId, Long nuevoServicioId) {
-        // 1. Buscar la cita existente
+    public synchronized Cita modificarCita(Long citaId, LocalDateTime nuevaFechaInicio, Long usuarioId, Long nuevoServicioId, boolean tienePrivilegiosAltos) {
+
         Cita citaExistente = citaRepository.findById(citaId)
                 .orElseThrow(() -> new RuntimeException("Cita no encontrada"));
 
-        // 2. Seguridad: Comprobar que la cita pertenece a este usuario
-        if (!citaExistente.getUsuario().getId().equals(usuarioId)) {
+        if (!tienePrivilegiosAltos && !citaExistente.getUsuario().getId().equals(usuarioId)) {
             throw new RuntimeException("No tienes permiso para modificar esta cita");
         }
 
-        // 3. Buscar el nuevo (o mismo) servicio
         Servicio nuevoServicio = servicioRepository.findById(nuevoServicioId)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
 
         int duracionTotal = nuevoServicio.getDuracionMinutos() + preparationTimeMinutes;
         LocalDateTime fechaFin = nuevaFechaInicio.plusMinutes(duracionTotal);
 
-        // 4. Comprobar solapamientos (EXCLUYENDO la cita que estamos editando)
         List<Cita> citasDelDia = citaRepository.findByFecha(nuevaFechaInicio.toLocalDate());
         for (Cita c : citasDelDia) {
-            if (c.getId().equals(citaId)) continue; // Nos saltamos a nosotros mismos
+            if (c.getId().equals(citaId)) continue;
 
             LocalDateTime cInicio = LocalDateTime.of(c.getFecha(), LocalTime.of(c.getHora(), c.getMinutos(), c.getSegundos()));
             int duracionCita = preparationTimeMinutes;
@@ -198,7 +195,6 @@ public class CitaService {
             }
         }
 
-        // 5. Actualizar los datos de la cita y guardar
         citaExistente.setFecha(nuevaFechaInicio.toLocalDate());
         citaExistente.setHora(nuevaFechaInicio.getHour());
         citaExistente.setMinutos(nuevaFechaInicio.getMinute());
@@ -208,7 +204,14 @@ public class CitaService {
         return citaRepository.save(citaExistente);
     }
 
-    public void eliminar(Long id) {
+    public void eliminar(Long id, Long usuarioId, boolean tienePrivilegiosAltos) {
+        Cita cita = citaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cita no encontrada"));
+
+        if (!tienePrivilegiosAltos && !cita.getUsuario().getId().equals(usuarioId)) {
+            throw new RuntimeException("No tienes permiso para eliminar esta cita");
+        }
+
         citaRepository.deleteById(id);
     }
 }

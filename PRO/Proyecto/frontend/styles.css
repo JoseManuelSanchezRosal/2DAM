@@ -624,3 +624,285 @@ nav {
     .hero-content h1 { font-size: 2rem; }
     .input-row { flex-direction: column; }
 }
+
+/* ================= MODAL DE REGISTRO ================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    backdrop-filter: blur(3px);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--color-white);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-30px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-content h3 {
+    color: var(--color-gold);
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    color: var(--color-light-text);
+    margin-bottom: 2rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* ================= NEW SECTIONS (Instalaciones & Contacto) ================= */
+
+.facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.facility-card {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.facility-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.facility-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 0.8fr 1.2fr;
+    }
+}
+
+.contact-info h3 {
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+    font-size: 1.1rem;
+}
+
+.contact-info i {
+    color: var(--color-secondary);
+    margin-right: 0.5rem;
+}
+
+.contact-form textarea {
+    background-color: var(--color-light-bg);
+    border-color: transparent transparent var(--color-border) transparent;
+}
+
+/* ================= REDISEÑO SERVICIOS UX APP ================= */
+.category-tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    /* Hide scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.category-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.chip {
+    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    background: var(--color-white);
+    color: var(--color-dark-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+.chip:hover {
+    border-color: var(--color-gold);
+}
+
+.chip.active {
+    background: var(--color-gold);
+    color: var(--color-white);
+    border-color: var(--color-gold);
+}
+
+.services-list-ux {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    width: 100%;
+}
+
+@media (min-width: 600px) {
+    .services-list-ux {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.service-card-app {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.service-card-app:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.service-card-app.selected {
+    border-color: var(--color-gold);
+    background-color: var(--color-cream);
+    box-shadow: 0 0 0 2px var(--color-gold);
+}
+
+.service-card-left {
+    flex: 1;
+    padding-right: 1rem;
+}
+
+.service-card-left strong {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--color-primary);
+    margin-bottom: 0.25rem;
+}
+
+.service-card-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-light-text);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.badge-time {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: var(--color-primary);
+    background: var(--color-cream);
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+}
+
+.service-card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.service-price-app {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.radio-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    transition: var(--transition);
+}
+
+.service-card-app.selected .radio-circle {
+    border-color: var(--color-gold);
+    background-color: var(--color-gold);
+    color: var(--color-white);
+}
+
+.radio-circle i {
+    font-size: 0.75rem;
+}
+
+.service-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.25rem;
+    flex-shrink: 0;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.service-card-app.selected .service-icon-wrapper {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 2px var(--color-gold);
+}
+
+.service-custom-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    opacity: 0.85;
+}

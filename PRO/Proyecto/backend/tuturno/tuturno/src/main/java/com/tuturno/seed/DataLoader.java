@@ -1,9 +1,5 @@
 package com.tuturno.seed;
 
-import com.tuturno.model.Cita;
-import com.tuturno.model.Servicio;
-import com.tuturno.model.Usuario;
-import com.tuturno.repository.CitaRepository;
 import com.tuturno.repository.RolRepository;
 import com.tuturno.repository.ServicioRepository;
 import com.tuturno.repository.UsuarioRepository;
@@ -12,7 +8,6 @@ import com.tuturno.seed.servicios.ServiciosData;
 import com.tuturno.seed.usuarios.UsuariosData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,8 +22,16 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.rolRepository.saveAllAndFlush(rolesData.getRoles());
-        this.usuarioRepository.saveAllAndFlush(usuariosData.getUsuarios());
-        this.servicioRepository.saveAllAndFlush(serviciosData.getServicios());
+        if (rolRepository.count() == 0) {
+            this.rolRepository.saveAllAndFlush(rolesData.getRoles());
+        }
+
+        if (usuarioRepository.count() == 0) {
+            this.usuarioRepository.saveAllAndFlush(usuariosData.getUsuarios());
+        }
+
+        if (servicioRepository.count() == 0) {
+            this.servicioRepository.saveAllAndFlush(serviciosData.getServicios());
+        }
     }
 }

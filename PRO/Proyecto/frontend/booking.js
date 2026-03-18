@@ -1,0 +1,340 @@
+// ======== BOOKING WIZARD ========
+app.bookingWizard = {
+    step: 1,
+    selectedService: null,
+    currentYear: new Date().getFullYear(),
+    currentMonth: new Date().getMonth() + 1, // 1-12
+    selectedDate: null,
+    selectedTime: null,
+    diasDisponiblesMes: [],
+    groupedServices: {},
+    
+    init: async function() {
+        this.step = 1;
+        this.selectedService = null;
+        this.selectedDate = null;
+        this.selectedTime = null;
+        this.groupedServices = {};
+        this.updateView();
+        
+        const services = await app.loadServices();
+        
+        this.groupedServices = {
+            'Todos': services,
+            'Peluquería - Mujer': [],
+            'Peluquería - Hombre': [],
+            'Estética - Mujer': [],
+            'Estética - Hombre': []
+        };
+
+        services.forEach(s => {
+            const cat = (s.categoria || '').toLowerCase();
+            const nom = (s.nombre || '').toLowerCase();
+            
+            let isHombre = cat.includes('hombre') || nom.includes('hombre') || nom.includes('barb') || nom.includes('caballero');
+            let isEstetica = cat.includes('estetica') || cat.includes('estética') || nom.includes('laser') || nom.includes('facial') || nom.includes('manicura') || nom.includes('pedicura') || nom.includes('masaje') || nom.includes('depilacion') || nom.includes('cejas');
+            
+            if (isHombre && !isEstetica) this.groupedServices['Peluquería - Hombre'].push(s);
+            else if (isHombre && isEstetica) this.groupedServices['Estética - Hombre'].push(s);
+            else if (!isHombre && !isEstetica) this.groupedServices['Peluquería - Mujer'].push(s);
+            else if (!isHombre && isEstetica) this.groupedServices['Estética - Mujer'].push(s);
+        });
+
+        this.renderServices('Todos');
+    },
+
+    renderServices: function(groupName) {
+        document.querySelectorAll('#service-category-tabs .chip').forEach(el => el.classList.remove('active'));
+        const chips = Array.from(document.querySelectorAll('#service-category-tabs .chip'));
+        const activeChip = chips.find(c => c.getAttribute('onclick') && c.getAttribute('onclick').includes(groupName));
+        if (activeChip) activeChip.classList.add('active');
+
+        const container = document.getElementById('client-services-list');
+        container.innerHTML = '';
+        
+        const list = this.groupedServices[groupName] || [];
+        
+        if (list.length === 0) {
+            container.innerHTML = '<p class="empty-state">No hay servicios en esta categoría.</p>';
+            return;
+        }
+
+        const getServiceIcon = (nombre, categoria) => {
+            const text = (nombre + ' ' + (categoria || '')).toLowerCase();
+            if (text.includes('hombre') || text.includes('barba') || text.includes('caballero') || text.includes('niño')) return 'img/icons/icon_hombre.png';
+            if (text.includes('corte') || text.includes('color') || text.includes('mecha') || text.includes('tinte') || text.includes('peinado') || text.includes('lavado') || text.includes('mujer') || text.includes('tijera') || text.includes('balayage') || text.includes('recogido')) return 'img/icons/icon_mujer.png';
+            if (text.includes('manicura') || text.includes('pedicura') || text.includes('uña') || text.includes('esmalte')) return 'img/icons/icon_manos.png';
+            return 'img/icons/icon_spa.png'; // fallback estética
+        };
+
+        list.forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'service-card-app';
+            div.onclick = () => this.selectService(s.id);
+            div.id = `serv-opt-${s.id}`;
+            const iconPath = getServiceIcon(s.nombre, s.categoria);
+            div.innerHTML = `
+                <div class="service-icon-wrapper">
+                    <img class="service-custom-icon" src="${iconPath}" alt="Icono">
+                </div>
+                <div class="service-card-left">
+                    <strong>${s.nombre}</strong>
+                    <span class="service-card-desc">${s.descripcion}</span>
+                    <span class="badge-time"><i class="far fa-clock"></i> ${s.duracionMinutos} min</span>
+                </div>
+                <div class="service-card-right">
+                    <span class="service-price-app">${s.precio}€</span>
+                    <div class="radio-circle"><i class="fas fa-check"></i></div>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    },
+
+    selectService: async function(id) {
+        document.querySelectorAll('.service-card-app').forEach(el => el.classList.remove('selected'));
+        document.getElementById(`serv-opt-${id}`).classList.add('selected');
+        
+        this.selectedService = app.state.services.find(s => s.id === id);
+        
+        document.getElementById('selected-service-info').innerHTML = `
+            <div style="background: var(--color-cream-dark); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                <strong>Seleccionado:</strong> ${this.selectedService.nombre} (${this.selectedService.duracionMinutos} min)
+            </div>
+        `;
+        
+        setTimeout(async () => {
+            this.step = 2;
+            this.updateView();
+            await this.loadCalendar();
+        }, 350);
+    },
+
+    // --- LÓGICA DE CALENDARIO ---
+    changeMonth: async function(delta) {
+        this.currentMonth += delta;
+        if (this.currentMonth > 12) {
+            this.currentMonth = 1;
+            this.currentYear++;
+        } else if (this.currentMonth < 1) {
+            this.currentMonth = 12;
+            this.currentYear--;
+        }
+        await this.loadCalendar();
+    },
+
+    loadCalendar: async function() {
+        document.getElementById('time-slots-container').classList.add('hidden');
+        document.getElementById('btn-next-step2').classList.add('hidden');
+        this.selectedDate = null;
+        this.selectedTime = null;
+
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        document.getElementById('calendar-month-year').textContent = `${monthNames[this.currentMonth - 1]} ${this.currentYear}`;
+
+        const calGrid = document.getElementById('calendar-grid');
+        calGrid.querySelectorAll('.cal-day, .loading-text').forEach(el => el.remove());
+
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'loading-text';
+        loadingDiv.textContent = 'Buscando huecos...';
+        calGrid.appendChild(loadingDiv);
+
+        try {
+            // 🟢 IMPORTANTE: Quitamos app.getAuthHeaders() porque esta ruta ahora es pública en Spring
+            const response = await fetch(`${API_URL}/citas/disponibles/mes?anio=${this.currentYear}&mes=${this.currentMonth}&servicioId=${this.selectedService.id}`);
+            if (response.ok) {
+                this.diasDisponiblesMes = await response.json();
+            } else {
+                this.diasDisponiblesMes = [];
+            }
+        } catch (error) {
+            console.error("Error cargando calendario", error);
+            this.diasDisponiblesMes = [];
+        }
+
+        this.renderCalendarGrid();
+    },
+
+    renderCalendarGrid: function() {
+        const calGrid = document.getElementById('calendar-grid');
+        calGrid.querySelectorAll('.loading-text').forEach(el => el.remove());
+
+        const daysInMonth = new Date(this.currentYear, this.currentMonth, 0).getDate();
+        const firstDayOfMonth = new Date(this.currentYear, this.currentMonth - 1, 1).getDay();
+        
+        let startDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1; // Ajustar a Lunes=0..Domingo=6
+
+        // Rellenar huecos vacíos antes del día 1
+        for (let i = 0; i < startDay; i++) {
+            const emptyDiv = document.createElement('div');
+            emptyDiv.className = 'cal-day empty';
+            calGrid.appendChild(emptyDiv);
+        }
+
+        const today = new Date();
+        const currentDateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.textContent = day;
+            
+            const monthStr = String(this.currentMonth).padStart(2, '0');
+            const dayStr = String(day).padStart(2, '0');
+            const iterDateStr = `${this.currentYear}-${monthStr}-${dayStr}`;
+
+            if (iterDateStr < currentDateStr) {
+                dayDiv.className = 'cal-day disabled';
+            } else if (this.diasDisponiblesMes.includes(day)) {
+                dayDiv.className = 'cal-day available';
+                dayDiv.onclick = () => this.selectDate(day);
+                
+                if (this.selectedDate === iterDateStr) {
+                    dayDiv.classList.add('selected');
+                }
+            } else {
+                dayDiv.className = 'cal-day disabled';
+            }
+
+            calGrid.appendChild(dayDiv);
+        }
+    },
+
+    selectDate: async function(day) {
+        // 🔴 BARRERA DE SEGURIDAD FRONTEND: Si no hay token, levantamos el modal y cortamos la ejecución
+        if (!app.state.token) {
+            document.getElementById('register-modal').classList.add('active');
+            return;
+        }
+
+        document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
+        event.target.classList.add('selected');
+
+        const monthStr = String(this.currentMonth).padStart(2, '0');
+        const dayStr = String(day).padStart(2, '0');
+        this.selectedDate = `${this.currentYear}-${monthStr}-${dayStr}`;
+        
+        document.getElementById('selected-date-text').textContent = `${day}/${monthStr}/${this.currentYear}`;
+        document.getElementById('time-slots-container').classList.remove('hidden');
+        
+        await this.loadTimeSlots();
+    },
+              
+    loadTimeSlots: async function() {
+        const grid = document.getElementById('time-slots-grid');
+        grid.innerHTML = '<p class="loading-text">Cargando horas...</p>';
+        document.getElementById('btn-next-step2').classList.add('hidden');
+        this.selectedTime = null;
+
+        try {
+            const response = await fetch(`${API_URL}/citas/disponibles?fecha=${this.selectedDate}&servicioId=${this.selectedService.id}`, {
+                headers: app.getAuthHeaders()
+            });
+
+            if (response.ok) {
+                const slots = await response.json(); 
+                grid.innerHTML = '';
+                
+                if(slots.length === 0) {
+                    grid.innerHTML = '<p>No quedan horas libres este día.</p>';
+                    return;
+                }
+
+                slots.forEach(slot => {
+                    let timeStr = "";
+                    if (Array.isArray(slot.horaInicio)) {
+                        const hora = String(slot.horaInicio[0]).padStart(2, '0');
+                        const min = String(slot.horaInicio[1] || 0).padStart(2, '0');
+                        timeStr = `${hora}:${min}`;
+                    } else {
+                        timeStr = slot.horaInicio.substring(0, 5);
+                    }
+                    
+                    const btn = document.createElement('button');
+                    btn.className = 'btn btn-outline slot-btn';
+                    btn.textContent = timeStr;
+                    btn.onclick = (e) => this.selectTime(timeStr, e.target);
+                    grid.appendChild(btn);
+                });
+            } else {
+                console.error("Error del servidor:", response.status);
+                grid.innerHTML = '<p class="error-msg">Error de permisos o servidor al cargar horas.</p>';
+            }
+        } catch (error) {
+            console.error("Error cargando horas", error);
+            grid.innerHTML = '<p class="error-msg">Error conectando con el servidor.</p>';
+        }
+    },
+
+    selectTime: function(timeStr, btnElement) {
+        document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected-slot'));
+        btnElement.classList.add('selected-slot');
+        this.selectedTime = timeStr;
+        document.getElementById('btn-next-step2').classList.remove('hidden');
+    },
+    
+    goToConfirm: function() {
+        if (!this.selectedDate || !this.selectedTime) {
+            app.showToast("Debes seleccionar una fecha y una hora", "error");
+            return;
+        }
+        this.step = 3;
+        this.updateView();
+    },
+
+    prevStep: function() {
+        if (this.step > 1) {
+            this.step--;
+            this.updateView();
+        }
+    },
+
+    updateView: function() {
+        document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
+        document.getElementById(`step-${this.step}`).classList.add('active');
+
+        if (this.step === 3) {
+            const dateParts = this.selectedDate.split('-');
+            const displayDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+            
+            document.getElementById('confirm-service').textContent = this.selectedService.nombre;
+            document.getElementById('confirm-datetime').textContent = `${displayDate} a las ${this.selectedTime}`;
+            document.getElementById('confirm-duration').textContent = this.selectedService.duracionMinutos; 
+            document.getElementById('confirm-price').textContent = this.selectedService.precio;
+        }
+    },
+
+    confirmBooking: async function() {
+        const fechaInicioStr = `${this.selectedDate}T${this.selectedTime}:00`;
+
+        try {
+            const response = await fetch(`${API_URL}/citas`, {
+                method: 'POST',
+                headers: app.getAuthHeaders(),
+                body: JSON.stringify({
+                    fechaInicio: fechaInicioStr,
+                    usuarioId: app.state.userId,
+                    servicioId: this.selectedService.id
+                })
+            });
+
+            if (response.ok) {
+                app.showToast("¡Reserva confirmada con éxito!", "success");
+                app.client.loadMisCitas();
+                this.init(); 
+            } else if (response.status === 409 || response.status === 400) {
+                const msg = await response.text();
+                app.showToast(msg || "Ese hueco ya no está disponible. Por favor, elige otro.", "error");
+                this.prevStep();
+                this.loadTimeSlots();
+            } else {
+                const msg = await response.text();
+                console.error("Error al confirmar reserva:", response.status, msg);
+                app.showToast("Error al confirmar reserva: " + (msg || response.status), "error");
+            }
+        } catch (error) {
+            console.error("Booking Error", error);
+            app.showToast("Error de conexión al guardar cita.", "error");
+        }
+    }
+};

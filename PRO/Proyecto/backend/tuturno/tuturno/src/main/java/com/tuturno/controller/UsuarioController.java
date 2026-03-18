@@ -32,7 +32,7 @@ public class UsuarioController {
         usuario.setEmail(request.email());
         usuario.setPassword(request.password());
         usuario.setTelefono(request.telefono());
-        Rol rolCliente = this.rolService.filtrarPorNombre("cliente");
+        Rol rolCliente = this.rolService.filtrarPorNombre("USER");
         usuario.setRol(rolCliente);
 
         Usuario guardado = usuarioService.guardar(usuario);
