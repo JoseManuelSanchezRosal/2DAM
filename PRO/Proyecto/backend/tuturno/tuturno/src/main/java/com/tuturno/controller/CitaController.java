@@ -51,7 +51,7 @@ public class CitaController {
             if (authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
             Long realUserId = (Long) authentication.getPrincipal();
-            Cita nuevaCita = citaService.crearCita(request.fechaInicio(), realUserId, request.servicioId());
+            Cita nuevaCita = citaService.crearCita(request.fechaInicio(), realUserId, request.servicioIds());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevaCita);
         } catch (IllegalStateException e) {
@@ -71,7 +71,7 @@ public class CitaController {
             boolean tienePrivilegiosAltos = authentication.getAuthorities().stream()
                     .anyMatch(rol -> rol.getAuthority().equals("ROLE_ADMIN") || rol.getAuthority().equals("ROLE_BOSS"));
 
-            Cita citaActualizada = citaService.modificarCita(id, request.fechaInicio(), realUserId, request.servicioId(), tienePrivilegiosAltos);
+            Cita citaActualizada = citaService.modificarCita(id, request.fechaInicio(), realUserId, request.servicioIds(), tienePrivilegiosAltos);
 
             return ResponseEntity.ok(citaActualizada);
         } catch (IllegalStateException e) {
@@ -83,16 +83,16 @@ public class CitaController {
 
     @GetMapping("/disponibles/mes")
     public ResponseEntity<List<Integer>> getDiasDisponibles(
-            @RequestParam int anio, @RequestParam int mes, @RequestParam Long servicioId) {
-        return ResponseEntity.ok(citaService.getDiasDisponiblesEnMes(anio, mes, servicioId));
+            @RequestParam int anio, @RequestParam int mes, @RequestParam List<Long> servicioIds) {
+        return ResponseEntity.ok(citaService.getDiasDisponiblesEnMes(anio, mes, servicioIds));
     }
 
     @GetMapping("/disponibles")
     @PreAuthorize("hasAnyRole('USER', 'BOSS', 'ADMIN')")
     public ResponseEntity<List<SlotDto>> getDisponibilidad(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
-            @RequestParam Long servicioId) {
-        return ResponseEntity.ok(citaService.getHuecosDisponibles(fecha, servicioId));
+            @RequestParam List<Long> servicioIds) {
+        return ResponseEntity.ok(citaService.getHuecosDisponibles(fecha, servicioIds));
     }
 
     @DeleteMapping("/{id}")

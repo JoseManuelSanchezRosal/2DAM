@@ -53,7 +53,7 @@ class CitaServiceTest {
         when(citaRepository.save(any(Cita.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // ACT
-        Cita resultado = citaService.crearCita(fechaInicio, usuarioId, servicioId);
+        Cita resultado = citaService.crearCita(fechaInicio, usuarioId, List.of(servicioId));
 
         // ASSERT
         assertNotNull(resultado);
@@ -72,7 +72,7 @@ class CitaServiceTest {
 
         // ACT & ASSERT
         Exception exception = assertThrows(RuntimeException.class, () -> {
-            citaService.crearCita(fechaInicio, usuarioId, servicioIdInexistente);
+            citaService.crearCita(fechaInicio, usuarioId, List.of(servicioIdInexistente));
         });
 
         assertEquals("Servicio no encontrado", exception.getMessage());

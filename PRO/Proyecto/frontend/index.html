@@ -32,7 +32,7 @@
         <nav>
             <button id="btn-nav-landing" class="nav-btn active" onclick="app.navigateTo('landing')">Inicio</button>
             <button id="btn-nav-facilities" class="nav-btn" onclick="app.navigateTo('facilities')">Instalaciones</button>
-            <button id="btn-nav-client-zone" class="nav-btn highlight" onclick="app.navigateTo('client-zone')">Zona Clientes</button>
+            <button id="btn-nav-client-zone" class="nav-btn outline-ghost" onclick="app.navigateTo('client-zone')">Zona Clientes</button>
             <button id="btn-nav-contact" class="nav-btn" onclick="app.navigateTo('contact')">Contacto</button>
             <button id="btn-nav-dashboard" class="nav-btn hidden" onclick="app.navigateToDashboard()">Panel Admin</button>
             <button id="btn-logout" class="nav-btn logout-btn hidden" onclick="app.logout()"><i class="fas fa-sign-out-alt"></i> Salir</button>
@@ -42,7 +42,7 @@
     <main class="app-container">
         
         <section id="view-landing" class="view active-view fade-in">
-            <div class="hero-section">
+            <div class="hero-section scale-up-anim crown-box">
                 <div class="hero-content">
                     <img src="img/icons/RosaDorado.png" alt="Rosa Martínez Logo" class="hero-logo scale-up-anim">
                     <h1>Tu belleza, nuestra prioridad</h1>
@@ -74,7 +74,7 @@
             </section>
 
         <section id="view-auth" class="view fade-in">
-            <div class="auth-container">
+            <div class="auth-container crown-box bg-white">
                 <div class="auth-tabs">
                     <button class="auth-tab active" onclick="app.switchAuthTab('login')">Iniciar Sesión</button>
                     <button class="auth-tab" onclick="app.switchAuthTab('register')">Registrarse</button>
@@ -123,7 +123,8 @@
         </section>
 
         <section id="view-facilities" class="view fade-in">
-            <div class="dashboard-header text-center" style="margin-bottom: 3rem;">
+            <div class="crown-box bg-white">
+                <div class="dashboard-header text-center" style="margin-bottom: 3rem;">
                 <h2 style="text-align: center;">Nuestras Instalaciones</h2>
                 <p style="text-align: center;" class="text-muted">Un espacio diseñado para tu bienestar en pleno centro.</p>
             </div>
@@ -133,15 +134,22 @@
                 <div class="facility-card"><img src="https://images.unsplash.com/photo-1516975080661-46b0854d6fa7?auto=format&fit=crop&w=600&q=80" alt="Estética"></div>
                 <div class="facility-card"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Manicura"></div>
             </div>
+            </div>
         </section>
 
         <section id="view-client-zone" class="view fade-in">
-            <div class="dashboard-header" id="client-logged-in-header" style="display: none; margin-bottom: 2rem;">
+            <div class="crown-box bg-white">
+                <div class="dashboard-header" id="client-logged-in-header" style="display: none; margin-bottom: 2rem;">
                 <h2>Hola, <span id="client-name-display">Cliente</span></h2>
                 <p>Bienvenido a tu panel de gestión.</p>
             </div>
+            
+            <div class="dashboard-header text-center" id="client-logged-out-header" style="margin-bottom: 2rem;">
+                <h2>Reserva de Citas</h2>
+                <p style="color: var(--color-light-text);">Selecciona tus servicios para reservar hora. Si ya tienes cuenta, <strong style="color: var(--color-gold); cursor: pointer; text-decoration: underline; font-weight: 800;" onclick="app.navigateTo('auth'); app.switchAuthTab('login');">Inicia Sesión aquí</strong></p>
+            </div>
 
-            <div class="client-grid" style="display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 800px; margin: 0 auto;">
+            <div class="client-grid" style="gap: 2rem; max-width: 1200px; margin: 0 auto;">
                 
                 <!-- CALENDAR WIDGET -->
                 <div class="booking-section card">
@@ -161,38 +169,53 @@
                             </div>
 
                             <div class="services-list-ux" id="client-services-list">
+                                <!-- Servicos injectados aquí -->
+                            </div>
+                            
+                            <!-- CAJA FLOTANTE CHECKOUT -->
+                            <div id="checkout-summary" class="checkout-floating hidden">
+                                <div>
+                                    <p style="margin: 0; font-size: 0.9rem; color: var(--color-light-text);">Total Seleccionado:</p>
+                                    <h3 style="margin: 0; color: var(--color-dark);"><span id="checkout-total-price">0.00</span>€ <small style="font-size:0.8rem; color:var(--color-light-text); font-weight: normal;">(<span id="checkout-total-duration">0</span> min)</small></h3>
                                 </div>
+                                <button class="btn btn-primary" onclick="app.bookingWizard.goToStep2()">Continuar <i class="fas fa-arrow-right"></i></button>
+                            </div>
                         </div>
 
                         <div id="step-2" class="wizard-step">
                             <h4>Paso 2: ¿Cuándo te viene bien?</h4>
                             <div class="selected-service-summary" id="selected-service-info"></div>
                             
-                            <div class="calendar-controls">
-                                <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
-                                <h5 id="calendar-month-year">Cargando...</h5>
-                                <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
-                            </div>
+                            <div class="step-2-layout" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+                                <div class="calendar-wrapper" style="flex: 1; min-width: 250px;">
+                                    <div class="calendar-controls">
+                                        <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                        <h5 id="calendar-month-year">Cargando...</h5>
+                                        <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                                    </div>
 
-                            <div class="calendar-grid" id="calendar-grid">
-                                <div class="cal-header">Lun</div>
-                                <div class="cal-header">Mar</div>
-                                <div class="cal-header">Mié</div>
-                                <div class="cal-header">Jue</div>
-                                <div class="cal-header">Vie</div>
-                                <div class="cal-header">Sáb</div>
-                                <div class="cal-header">Dom</div>
-                            </div>
-                            
-                            <div id="time-slots-container" class="time-slots hidden">
-                                <h5>Horas disponibles para el <span id="selected-date-text"></span></h5>
-                                <div id="time-slots-grid" class="slots-grid">
+                                    <div class="calendar-grid" id="calendar-grid">
+                                        <div class="cal-header">Lun</div>
+                                        <div class="cal-header">Mar</div>
+                                        <div class="cal-header">Mié</div>
+                                        <div class="cal-header">Jue</div>
+                                        <div class="cal-header">Vie</div>
+                                        <div class="cal-header">Sáb</div>
+                                        <div class="cal-header">Dom</div>
+                                    </div>
+                                    <div class="wizard-actions hidden-mobile" style="margin-top: 1rem; border:none;">
+                                        <button class="btn btn-outline btn-small" onclick="app.bookingWizard.prevStep()">Volver</button>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="wizard-actions">
-                                <button class="btn btn-outline" onclick="app.bookingWizard.prevStep()">Volver al Servicio</button>
-                                <button id="btn-next-step2" class="btn btn-primary hidden" onclick="app.bookingWizard.goToConfirm()">Siguiente</button>
+                                
+                                <div id="time-slots-container" class="time-slots hidden" style="flex: 1; min-width: 250px;">
+                                    <h5>Horas para el <span id="selected-date-text"></span></h5>
+                                    <div id="time-slots-grid" class="slots-grid">
+                                    </div>
+                                    <div class="wizard-actions" style="margin-top: 2rem; text-align: right; border:none;">
+                                        <button id="btn-next-step2" class="btn btn-primary hidden" onclick="app.bookingWizard.goToConfirm()">Siguiente</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -224,11 +247,13 @@
                     </div>
                 </div>
             </div>
+            </div>
         </section>
 
         <section id="view-contact" class="view fade-in">
-            <div class="dashboard-header text-center" style="margin-bottom: 3rem;">
-                <h2 style="text-align: center;">Contacto</h2>
+            <div class="crown-box bg-white">
+                <div class="dashboard-header text-center" style="margin-bottom: 3rem;">
+                <h2 style="text-align: center; font-size: 2.5rem; font-weight: bold;">Contacto</h2>
                 <p style="text-align: center;">Estamos aquí para ayudarte. Contáctanos por cualquier vía.</p>
             </div>
             <div class="contact-grid">
@@ -263,6 +288,7 @@
                         <button type="submit" class="btn btn-primary btn-full">Enviar mensaje</button>
                     </form>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -316,41 +342,92 @@
         </section>
 
         <section id="view-admin" class="view fade-in">
-            <div class="dashboard-header admin-header">
+            <div class="crown-box bg-white">
+                <div class="dashboard-header admin-header">
                 <h2>Panel de Administración <span class="badge">PRO</span></h2>
             </div>
+            
+            <div class="auth-tabs" style="max-width: 600px; margin: 0 auto 2rem auto; border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--shadow);">
+                <button class="auth-tab active" id="tab-btn-calendar" onclick="app.admin.switchTab('calendar')">Calendario de Citas</button>
+                <button class="auth-tab" id="tab-btn-catalog" onclick="app.admin.switchTab('catalog')">Catálogo de Servicios</button>
+            </div>
 
-            <div class="admin-grid">
-                <div class="master-calendar-section card">
+            <div class="admin-grid" style="display: block;">
+                <!-- PESTAÑA CALENDARIO -->
+                <div class="master-calendar-section card" id="admin-tab-calendar">
                     <h3><i class="fas fa-calendar-alt"></i> Calendario General</h3>
-                    <div class="filter-bar">
-                        <input type="date" id="admin-date-filter" onchange="app.admin.loadCitas()">
-                        <button class="btn btn-secondary btn-small" onclick="app.admin.loadCitas()">Refrescar</button>
-                    </div>
-                    <div id="admin-citas-list" class="citas-container admin-style">
+                    
+                    <!-- Layout 2/3 + 1/3 -->
+                    <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+                        
+                        <!-- Columna izquierda: Calendario (2/3) -->
+                        <div style="flex: 2; min-width: 300px;">
+                            <div class="calendar-controls">
+                                <button class="btn btn-outline btn-small" onclick="app.admin.changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <h5 id="admin-calendar-month-year">Cargando...</h5>
+                                <button class="btn btn-outline btn-small" onclick="app.admin.changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="calendar-grid" id="admin-calendar-grid">
+                                <div class="cal-header">Lun</div>
+                                <div class="cal-header">Mar</div>
+                                <div class="cal-header">Mié</div>
+                                <div class="cal-header">Jue</div>
+                                <div class="cal-header">Vie</div>
+                                <div class="cal-header">Sáb</div>
+                                <div class="cal-header">Dom</div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 1rem; margin-top: 1rem; justify-content: center; font-size: 0.9rem;">
+                                <span style="display:flex; align-items:center; gap:0.5rem;"><div style="width:15px;height:15px;background:#e8f5e9;border:1px solid #c8e6c9;border-radius:3px;"></div> Con citas</span>
+                                <span style="display:flex; align-items:center; gap:0.5rem;"><div style="width:15px;height:15px;background:#ffebee;border:1px solid #ffcdd2;border-radius:3px;"></div> Sin citas</span>
+                            </div>
                         </div>
+
+                        <!-- Columna derecha: Citas del día (1/3) -->
+                        <div style="flex: 1; min-width: 220px; border-left: 2px solid var(--color-cream-dark); padding-left: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                                <h4 style="margin: 0;">Citas del <span id="admin-selected-date-text" style="color: var(--color-gold);">día</span></h4>
+                                <button class="btn btn-primary btn-small" onclick="app.admin.addCitaDialog()"><i class="fas fa-plus"></i> Añadir</button>
+                            </div>
+                            <div id="admin-citas-list" class="citas-container admin-style">
+                                <p class="empty-state">Selecciona un día.</p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
-                <div class="catalog-section card">
-                    <h3><i class="fas fa-clipboard-list"></i> Catálogo de Servicios</h3>
+                <!-- PESTAÑA CATÁLOGO -->
+                <div class="catalog-section card" id="admin-tab-catalog" style="display: none;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap: wrap; gap: 1rem;">
+                        <h3 style="margin: 0;"><i class="fas fa-clipboard-list"></i> Catálogo</h3>
+                        <button class="btn btn-primary btn-small" onclick="document.getElementById('serviceForm').classList.toggle('hidden')"><i class="fas fa-plus"></i> Nuevo Servicio</button>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <input type="text" id="admin-search-service" placeholder="Buscar por nombre..." onkeyup="app.admin.filterServices()" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit;">
+                    </div>
                     
-                    <form id="serviceForm" class="service-form" onsubmit="event.preventDefault(); app.admin.saveService();">
+                    <form id="serviceForm" class="service-form hidden" onsubmit="event.preventDefault(); app.admin.saveService();" style="background:#f9f9f9; padding:1.5rem; border-radius:8px; margin-bottom:2rem; margin-top:-1rem;">
                         <input type="hidden" id="srv-id">
                         <div class="input-row">
-                            <input type="text" id="srv-name" placeholder="Nombre del servicio" required>
-                            <input type="number" id="srv-price" placeholder="Precio (€)" step="0.01" required>
+                            <input type="text" id="srv-name" placeholder="Nombre del servicio" required style="background:#fff">
+                            <input type="number" id="srv-price" placeholder="Precio (€)" step="0.01" required style="background:#fff">
                         </div>
-                        <input type="text" id="srv-desc" placeholder="Descripción breve" required>
+                        <input type="text" id="srv-desc" placeholder="Descripción breve" required style="background:#fff">
                         <div class="input-row">
-                            <input type="number" id="srv-duration" placeholder="Minutos" required>
-                            <button type="submit" class="btn btn-primary" id="btn-save-service">Guardar Nuevo</button>
-                            <button type="button" class="btn btn-outline hidden" id="btn-cancel-edit" onclick="app.admin.resetServiceForm()">Cancelar</button>
+                            <input type="number" id="srv-duration" placeholder="Minutos" required style="background:#fff">
+                            <button type="submit" class="btn btn-primary" id="btn-save-service">Guardar</button>
+                            <button type="button" class="btn btn-outline" id="btn-cancel-edit" onclick="app.admin.resetServiceForm()">Ocultar</button>
                         </div>
                     </form>
 
-                    <div id="admin-services-list" class="admin-services-table">
-                        </div>
+                    <div id="admin-services-list" class="admin-services-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+                        <!-- Cards here -->
+                    </div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -364,14 +441,73 @@
     <script src="booking.js"></script>
     <script src="admin.js"></script>
     <div id="register-modal" class="modal-overlay">
-    <div class="modal-content">
-        <h3>¡Regístrate en 1 minuto! ⏱️</h3>
-        <p>Para ver las horas libres y confirmar tu cita, necesitas una cuenta. ¡Es gratis y súper rápido!</p>
-        <div class="modal-actions">
-            <button class="btn btn-outline" onclick="document.getElementById('register-modal').classList.remove('active')">Cerrar</button>
-            <button class="btn btn-primary" onclick="document.getElementById('register-modal').classList.remove('active'); app.navigateTo('auth'); app.switchAuthTab('register');">Crear cuenta</button>
+        <div class="modal-content">
+            <h3>¡Regístrate en 1 minuto! ⏱️</h3>
+            <p>Para ver las horas libres y confirmar tu cita, necesitas una cuenta. ¡Es gratis y súper rápido!</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="document.getElementById('register-modal').classList.remove('active')">Cerrar</button>
+                <button class="btn btn-primary" onclick="document.getElementById('register-modal').classList.remove('active'); app.navigateTo('auth'); app.switchAuthTab('register');">Crear cuenta</button>
+            </div>
         </div>
     </div>
-</div>
+
+    <div id="admin-cita-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 800px; padding: 2rem;">
+            <h3 id="admin-cita-modal-title" style="text-align: center; color: var(--color-gold); margin-bottom: 1.5rem;">Añadir Nueva Cita</h3>
+            <form id="adminCitaForm" onsubmit="event.preventDefault(); app.admin.saveCita();">
+                <input type="hidden" id="admin-cita-id">
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                    <div class="input-group" style="flex: 1; margin: 0;">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="admin-cita-userSearch" list="admin-clients-list" placeholder="Cliente (Nombre o ID)" required style="width: 100%; padding: 1rem 1rem 1rem 3rem; border: 1px solid #eee; border-radius: var(--border-radius); font-family: inherit; font-size:1rem; background-color: #fafafa;" autocomplete="off">
+                        <datalist id="admin-clients-list">
+                            <!-- Clientes cargados por JS -->
+                        </datalist>
+                    </div>
+                    
+                    <div class="input-group" style="flex: 1; margin: 0;">
+                        <i class="fas fa-spa"></i>
+                        <select id="admin-cita-servicioId" onchange="app.admin.onModalServiceChange()" required style="width: 100%; padding: 1rem 1rem 1rem 3rem; border: 1px solid #eee; border-radius: var(--border-radius); font-family: var(--font-body); font-size: 1rem; background-color: #fafafa; appearance: none;">
+                            <option value="">Selecciona un Servicio...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- LAYOUT DE CALENDARIO PREMIUM IDENTICO AL CLIENTE -->
+                <div class="step-2-layout" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; justify-content: center;">
+                    <div class="calendar-wrapper" style="flex: 1; min-width: 250px; max-width: 350px;">
+                        <div class="calendar-controls">
+                            <button type="button" class="btn btn-outline btn-small" onclick="app.admin.changeModalMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                            <h5 id="admin-modal-month-year">Cargando...</h5>
+                            <button type="button" class="btn btn-outline btn-small" onclick="app.admin.changeModalMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+
+                        <div class="calendar-grid" id="admin-modal-calendar-grid">
+                            <div class="cal-header">Lun</div>
+                            <div class="cal-header">Mar</div>
+                            <div class="cal-header">Mié</div>
+                            <div class="cal-header">Jue</div>
+                            <div class="cal-header">Vie</div>
+                            <div class="cal-header">Sáb</div>
+                            <div class="cal-header">Dom</div>
+                        </div>
+                    </div>
+                    
+                    <div id="admin-modal-slots-container" class="time-slots hidden" style="flex: 1; min-width: 250px; border-left: 2px solid var(--color-cream-dark); padding-left: 1rem;">
+                        <h5 style="margin-bottom: 1rem; color: var(--color-dark);">Horas para el <span id="admin-modal-date-text" style="color:var(--color-gold);"></span></h5>
+                        <div id="admin-modal-slots-grid" class="slots-grid">
+                            <p class="empty-state">Selecciona una fecha para buscar hora.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions" style="margin-top: 2rem; justify-content: center; gap: 1rem;">
+                    <button type="button" class="btn btn-outline" onclick="document.getElementById('admin-cita-modal').classList.remove('active')" style="min-width: 150px;">Atrás</button>
+                    <button type="submit" id="btn-admin-modal-submit" class="btn btn-primary" style="min-width: 150px;" disabled>Guardar Cita</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,9 +1,10 @@
 package com.tuturno.dto.cita;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record CitaRequestDTO(
         LocalDateTime fechaInicio,
         Long usuarioId,
-        Long servicioId
+        List<Long> servicioIds
 ) {}

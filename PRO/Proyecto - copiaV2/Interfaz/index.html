@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuturno | Salón de Alta Belleza</title>
+    <!-- Google Fonts for typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- LineAwesome for minimal outline icons -->
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="bg-noise"></div>
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="#">Tuturno<span>.</span></a>
+            </div>
+            <nav class="nav-links">
+                <a href="#view-inicio" class="active nav-to">Inicio</a>
+                <a href="#view-servicios" class="nav-to">Servicios</a>
+                <a href="#view-zona-clientes" class="nav-to">Zona Clientes</a>
+            </nav>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" id="mobile-toggle">
+                <i class="las la-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- VISTA INICIO / INTRODUCCIÓN -->
+        <section id="view-inicio" class="view active">
+            <section class="hero-booking"
+                style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+                <div class="container hero-container text-center" style="position: relative; z-index: 2;">
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <i class="las la-cut text-gold" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                        <h1 style="font-size: 4rem; margin-bottom: 1.5rem; color: var(--matte-black);">Bienvenida a
+                            <br>nuestro <em>Salón</em>.
+                        </h1>
+                        <p
+                            style="font-size: 1.25rem; color: var(--gray-text); line-height: 1.8; margin-bottom: 2.5rem;">
+                            Tu tiempo es oro. Hemos diseñado este espacio para que disfrutes del arte del cuidado
+                            profesional sin preocuparte por tu agenda. Aquí encontrarás una gestión eficiente, pensada
+                            exclusivamente para ti y accesible las 24 horas.
+                        </p>
+                        <div style="display: flex; gap: 1rem; justify-content: center;">
+                            <a href="#view-servicios" class="nav-to btn-outline-black">Ver Nuestros Servicios</a>
+                            <a href="#view-zona-clientes" class="nav-to btn-gold">Acceso Clientes</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image-decor" style="width: 50%; right: 0; opacity: 0.1;"></div>
+                <div class="hero-image-decor" style="width: 50%; left: 0; transform: scaleX(-1); opacity: 0.05;"></div>
+            </section>
+        </section>
+
+        <!-- VISTA SERVICIOS (CATÁLOGO) -->
+        <section id="view-servicios" class="view">
+            <div class="container" style="padding: 4rem 0;">
+                <div class="text-center" style="margin-bottom: 4rem;">
+                    <h2 style="font-size: 2.8rem; margin-bottom: 1rem;">Nuestros Servicios</h2>
+                    <p class="text-gray"
+                        style="font-size: 1.1rem; max-width: 600px; margin: 0 auto; color: var(--gray-text);">
+                        Tratamientos diseñados para realzar tu belleza natural con la máxima atención y productos de
+                        alta gama.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+
+                    <div class="card card-marble">
+                        <div class="card-header text-center" style="justify-content: center; flex-direction: column;">
+                            <i class="las la-cut text-gold" style="font-size: 3.5rem; margin-bottom: 0.5rem;"></i>
+                            <h3 style="font-size: 1.5rem;">Corte & Estilo</h3>
+                        </div>
+                        <p style="text-align: center; color: var(--gray-text); flex-grow: 1;">Asesoramiento de imagen,
+                            lavado spa con masaje capilar, corte y peinado final adaptado a ti.</p>
+                        <div
+                            style="text-align: center; margin-top: 1.5rem; font-weight: 500; font-size: 1.2rem; color: var(--matte-black);">
+                            Desde 25€</div>
+                    </div>
+
+                    <div class="card card-marble">
+                        <div class="card-header text-center" style="justify-content: center; flex-direction: column;">
+                            <i class="las la-fill-drip text-gold" style="font-size: 3.5rem; margin-bottom: 0.5rem;"></i>
+                            <h3 style="font-size: 1.5rem;">Coloración</h3>
+                        </div>
+                        <p style="text-align: center; color: var(--gray-text); flex-grow: 1;">Especialistas en la
+                            técnica Balayage, Babylights, difuminado de raíz y tintes orgánicos respetuosos.</p>
+                        <div
+                            style="text-align: center; margin-top: 1.5rem; font-weight: 500; font-size: 1.2rem; color: var(--matte-black);">
+                            Desde 45€</div>
+                    </div>
+
+                    <div class="card card-marble">
+                        <div class="card-header text-center" style="justify-content: center; flex-direction: column;">
+                            <i class="las la-spa text-gold" style="font-size: 3.5rem; margin-bottom: 0.5rem;"></i>
+                            <h3 style="font-size: 1.5rem;">Tratamientos Faciales</h3>
+                        </div>
+                        <p style="text-align: center; color: var(--gray-text); flex-grow: 1;">Rituales de higiene facial
+                            profunda, hidratación intensiva y tratamientos anti-aging con cosmética premium.</p>
+                        <div
+                            style="text-align: center; margin-top: 1.5rem; font-weight: 500; font-size: 1.2rem; color: var(--matte-black);">
+                            Desde 40€</div>
+                    </div>
+
+                    <div class="card card-marble">
+                        <div class="card-header text-center" style="justify-content: center; flex-direction: column;">
+                            <i class="las la-hand-paper text-gold"
+                                style="font-size: 3.5rem; margin-bottom: 0.5rem;"></i>
+                            <h3 style="font-size: 1.5rem;">Manicura & Pedicura</h3>
+                        </div>
+                        <p style="text-align: center; color: var(--gray-text); flex-grow: 1;">Embellecimiento de uñas,
+                            remoción de cutículas, exfoliación profunda, y esmaltado semipermanente.</p>
+                        <div
+                            style="text-align: center; margin-top: 1.5rem; font-weight: 500; font-size: 1.2rem; color: var(--matte-black);">
+                            Desde 20€</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA ZONA CLIENTES (REGISTRO/LOGIN + CALENDARIO DE RESERVAS) -->
+        <section id="view-zona-clientes" class="view">
+            <div class="container" style="padding: 4rem 0;">
+
+                <div class="text-center" style="margin-bottom: 3rem;">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Zona Clientes</h2>
+                    <p style="color: var(--gray-text); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+                        Accede a tu área personal o crea una cuenta para poder gestionar tus reservas. <br>
+                        <strong>Importante:</strong> Solo los clientes registrados y logueados pueden concretar una
+                        reserva de cita.
+                    </p>
+                </div>
+
+                <div class="booking-flow">
+                    <!-- COLUMNA IZQUIERDA: Formularios de Login / Registro -->
+                    <div class="card card-marble" id="login-register-card"
+                        style="display: flex; flex-direction: column;">
+
+                        <!-- Pestañas internas para alternar entre Acceso y Registro -->
+                        <div style="display: flex; border-bottom: 2px solid var(--gray-light); margin-bottom: 2rem;">
+                            <button id="tab-login" class="form-tab active"
+                                style="flex: 1; padding: 1rem; background: none; border: none; font-size: 1.1rem; font-family: var(--font-sans); cursor: pointer; border-bottom: 2px solid var(--gold-metallic); color: var(--matte-black); font-weight: 500; transition: var(--transition-fast);">
+                                Iniciar Sesión
+                            </button>
+                            <button id="tab-registro" class="form-tab"
+                                style="flex: 1; padding: 1rem; background: none; border: none; font-size: 1.1rem; font-family: var(--font-sans); cursor: pointer; border-bottom: 2px solid transparent; color: var(--gray-text); font-weight: 400; transition: var(--transition-fast);">
+                                Registrarse
+                            </button>
+                        </div>
+
+                        <!-- Formulario de Login (Por defecto) -->
+                        <form id="form-login"
+                            style="display: flex; flex-direction: column; gap: 1.5rem; text-align: left;">
+                            <div class="form-group">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.95rem;">Correo
+                                    Electrónico</label>
+                                <input type="email" class="input-form" placeholder="email@ejemplo.com">
+                            </div>
+                            <div class="form-group">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.95rem;">Contraseña</label>
+                                <input type="password" class="input-form" placeholder="********">
+                            </div>
+                            <button type="button" id="btn-login-submit" class="btn-gold"
+                                style="width: 100%; justify-content: center; font-size: 1.1rem; margin-top: 1rem; padding: 1rem;">Acceder
+                                e Iniciar Reserva</button>
+
+                            <p
+                                style="text-align: center; color: var(--gray-text); font-size: 0.9rem; margin-top: 1rem;">
+                                ¿Olvidaste tu contraseña? <a href="#"
+                                    style="color: var(--matte-black); text-decoration: underline;">Recuperarla</a>
+                            </p>
+                        </form>
+
+                        <!-- Formulario de Registro (Oculto inicialmente) -->
+                        <form id="form-registro"
+                            style="display: none; flex-direction: column; gap: 1.3rem; text-align: left;">
+                            <div class="form-group">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.95rem;">Nombre
+                                    Completo</label>
+                                <input type="text" class="input-form" placeholder="Ej. Ana García">
+                            </div>
+                            <div class="form-group">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.95rem;">Teléfono</label>
+                                <input type="tel" class="input-form" placeholder="+34 600 000 000">
+                            </div>
+                            <div class="form-group">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.95rem;">Correo
+                                    Electrónico</label>
+                                <input type="email" class="input-form" placeholder="email@ejemplo.com">
+                            </div>
+                            <div class="form-group">
+                                <label
+                                    style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.95rem;">Contraseña</label>
+                                <input type="password" class="input-form" placeholder="Más de 8 caracteres">
+                            </div>
+                            <button type="button" id="btn-register-submit" class="btn-outline-black"
+                                style="width: 100%; justify-content: center; font-size: 1.1rem; margin-top: 1rem; padding: 1rem; background: var(--matte-black); color: var(--white); border-color: var(--matte-black);">Crear
+                                Cuenta de Cliente</button>
+                        </form>
+
+                    </div>
+
+
+                    <!-- COLUMNA DERECHA: Calendario y Reserva -->
+                    <div class="card card-marble card-calendar" style="display: flex; flex-direction: column;">
+
+                        <div
+                            style="background: rgba(212, 175, 55, 0.1); border-left: 4px solid var(--gold-metallic); padding: 1rem 1.5rem; margin-bottom: 2rem; border-radius: 0 var(--radius-md) var(--radius-md) 0;">
+                            <p style="margin: 0; font-size: 0.95rem; color: var(--matte-black);">
+                                <i class="las la-info-circle text-gold"
+                                    style="font-size: 1.2rem; vertical-align: middle;"></i>
+                                Aquí puedes consultar nuestra disponibilidad de citas en tiempo real. <b>Es necesario
+                                    iniciar sesión como cliente para confirmar la reserva final.</b>
+                            </p>
+                        </div>
+
+                        <div class="card-header" style="margin-bottom: 1.5rem;">
+                            <i class="las la-calendar text-black icon-lg"></i>
+                            <h2 style="font-size: 1.5rem;">Calendario de Citas</h2>
+                        </div>
+
+                        <div class="calendar-widget">
+                            <div class="calendar-header">
+                                <button id="prev-month"><i class="las la-angle-left"></i></button>
+                                <h3 id="month-year">Octubre 2026</h3>
+                                <button id="next-month"><i class="las la-angle-right"></i></button>
+                            </div>
+                            <div class="calendar-weekdays">
+                                <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+                            </div>
+                            <div class="calendar-days" id="calendar-days">
+                                <!-- Days injected by JS -->
+                            </div>
+                        </div>
+
+                        <div class="time-slots-wrapper" style="margin-top: 2rem;">
+                            <h4 style="margin-bottom: 1rem;">Horarios Disponibles (Día Seleccionado)</h4>
+                            <div class="time-slots" id="time-slots">
+                                <button class="time-slot" disabled
+                                    style="cursor: not-allowed; opacity: 0.5;">09:00</button>
+                                <button class="time-slot active" disabled
+                                    style="cursor: not-allowed; opacity: 0.5;">10:30</button>
+                                <button class="time-slot disabled" disabled
+                                    style="cursor: not-allowed; opacity: 0.5;">12:00</button>
+                                <button class="time-slot" disabled
+                                    style="cursor: not-allowed; opacity: 0.5;">16:00</button>
+                                <button class="time-slot" disabled
+                                    style="cursor: not-allowed; opacity: 0.5;">17:30</button>
+                            </div>
+                            <p id="lock-message"
+                                style="font-size: 0.85rem; color: var(--gray-text); margin-top: 1rem; text-align: center;">
+                                <i class="las la-lock"></i> Inicia sesión para interactuar con los horarios y poder <br>
+                                <b>seleccionar el servicio.</b>
+                            </p>
+                        </div>
+
+                        <div class="action-footer" style="margin-top: 1.5rem;">
+                            <!-- Botón desactivado visualmente simulando que falta el login -->
+                            <button id="btn-final-confirmar" class="btn-confirmar" disabled
+                                style="background: var(--gray-light); color: var(--gray-text); cursor: not-allowed; box-shadow: none;"><i
+                                    class="las la-check"></i> Reservar Cita</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container text-center">
+            <p>&copy; 2026 Salón de Alta Belleza. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

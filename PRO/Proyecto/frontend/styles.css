@@ -19,9 +19,9 @@
     --font-body: 'Outfit', sans-serif;
     
     /* Layout */
-    --border-radius: 8px;
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.08); /* Efecto Antigravity */
+    --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.12); /* Efecto Antigravity Hover */
     --transition: all 0.3s ease;
 }
 
@@ -109,6 +109,17 @@ nav {
     color: var(--color-white);
 }
 
+.nav-btn.outline-ghost {
+    background-color: transparent;
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold);
+}
+
+.nav-btn.outline-ghost:hover, .nav-btn.outline-ghost.active {
+    background-color: var(--color-gold);
+    color: var(--color-white);
+}
+
 .hidden {
     display: none !important;
 }
@@ -179,24 +190,64 @@ nav {
     box-shadow: var(--shadow);
 }
 
-/* ================= LANDING ================= */
+/* ================= LANDING (CLEAN HERO SECTION) ================= */
 .hero-section {
+    position: relative;
     text-align: center;
-    padding: 1.5rem 1rem; /* Reducido espacio vertical para que quepa bien */
-    background: linear-gradient(to bottom, var(--color-cream-dark), var(--color-cream));
+    background: transparent;
+    padding: 3rem 2rem 4rem 2rem;
+    margin: 2rem auto;
+    max-width: 900px;
+}
+
+/* Texto del hero legible sobre el mármol: sombra negra finita */
+/* ================= HERO TEXT GLASSMORPHISM ================= */
+.hero-content {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: 2rem;
     border-radius: var(--border-radius);
-    margin-bottom: 2rem; /* Reducido también el margen inferior */
+    display: inline-block;
+    max-width: 800px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--color-dark-text);
+    margin: 0 auto 2rem;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+    font-weight: 500;
+}
+
+/* ================= PAGE ENCLOSURE (Central Column Wrapper) ================= */
+.crown-box {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1000px;
+    /* Contenedor invisible para centrar contenido, sin gráficos de fondo */
 }
 
 .hero-logo {
     max-width: 550px;
     height: auto;
-    margin-top: -140px; /* Recortar MÁS el espacio transparente de arriba */
-    margin-bottom: -110px; /* Recortar MÁS el espacio transparente de abajo */
+    margin-top: -140px;
+    margin-bottom: -110px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    /* Sombra eliminada según petición */
+    /* Borde sutil negro alrededor de las letras/iconos del logo PNG */
+    filter: drop-shadow(-1px -1px 0 rgba(0,0,0,0.25))
+            drop-shadow( 1px -1px 0 rgba(0,0,0,0.25))
+            drop-shadow(-1px  1px 0 rgba(0,0,0,0.25))
+            drop-shadow( 1px  1px 0 rgba(0,0,0,0.25));
 }
 
 .scale-up-anim {
@@ -389,7 +440,15 @@ nav {
 }
 
 @media (min-width: 900px) {
-    .client-grid, .admin-grid {
+    .client-grid {
+        grid-template-columns: 1fr;
+        max-width: 900px !important;
+    }
+    .client-grid.logged-in-grid {
+        grid-template-columns: 2fr 1fr;
+        max-width: 1200px !important;
+    }
+    .admin-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
@@ -418,11 +477,19 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: var(--color-white);
 }
 
-.service-item:hover, .service-item.selected {
+.service-item:hover {
+    border-color: var(--color-gold);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.service-item.selected {
     border-color: var(--color-gold);
     background-color: rgba(212, 175, 55, 0.05);
+    box-shadow: inset 0 0 0 1px var(--color-gold);
 }
 
 .service-info strong { display: block; font-size: 1.1rem; }
@@ -434,6 +501,30 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+/* ================= CART FLOATING WIDGET ================= */
+.checkout-floating {
+    position: sticky;
+    bottom: 2rem;
+    background: var(--color-white);
+    border: 2px solid var(--color-gold);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-hover);
+    z-index: 100;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.checkout-floating.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    display: none !important;
 }
 
 .datetime-picker input {
@@ -507,6 +598,64 @@ nav {
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
+}
+
+/* ================= CONTACT SECTION ================= */
+.contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: stretch;
+}
+.contact-grid > div {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* ================= CATEGORY PILLS (CHIPS) ================= */
+.category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+.chip {
+    padding: 0.5rem 1rem;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+.chip:hover {
+    background: var(--color-cream);
+    border-color: var(--color-gold);
+}
+.chip.active {
+    background: var(--color-gold);
+    color: var(--color-white);
+    border-color: var(--color-gold);
+}
+
+/* ================= MULTIPLE SERVICE CHECKBOX ================= */
+.service-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: transparent;
+    transition: var(--transition);
+}
+.service-item.selected .service-checkbox {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    color: white;
 }
 
 .filter-bar input {
@@ -628,10 +777,10 @@ nav {
     cursor: not-allowed;
 }
 
-/* Días verdes (Con hueco disponible) */
+/* Días verdes (Con hueco disponible o Admin con Citas) */
 .cal-day.available {
-    background-color: #e8f5e9; /* Verde muy clarito */
-    color: #2e7d32; /* Verde oscuro */
+    background-color: #e8f5e9; 
+    color: #2e7d32; 
     font-weight: 600;
     cursor: pointer;
     border: 1px solid #c8e6c9;
@@ -640,6 +789,18 @@ nav {
 .cal-day.available:hover {
     background-color: #c8e6c9;
     transform: scale(1.05);
+}
+
+.cal-day.day-busy {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border-color: #c8e6c9;
+}
+
+.cal-day.day-free {
+    background-color: #ffebee;
+    color: #c62828;
+    border-color: #ffcdd2;
 }
 
 .cal-day.selected {
@@ -653,9 +814,7 @@ nav {
 }
 
 .time-slots {
-    margin-top: 2rem;
     padding-top: 1rem;
-    border-top: 1px solid #eee;
 }
 
 .slots-grid {

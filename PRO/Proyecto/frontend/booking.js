@@ -1,7 +1,8 @@
 // ======== BOOKING WIZARD ========
 app.bookingWizard = {
     step: 1,
-    selectedService: null,
+    editingCitaId: null,
+    selectedServices: [],
     currentYear: new Date().getFullYear(),
     currentMonth: new Date().getMonth() + 1, // 1-12
     selectedDate: null,
@@ -11,7 +12,8 @@ app.bookingWizard = {
     
     init: async function() {
         this.step = 1;
-        this.selectedService = null;
+        this.editingCitaId = null;
+        this.selectedServices = [];
         this.selectedDate = null;
         this.selectedTime = null;
         this.groupedServices = {};
@@ -56,7 +58,20 @@ app.bookingWizard = {
         
         if (list.length === 0) {
             container.innerHTML = '<p class="empty-state">No hay servicios en esta categoría.</p>';
-            return;
+        }
+
+        if (app.state.userRole === 'admin') {
+            const addCard = document.createElement('div');
+            addCard.className = 'service-card-app';
+            addCard.style.cssText = 'background: linear-gradient(135deg, var(--color-gold) 0%, #c19b2e 100%); color: #fff; cursor: pointer; text-align: center; justify-content: center; margin-bottom: 2rem; border: none;';
+            addCard.onclick = () => { 
+                app.navigateTo('admin'); 
+                app.admin.switchTab('catalog'); 
+                document.getElementById('serviceForm').classList.remove('hidden'); 
+                window.scrollTo(0,0); 
+            };
+            addCard.innerHTML = `<h3 style="margin:0; color: #fff;"><i class="fas fa-plus-circle"></i> Acceder al Panel CRUD de Servicios / Añadir Nuevo</h3>`;
+            container.appendChild(addCard);
         }
 
         const getServiceIcon = (nombre, categoria) => {
@@ -73,44 +88,104 @@ app.bookingWizard = {
         list.forEach(s => {
             const div = document.createElement('div');
             div.className = 'service-card-app';
-            div.onclick = () => this.selectService(s.id);
             div.id = `serv-opt-${s.id}`;
             const iconPath = getServiceIcon(s.nombre, s.categoria);
-            div.innerHTML = `
-                <div class="service-icon-wrapper">
-                    <img class="service-custom-icon" src="${iconPath}" alt="Icono">
-                </div>
-                <div class="service-card-left">
-                    <strong>${s.nombre}</strong>
-                    <span class="service-card-desc">${s.descripcion}</span>
-                    <span class="badge-time"><i class="far fa-clock"></i> ${s.duracionMinutos} min</span>
-                </div>
-                <div class="service-card-right">
-                    <span class="service-price-app">${s.precio}€</span>
-                    <div class="radio-circle"><i class="fas fa-check"></i></div>
-                </div>
-            `;
+            
+            if (app.state.userRole === 'admin') {
+                const safeObj = JSON.stringify(s).replace(/'/g, "&#39;");
+                div.style.cursor = 'default';
+                div.innerHTML = `
+                    <div class="service-icon-wrapper">
+                        <img class="service-custom-icon" src="${iconPath}" alt="Icono">
+                    </div>
+                    <div class="service-card-left">
+                        <strong>${s.nombre}</strong>
+                        <span class="service-card-desc">${s.descripcion}</span>
+                        <span class="badge-time"><i class="far fa-clock"></i> ${s.duracionMinutos} min <span style="margin-left:5px; color:var(--color-gold); font-weight:bold;">${s.precio}€</span></span>
+                    </div>
+                    <div class="service-card-right" style="flex-direction: column; gap:0.5rem; justify-content:center; align-items:flex-end;">
+                        <button class="btn btn-outline btn-small" onclick='app.admin.editService(${safeObj})' style="padding:0.5rem;"><i class="fas fa-edit"></i> Editar</button>
+                        <button class="btn btn-danger btn-small" onclick='app.admin.deleteService(${s.id})' style="padding:0.5rem; width:100%;"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+            } else {
+                const isSelected = this.selectedServices.some(sel => sel.id === s.id);
+                if (isSelected) div.classList.add('selected');
+                
+                div.onclick = () => this.toggleService(s.id);
+                div.innerHTML = `
+                    <div class="service-icon-wrapper">
+                        <img class="service-custom-icon" src="${iconPath}" alt="Icono">
+                    </div>
+                    <div class="service-card-left">
+                        <strong>${s.nombre}</strong>
+                        <span class="service-card-desc">${s.descripcion}</span>
+                        <span class="badge-time"><i class="far fa-clock"></i> ${s.duracionMinutos} min</span>
+                    </div>
+                    <div class="service-card-right">
+                        <span class="service-price-app">${s.precio}€</span>
+                        <div class="service-checkbox"><i class="fas fa-check"></i></div>
+                    </div>
+                `;
+            }
             container.appendChild(div);
         });
+        
+        this.updateCheckoutSummary();
     },
 
-    selectService: async function(id) {
-        document.querySelectorAll('.service-card-app').forEach(el => el.classList.remove('selected'));
-        document.getElementById(`serv-opt-${id}`).classList.add('selected');
+    toggleService: function(id) {
+        const service = app.state.services.find(s => s.id === id);
+        const index = this.selectedServices.findIndex(s => s.id === id);
+        const div = document.getElementById(`serv-opt-${id}`);
         
-        this.selectedService = app.state.services.find(s => s.id === id);
+        if (index > -1) {
+            // Eliminar
+            this.selectedServices.splice(index, 1);
+            if (div) div.classList.remove('selected');
+        } else {
+            // Añadir
+            this.selectedServices.push(service);
+            if (div) div.classList.add('selected');
+        }
+        
+        this.updateCheckoutSummary();
+    },
+    
+    updateCheckoutSummary: function() {
+        const checkoutBox = document.getElementById('checkout-summary');
+        if (!checkoutBox) return;
+        
+        if (this.selectedServices.length === 0) {
+            checkoutBox.classList.add('hidden');
+            return;
+        }
+        
+        checkoutBox.classList.remove('hidden');
+        
+        const totalPrecio = this.selectedServices.reduce((sum, s) => sum + s.precio, 0).toFixed(2);
+        const totalDuracion = this.selectedServices.reduce((sum, s) => sum + s.duracionMinutos, 0);
+        
+        document.getElementById('checkout-total-price').textContent = totalPrecio;
+        document.getElementById('checkout-total-duration').textContent = totalDuracion;
+    },
+    
+    goToStep2: async function() {
+        if (this.selectedServices.length === 0) return;
+        
+        const names = this.selectedServices.map(s => s.nombre).join(', ');
+        const totalDuration = this.selectedServices.reduce((sum, s) => sum + s.duracionMinutos, 0);
         
         document.getElementById('selected-service-info').innerHTML = `
             <div style="background: var(--color-cream-dark); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                <strong>Seleccionado:</strong> ${this.selectedService.nombre} (${this.selectedService.duracionMinutos} min)
+                <strong>Seleccionado:</strong> ${names} (Tiempo total est.: ${totalDuration} min)
             </div>
         `;
         
-        setTimeout(async () => {
-            this.step = 2;
-            this.updateView();
-            await this.loadCalendar();
-        }, 350);
+        this.step = 2;
+        this.updateView();
+        window.scrollTo({ top: document.querySelector('.booking-section').offsetTop, behavior: 'smooth' });
+        await this.loadCalendar();
     },
 
     // --- LÓGICA DE CALENDARIO ---
@@ -123,6 +198,26 @@ app.bookingWizard = {
             this.currentMonth = 12;
             this.currentYear--;
         }
+        await this.loadCalendar();
+    },
+
+    startEditFlow: async function(cita, servicio) {
+        this.editingCitaId = cita.id;
+        
+        if (cita.servicios && cita.servicios.length > 0) {
+            this.selectedServices = [...cita.servicios];
+        } else {
+            let foundService = null;
+            for (const key in this.groupedServices) {
+                const match = this.groupedServices[key].find(s => s.id === servicio.id);
+                if (match) { foundService = match; break; }
+            }
+            this.selectedServices = foundService ? [foundService] : [servicio];
+        }
+        
+        this.step = 2;
+        this.updateView();
+        window.scrollTo({ top: document.querySelector('.booking-section').offsetTop, behavior: 'smooth' });
         await this.loadCalendar();
     },
 
@@ -145,7 +240,8 @@ app.bookingWizard = {
 
         try {
             // 🟢 IMPORTANTE: Quitamos app.getAuthHeaders() porque esta ruta ahora es pública en Spring
-            const response = await fetch(`${API_URL}/citas/disponibles/mes?anio=${this.currentYear}&mes=${this.currentMonth}&servicioId=${this.selectedService.id}`);
+            const ids = this.selectedServices.map(s => s.id).join(',');
+            const response = await fetch(`${API_URL}/citas/disponibles/mes?anio=${this.currentYear}&mes=${this.currentMonth}&servicioIds=${ids}`);
             if (response.ok) {
                 this.diasDisponiblesMes = await response.json();
             } else {
@@ -230,7 +326,8 @@ app.bookingWizard = {
         this.selectedTime = null;
 
         try {
-            const response = await fetch(`${API_URL}/citas/disponibles?fecha=${this.selectedDate}&servicioId=${this.selectedService.id}`, {
+            const ids = this.selectedServices.map(s => s.id).join(',');
+            const response = await fetch(`${API_URL}/citas/disponibles?fecha=${this.selectedDate}&servicioIds=${ids}`, {
                 headers: app.getAuthHeaders()
             });
 
@@ -300,29 +397,38 @@ app.bookingWizard = {
             const dateParts = this.selectedDate.split('-');
             const displayDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
             
-            document.getElementById('confirm-service').textContent = this.selectedService.nombre;
+            const names = this.selectedServices.map(s => s.nombre).join(', ');
+            const totalDuration = this.selectedServices.reduce((sum, s) => sum + s.duracionMinutos, 0);
+            const totalPrice = this.selectedServices.reduce((sum, s) => sum + s.precio, 0).toFixed(2);
+            
+            document.getElementById('confirm-service').textContent = names;
             document.getElementById('confirm-datetime').textContent = `${displayDate} a las ${this.selectedTime}`;
-            document.getElementById('confirm-duration').textContent = this.selectedService.duracionMinutos; 
-            document.getElementById('confirm-price').textContent = this.selectedService.precio;
+            document.getElementById('confirm-duration').textContent = totalDuration; 
+            document.getElementById('confirm-price').textContent = totalPrice;
         }
     },
 
     confirmBooking: async function() {
         const fechaInicioStr = `${this.selectedDate}T${this.selectedTime}:00`;
+        const payload = {
+            fechaInicio: fechaInicioStr,
+            usuarioId: app.state.userId,
+            servicioIds: this.selectedServices.map(s => s.id)
+        };
 
         try {
-            const response = await fetch(`${API_URL}/citas`, {
-                method: 'POST',
+            const url = this.editingCitaId ? `${API_URL}/citas/${this.editingCitaId}` : `${API_URL}/citas`;
+            const method = this.editingCitaId ? 'PUT' : 'POST';
+
+            const response = await fetch(url, {
+                method: method,
                 headers: app.getAuthHeaders(),
-                body: JSON.stringify({
-                    fechaInicio: fechaInicioStr,
-                    usuarioId: app.state.userId,
-                    servicioId: this.selectedService.id
-                })
+                body: JSON.stringify(payload)
             });
 
             if (response.ok) {
-                app.showToast("¡Reserva confirmada con éxito!", "success");
+                app.showToast(this.editingCitaId ? "¡Reserva editada con éxito!" : "¡Reserva confirmada con éxito!", "success");
+                this.editingCitaId = null;
                 app.client.loadMisCitas();
                 this.init(); 
             } else if (response.status === 409 || response.status === 400) {

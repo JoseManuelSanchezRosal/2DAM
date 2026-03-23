@@ -33,19 +33,23 @@ app.client = {
             }
 
             citas.forEach(cita => {
-                const servicio = (cita.servicios && cita.servicios.length > 0) 
-                    ? cita.servicios[0] 
-                    : { nombre: 'Servicio estándar', precio: 0 };
+                const servicios = cita.servicios || [];
+                const nombres = servicios.map(s => s.nombre).join(', ') || 'Servicio estándar';
+                const totalPrecio = servicios.reduce((sum, s) => sum + s.precio, 0).toFixed(2);
                 
+                const safeObj = JSON.stringify(cita).replace(/'/g, "&#39;");
                 const div = document.createElement('div');
                 div.className = 'cita-card';
                 div.innerHTML = `
-                    <button class="delete-btn" title="Cancelar Cita" onclick="app.client.cancelCita(${cita.id})">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <strong>${servicio.nombre}</strong><br>
-                    <span><i class="far fa-calendar"></i> ${cita.fecha} a las ${String(cita.hora).padStart(2,'0')}:${String(cita.minutos).padStart(2,'0')}</span><br>
-                    <span><i class="far fa-money-bill-alt"></i> ${servicio.precio}€</span>
+                    <div style="position: absolute; top: 0.5rem; right: 0.5rem; display: flex; gap: 0.5rem;">
+                        <button class="btn btn-outline btn-small" title="Editar hora/fecha" onclick='app.client.editCita(${safeObj})' style="border:none; padding: 0.2rem;"><i class="fas fa-pencil-alt"></i></button>
+                        <button class="delete-btn" title="Cancelar Cita" onclick="app.client.cancelCita(${cita.id})" style="position: static;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <strong style="display:block; margin-right: 3rem;">${nombres}</strong>
+                    <span style="display:inline-block; margin-top:0.5rem;"><i class="far fa-calendar"></i> ${cita.fecha} a las ${String(cita.hora).padStart(2,'0')}:${String(cita.minutos).padStart(2,'0')}</span><br>
+                    <span style="display:inline-block; margin-top:0.25rem;"><i class="far fa-money-bill-alt"></i> ${totalPrecio}€</span>
                 `;
                 container.appendChild(div);
             });
@@ -54,6 +58,13 @@ app.client = {
             console.error("Fallo completo en loadMisCitas:", error);
             container.innerHTML = '<p class="error-msg">No se han podido cargar tus citas.</p>';
         }
+    },
+
+    editCita: function(cita) {
+        if (!cita.servicios || cita.servicios.length === 0) {
+            app.showToast("No se puede editar esta cita.", "error"); return;
+        }
+        app.bookingWizard.startEditFlow(cita, cita.servicios[0]);
     },
 
     cancelCita: async function(id) {

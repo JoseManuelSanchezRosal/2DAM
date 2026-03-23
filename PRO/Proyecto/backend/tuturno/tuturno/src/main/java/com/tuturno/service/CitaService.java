@@ -50,7 +50,7 @@ public class CitaService {
         }
     }
 
-    public List<Integer> getDiasDisponiblesEnMes(int anio, int mes, Long servicioId) {
+    public List<Integer> getDiasDisponiblesEnMes(int anio, int mes, List<Long> servicioIds) {
         YearMonth yearMonth = YearMonth.of(anio, mes);
         int diasEnMes = yearMonth.lengthOfMonth();
         List<Integer> diasDisponibles = new ArrayList<>();
@@ -67,7 +67,7 @@ public class CitaService {
                 continue;
             }
 
-            List<SlotDto> huecosDelDia = getHuecosDisponibles(fechaEvaluar, servicioId);
+            List<SlotDto> huecosDelDia = getHuecosDisponibles(fechaEvaluar, servicioIds);
 
             if (!huecosDelDia.isEmpty()) {
                 diasDisponibles.add(dia);
@@ -77,9 +77,10 @@ public class CitaService {
         return diasDisponibles;
     }
 
-    public List<SlotDto> getHuecosDisponibles(LocalDate fecha, Long servicioId) {
-        Servicio servicio = servicioRepository.findById(servicioId)
-                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+    public List<SlotDto> getHuecosDisponibles(LocalDate fecha, List<Long> servicioIds) {
+        List<Servicio> servicios = servicioRepository.findAllById(servicioIds);
+        if (servicios.isEmpty()) throw new RuntimeException("Servicios no encontrados");
+        int duracionServicios = servicios.stream().mapToInt(Servicio::getDuracionMinutos).sum();
 
         LocalTime apertura;
         LocalTime cierre;
@@ -94,13 +95,13 @@ public class CitaService {
             cierre = LocalTime.parse(weekdayEndStr);
         }
 
-        int duracionTotal = servicio.getDuracionMinutos() + preparationTimeMinutes;
+        int duracionTotal = duracionServicios + preparationTimeMinutes;
         List<Cita> citasDelDia = citaRepository.findByFecha(fecha);
         List<SlotDto> slotsDisponibles = new ArrayList<>();
 
         LocalTime actual = apertura;
         while (actual.plusMinutes(duracionTotal).isBefore(cierre) || actual.plusMinutes(duracionTotal).equals(cierre)) {
-            LocalTime finSlot = actual.plusMinutes(servicio.getDuracionMinutos());
+            LocalTime finSlot = actual.plusMinutes(duracionServicios);
             LocalTime finOcupacion = actual.plusMinutes(duracionTotal);
 
             boolean solapado = false;
@@ -128,14 +129,15 @@ public class CitaService {
         return slotsDisponibles;
     }
 
-    public synchronized Cita crearCita(LocalDateTime fechaInicio, Long usuarioId, Long servicioId) {
+    public synchronized Cita crearCita(LocalDateTime fechaInicio, Long usuarioId, List<Long> servicioIds) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        Servicio servicio = servicioRepository.findById(servicioId)
-                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+        List<Servicio> servicios = servicioRepository.findAllById(servicioIds);
+        if (servicios.isEmpty()) throw new RuntimeException("Servicios no encontrados");
+        int duracionServicios = servicios.stream().mapToInt(Servicio::getDuracionMinutos).sum();
 
-        int duracionTotal = servicio.getDuracionMinutos() + preparationTimeMinutes;
+        int duracionTotal = duracionServicios + preparationTimeMinutes;
         LocalDateTime fechaFin = fechaInicio.plusMinutes(duracionTotal);
 
         List<Cita> citasDelDia = citaRepository.findByFecha(fechaInicio.toLocalDate());
@@ -158,13 +160,13 @@ public class CitaService {
         cita.setHora(fechaInicio.getHour());
         cita.setMinutos(fechaInicio.getMinute());
         cita.setSegundos(0);
-        cita.setServicios(List.of(servicio));
+        cita.setServicios(servicios);
 
         return citaRepository.save(cita);
     }
 
     // --- NUEVO: MÉTODO PARA MODIFICAR ---
-    public synchronized Cita modificarCita(Long citaId, LocalDateTime nuevaFechaInicio, Long usuarioId, Long nuevoServicioId, boolean tienePrivilegiosAltos) {
+    public synchronized Cita modificarCita(Long citaId, LocalDateTime nuevaFechaInicio, Long usuarioId, List<Long> nuevoServicioIds, boolean tienePrivilegiosAltos) {
 
         Cita citaExistente = citaRepository.findById(citaId)
                 .orElseThrow(() -> new RuntimeException("Cita no encontrada"));
@@ -173,10 +175,11 @@ public class CitaService {
             throw new RuntimeException("No tienes permiso para modificar esta cita");
         }
 
-        Servicio nuevoServicio = servicioRepository.findById(nuevoServicioId)
-                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+        List<Servicio> nuevosServicios = servicioRepository.findAllById(nuevoServicioIds);
+        if (nuevosServicios.isEmpty()) throw new RuntimeException("Servicios no encontrados");
+        int duracionServicios = nuevosServicios.stream().mapToInt(Servicio::getDuracionMinutos).sum();
 
-        int duracionTotal = nuevoServicio.getDuracionMinutos() + preparationTimeMinutes;
+        int duracionTotal = duracionServicios + preparationTimeMinutes;
         LocalDateTime fechaFin = nuevaFechaInicio.plusMinutes(duracionTotal);
 
         List<Cita> citasDelDia = citaRepository.findByFecha(nuevaFechaInicio.toLocalDate());
@@ -199,7 +202,7 @@ public class CitaService {
         citaExistente.setHora(nuevaFechaInicio.getHour());
         citaExistente.setMinutos(nuevaFechaInicio.getMinute());
         citaExistente.setSegundos(0);
-        citaExistente.setServicios(List.of(nuevoServicio));
+        citaExistente.setServicios(nuevosServicios);
 
         return citaRepository.save(citaExistente);
     }
