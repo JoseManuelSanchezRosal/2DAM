@@ -128,7 +128,7 @@ nav {
 .app-container {
     min-height: calc(100vh - 80px);
     padding: 2rem 1rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -443,10 +443,12 @@ nav {
     .client-grid {
         grid-template-columns: 1fr;
         max-width: 900px !important;
+        margin: 0 auto;
     }
     .client-grid.logged-in-grid {
-        grid-template-columns: 2fr 1fr;
-        max-width: 1200px !important;
+        grid-template-columns: minmax(0, 900px) 350px;
+        max-width: 1350px !important;
+        justify-content: center;
     }
     .admin-grid {
         grid-template-columns: 1fr 1fr;
@@ -652,7 +654,8 @@ nav {
     color: transparent;
     transition: var(--transition);
 }
-.service-item.selected .service-checkbox {
+.service-item.selected .service-checkbox,
+.service-card-app.selected .service-checkbox {
     background-color: var(--color-gold);
     border-color: var(--color-gold);
     color: white;
@@ -1151,4 +1154,212 @@ nav {
     object-fit: cover;
     mix-blend-mode: multiply;
     opacity: 0.85;
+}
+
+/* ================= RESPONSIVE TABLET & MOVILES ================= */
+/* DEFAULT: Desktop/Tablet Base Grid for steps */
+.step-2-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+}
+.calendar-wrapper, .time-slots {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* TABLET (768px a 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .app-container {
+        padding: 1.5rem 2rem;
+    }
+    .card {
+        padding: 1.5rem;
+    }
+    .step-2-layout {
+        gap: 1.5rem;
+    }
+}
+
+/* MOVILES (< 768px) */
+@media (max-width: 767px) {
+    /* 1. Header Responsive (Menú Hamburguesa y Sticky) */
+    .main-header {
+        flex-direction: row;
+        padding: 0 1rem;
+        height: 45px;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .mobile-menu-toggle {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 1.25rem;
+        color: var(--color-dark);
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+    }
+    .mobile-header-right {
+        display: flex !important;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        width: 40px;
+    }
+    .mobile-header-right .icon-btn {
+        padding: 0;
+        font-size: 1.25rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+    }
+    .logo img {
+        height: 100px; /* Logotipo un poco más grande */
+        margin-top: -10px;
+        margin-bottom: -10px;
+        padding: 0;
+    }
+    
+    /* Menú oculto lateral */
+    #nav-menu {
+        position: fixed;
+        top: 65px;
+        left: -100%;
+        width: 250px;
+        height: calc(100vh - 65px);
+        background: var(--color-white);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 0;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        transition: left 0.3s ease;
+        z-index: 99;
+        gap: 0;
+    }
+    #nav-menu.nav-menu-open {
+        left: 0;
+    }
+    #nav-menu .nav-btn {
+        width: 100%;
+        text-align: left;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+        border-radius: 0;
+    }
+    /* Ocultar botones desktop de dashboard/salir porque ya usamos los iconos a la derecha */
+    #nav-menu #btn-nav-dashboard, 
+    #nav-menu #btn-logout {
+        display: none !important;
+    }
+
+    /* 3. Ajustes de Layout General */
+    .app-container {
+        padding: 1rem 1rem; /* Maximizado para aprovechar el ancho de pantalla */
+        min-height: calc(100vh - 65px);
+    }
+    .card {
+        padding: 1rem !important; /* Aprovechamiento del grid interior */
+    }
+    .step-2-layout {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .calendar-wrapper, .time-slots {
+        min-width: 100%;
+    }
+    .btn {
+        min-height: 44px; /* Tamaño mínimo impacto táctil */
+    }
+
+    /* Formularios */
+    .input-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* Hero */
+    .hero-section {
+        margin-top: 0px;
+        padding-top: 1.5rem;
+    }
+    .hero-logo {
+        max-width: 100%;
+        margin-top: -100px;
+        margin-bottom: -60px;
+    }
+    .hero-content {
+        padding: 1rem;
+    }
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    /* Vistas de Reserva */
+    .checkout-floating {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+        text-align: center;
+    }
+    .checkout-floating .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Calendario Responsivo */
+    .calendar-grid {
+        gap: 2px;
+        padding: 0.5rem;
+    }
+    .cal-header {
+        font-size: 0.75rem;
+        padding: 4px 0;
+    }
+    .cal-day {
+        font-size: 0.85rem;
+        padding: 6px 0;
+    }
+    
+    /* 2. Optimización de Tarjetas de Servicios */
+    .service-card-app {
+        flex-direction: row;
+        align-items: center;
+        padding: 12px; /* Reducción de padding interno */
+        gap: 0.5rem;
+    }
+    .service-icon-wrapper {
+        margin: 0;
+        width: 45px;
+        height: 45px;
+    }
+    .service-card-left {
+        flex: 1;
+        padding: 0 0.5rem;
+    }
+    .service-card-left strong {
+        font-size: 0.95rem; /* Fuente más pequeña */
+        margin-bottom: 2px;
+    }
+    .service-card-desc {
+        font-size: 0.75rem;
+        line-height: 1.2;
+        margin-bottom: 0;
+    }
+    .service-card-right {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 0.25rem;
+    }
+    .service-price-app {
+        font-size: 0.95rem;
+    }
+    .badge-time {
+        font-size: 0.7rem;
+        padding: 0.1rem 0.4rem;
+    }
 }

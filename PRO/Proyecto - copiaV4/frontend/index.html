@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuTurno - Salón de Belleza RM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen">
+        <img src="img/icons/RosaDorado.png" alt="Cargando Rosa Martínez..." class="splash-logo">
+    </div>
+
+    <script>
+        // Ocultar el splash screen después de 3 segundos
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                if (splash) splash.classList.add('fade-out');
+            }, 3000);
+        });
+    </script>
+
+    <header class="main-header">
+        <div class="logo" onclick="app.navigateTo('landing')">
+            <img src="img/icons/RosaDorado.png" alt="Rosa Martínez Logo">
+        </div>
+        <nav>
+            <button id="btn-nav-landing" class="nav-btn active" onclick="app.navigateTo('landing')">Inicio</button>
+            <button id="btn-nav-facilities" class="nav-btn" onclick="app.navigateTo('facilities')">Instalaciones</button>
+            <button id="btn-nav-client-zone" class="nav-btn outline-ghost" onclick="app.navigateTo('client-zone')">Zona Clientes</button>
+            <button id="btn-nav-contact" class="nav-btn" onclick="app.navigateTo('contact')">Contacto</button>
+            <button id="btn-nav-dashboard" class="nav-btn hidden" onclick="app.navigateToDashboard()">Panel Admin</button>
+            <button id="btn-logout" class="nav-btn logout-btn hidden" onclick="app.logout()"><i class="fas fa-sign-out-alt"></i> Salir</button>
+        </nav>
+    </header>
+
+    <main class="app-container">
+        
+        <section id="view-landing" class="view active-view fade-in">
+            <div class="hero-section scale-up-anim crown-box">
+                <div class="hero-content">
+                    <img src="img/icons/RosaDorado.png" alt="Rosa Martínez Logo" class="hero-logo scale-up-anim">
+                    <h1>Tu belleza, nuestra prioridad</h1>
+                    <p>Reserva tu cita online 24/7 y disfruta de una experiencia exclusiva en un ambiente diseñado para tu bienestar.</p>
+                    <button class="btn btn-primary btn-large go-client-zone" onclick="app.navigateTo('client-zone')">
+                        <i class="far fa-calendar-check"></i> Consultar Disponibilidad
+                    </button>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <div class="feature-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Reserva 24/7</h3>
+                    <p>Elige tu momento ideal sin esperas ni llamadas.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-spa"></i>
+                    <h3>Servicios Premium</h3>
+                    <p>Tratamientos personalizados de la más alta calidad.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Fácil y Rápido</h3>
+                    <p>Gestiona tus citas desde tu móvil en segundos.</p>
+                </div>
+            </div>
+
+            </section>
+
+        <section id="view-auth" class="view fade-in">
+            <div class="auth-container crown-box bg-white">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="app.switchAuthTab('login')">Iniciar Sesión</button>
+                    <button class="auth-tab" onclick="app.switchAuthTab('register')">Registrarse</button>
+                </div>
+
+                <div id="form-login" class="auth-form-wrapper active">
+                    <h2>Bienvenido de nuevo</h2>
+                    <form id="loginForm" onsubmit="event.preventDefault(); app.login();">
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="login-email" placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+                        <p id="login-error" class="error-msg"></p>
+                    </form>
+                </div>
+
+                <div id="form-register" class="auth-form-wrapper">
+                    <h2>Crea tu cuenta</h2>
+                    <form id="registerForm" onsubmit="event.preventDefault(); app.register();">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="reg-name" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="reg-email" placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="reg-phone" placeholder="Teléfono" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="reg-password" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-full">Registrarse</button>
+                        <p id="register-error" class="error-msg"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-facilities" class="view fade-in">
+            <div class="crown-box bg-white">
+                <div class="dashboard-header text-center" style="margin-bottom: 3rem;">
+                <h2 style="text-align: center;">Nuestras Instalaciones</h2>
+                <p style="text-align: center;" class="text-muted">Un espacio diseñado para tu bienestar en pleno centro.</p>
+            </div>
+            <div class="facilities-grid">
+                <div class="facility-card"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80" alt="Salón Principal"></div>
+                <div class="facility-card"><img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=600&q=80" alt="Zona de Lavado"></div>
+                <div class="facility-card"><img src="https://images.unsplash.com/photo-1516975080661-46b0854d6fa7?auto=format&fit=crop&w=600&q=80" alt="Estética"></div>
+                <div class="facility-card"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Manicura"></div>
+            </div>
+            </div>
+        </section>
+
+        <section id="view-client-zone" class="view fade-in">
+            <div class="crown-box bg-white">
+                <div class="dashboard-header" id="client-logged-in-header" style="display: none; margin-bottom: 2rem;">
+                <h2>Hola, <span id="client-name-display">Cliente</span></h2>
+                <p>Bienvenido a tu panel de gestión.</p>
+            </div>
+            
+            <div class="dashboard-header text-center" id="client-logged-out-header" style="margin-bottom: 2rem;">
+                <h2>Reserva de Citas</h2>
+                <p style="color: var(--color-light-text);">Selecciona tus servicios para reservar hora. Si ya tienes cuenta, <strong style="color: var(--color-gold); cursor: pointer; text-decoration: underline; font-weight: 800;" onclick="app.navigateTo('auth'); app.switchAuthTab('login');">Inicia Sesión aquí</strong></p>
+            </div>
+
+            <div class="client-grid" style="gap: 2rem; max-width: 1200px; margin: 0 auto;">
+                
+                <!-- CALENDAR WIDGET -->
+                <div class="booking-section card">
+                    <h3 style="text-align: center; margin-bottom: 0.5rem;"><i class="far fa-calendar-alt"></i> Consulta nuestra disponibilidad</h3>
+                    <p style="text-align: center; color: var(--color-light-text); margin-bottom: 2rem;">Selecciona un tratamiento para ver los huecos libres.</p>
+                    
+                    <div id="booking-wizard">
+                        <div id="step-1" class="wizard-step active">
+                            <h4>Paso 1: ¿Qué servicio deseas?</h4>
+                            
+                            <div class="category-tabs" id="service-category-tabs">
+                                <button class="chip active" onclick="app.bookingWizard.renderServices('Todos')">Todos</button>
+                                <button class="chip" onclick="app.bookingWizard.renderServices('Peluquería - Mujer')">Pelo Mujer</button>
+                                <button class="chip" onclick="app.bookingWizard.renderServices('Peluquería - Hombre')">Pelo Hombre</button>
+                                <button class="chip" onclick="app.bookingWizard.renderServices('Estética - Mujer')">Estética M</button>
+                                <button class="chip" onclick="app.bookingWizard.renderServices('Estética - Hombre')">Estética H</button>
+                            </div>
+
+                            <div class="services-list-ux" id="client-services-list">
+                                <!-- Servicos injectados aquí -->
+                            </div>
+                            
+                            <!-- CAJA FLOTANTE CHECKOUT -->
+                            <div id="checkout-summary" class="checkout-floating hidden">
+                                <div>
+                                    <p style="margin: 0; font-size: 0.9rem; color: var(--color-light-text);">Total Seleccionado:</p>
+                                    <h3 style="margin: 0; color: var(--color-dark);"><span id="checkout-total-price">0.00</span>€ <small style="font-size:0.8rem; color:var(--color-light-text); font-weight: normal;">(<span id="checkout-total-duration">0</span> min)</small></h3>
+                                </div>
+                                <button class="btn btn-primary" onclick="app.bookingWizard.goToStep2()">Continuar <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div id="step-2" class="wizard-step">
+                            <h4>Paso 2: ¿Cuándo te viene bien?</h4>
+                            <div class="selected-service-summary" id="selected-service-info"></div>
+                            
+                            <div class="step-2-layout" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
+                                <div class="calendar-wrapper" style="flex: 1; min-width: 250px;">
+                                    <div class="calendar-controls">
+                                        <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                        <h5 id="calendar-month-year">Cargando...</h5>
+                                        <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                                    </div>
+
+                                    <div class="calendar-grid" id="calendar-grid">
+                                        <div class="cal-header">Lun</div>
+                                        <div class="cal-header">Mar</div>
+                                        <div class="cal-header">Mié</div>
+                                        <div class="cal-header">Jue</div>
+                                        <div class="cal-header">Vie</div>
+                                        <div class="cal-header">Sáb</div>
+                                        <div class="cal-header">Dom</div>
+                                    </div>
+                                    <div class="wizard-actions hidden-mobile" style="margin-top: 1rem; border:none;">
+                                        <button class="btn btn-outline btn-small" onclick="app.bookingWizard.prevStep()">Volver</button>
+                                    </div>
+                                </div>
+                                
+                                <div id="time-slots-container" class="time-slots hidden" style="flex: 1; min-width: 250px;">
+                                    <h5>Horas para el <span id="selected-date-text"></span></h5>
+                                    <div id="time-slots-grid" class="slots-grid">
+                                    </div>
+                                    <div class="wizard-actions" style="margin-top: 2rem; text-align: right; border:none;">
+                                        <button id="btn-next-step2" class="btn btn-primary hidden" onclick="app.bookingWizard.goToConfirm()">Siguiente</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="step-3" class="wizard-step">
+                            <h4>Paso 3: Confirma tu reserva</h4>
+                            <div class="confirmation-summary">
+                                <p><strong>Servicio:</strong> <span id="confirm-service"></span></p>
+                                <p><strong>Fecha y Hora:</strong> <span id="confirm-datetime"></span></p>
+                                <p><strong>Duración est.:</strong> <span id="confirm-duration"></span> min</p>
+                                <p><strong>Precio:</strong> <span id="confirm-price"></span>€</p>
+                            </div>
+                            <div class="wizard-actions">
+                                <button class="btn btn-outline" onclick="app.bookingWizard.prevStep()">Modificar</button>
+                                <button class="btn btn-success" onclick="app.bookingWizard.confirmBooking()">Confirmar Reserva</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CALENDAR WIDGET -->
+
+                <div class="my-appointments-section card" id="my-appointments-card" style="display: none;">
+                    <h3><i class="far fa-calendar-alt"></i> Mis Próximas Citas</h3>
+                    <div id="client-citas-list" class="citas-container">
+                        <p class="empty-state">No tienes citas programadas.</p>
+                    </div>
+                    
+                    <div class="danger-zone mt-4">
+                        <button class="btn btn-danger btn-small" onclick="app.deleteAccount()"><i class="fas fa-user-times"></i> Dar de baja mi cuenta</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <section id="view-contact" class="view fade-in">
+            <div class="crown-box bg-white">
+                <div class="dashboard-header text-center" style="margin-bottom: 3rem;">
+                <h2 style="text-align: center; font-size: 2.5rem; font-weight: bold;">Contacto</h2>
+                <p style="text-align: center;">Estamos aquí para ayudarte. Contáctanos por cualquier vía.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Dónde estamos</h3>
+                    <p>Av. Primavera 123, Local 2, 28080 Madrid</p>
+                    <br>
+                    <h3><i class="fas fa-phone-alt"></i> Teléfono</h3>
+                    <p>+34 600 111 222</p>
+                    <br>
+                    <h3><i class="fas fa-envelope"></i> Email</h3>
+                    <p>reservas@rmbeauty.com</p>
+                    <br>
+                    <h3><i class="far fa-clock"></i> Horario</h3>
+                    <p>Martes a Viernes: 10:00 - 19:00<br>Sábados: 10:00 - 14:00</p>
+                </div>
+                
+                <div class="contact-form card">
+                    <h3>Envíanos un mensaje</h3>
+                    <form onsubmit="event.preventDefault(); app.showToast('Mensaje enviado. ¡Te responderemos pronto!', 'success'); this.reset();">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Tu email" required>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <textarea placeholder="Tu mensaje" rows="4" required style="width: 100%; padding: 1rem; border: 1px solid #ccc; border-radius: 8px; font-family: inherit; resize: vertical;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <section id="view-auth" class="view fade-in">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="app.switchAuthTab('login')">Iniciar Sesión</button>
+                    <button class="auth-tab" onclick="app.switchAuthTab('register')">Registrarse</button>
+                </div>
+
+                <div id="form-login" class="auth-form-wrapper active">
+                    <h2>Bienvenido de nuevo</h2>
+                    <form id="loginForm" onsubmit="event.preventDefault(); app.login();">
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="login-email" placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+                        <p id="login-error" class="error-msg"></p>
+                    </form>
+                </div>
+
+                <div id="form-register" class="auth-form-wrapper">
+                    <h2>Crea tu cuenta</h2>
+                    <form id="registerForm" onsubmit="event.preventDefault(); app.register();">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="reg-name" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="reg-email" placeholder="Correo Electrónico" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="reg-phone" placeholder="Teléfono" required>
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="reg-password" placeholder="Contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-full">Registrarse</button>
+                        <p id="register-error" class="error-msg"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-admin" class="view fade-in">
+            <div class="crown-box bg-white">
+                <div class="dashboard-header admin-header">
+                <h2>Panel de Administración <span class="badge">PRO</span></h2>
+            </div>
+            
+            <div class="auth-tabs" style="max-width: 600px; margin: 0 auto 2rem auto; border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--shadow);">
+                <button class="auth-tab active" id="tab-btn-calendar" onclick="app.admin.switchTab('calendar')">Calendario de Citas</button>
+                <button class="auth-tab" id="tab-btn-catalog" onclick="app.admin.switchTab('catalog')">Catálogo de Servicios</button>
+            </div>
+
+            <div class="admin-grid" style="display: block;">
+                <!-- PESTAÑA CALENDARIO -->
+                <div class="master-calendar-section card" id="admin-tab-calendar">
+                    <h3><i class="fas fa-calendar-alt"></i> Calendario General</h3>
+                    
+                    <!-- Layout 2/3 + 1/3 -->
+                    <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+                        
+                        <!-- Columna izquierda: Calendario (2/3) -->
+                        <div style="flex: 2; min-width: 300px;">
+                            <div class="calendar-controls">
+                                <button class="btn btn-outline btn-small" onclick="app.admin.changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                                <h5 id="admin-calendar-month-year">Cargando...</h5>
+                                <button class="btn btn-outline btn-small" onclick="app.admin.changeMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+
+                            <div class="calendar-grid" id="admin-calendar-grid">
+                                <div class="cal-header">Lun</div>
+                                <div class="cal-header">Mar</div>
+                                <div class="cal-header">Mié</div>
+                                <div class="cal-header">Jue</div>
+                                <div class="cal-header">Vie</div>
+                                <div class="cal-header">Sáb</div>
+                                <div class="cal-header">Dom</div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 1rem; margin-top: 1rem; justify-content: center; font-size: 0.9rem;">
+                                <span style="display:flex; align-items:center; gap:0.5rem;"><div style="width:15px;height:15px;background:#e8f5e9;border:1px solid #c8e6c9;border-radius:3px;"></div> Con citas</span>
+                                <span style="display:flex; align-items:center; gap:0.5rem;"><div style="width:15px;height:15px;background:#ffebee;border:1px solid #ffcdd2;border-radius:3px;"></div> Sin citas</span>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha: Citas del día (1/3) -->
+                        <div style="flex: 1; min-width: 220px; border-left: 2px solid var(--color-cream-dark); padding-left: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                                <h4 style="margin: 0;">Citas del <span id="admin-selected-date-text" style="color: var(--color-gold);">día</span></h4>
+                                <button class="btn btn-primary btn-small" onclick="app.admin.addCitaDialog()"><i class="fas fa-plus"></i> Añadir</button>
+                            </div>
+                            <div id="admin-citas-list" class="citas-container admin-style">
+                                <p class="empty-state">Selecciona un día.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- PESTAÑA CATÁLOGO -->
+                <div class="catalog-section card" id="admin-tab-catalog" style="display: none;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap: wrap; gap: 1rem;">
+                        <h3 style="margin: 0;"><i class="fas fa-clipboard-list"></i> Catálogo</h3>
+                        <button class="btn btn-primary btn-small" onclick="document.getElementById('serviceForm').classList.toggle('hidden')"><i class="fas fa-plus"></i> Nuevo Servicio</button>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <input type="text" id="admin-search-service" placeholder="Buscar por nombre..." onkeyup="app.admin.filterServices()" style="width: 100%; padding: 0.8rem 1rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit;">
+                    </div>
+                    
+                    <form id="serviceForm" class="service-form hidden" onsubmit="event.preventDefault(); app.admin.saveService();" style="background:#f9f9f9; padding:1.5rem; border-radius:8px; margin-bottom:2rem; margin-top:-1rem;">
+                        <input type="hidden" id="srv-id">
+                        <div class="input-row">
+                            <input type="text" id="srv-name" placeholder="Nombre del servicio" required style="background:#fff">
+                            <input type="number" id="srv-price" placeholder="Precio (€)" step="0.01" required style="background:#fff">
+                        </div>
+                        <input type="text" id="srv-desc" placeholder="Descripción breve" required style="background:#fff">
+                        <div class="input-row">
+                            <input type="number" id="srv-duration" placeholder="Minutos" required style="background:#fff">
+                            <select id="srv-categoria" required style="background:#fff; padding:0.8rem; border:1px solid #ccc; border-radius:4px; width:100%; font-family:inherit;">
+                                <option value="">Selecciona Categoría...</option>
+                                <option value="Peluquería - Mujer">Peluquería - Mujer</option>
+                                <option value="Peluquería - Hombre">Peluquería - Hombre</option>
+                                <option value="Estética - Mujer">Estética - Mujer</option>
+                                <option value="Estética - Hombre">Estética - Hombre</option>
+                            </select>
+                        </div>
+                        <div class="input-row" style="margin-top: 1rem;">
+                            <button type="submit" class="btn btn-primary" id="btn-save-service">Guardar</button>
+                            <button type="button" class="btn btn-outline" id="btn-cancel-edit" onclick="app.admin.resetServiceForm()">Ocultar</button>
+                        </div>
+                    </form>
+
+                    <div id="admin-services-list" class="admin-services-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+                        <!-- Cards here -->
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script src="client.js"></script>
+    <script src="booking.js"></script>
+    <script src="admin.js"></script>
+    <div id="register-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>¡Regístrate en 1 minuto! ⏱️</h3>
+            <p>Para ver las horas libres y confirmar tu cita, necesitas una cuenta. ¡Es gratis y súper rápido!</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="document.getElementById('register-modal').classList.remove('active')">Cerrar</button>
+                <button class="btn btn-primary" onclick="document.getElementById('register-modal').classList.remove('active'); app.navigateTo('auth'); app.switchAuthTab('register');">Crear cuenta</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-cita-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 800px; padding: 2rem;">
+            <h3 id="admin-cita-modal-title" style="text-align: center; color: var(--color-gold); margin-bottom: 1.5rem;">Añadir Nueva Cita</h3>
+            <form id="adminCitaForm" onsubmit="event.preventDefault(); app.admin.saveCita();">
+                <input type="hidden" id="admin-cita-id">
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                    <div class="input-group" style="flex: 1; margin: 0;">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="admin-cita-userSearch" list="admin-clients-list" placeholder="Cliente (Nombre o ID)" required style="width: 100%; padding: 1rem 1rem 1rem 3rem; border: 1px solid #eee; border-radius: var(--border-radius); font-family: inherit; font-size:1rem; background-color: #fafafa;" autocomplete="off">
+                        <datalist id="admin-clients-list">
+                            <!-- Clientes cargados por JS -->
+                        </datalist>
+                    </div>
+                    
+                    <div class="input-group" style="flex: 1; margin: 0;">
+                        <i class="fas fa-spa"></i>
+                        <select id="admin-cita-servicioId" onchange="app.admin.onModalServiceChange()" required style="width: 100%; padding: 1rem 1rem 1rem 3rem; border: 1px solid #eee; border-radius: var(--border-radius); font-family: var(--font-body); font-size: 1rem; background-color: #fafafa; appearance: none;">
+                            <option value="">Selecciona un Servicio...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- LAYOUT DE CALENDARIO PREMIUM IDENTICO AL CLIENTE -->
+                <div class="step-2-layout" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; justify-content: center;">
+                    <div class="calendar-wrapper" style="flex: 1; min-width: 250px; max-width: 350px;">
+                        <div class="calendar-controls">
+                            <button type="button" class="btn btn-outline btn-small" onclick="app.admin.changeModalMonth(-1)"><i class="fas fa-chevron-left"></i></button>
+                            <h5 id="admin-modal-month-year">Cargando...</h5>
+                            <button type="button" class="btn btn-outline btn-small" onclick="app.admin.changeModalMonth(1)"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+
+                        <div class="calendar-grid" id="admin-modal-calendar-grid">
+                            <div class="cal-header">Lun</div>
+                            <div class="cal-header">Mar</div>
+                            <div class="cal-header">Mié</div>
+                            <div class="cal-header">Jue</div>
+                            <div class="cal-header">Vie</div>
+                            <div class="cal-header">Sáb</div>
+                            <div class="cal-header">Dom</div>
+                        </div>
+                    </div>
+                    
+                    <div id="admin-modal-slots-container" class="time-slots hidden" style="flex: 1; min-width: 250px; border-left: 2px solid var(--color-cream-dark); padding-left: 1rem;">
+                        <h5 style="margin-bottom: 1rem; color: var(--color-dark);">Horas para el <span id="admin-modal-date-text" style="color:var(--color-gold);"></span></h5>
+                        <div id="admin-modal-slots-grid" class="slots-grid">
+                            <p class="empty-state">Selecciona una fecha para buscar hora.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions" style="margin-top: 2rem; justify-content: center; gap: 1rem;">
+                    <button type="button" class="btn btn-outline" onclick="document.getElementById('admin-cita-modal').classList.remove('active')" style="min-width: 150px;">Atrás</button>
+                    <button type="submit" id="btn-admin-modal-submit" class="btn btn-primary" style="min-width: 150px;" disabled>Guardar Cita</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

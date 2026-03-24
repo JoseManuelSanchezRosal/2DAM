@@ -26,10 +26,21 @@
     </script>
 
     <header class="main-header">
+        <div class="mobile-menu-toggle" onclick="app.toggleMenu()" style="display: none;">
+            <i class="fas fa-bars"></i>
+        </div>
         <div class="logo" onclick="app.navigateTo('landing')">
             <img src="img/icons/RosaDorado.png" alt="Rosa Martínez Logo">
         </div>
-        <nav>
+        <div class="mobile-header-right" style="display: none;">
+            <button id="btn-mobile-profile" class="nav-btn icon-btn hidden" onclick="app.navigateToDashboard()">
+                <i class="fas fa-user-circle"></i>
+            </button>
+            <button id="btn-mobile-logout" class="nav-btn icon-btn hidden" onclick="app.logout()">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+        </div>
+        <nav id="nav-menu">
             <button id="btn-nav-landing" class="nav-btn active" onclick="app.navigateTo('landing')">Inicio</button>
             <button id="btn-nav-facilities" class="nav-btn" onclick="app.navigateTo('facilities')">Instalaciones</button>
             <button id="btn-nav-client-zone" class="nav-btn outline-ghost" onclick="app.navigateTo('client-zone')">Zona Clientes</button>
@@ -186,8 +197,8 @@
                             <h4>Paso 2: ¿Cuándo te viene bien?</h4>
                             <div class="selected-service-summary" id="selected-service-info"></div>
                             
-                            <div class="step-2-layout" style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start;">
-                                <div class="calendar-wrapper" style="flex: 1; min-width: 250px;">
+                            <div class="step-2-layout">
+                                <div class="calendar-wrapper">
                                     <div class="calendar-controls">
                                         <button class="btn btn-outline btn-small" onclick="app.bookingWizard.changeMonth(-1)"><i class="fas fa-chevron-left"></i></button>
                                         <h5 id="calendar-month-year">Cargando...</h5>
@@ -208,7 +219,7 @@
                                     </div>
                                 </div>
                                 
-                                <div id="time-slots-container" class="time-slots hidden" style="flex: 1; min-width: 250px;">
+                                <div id="time-slots-container" class="time-slots hidden">
                                     <h5>Horas para el <span id="selected-date-text"></span></h5>
                                     <div id="time-slots-grid" class="slots-grid">
                                     </div>
@@ -268,7 +279,7 @@
                     <p>reservas@rmbeauty.com</p>
                     <br>
                     <h3><i class="far fa-clock"></i> Horario</h3>
-                    <p>L-V: 10:00 - 20:00<br>Sábados: 10:00 - 14:00</p>
+                    <p>Martes a Viernes: 10:00 - 19:00<br>Sábados: 10:00 - 14:00</p>
                 </div>
                 
                 <div class="contact-form card">
@@ -418,6 +429,15 @@
                         <input type="text" id="srv-desc" placeholder="Descripción breve" required style="background:#fff">
                         <div class="input-row">
                             <input type="number" id="srv-duration" placeholder="Minutos" required style="background:#fff">
+                            <select id="srv-categoria" required style="background:#fff; padding:0.8rem; border:1px solid #ccc; border-radius:4px; width:100%; font-family:inherit;">
+                                <option value="">Selecciona Categoría...</option>
+                                <option value="Peluquería - Mujer">Peluquería - Mujer</option>
+                                <option value="Peluquería - Hombre">Peluquería - Hombre</option>
+                                <option value="Estética - Mujer">Estética - Mujer</option>
+                                <option value="Estética - Hombre">Estética - Hombre</option>
+                            </select>
+                        </div>
+                        <div class="input-row" style="margin-top: 1rem;">
                             <button type="submit" class="btn btn-primary" id="btn-save-service">Guardar</button>
                             <button type="button" class="btn btn-outline" id="btn-cancel-edit" onclick="app.admin.resetServiceForm()">Ocultar</button>
                         </div>

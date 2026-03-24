@@ -1,4 +1,7 @@
-const API_URL = "http://localhost:8082/api";
+const hostname = window.location.hostname;
+const API_URL = (hostname === 'localhost' || hostname === '127.0.0.1') 
+    ? "http://localhost:8082/api" 
+    : `http://${hostname}:8082/api`;
 
 const app = {
     state: {
@@ -30,6 +33,12 @@ const app = {
 
     // ======== ROUTING ========
     navigateTo: function(viewId) {
+        // Auto-close mobile menu if open
+        const navMenu = document.getElementById('nav-menu');
+        if (navMenu && navMenu.classList.contains('nav-menu-open')) {
+            navMenu.classList.remove('nav-menu-open');
+        }
+
         // Hide all views
         document.querySelectorAll('.view').forEach(el => el.classList.remove('active-view'));
         // Remove active class from nav
@@ -54,11 +63,23 @@ const app = {
             }
             const logoutBtn = document.getElementById('btn-logout');
             if(logoutBtn) logoutBtn.classList.remove('hidden');
+            
+            // Mobile icons
+            const mobileProfileBtn = document.getElementById('btn-mobile-profile');
+            if(mobileProfileBtn) mobileProfileBtn.classList.remove('hidden');
+            const mobileLogoutBtn = document.getElementById('btn-mobile-logout');
+            if(mobileLogoutBtn) mobileLogoutBtn.classList.remove('hidden');
         } else {
             const adminBtn = document.getElementById('btn-nav-dashboard');
             if(adminBtn) adminBtn.classList.add('hidden');
             const logoutBtn = document.getElementById('btn-logout');
             if(logoutBtn) logoutBtn.classList.add('hidden');
+            
+            // Mobile icons
+            const mobileProfileBtn = document.getElementById('btn-mobile-profile');
+            if(mobileProfileBtn) mobileProfileBtn.classList.add('hidden');
+            const mobileLogoutBtn = document.getElementById('btn-mobile-logout');
+            if(mobileLogoutBtn) mobileLogoutBtn.classList.add('hidden');
             
             const clientZoneBtn = document.getElementById('btn-nav-client-zone');
             if(clientZoneBtn) clientZoneBtn.classList.add('highlight');
@@ -101,6 +122,13 @@ const app = {
     },
 
     // ======== UTILS ========
+    toggleMenu: function() {
+        const navMenu = document.getElementById('nav-menu');
+        if (navMenu) {
+            navMenu.classList.toggle('nav-menu-open');
+        }
+    },
+
     getAuthHeaders: function() {
         return {
             "Authorization": `Bearer ${this.state.token}`,
