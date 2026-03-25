@@ -56,10 +56,10 @@
             <div class="hero-section scale-up-anim crown-box">
                 <div class="hero-content">
                     <img src="img/icons/RosaDorado.png" alt="Rosa Martínez Logo" class="hero-logo scale-up-anim">
-                    <h1>Tu belleza, nuestra prioridad</h1>
-                    <p>Reserva tu cita online 24/7 y disfruta de una experiencia exclusiva en un ambiente diseñado para tu bienestar.</p>
+                    <h1>Tu belleza, nuestra pasión</h1>
+                    <p>Reserva en segundos y comienza a disfrutar de una experiencia pensada únicamente para ti.</p>
                     <button class="btn btn-primary btn-large go-client-zone" onclick="app.navigateTo('client-zone')">
-                        <i class="far fa-calendar-check"></i> Consultar Disponibilidad
+                        <i class="far fa-calendar-check"></i> Reservar mi momento
                     </button>
                 </div>
             </div>
@@ -67,18 +67,18 @@
             <div class="features-section">
                 <div class="feature-card">
                     <i class="fas fa-clock"></i>
-                    <h3>Reserva 24/7</h3>
-                    <p>Elige tu momento ideal sin esperas ni llamadas.</p>
+                    <h3>Reserva cuando quieras</h3>
+                    <p>Sin esperas ni llamadas. Tu tiempo, a tu ritmo.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-spa"></i>
-                    <h3>Servicios Premium</h3>
-                    <p>Tratamientos personalizados de la más alta calidad.</p>
+                    <h3>Servicios de lujo</h3>
+                    <p>Tratamientos exclusivos pensados para mimarte en cada visita.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-mobile-alt"></i>
-                    <h3>Fácil y Rápido</h3>
-                    <p>Gestiona tus citas desde tu móvil en segundos.</p>
+                    <h3>Siempre a tu lado</h3>
+                    <p>Gestiona tus citas desde cualquier dispositivo en cualquier momento.</p>
                 </div>
             </div>
 
@@ -87,16 +87,16 @@
         <section id="view-auth" class="view fade-in">
             <div class="auth-container crown-box bg-white">
                 <div class="auth-tabs">
-                    <button class="auth-tab active" onclick="app.switchAuthTab('login')">Iniciar Sesión</button>
-                    <button class="auth-tab" onclick="app.switchAuthTab('register')">Registrarse</button>
+                    <button class="auth-tab active" onclick="app.switchAuthTab('login')">Acceder</button>
+                    <button class="auth-tab" onclick="app.switchAuthTab('register')">Crear cuenta</button>
                 </div>
 
                 <div id="form-login" class="auth-form-wrapper active">
-                    <h2>Bienvenido de nuevo</h2>
+                    <h2>¡Qué alegría verte de nuevo!</h2>
                     <form id="loginForm" onsubmit="event.preventDefault(); app.login();">
                         <div class="input-group">
                             <i class="fas fa-envelope"></i>
-                            <input type="email" id="login-email" placeholder="Correo Electrónico" required>
+                            <input type="email" id="login-email" placeholder="Correo electrónico" required>
                         </div>
                         <div class="input-group">
                             <i class="fas fa-lock"></i>
@@ -108,15 +108,15 @@
                 </div>
 
                 <div id="form-register" class="auth-form-wrapper">
-                    <h2>Crea tu cuenta</h2>
+                    <h2>Un placer darte la bienvenida</h2>
                     <form id="registerForm" onsubmit="event.preventDefault(); app.register();">
                         <div class="input-group">
                             <i class="fas fa-user"></i>
-                            <input type="text" id="reg-name" placeholder="Nombre completo" required>
+                            <input type="text" id="reg-name" placeholder="Tu nombre" required>
                         </div>
                         <div class="input-group">
                             <i class="fas fa-envelope"></i>
-                            <input type="email" id="reg-email" placeholder="Correo Electrónico" required>
+                            <input type="email" id="reg-email" placeholder="Correo electrónico" required>
                         </div>
                         <div class="input-group">
                             <i class="fas fa-phone"></i>
@@ -124,9 +124,9 @@
                         </div>
                         <div class="input-group">
                             <i class="fas fa-lock"></i>
-                            <input type="password" id="reg-password" placeholder="Contraseña" required>
+                            <input type="password" id="reg-password" placeholder="Crea tu contraseña" required>
                         </div>
-                        <button type="submit" class="btn btn-secondary btn-full">Registrarse</button>
+                        <button type="submit" class="btn btn-secondary btn-full">Crear mi cuenta</button>
                         <p id="register-error" class="error-msg"></p>
                     </form>
                 </div>
@@ -151,26 +151,27 @@
         <section id="view-client-zone" class="view fade-in">
             <div class="crown-box bg-white">
                 <div class="dashboard-header" id="client-logged-in-header" style="display: none; margin-bottom: 2rem;">
-                <h2>Hola, <span id="client-name-display">Cliente</span></h2>
-                <p>Bienvenido a tu panel de gestión.</p>
+                <h2>Encantados de verte, <span id="client-name-display">clienta</span> ✨</h2>
+                <p style="color: var(--color-light-text);">Tu espacio personal de belleza.</p>
             </div>
             
             <div class="dashboard-header text-center" id="client-logged-out-header" style="margin-bottom: 2rem;">
-                <h2>Reserva de Citas</h2>
-                <p style="color: var(--color-light-text);">Selecciona tus servicios para reservar hora. Si ya tienes cuenta, <strong style="color: var(--color-gold); cursor: pointer; text-decoration: underline; font-weight: 800;" onclick="app.navigateTo('auth'); app.switchAuthTab('login');">Inicia Sesión aquí</strong></p>
+                <h2>Elige tu tratamiento</h2>
+                <p style="color: var(--color-light-text);">Selecciona el cuidado que deseas y elige el momento que mejor te vaya. Si ya tienes cuenta, <strong style="color: var(--color-gold); cursor: pointer; text-decoration: underline; font-weight: 800;" onclick="app.navigateTo('auth'); app.switchAuthTab('login');">accede aquí</strong></p>
             </div>
 
             <div class="client-grid" style="gap: 2rem; max-width: 1200px; margin: 0 auto;">
                 
                 <!-- CALENDAR WIDGET -->
                 <div class="booking-section card">
-                    <h3 style="text-align: center; margin-bottom: 0.5rem;"><i class="far fa-calendar-alt"></i> Consulta nuestra disponibilidad</h3>
-                    <p style="text-align: center; color: var(--color-light-text); margin-bottom: 2rem;">Selecciona un tratamiento para ver los huecos libres.</p>
+                    <h3 class="hidden-mobile" style="text-align: center; margin-bottom: 0.5rem;"><i class="far fa-calendar-alt"></i> Consulta nuestra disponibilidad</h3>
+                    <p class="hidden-mobile" style="text-align: center; color: var(--color-light-text); margin-bottom: 2rem;">Selecciona un tratamiento para ver los huecos libres.</p>
                     
                     <div id="booking-wizard">
                         <div id="step-1" class="wizard-step active">
-                            <h4>Paso 1: ¿Qué servicio deseas?</h4>
+                            <h4 class="hidden-mobile">¿Qué cuidado deseas hoy?</h4>
                             
+                            <!-- FILTROS CATEGORIA: visible solo en escritorio -->
                             <div class="category-tabs" id="service-category-tabs">
                                 <button class="chip active" onclick="app.bookingWizard.renderServices('Todos')">Todos</button>
                                 <button class="chip" onclick="app.bookingWizard.renderServices('Peluquería - Mujer')">Pelo Mujer</button>
@@ -179,22 +180,30 @@
                                 <button class="chip" onclick="app.bookingWizard.renderServices('Estética - Hombre')">Estética H</button>
                             </div>
 
+                            <!-- BUSCADOR: visible solo en móvil -->
+                            <div class="mobile-search-bar">
+                                <div class="input-group" style="margin-bottom: 1rem;">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="mobile-service-search" placeholder="Busca tu tratamiento..." oninput="app.bookingWizard.filterMobileServices(this.value)">
+                                </div>
+                            </div>
+
                             <div class="services-list-ux" id="client-services-list">
-                                <!-- Servicos injectados aquí -->
+                                <!-- Servicios inyectados aquí -->
                             </div>
                             
                             <!-- CAJA FLOTANTE CHECKOUT -->
                             <div id="checkout-summary" class="checkout-floating hidden">
                                 <div>
-                                    <p style="margin: 0; font-size: 0.9rem; color: var(--color-light-text);">Total Seleccionado:</p>
+                                    <p style="margin: 0; font-size: 0.9rem; color: var(--color-light-text);">Tu selección:</p>
                                     <h3 style="margin: 0; color: var(--color-dark);"><span id="checkout-total-price">0.00</span>€ <small style="font-size:0.8rem; color:var(--color-light-text); font-weight: normal;">(<span id="checkout-total-duration">0</span> min)</small></h3>
                                 </div>
-                                <button class="btn btn-primary" onclick="app.bookingWizard.goToStep2()">Continuar <i class="fas fa-arrow-right"></i></button>
+                                <button class="btn btn-primary" onclick="app.bookingWizard.goToStep2()">Ver disponibilidad <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
 
                         <div id="step-2" class="wizard-step">
-                            <h4>Paso 2: ¿Cuándo te viene bien?</h4>
+                            <h4>Elige tu momento perfecto</h4>
                             <div class="selected-service-summary" id="selected-service-info"></div>
                             
                             <div class="step-2-layout">
@@ -231,7 +240,7 @@
                         </div>
 
                         <div id="step-3" class="wizard-step">
-                            <h4>Paso 3: Confirma tu reserva</h4>
+                            <h4>Confirma tu cita</h4>
                             <div class="confirmation-summary">
                                 <p><strong>Servicio:</strong> <span id="confirm-service"></span></p>
                                 <p><strong>Fecha y Hora:</strong> <span id="confirm-datetime"></span></p>
@@ -240,7 +249,7 @@
                             </div>
                             <div class="wizard-actions">
                                 <button class="btn btn-outline" onclick="app.bookingWizard.prevStep()">Modificar</button>
-                                <button class="btn btn-success" onclick="app.bookingWizard.confirmBooking()">Confirmar Reserva</button>
+                                <button class="btn btn-success" onclick="app.bookingWizard.confirmBooking()">Reservar mi cita</button>
                             </div>
                         </div>
                     </div>
@@ -248,13 +257,13 @@
                 <!-- FIN CALENDAR WIDGET -->
 
                 <div class="my-appointments-section card" id="my-appointments-card" style="display: none;">
-                    <h3><i class="far fa-calendar-alt"></i> Mis Próximas Citas</h3>
+                    <h3><i class="far fa-calendar-alt"></i> Tus próximas citas</h3>
                     <div id="client-citas-list" class="citas-container">
-                        <p class="empty-state">No tienes citas programadas.</p>
+                        <p class="empty-state">Aún no tienes ninguna cita. ¡Reserva tu momento ahora!</p>
                     </div>
                     
                     <div class="danger-zone mt-4">
-                        <button class="btn btn-danger btn-small" onclick="app.deleteAccount()"><i class="fas fa-user-times"></i> Dar de baja mi cuenta</button>
+                        <button class="btn btn-danger btn-small" onclick="app.deleteAccount()"><i class="fas fa-user-times"></i> Cancelar mi cuenta</button>
                     </div>
                 </div>
             </div>
@@ -265,39 +274,31 @@
             <div class="crown-box bg-white">
                 <div class="dashboard-header text-center" style="margin-bottom: 3rem;">
                 <h2 style="text-align: center; font-size: 2.5rem; font-weight: bold;">Contacto</h2>
-                <p style="text-align: center;">Estamos aquí para ayudarte. Contáctanos por cualquier vía.</p>
+                <p style="text-align: center; color: var(--color-light-text); font-size: 1.1rem;">Visite nuestro Salón</p>
             </div>
             <div class="contact-grid">
                 <div class="contact-info card">
                     <h3><i class="fas fa-map-marker-alt"></i> Dónde estamos</h3>
-                    <p>Av. Primavera 123, Local 2, 28080 Madrid</p>
+                    <p>Rosa Martínez Salón de Belleza<br>C. Rosalía de Castro, 3<br>14120 Fuente Palmera, Córdoba</p>
                     <br>
                     <h3><i class="fas fa-phone-alt"></i> Teléfono</h3>
                     <p>+34 600 111 222</p>
-                    <br>
-                    <h3><i class="fas fa-envelope"></i> Email</h3>
-                    <p>reservas@rmbeauty.com</p>
                     <br>
                     <h3><i class="far fa-clock"></i> Horario</h3>
                     <p>Martes a Viernes: 10:00 - 19:00<br>Sábados: 10:00 - 14:00</p>
                 </div>
                 
-                <div class="contact-form card">
-                    <h3>Envíanos un mensaje</h3>
-                    <form onsubmit="event.preventDefault(); app.showToast('Mensaje enviado. ¡Te responderemos pronto!', 'success'); this.reset();">
-                        <div class="input-group">
-                            <i class="fas fa-user"></i>
-                            <input type="text" placeholder="Tu nombre" required>
-                        </div>
-                        <div class="input-group">
-                            <i class="fas fa-envelope"></i>
-                            <input type="email" placeholder="Tu email" required>
-                        </div>
-                        <div style="margin-bottom: 1.5rem;">
-                            <textarea placeholder="Tu mensaje" rows="4" required style="width: 100%; padding: 1rem; border: 1px solid #ccc; border-radius: 8px; font-family: inherit; resize: vertical;"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-full">Enviar mensaje</button>
-                    </form>
+                <div class="contact-form card" style="padding: 0; overflow: hidden; border-radius: var(--border-radius);">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Rosa+Mart%C3%ADnez+Sal%C3%B3n+de+Belleza%2C+C.+Rosal%C3%ADa+de+Castro%2C+3%2C+14120+Fuente+Palmera%2C+C%C3%B3rdoba&output=embed"
+                        width="100%"
+                        height="100%"
+                        style="border: 0; display: block; min-height: 350px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Ubicación de Rosa Martínez Salón de Belleza">
+                    </iframe>
                 </div>
             </div>
             </div>
@@ -462,11 +463,11 @@
     <script src="admin.js"></script>
     <div id="register-modal" class="modal-overlay">
         <div class="modal-content">
-            <h3>¡Regístrate en 1 minuto! ⏱️</h3>
-            <p>Para ver las horas libres y confirmar tu cita, necesitas una cuenta. ¡Es gratis y súper rápido!</p>
+            <h3>Éndate un momento ✨</h3>
+            <p>Para ver nuestra disponibilidad y confirmar tu cita necesitas una cuenta. ¡Es rápido, sencillo y completamente gratis!</p>
             <div class="modal-actions">
-                <button class="btn btn-outline" onclick="document.getElementById('register-modal').classList.remove('active')">Cerrar</button>
-                <button class="btn btn-primary" onclick="document.getElementById('register-modal').classList.remove('active'); app.navigateTo('auth'); app.switchAuthTab('register');">Crear cuenta</button>
+                <button class="btn btn-outline" onclick="document.getElementById('register-modal').classList.remove('active')">Ahora no</button>
+                <button class="btn btn-primary" onclick="document.getElementById('register-modal').classList.remove('active'); app.navigateTo('auth'); app.switchAuthTab('register');">Crear mi cuenta</button>
             </div>
         </div>
     </div>

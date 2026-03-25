@@ -42,17 +42,17 @@ app.login = async function() {
                 localStorage.setItem("auth_email", app.state.userEmail);
                 localStorage.setItem("auth_id", app.state.userId);
 
-                app.showToast("¡Bienvenido de nuevo!", "success");
+                app.showToast("¡Bienvenida de nuevo! Qué alegría verte.", "success");
                 app.navigateToDashboard();
             } else {
-                errorMsg.textContent = "Credenciales incorrectas.";
+                errorMsg.textContent = "Las credenciales no son correctas. Vuelve a intentarlo.";
             }
         } else {
-            errorMsg.textContent = "Credenciales incorrectas.";
+            errorMsg.textContent = "Las credenciales no son correctas. Vuelve a intentarlo.";
         }
     } catch (error) {
         console.error("Login Error:", error);
-        app.showToast("Error de conexión con el servidor", "error");
+        app.showToast("No hemos podido conectar con el servidor. Comprueba tu red.", "error");
     }
 };
 
@@ -71,15 +71,15 @@ app.register = async function() {
         });
 
         if (response.ok) {
-            app.showToast("Cuenta creada con éxito. Por favor, inicia sesión.", "success");
+            app.showToast("¡Tu cuenta ha sido creada con éxito! Ya puedes acceder.", "success");
             app.switchAuthTab('login');
             document.getElementById("login-email").value = email;
         } else {
-            errorMsg.textContent = "Error al completar el registro. Inténtalo de nuevo.";
+            errorMsg.textContent = "No hemos podido completar el registro. Inténtalo de nuevo.";
         }
     } catch (error) {
         console.error("Register Error:", error);
-        app.showToast("Error de conexión con el servidor", "error");
+        app.showToast("No hemos podido conectar con el servidor. Comprueba tu red.", "error");
     }
 };
 
@@ -88,12 +88,12 @@ app.logout = function() {
     app.state.token = null;
     app.state.userRole = null;
     app.navigateTo('landing');
-    app.showToast("Has cerrado sesión", "info");
+    app.showToast("Hasta pronto. ¡Te esperamos!", "info");
 };
 
 app.deleteAccount = function() {
-    if(confirm("¿Estás seguro de que deseas dar de baja tu cuenta? Esta acción no se puede deshacer y perderás todas tus reservas.")){
-        app.showToast("Cuenta eliminada correctamente.", "success");
+    if(confirm("¿Deseas cancelar tu cuenta? Esta acción no se puede deshacer y perderás todas tus reservas.")){
+        app.showToast("Cuenta cancelada. Esperamos verte de nuevo pronto.", "success");
         app.logout();
     }
 };

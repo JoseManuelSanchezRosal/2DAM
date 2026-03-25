@@ -33,13 +33,14 @@
 
 body {
     font-family: var(--font-body);
+    font-size: 17px;
     background-color: var(--color-cream);
     background-image: url('img/marble_bg.png');
     background-size: cover;
     background-attachment: fixed; /* Mantiene la textura fija al hacer scroll */
     background-position: center;
     color: var(--color-dark-text);
-    line-height: 1.6;
+    line-height: 1.7;
     overflow-x: hidden;
 }
 
@@ -442,12 +443,12 @@ nav {
 @media (min-width: 900px) {
     .client-grid {
         grid-template-columns: 1fr;
-        max-width: 900px !important;
+        max-width: 1150px !important;
         margin: 0 auto;
     }
     .client-grid.logged-in-grid {
-        grid-template-columns: minmax(0, 900px) 350px;
-        max-width: 1350px !important;
+        grid-template-columns: minmax(0, 1fr) 350px;
+        max-width: 1400px !important;
         justify-content: center;
     }
     .admin-grid {
@@ -1006,34 +1007,63 @@ nav {
 
 .services-list-ux {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     width: 100%;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 900px) {
     .services-list-ux {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
+/* === TARJETAS DE SERVICIOS (MODO CLIENTE: icono + título, hover muestra descripción) === */
 .service-card-app {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem;
+    justify-content: center;
+    padding: 0.75rem 0.5rem;
     background: var(--color-white);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: var(--transition);
     position: relative;
+    overflow: hidden;
+    min-height: 90px;
+    text-align: center;
+}
+
+/* Overlay de descripción (oculto por defecto, visible en hover) */
+.service-card-app::after {
+    content: attr(data-desc);
+    position: absolute;
+    inset: 0;
+    background: rgba(212, 175, 55, 0.93);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.service-card-app:hover::after {
+    opacity: 1;
 }
 
 .service-card-app:hover {
     border-color: var(--color-gold);
     transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.45); /* Sombra dorada difuminada */
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.45);
 }
 
 .service-card-app.selected {
@@ -1042,105 +1072,20 @@ nav {
     box-shadow: 0 0 0 2px var(--color-gold);
 }
 
+/* Icono centrado */
 .service-icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 1.5rem;
-    width: 75px; 
-    height: 75px;
-    background-color: var(--color-gold); /* El color dorado para la silueta */
-    mix-blend-mode: multiply; /* Fusiona el fondo blanco para hacerlo transparente respecto a la tarjeta */
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.service-custom-icon {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background-color: #fff; /* Asegura que no haya grises/transparentes en la imagen original */
-    filter: grayscale(100%) contrast(200%); /* Convierte la silueta en negro puro sobre blanco puro */
-    mix-blend-mode: screen; /* Vuelve la silueta negra transparente, dejando ver el dorado de atrás. El fondo blanco queda blanco (y luego se vuelve transparente por el multiply del wrapper) */
-}
-
-.service-card-left {
-    flex: 1;
-    padding-right: 1rem;
-}
-
-.service-card-left strong {
-    display: block;
-    font-size: 1.05rem;
-    color: var(--color-primary);
-    margin-bottom: 0.25rem;
-}
-
-.service-card-desc {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--color-light-text);
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
-}
-
-.badge-time {
-    display: inline-block;
-    font-size: 0.75rem;
-    color: var(--color-primary);
-    background: var(--color-cream);
-    padding: 0.2rem 0.5rem;
-    border-radius: 12px;
-}
-
-.service-card-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.5rem;
-}
-
-.service-price-app {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-primary);
-}
-
-.radio-circle {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: transparent;
-    transition: var(--transition);
-}
-
-.service-card-app.selected .radio-circle {
-    border-color: var(--color-gold);
-    background-color: var(--color-gold);
-    color: var(--color-white);
-}
-
-.radio-circle i {
-    font-size: 0.75rem;
-}
-
-.service-icon-wrapper {
-    width: 60px;
-    height: 60px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background-color: var(--color-white);
     border: 1px solid var(--color-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1.25rem;
     flex-shrink: 0;
     transition: var(--transition);
     overflow: hidden;
+    margin: 0 auto 0.4rem auto;
 }
 
 .service-card-app.selected .service-icon-wrapper {
@@ -1155,6 +1100,143 @@ nav {
     mix-blend-mode: multiply;
     opacity: 0.85;
 }
+
+/* Título visible bajo el icono */
+.service-card-left {
+    padding: 0 0.5rem 0.5rem 0.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.service-card-left strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-dark);
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+/* Descripción: OCULTA en el flujo normal del cliente (se muestra sólo via ::after) */
+.service-card-app:not([data-admin]) .service-card-desc {
+    display: none;
+}
+
+.service-card-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-light-text);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.badge-time {
+    display: none; /* Oculto en modo cliente */
+}
+
+.service-card-right {
+    display: none; /* Oculto en modo cliente — precio y checkbox integrados en overlay */
+}
+
+.service-price-app {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+/* Tick de selección superpuesto en esquina superior derecha */
+.service-card-app.selected::before {
+    content: '✓';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 24px;
+    height: 24px;
+    background: var(--color-gold);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 2;
+    line-height: 24px;
+    text-align: center;
+}
+
+/* === TARJETAS EN MODO ADMIN: layout horizontal compacto === */
+.service-card-app[data-admin] {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.75rem;
+    min-height: unset;
+    text-align: left;
+    cursor: default;
+    gap: 0.5rem;
+}
+.service-card-app[data-admin]:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.45);
+}
+.service-card-app[data-admin]::after {
+    /* El overlay dorado se hereda del selector genérico — se activa en hover */
+    border-radius: var(--border-radius);
+}
+.service-card-app[data-admin]::before {
+    content: none;
+}
+.service-card-app[data-admin] .service-icon-wrapper {
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+.service-card-app[data-admin] .service-card-left {
+    flex: 1;
+    padding: 0 0.5rem 0 0;
+    text-align: left;
+    min-width: 0;
+}
+.service-card-app[data-admin] .service-card-left strong {
+    font-size: 0.85rem;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.service-card-app[data-admin] .service-card-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 0.72rem;
+    color: var(--color-light-text);
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+}
+.service-card-app[data-admin] .badge-time {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--color-primary);
+    background: var(--color-cream);
+    padding: 0.1rem 0.4rem;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+.service-card-app[data-admin] .service-card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+    flex-shrink: 0;
+}
+
+/* Helpers de visibilidad por device */
+.hidden-mobile { display: block; } /* visible por defecto en desktop */
+.mobile-search-bar { display: none; } /* oculto en desktop */
 
 /* ================= RESPONSIVE TABLET & MOVILES ================= */
 /* DEFAULT: Desktop/Tablet Base Grid for steps */
@@ -1324,42 +1406,47 @@ nav {
         padding: 6px 0;
     }
     
-    /* 2. Optimización de Tarjetas de Servicios */
-    .service-card-app {
-        flex-direction: row;
-        align-items: center;
-        padding: 12px; /* Reducción de padding interno */
+    /* 2. Optimización de Tarjetas de Servicios en Móvil */
+    /* En móvil: 3 columnas para que cada tarjeta ocupe ~1/3 del ancho */
+    .services-list-ux {
+        grid-template-columns: repeat(3, 1fr) !important;
         gap: 0.5rem;
     }
+    .service-card-app {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0.75rem 0.5rem;
+        min-height: 120px;
+        text-align: center;
+    }
     .service-icon-wrapper {
-        margin: 0;
-        width: 45px;
-        height: 45px;
+        margin: 0 auto 0.5rem auto;
+        width: 48px;
+        height: 48px;
     }
     .service-card-left {
-        flex: 1;
-        padding: 0 0.5rem;
+        padding: 0;
+        width: 100%;
+        text-align: center;
     }
     .service-card-left strong {
-        font-size: 0.95rem; /* Fuente más pequeña */
-        margin-bottom: 2px;
-    }
-    .service-card-desc {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         line-height: 1.2;
-        margin-bottom: 0;
     }
-    .service-card-right {
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: center;
-        gap: 0.25rem;
+    .service-card-app::after {
+        font-size: 0.8rem;
+        padding: 0.75rem;
     }
-    .service-price-app {
-        font-size: 0.95rem;
+
+    /* Ocultar filtros de categoría en móvil, mostrar buscador */
+    .category-tabs {
+        display: none !important;
     }
-    .badge-time {
-        font-size: 0.7rem;
-        padding: 0.1rem 0.4rem;
+    .mobile-search-bar {
+        display: block;
+    }
+    .hidden-mobile {
+        display: none !important;
     }
 }

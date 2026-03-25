@@ -10,7 +10,7 @@ app.client = {
 
     loadMisCitas: async function() {
         const container = document.getElementById('client-citas-list');
-        container.innerHTML = '<p class="empty-state">Buscando citas...</p>';
+        container.innerHTML = '<p class="empty-state">Un momento, consultando tu agenda...</p>';
 
         try {
             console.log("Solicitando citas para el usuario...");
@@ -28,7 +28,7 @@ app.client = {
             container.innerHTML = '';
             
             if (!Array.isArray(citas) || citas.length === 0) {
-                container.innerHTML = '<p class="empty-state">No tienes citas programadas.</p>';
+                container.innerHTML = '<p class="empty-state">Todavía no tienes ninguna cita. ¡Reserva tu momento ahora!</p>';
                 return;
             }
 
@@ -56,7 +56,7 @@ app.client = {
 
         } catch (error) {
             console.error("Fallo completo en loadMisCitas:", error);
-            container.innerHTML = '<p class="error-msg">No se han podido cargar tus citas.</p>';
+            container.innerHTML = '<p class="error-msg">Hubo un problema al cargar tus citas. Por favor, inténtalo de nuevo.</p>';
         }
     },
 
@@ -68,18 +68,18 @@ app.client = {
     },
 
     cancelCita: async function(id) {
-        if(confirm("¿Estás seguro de cancelar esta reserva?")) {
+        if(confirm("¿Deseas cancelar esta reserva? Podrás hacer una nueva cuando quieras.")) {
             try {
                 const response = await fetch(`${API_URL}/citas/${id}`, {
                     method: 'DELETE',
                     headers: app.getAuthHeaders()
                 });
                 if (response.ok || response.status === 204) {
-                    app.showToast("Cita cancelada correctamente", "success");
+                    app.showToast("Reserva cancelada. Ya puedes elegir otro momento.", "success");
                     this.loadMisCitas();
                 }
             } catch (e) {
-                app.showToast("Error al cancelar la cita", "error");
+                app.showToast("Hubo un problema al cancelar. Inténtalo de nuevo.", "error");
             }
         }
     }

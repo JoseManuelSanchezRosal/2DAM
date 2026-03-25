@@ -54,10 +54,16 @@ app.bookingWizard = {
         const container = document.getElementById('client-services-list');
         container.innerHTML = '';
         
+        if (app.state.userRole === 'admin') {
+            container.classList.add('admin-services-mode');
+        } else {
+            container.classList.remove('admin-services-mode');
+        }
+        
         const list = this.groupedServices[groupName] || [];
         
         if (list.length === 0) {
-            container.innerHTML = '<p class="empty-state">No hay servicios en esta categoría.</p>';
+            container.innerHTML = '<p class="empty-state">No hay tratamientos disponibles en esta categoría.</p>';
         }
 
         if (app.state.userRole === 'admin') {
@@ -94,6 +100,8 @@ app.bookingWizard = {
             if (app.state.userRole === 'admin') {
                 const safeObj = JSON.stringify(s).replace(/'/g, "&#39;");
                 div.style.cursor = 'default';
+                div.setAttribute('data-admin', 'true');
+                div.setAttribute('data-desc', s.descripcion);
                 div.innerHTML = `
                     <div class="service-icon-wrapper">
                         <img class="service-custom-icon" src="${iconPath}" alt="Icono">
@@ -111,6 +119,8 @@ app.bookingWizard = {
             } else {
                 const isSelected = this.selectedServices.some(sel => sel.id === s.id);
                 if (isSelected) div.classList.add('selected');
+                // data-desc para el overlay CSS hover
+                div.setAttribute('data-desc', s.descripcion);
                 
                 div.onclick = () => this.toggleService(s.id);
                 div.innerHTML = `
@@ -119,12 +129,6 @@ app.bookingWizard = {
                     </div>
                     <div class="service-card-left">
                         <strong>${s.nombre}</strong>
-                        <span class="service-card-desc">${s.descripcion}</span>
-                        <span class="badge-time"><i class="far fa-clock"></i> ${s.duracionMinutos} min</span>
-                    </div>
-                    <div class="service-card-right">
-                        <span class="service-price-app">${s.precio}€</span>
-                        <div class="service-checkbox"><i class="fas fa-check"></i></div>
                     </div>
                 `;
             }
@@ -136,19 +140,24 @@ app.bookingWizard = {
 
     toggleService: function(id) {
         const service = app.state.services.find(s => s.id === id);
-        const index = this.selectedServices.findIndex(s => s.id === id);
-        const div = document.getElementById(`serv-opt-${id}`);
-        
-        if (index > -1) {
-            // Eliminar
-            this.selectedServices.splice(index, 1);
-            if (div) div.classList.remove('selected');
+        const alreadySelected = this.selectedServices.some(s => s.id === id);
+
+        // Desmarcar todos visualmente
+        this.selectedServices.forEach(s => {
+            const el = document.getElementById(`serv-opt-${s.id}`);
+            if (el) el.classList.remove('selected');
+        });
+
+        if (alreadySelected) {
+            // Si ya estaba seleccionado, lo deseleccionamos
+            this.selectedServices = [];
         } else {
-            // Añadir
-            this.selectedServices.push(service);
+            // Seleccionamos solo este (radio behavior)
+            this.selectedServices = [service];
+            const div = document.getElementById(`serv-opt-${id}`);
             if (div) div.classList.add('selected');
         }
-        
+
         this.updateCheckoutSummary();
     },
     
@@ -178,7 +187,7 @@ app.bookingWizard = {
         
         document.getElementById('selected-service-info').innerHTML = `
             <div style="background: var(--color-cream-dark); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                <strong>Seleccionado:</strong> ${names} (Tiempo total est.: ${totalDuration} min)
+                <strong>Tu elección:</strong> ${names} &mdash; ${totalDuration} min en total
             </div>
         `;
         
@@ -235,7 +244,7 @@ app.bookingWizard = {
 
         const loadingDiv = document.createElement('div');
         loadingDiv.className = 'loading-text';
-        loadingDiv.textContent = 'Buscando huecos...';
+        loadingDiv.textContent = 'Consultando disponibilidad...';
         calGrid.appendChild(loadingDiv);
 
         try {
@@ -336,7 +345,7 @@ app.bookingWizard = {
                 grid.innerHTML = '';
                 
                 if(slots.length === 0) {
-                    grid.innerHTML = '<p>No quedan horas libres este día.</p>';
+                    grid.innerHTML = '<p>Este día no tiene horas disponibles. Prueba con otro.</p>';
                     return;
                 }
 
@@ -358,7 +367,7 @@ app.bookingWizard = {
                 });
             } else {
                 console.error("Error del servidor:", response.status);
-                grid.innerHTML = '<p class="error-msg">Error de permisos o servidor al cargar horas.</p>';
+                grid.innerHTML = '<p class="error-msg">No pudimos cargar las horas. Por favor, inténtalo de nuevo.</p>';
             }
         } catch (error) {
             console.error("Error cargando horas", error);
@@ -375,7 +384,7 @@ app.bookingWizard = {
     
     goToConfirm: function() {
         if (!this.selectedDate || !this.selectedTime) {
-            app.showToast("Debes seleccionar una fecha y una hora", "error");
+            app.showToast("Elige una fecha y hora para continuar.", "error");
             return;
         }
         this.step = 3;
@@ -427,23 +436,72 @@ app.bookingWizard = {
             });
 
             if (response.ok) {
-                app.showToast(this.editingCitaId ? "¡Reserva editada con éxito!" : "¡Reserva confirmada con éxito!", "success");
+                app.showToast(this.editingCitaId ? "¡Tu cita ha sido actualizada con éxito!" : "¡Cita reservada con éxito! Te esperamos.", "success");
                 this.editingCitaId = null;
                 app.client.loadMisCitas();
                 this.init(); 
             } else if (response.status === 409 || response.status === 400) {
                 const msg = await response.text();
-                app.showToast(msg || "Ese hueco ya no está disponible. Por favor, elige otro.", "error");
+                app.showToast(msg || "Ese momento ya no está disponible. Elige otra hora.", "error");
                 this.prevStep();
                 this.loadTimeSlots();
             } else {
                 const msg = await response.text();
                 console.error("Error al confirmar reserva:", response.status, msg);
-                app.showToast("Error al confirmar reserva: " + (msg || response.status), "error");
+                app.showToast("Error al guardar la cita. Inténtalo de nuevo.", "error");
             }
         } catch (error) {
             console.error("Booking Error", error);
-            app.showToast("Error de conexión al guardar cita.", "error");
+            app.showToast("Error de conexión. Comprueba tu red e inténtalo de nuevo.", "error");
         }
+    },
+
+    // Buscador en tiempo real para móvil
+    filterMobileServices: function(query) {
+        const lq = query.toLowerCase().trim();
+        const allServices = this.groupedServices['Todos'] || [];
+        const filtered = lq === '' ? allServices : allServices.filter(s =>
+            s.nombre.toLowerCase().includes(lq) ||
+            (s.descripcion && s.descripcion.toLowerCase().includes(lq))
+        );
+
+        const container = document.getElementById('client-services-list');
+        container.innerHTML = '';
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<p class="empty-state">No encontramos ese tratamiento. Prueba otro término.</p>';
+            return;
+        }
+
+        const getServiceIcon = (nombre, categoria) => {
+            const text = (nombre + ' ' + (categoria || '')).toLowerCase();
+            if (text.includes('hombre') || text.includes('barba') || text.includes('caballero') || text.includes('niño')) return 'img/icons/icon_hombre.png';
+            if (text.includes('maquillaje') || text.includes('pestaña') || text.includes('ceja') || text.includes('mirada')) return 'img/icons/icon_maquillaje_new.png';
+            if (text.includes('manicura') || text.includes('pedicura') || text.includes('uña') || text.includes('esmalte')) return 'img/icons/icon_unas_new.png';
+            if (text.includes('corte') || text.includes('tijera') || text.includes('cortar')) return 'img/icons/icon_corte_new.png';
+            if (text.includes('peinado') || text.includes('lavado') || text.includes('secado') || text.includes('recogido') || text.includes('brushing')) return 'img/icons/icon_peinado_new.png';
+            if (text.includes('color') || text.includes('mecha') || text.includes('tinte') || text.includes('balayage')) return 'img/icons/icon_mujer.png';
+            return 'img/icons/icon_spa.png';
+        };
+
+        filtered.forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'service-card-app';
+            div.id = `serv-opt-${s.id}`;
+            const iconPath = getServiceIcon(s.nombre, s.categoria);
+            const isSelected = this.selectedServices.some(sel => sel.id === s.id);
+            if (isSelected) div.classList.add('selected');
+            div.setAttribute('data-desc', s.descripcion);
+            div.onclick = () => this.toggleService(s.id);
+            div.innerHTML = `
+                <div class="service-icon-wrapper">
+                    <img class="service-custom-icon" src="${iconPath}" alt="Icono">
+                </div>
+                <div class="service-card-left">
+                    <strong>${s.nombre}</strong>
+                </div>
+            `;
+            container.appendChild(div);
+        });
     }
 };
