@@ -32,7 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
         final String token = header.substring(7);
 
         try {
@@ -53,7 +52,6 @@ public class JwtFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             System.err.println("🔴 Error procesando el JWT en el Filtro: " + e.getMessage());
         }
-
         filterChain.doFilter(request, response);
     }
 }

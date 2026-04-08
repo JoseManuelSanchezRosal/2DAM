@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
+
 public class UsuarioController {
     private final RolService rolService;
     private final UsuarioService usuarioService;

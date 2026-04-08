@@ -205,7 +205,6 @@ public class CitaService {
                 throw new IllegalStateException("El tramo horario seleccionado ya se encuentra ocupado. Por favor, elige otro.");
             }
         }
-
         citaExistente.setFecha(nuevaFechaInicio.toLocalDate());
         citaExistente.setHora(nuevaFechaInicio.getHour());
         citaExistente.setMinutos(nuevaFechaInicio.getMinute());

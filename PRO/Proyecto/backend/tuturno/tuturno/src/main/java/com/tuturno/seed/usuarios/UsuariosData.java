@@ -15,6 +15,7 @@ public class UsuariosData {
     private final PasswordEncoder passwordEncoder;
 
     public List<Usuario> getUsuarios() {
+
         // 1. Cliente Registrado (USER)
         Usuario cliente = new Usuario();
         cliente.setNombre("Carlos Cliente");

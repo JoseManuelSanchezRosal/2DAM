@@ -28,7 +28,6 @@ public class CitaController {
         if (authentication == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
         Long realUserId = (Long) authentication.getPrincipal();
         boolean tienePrivilegiosAltos = authentication.getAuthorities().stream()
                 .anyMatch(rol -> rol.getAuthority().equals("ROLE_ADMIN") || rol.getAuthority().equals("ROLE_BOSS"));
@@ -40,7 +39,6 @@ public class CitaController {
                 c.getUsuario().setPassword(null);
             }
         });
-
         return ResponseEntity.ok(citas);
     }
 
@@ -60,7 +58,6 @@ public class CitaController {
             if (!tienePrivilegiosAltos && !realUserId.equals(targetUserId)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("No tienes permisos para crear citas para otros usuarios.");
             }
-
             Cita nuevaCita = citaService.crearCita(request.fechaInicio(), targetUserId, request.servicioIds());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(nuevaCita);
