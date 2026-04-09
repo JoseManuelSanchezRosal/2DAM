@@ -1,7 +1,6 @@
 package ejemplo1;
 
 import java.io.*;
-import java.net.*;
 import java.net.Socket;
 
 public class Cliente {
