@@ -10,14 +10,12 @@ public class ServidorCalc {
         try (ServerSocket ss = new ServerSocket(puerto)) {
             System.out.println("Servidor iniciado. Esperando cliente...");
 
-            // Acepta la conexión del cliente
             try (Socket c = ss.accept();
                  PrintWriter out = new PrintWriter(c.getOutputStream(), true);
                  BufferedReader in = new BufferedReader(new InputStreamReader(c.getInputStream()))) {
 
                 System.out.println("Cliente conectado.");
 
-                // Leer la petición (ej: "SUMA:5:3")
                 String peticion = in.readLine();
                 if (peticion != null) {
                     System.out.println("Petición recibida: " + peticion);
@@ -27,13 +25,20 @@ public class ServidorCalc {
                     int num1 = Integer.parseInt(partes[1]);
                     int num2 = Integer.parseInt(partes[2]);
 
-                    int resultado = switch (operacion) {
-                        case "SUMA" -> num1 + num2;
-                        case "RESTA" -> num1 - num2;
-                        default -> -1;
-                    };
+                    int resultado;
+                    switch (operacion) {
+                        case "SUMA":
+                            resultado = num1 + num2;
+                            break;
+                        case "RESTA":
+                            resultado = num1 - num2;
+                            break;
+                        default:
+                            resultado = -1;
+                            break;
+                    }
 
-                    // Enviar respuesta al cliente                   out.println(resultado);
+                    out.println(resultado);
                     System.out.println("Resultado enviado: " + resultado);
                 }
             }

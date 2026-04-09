@@ -12,12 +12,10 @@ public class ClienteCalc {
              PrintWriter out = new PrintWriter(s.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()))) {
 
-            // 1. Enviar operación al servidor remoto
             String operacion = "SUMA:5:3";
             System.out.println("Enviando al servidor: " + operacion);
             out.println(operacion);
 
-            // 2. Leer resultado calculado devuelto por el servidor
             String resultado = in.readLine();
             System.out.println("Resultado recibido del servidor: " + resultado);
 
