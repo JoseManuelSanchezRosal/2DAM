@@ -25,7 +25,7 @@ public class Usuario {
 
     private String telefono;
 
-    @ManyToOne
-    @JoinColumn(name = "id_rol", nullable = false)
-    private Rol rol;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TipoRol rol = TipoRol.CLIENTE;
 }

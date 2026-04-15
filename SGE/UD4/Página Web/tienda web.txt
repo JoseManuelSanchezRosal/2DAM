@@ -1,0 +1,5 @@
+1- ventas para hacer la compraventa.
+2- meter columna de categoría de productos.
+3- los productos de tienda solo se pueden comprar y recoger en tienda.
+4- los productos de tienda no se pueden ver en la web (solo desde el modulo de ventas de odoo.
+5- solo hacer compraventa online. no de productos de tienda.

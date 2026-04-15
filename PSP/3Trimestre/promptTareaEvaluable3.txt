@@ -1,0 +1,40 @@
+Actúa como un desarrollador Java Senior experto en programación concurrente y Sockets TCP. Tu tarea es implementar un juego de Trivia Multijugador Cliente-Servidor.
+
+REGLA ESTRICTA: Genera el código completamente limpio, SIN NINGÚN TIPO DE COMENTARIO en el código fuente (ni javadoc, ni comentarios en línea). Todo el código debe pertenecer al paquete ActividadEvaluableSockets.
+
+A continuación, detallo la arquitectura, reglas de negocio y las 8 clases exactas que debes crear:
+
+Reglas Generales del Juego
+Lobby y Chat: Mientras el juego no haya iniciado, los clientes que se conectan entran a un lobby y pueden chatear entre ellos (broadcast).
+Preguntas: Consta de 5 rondas. Cada jugador recibe las opciones de las preguntas en un orden aleatorio.
+Tiempo: Los jugadores tienen 10 segundos para responder enviando a, b, c o d.
+Puntuación:
+Respuesta correcta: +1 punto.
+Racha de 3 o más correctas seguidas: +2 puntos.
+Respuesta incorrecta: -1 punto (y se pierde la racha). Si el tiempo se agota y no hay respuesta, no resta puntos pero corta la racha.
+
+Clases de Entidad y Utilidad
+Pregunta.java: POJO con String enunciado, List opciones y String correcta. Constructor y getters.
+GestorArchivos.java:
+cargarPreguntas(): Lee preguntas.txt (separado por punto y coma: Enunciado;Op1;Op2;Op3;Op4;Correcta). Si no existe, lo crea con 5 preguntas de redes por defecto.
+guardarPartidaXML(List clientes): Genera un archivo partidas.xml usando DOM (javax.xml.parsers y Transformer). Estructura: raíz partidas que contiene una partida, y dentro elementos jugador nick="..." puntuacion="...".
+
+Clases del Servidor
+Servidor.java: Clase principal.
+Campos estáticos: lista sincronizada de ClienteHandler (max 10), lista de Pregunta, booleano juegoIniciado y tiempoPorPregunta = 10.
+main(): Carga preguntas usando GestorArchivos, inicia HiloConexiones en el puerto 7000 e inicia ConsolaServidor.
+Métodos clave: iniciarJuego() (bucle de 5 rondas con Thread.sleep de 10s), ordenarRankingManual() (usa ordenamiento de burbuja manual, no Collections.sort), enviarRanking(), enviarGanador(), y broadcastChat(). Al final del juego, guarda el XML y cierra el servidor (System.exit(0)).
+ConsolaServidor.java: Hilo que muestra un menú al administrador: 1. Ver jugadores, 2. Iniciar Trivia (o comando START), 3. Apagar Servidor.
+HiloConexiones.java: Hilo que contiene el ServerSocket(7000). Acepta conexiones en un bucle while (!juegoIniciado y clientes.size() menor a 10). Crea un ClienteHandler por conexión, lo añade a la lista y lo inicia.
+
+Gestión de Clientes en el Servidor
+ClienteHandler.java: Extiende de Thread. Maneja el socket individual.
+Campos: socket, in, out, nick, puntuacion, respuestaActual, racha, lista de misPreguntas, letraCorrectaActual.
+run(): Pide el nick al usuario. Mientras !juegoIniciado, envía los inputs al método broadcastChat del servidor. Si el juego inició, lee la respuesta (solo a, b, c o d) y actualiza respuestaActual.
+prepararPreguntas(): Copia y desordena (shuffle) la lista maestra de preguntas para este cliente.
+enviarSiguientePregunta(int ronda): Desordena las opciones de la pregunta correspondiente, asigna letras (a, b, c, d) y guarda cuál es la letra correcta actual. Envía el bloque de texto al cliente.
+verificarRespuesta(): Aplica la lógica de puntuación y rachas descrita en las Reglas Generales, e informa al cliente si acertó o no.
+
+Clases del Cliente
+Cliente.java: Conecta al Socket("localhost", 7000). Inicia el HiloLecturaCliente. Entra en un bucle leyendo del System.in y enviándolo al servidor mediante PrintWriter.
+HiloLecturaCliente.java: Extiende de Thread. Lee constantemente del BufferedReader del servidor e imprime en consola. Si recibe el mensaje exacto FIN, imprime que el servidor cerró y hace un System.exit(0).

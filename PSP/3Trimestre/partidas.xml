@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<partidas>
+    <partida>
+        <jugador nick="josema" puntuacion="3"/>
+        <jugador nick="esteh" puntuacion="0"/>
+    </partida>
+</partidas>

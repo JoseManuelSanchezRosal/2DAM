@@ -1,4 +1,4 @@
-package ejercicio2;
+package Ejercicio2Numeros;
 
 import java.io.*;
 import java.net.*;
@@ -12,7 +12,7 @@ public class ClienteNumeros {
 
         System.out.println("Intentando conectar al servidor...");
 
-        // Usamos try-with-resources para asegurar que todo se cierra al final
+        // Usamos try-with-resources para asegurar que tod se cierra al final
         try (
                 // 1. Creamos el enchufe (Socket) para conectarnos al servidor
                 Socket socketCliente = new Socket(direccionServidor, puertoServidor);
@@ -37,7 +37,7 @@ public class ClienteNumeros {
                 System.out.print("\nEscribe un comando: ");
                 String comandoUsuario = lectorTeclado.nextLine();
 
-                // Enviamos el comando tal cual al servidor
+                // Enviamos el comando tal cual al servidor para su respuesta...
                 canalSalida.println(comandoUsuario);
 
                 // Si el comando es CERRAR, cambiamos la variable para romper el bucle y terminar
@@ -46,6 +46,7 @@ public class ClienteNumeros {
                     sesionActiva = false;
                 } else {
                     // Si no estamos cerrando, esperamos la respuesta del servidor y la mostramos
+                    // Mirar las variables...
                     String respuestaServidor = canalEntrada.readLine();
                     System.out.println("Servidor responde: " + respuestaServidor);
                 }

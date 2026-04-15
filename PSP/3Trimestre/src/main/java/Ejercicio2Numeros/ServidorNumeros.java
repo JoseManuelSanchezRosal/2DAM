@@ -1,4 +1,4 @@
-package ejercicio2;
+package Ejercicio2Numeros;
 
 import java.io.*;
 import java.net.*;

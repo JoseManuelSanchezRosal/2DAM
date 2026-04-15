@@ -1,0 +1,5 @@
+¿Cual es el protocolo que traduce nombres de dominio a IP?;FTP;HTTP;DNS;SSH;DNS
+¿Que puerto usa por defecto HTTPS?;80;443;21;22;443
+¿Que capa del modelo OSI maneja el enrutamiento?;Red;Enlace;Transporte;Aplicacion;Red
+¿Comando para ver la IP en Windows?;ifconfig;ping;traceroute;ipconfig;ipconfig
+¿Cual es la IP de localhost?;192.168.1.1;127.0.0.1;10.0.0.1;0.0.0.0;127.0.0.1

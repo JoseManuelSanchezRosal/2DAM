@@ -23,7 +23,7 @@ public class CitaController {
     private final CitaService citaService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'BOSS', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'BOSS', 'ADMIN')")
     public ResponseEntity<List<Cita>> listar(Authentication authentication) {
         if (authentication == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -43,7 +43,7 @@ public class CitaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('USER', 'BOSS', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'BOSS', 'ADMIN')")
     public ResponseEntity<?> crear(@RequestBody CitaRequestDTO request, Authentication authentication) {
         try {
             if (authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -69,7 +69,7 @@ public class CitaController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER', 'BOSS', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'BOSS', 'ADMIN')")
     public ResponseEntity<?> modificar(@PathVariable Long id, @RequestBody CitaRequestDTO request, Authentication authentication) {
         try {
             if (authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -97,7 +97,7 @@ public class CitaController {
     }
 
     @GetMapping("/disponibles")
-    @PreAuthorize("hasAnyRole('USER', 'BOSS', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'BOSS', 'ADMIN')")
     public ResponseEntity<List<SlotDto>> getDisponibilidad(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
             @RequestParam List<Long> servicioIds) {
@@ -105,7 +105,7 @@ public class CitaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('USER', 'BOSS', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'BOSS', 'ADMIN')")
     public ResponseEntity<?> eliminar(@PathVariable Long id, Authentication authentication) {
         try {
             if (authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

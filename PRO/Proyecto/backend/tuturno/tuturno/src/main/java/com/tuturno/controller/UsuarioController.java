@@ -2,9 +2,7 @@ package com.tuturno.controller;
 
 import com.tuturno.dto.usuario.UsuarioRequestDTO;
 import com.tuturno.dto.usuario.UsuarioResponseDTO;
-import com.tuturno.model.Rol;
 import com.tuturno.model.Usuario;
-import com.tuturno.service.RolService;
 import com.tuturno.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class UsuarioController {
-    private final RolService rolService;
     private final UsuarioService usuarioService;
 
     @GetMapping
@@ -33,8 +30,7 @@ public class UsuarioController {
         usuario.setEmail(request.email());
         usuario.setPassword(request.password());
         usuario.setTelefono(request.telefono());
-        Rol rolCliente = this.rolService.filtrarPorNombre("USER");
-        usuario.setRol(rolCliente);
+
 
         Usuario guardado = usuarioService.guardar(usuario);
         return convertirADTO(guardado);
@@ -51,7 +47,7 @@ public class UsuarioController {
                 usuario.getNombre(),
                 usuario.getEmail(),
                 usuario.getTelefono(),
-                usuario.getRol().getNombre()
+                usuario.getRol().name()
         );
     }
 }

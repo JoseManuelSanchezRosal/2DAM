@@ -3,9 +3,7 @@ package com.tuturno.service;
 import com.tuturno.dto.auth.LoginRequestDTO;
 import com.tuturno.dto.auth.LoginResponseDTO;
 import com.tuturno.dto.auth.RegisterRequestDTO;
-import com.tuturno.model.Rol;
 import com.tuturno.model.Usuario;
-import com.tuturno.repository.RolRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,8 +16,6 @@ public class AuthService {
     private final UsuarioService usuarioService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final RolRepository rolRepository;
-
     public LoginResponseDTO login(LoginRequestDTO loginRequestDto) {
         Optional<Usuario> usuarioEncontrado = this.usuarioService.buscarPorEmail(loginRequestDto.email());
         if (usuarioEncontrado.isEmpty()) {
@@ -44,8 +40,7 @@ public class AuthService {
         // porque UsuarioService.guardar() ya se encarga de encriptarla.
         usuario.setPassword(registerRequestDto.password());
 
-        Rol rol = rolRepository.findByNombre("USER");
-        usuario.setRol(rol);
+
 
         usuarioService.guardar(usuario);
     }

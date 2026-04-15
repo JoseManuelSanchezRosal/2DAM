@@ -41,7 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 Usuario usuario = this.usuarioRepository.findById(userId).orElse(null);
                 if (usuario != null) {
                     // Add the strict ROLE_ prefix so Spring Security `@PreAuthorize("hasAnyRole(...)")` matches.
-                    String roleName = "ROLE_" + usuario.getRol().getNombre().toUpperCase();
+                    String roleName = "ROLE_" + usuario.getRol().name().toUpperCase();
                     
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userId, null, List.of(new SimpleGrantedAuthority(roleName))
