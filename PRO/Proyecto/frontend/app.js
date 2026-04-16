@@ -24,7 +24,7 @@ const app = {
             this.state.userEmail = localStorage.getItem("auth_email") || "";
             // Simulating parsing a JWT for ID (Simplified prototype assumption)
             this.state.userId = localStorage.getItem("auth_id") || 1; 
-            this.state.hasSeenGuide = localStorage.getItem("auth_hasSeenGuide") === "true";
+            this.state.hasSeenGuide = localStorage.getItem(`auth_hasSeenGuide_${this.state.userEmail}`) === "true";
 
             this.navigateToDashboard();
         } else {
@@ -61,11 +61,18 @@ const app = {
 
         // Session controls
         if (app.state.token) {
-            const adminBtn = document.getElementById('btn-nav-dashboard');
+            const adminBtn = document.getElementById('btn-nav-admin');
+            const jefeBtn = document.getElementById('btn-nav-jefe');
+            
             if (app.state.userRole === 'admin') {
                 if(adminBtn) adminBtn.classList.remove('hidden');
+                if(jefeBtn) jefeBtn.classList.add('hidden');
+            } else if (app.state.userRole === 'jefe') {
+                if(adminBtn) adminBtn.classList.add('hidden');
+                if(jefeBtn) jefeBtn.classList.remove('hidden');
             } else {
                 if(adminBtn) adminBtn.classList.add('hidden');
+                if(jefeBtn) jefeBtn.classList.add('hidden');
             }
             const logoutBtn = document.getElementById('btn-logout');
             if(logoutBtn) logoutBtn.classList.remove('hidden');
@@ -76,8 +83,10 @@ const app = {
             const mobileLogoutBtn = document.getElementById('btn-mobile-logout');
             if(mobileLogoutBtn) mobileLogoutBtn.classList.remove('hidden');
         } else {
-            const adminBtn = document.getElementById('btn-nav-dashboard');
+            const adminBtn = document.getElementById('btn-nav-admin');
             if(adminBtn) adminBtn.classList.add('hidden');
+            const jefeBtn = document.getElementById('btn-nav-jefe');
+            if(jefeBtn) jefeBtn.classList.add('hidden');
             const logoutBtn = document.getElementById('btn-logout');
             if(logoutBtn) logoutBtn.classList.add('hidden');
             
@@ -129,8 +138,11 @@ const app = {
         }
 
         if (this.state.userRole === 'admin') {
+            this.navigateTo('superadmin');
+            if (this.superadmin) this.superadmin.init();
+        } else if (this.state.userRole === 'jefe') {
             this.navigateTo('admin');
-            this.admin.init();
+            if (this.admin) this.admin.init();
             
             const fab = document.getElementById('global-help-fab');
             if (fab) fab.style.display = 'flex';
@@ -174,6 +186,47 @@ const app = {
             toast.style.animation = 'slideIn 0.3s ease reverse forwards';
             setTimeout(() => toast.remove(), 300);
         }, 5000);
+    },
+
+    // ⚡ SOLO DESARROLLO — Acceso rápido (llama al backend real)
+    DEV_PASSWORD: '1234',  // ← Cambia esto si tu contraseña de prueba es diferente
+
+    devLogin: async function(email, role) {
+        app.showToast(`Conectando como ${email}…`, 'info');
+        try {
+            const response = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password: app.DEV_PASSWORD })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.token) {
+                    this.state.token     = data.token;
+                    this.state.userRole  = role;
+                    this.state.userEmail = email;
+                    this.state.userName  = email.split('@')[0];
+                    this.state.userId    = data.id || data.userId || null;
+                    this.state.hasSeenGuide = localStorage.getItem(`auth_hasSeenGuide_${email}`) === 'true';
+
+                    localStorage.setItem('auth_token', data.token);
+                    localStorage.setItem('auth_role',  role);
+                    localStorage.setItem('auth_name',  this.state.userName);
+                    localStorage.setItem('auth_email', email);
+                    localStorage.setItem('auth_id',    this.state.userId);
+
+                    this.showToast(`⚡ Acceso rápido como ${email}`, 'success');
+                    this.navigateToDashboard();
+                    return;
+                }
+            }
+            // Si el login falla (credenciales incorrectas)
+            this.showToast(`⚠️ Acceso rápido fallido. Comprueba que el usuario "${email}" existe en la BD con contraseña "${app.DEV_PASSWORD}"`, 'error');
+        } catch (err) {
+            // Servidor no disponible
+            this.showToast(`⚠️ No se pudo conectar al servidor. Asegúrate de que el backend está activo.`, 'error');
+        }
     },
 
     loadServices: async function() {

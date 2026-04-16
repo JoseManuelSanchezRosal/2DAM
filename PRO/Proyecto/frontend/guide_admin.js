@@ -165,7 +165,7 @@ app.startAdminGuide = function() {
 
         app.adminGuideActive = false;
         app.state.hasSeenGuide = true;
-        localStorage.setItem("auth_hasSeenGuide", "true");
+        localStorage.setItem(`auth_hasSeenGuide_${app.state.userEmail}`, "true");
 
         // Cerrar modal de cita si quedó abierto por el paso 6
         document.getElementById('admin-cita-modal').classList.remove('active');
@@ -179,6 +179,14 @@ app.startAdminGuide = function() {
     };
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    app._adminGuideUpdateInterval = setInterval(() => {
+        if (!app.adminGuideActive) {
+            clearInterval(app._adminGuideUpdateInterval);
+            return;
+        }
+        recalcPositions();
+    }, 50);
 
     setTimeout(() => {
         updateAdminGuideUI();

@@ -151,7 +151,7 @@ app.startGuide = function() {
 
         app.guideActive = false;
         app.state.hasSeenGuide = true;
-        localStorage.setItem("auth_hasSeenGuide", "true");
+        localStorage.setItem(`auth_hasSeenGuide_${app.state.userEmail}`, "true");
 
         try {
             await fetch(`${API_URL}/usuarios/onboarding`, {
@@ -160,6 +160,14 @@ app.startGuide = function() {
             });
         } catch (e) {}
     };
+
+    app._guideUpdateInterval = setInterval(() => {
+        if (!app.guideActive) {
+            clearInterval(app._guideUpdateInterval);
+            return;
+        }
+        recalcPositions();
+    }, 50);
 
     setTimeout(() => {
         updateGuideUI();

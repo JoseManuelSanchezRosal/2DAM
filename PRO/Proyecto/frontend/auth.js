@@ -28,21 +28,28 @@ app.login = async function() {
         if (response.ok) {
             const data = await response.json();
             if (data.token) {
-                const role = (email.toLowerCase().includes('admin') || email.toLowerCase().includes('jefe')) ? 'admin' : 'cliente';
+                let role = 'cliente';
+                if (email.toLowerCase().includes('admin')) {
+                    role = 'admin';
+                } else if (email.toLowerCase().includes('jefe')) {
+                    role = 'jefe';
+                }
                 
                 app.state.token = data.token;
                 app.state.userRole = role;
                 app.state.userEmail = email;
                 app.state.userName = email.split('@')[0];
                 app.state.userId = Math.floor(Math.random() * 10) + 1; 
-                app.state.hasSeenGuide = data.hasSeenGuide;
+                
+                const localGuideSeen = localStorage.getItem(`auth_hasSeenGuide_${email}`) === "true";
+                app.state.hasSeenGuide = localGuideSeen || (data.hasSeenGuide === true);
 
                 localStorage.setItem("auth_token", app.state.token);
                 localStorage.setItem("auth_role", app.state.userRole);
                 localStorage.setItem("auth_name", app.state.userName);
                 localStorage.setItem("auth_email", app.state.userEmail);
                 localStorage.setItem("auth_id", app.state.userId);
-                localStorage.setItem("auth_hasSeenGuide", app.state.hasSeenGuide);
+                localStorage.setItem(`auth_hasSeenGuide_${email}`, app.state.hasSeenGuide);
 
                 app.showToast("¡Bienvenida de nuevo! Qué alegría verte.", "success");
                 app.navigateToDashboard();
@@ -86,7 +93,12 @@ app.register = async function() {
 };
 
 app.logout = function() {
-    localStorage.clear();
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("auth_role");
+    localStorage.removeItem("auth_name");
+    localStorage.removeItem("auth_email");
+    localStorage.removeItem("auth_id");
+
     app.state.token = null;
     app.state.userRole = null;
     app.navigateTo('landing');
