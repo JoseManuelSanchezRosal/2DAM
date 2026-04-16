@@ -156,6 +156,13 @@ app.bookingWizard = {
             this.selectedServices = [service];
             const div = document.getElementById(`serv-opt-${id}`);
             if (div) div.classList.add('selected');
+
+            if (app.guideActive && app.guideStep === 1) {
+                setTimeout(() => {
+                    this.goToStep2();
+                    if (app.advanceGuideStep) app.advanceGuideStep(2);
+                }, 400);
+            }
         }
 
         this.updateCheckoutSummary();
@@ -326,6 +333,10 @@ app.bookingWizard = {
         document.getElementById('time-slots-container').classList.remove('hidden');
         
         await this.loadTimeSlots();
+
+        if (app.guideActive && app.guideStep === 2) {
+            if (app.advanceGuideStep) app.advanceGuideStep(3);
+        }
     },
               
     loadTimeSlots: async function() {
@@ -380,6 +391,13 @@ app.bookingWizard = {
         btnElement.classList.add('selected-slot');
         this.selectedTime = timeStr;
         document.getElementById('btn-next-step2').classList.remove('hidden');
+
+        if (app.guideActive && app.guideStep === 3) {
+            setTimeout(() => {
+                this.goToConfirm();
+                if (app.advanceGuideStep) app.advanceGuideStep(4);
+            }, 600);
+        }
     },
     
     goToConfirm: function() {
@@ -440,6 +458,10 @@ app.bookingWizard = {
                 this.editingCitaId = null;
                 app.client.loadMisCitas();
                 this.init(); 
+
+                if (app.guideActive && app.finishGuide) {
+                    app.finishGuide();
+                }
             } else if (response.status === 409 || response.status === 400) {
                 const msg = await response.text();
                 app.showToast(msg || "Ese momento ya no está disponible. Elige otra hora.", "error");

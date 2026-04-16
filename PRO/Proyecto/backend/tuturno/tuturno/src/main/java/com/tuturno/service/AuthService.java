@@ -19,15 +19,15 @@ public class AuthService {
     public LoginResponseDTO login(LoginRequestDTO loginRequestDto) {
         Optional<Usuario> usuarioEncontrado = this.usuarioService.buscarPorEmail(loginRequestDto.email());
         if (usuarioEncontrado.isEmpty()) {
-            return new LoginResponseDTO(null);
+            return new LoginResponseDTO(null, false);
         }
 
         Usuario usuario = usuarioEncontrado.get();
         if (!passwordEncoder.matches(loginRequestDto.password(), usuario.getPassword())) {
-            return new LoginResponseDTO(null);
+            return new LoginResponseDTO(null, false);
         }
 
-        return new LoginResponseDTO(jwtService.createToken(usuario.getId()));
+        return new LoginResponseDTO(jwtService.createToken(usuario.getId()), usuario.isHasSeenGuide());
     }
 
     public void register(RegisterRequestDTO registerRequestDto) {

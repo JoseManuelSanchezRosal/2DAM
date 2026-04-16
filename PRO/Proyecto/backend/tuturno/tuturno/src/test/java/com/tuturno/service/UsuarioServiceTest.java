@@ -68,4 +68,18 @@ class UsuarioServiceTest {
         assertEquals("El email ya está registrado", exception.getMessage());
         verify(repository, never()).save(any(Usuario.class));
     }
+
+    @Test
+    void marcarGuiaCompletada_DebeActualizarYHacerSave_CuandoUsuarioExiste() {
+        Usuario usuarioMock = new Usuario();
+        usuarioMock.setId(1L);
+        usuarioMock.setHasSeenGuide(false);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(usuarioMock));
+
+        service.marcarGuiaCompletada(1L);
+
+        assertTrue(usuarioMock.isHasSeenGuide());
+        verify(repository).save(usuarioMock);
+    }
 }

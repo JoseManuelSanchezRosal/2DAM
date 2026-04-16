@@ -70,3 +70,11 @@ PAGINA 22
 
 2.
 Orden C--A--B
+
+Your Turn
+1- message
+2- connections
+3- connected
+4- new
+5- lose connection
+6- and have a look at it

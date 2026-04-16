@@ -24,6 +24,7 @@ const app = {
             this.state.userEmail = localStorage.getItem("auth_email") || "";
             // Simulating parsing a JWT for ID (Simplified prototype assumption)
             this.state.userId = localStorage.getItem("auth_id") || 1; 
+            this.state.hasSeenGuide = localStorage.getItem("auth_hasSeenGuide") === "true";
 
             this.navigateToDashboard();
         } else {
@@ -41,6 +42,11 @@ const app = {
 
         // Hide all views
         document.querySelectorAll('.view').forEach(el => el.classList.remove('active-view'));
+        
+        // Hide FAB globally by default when navigating
+        const fab = document.getElementById('global-help-fab');
+        if (fab) fab.style.display = 'none';
+
         // Remove active class from nav
         document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active', 'highlight'));
 
@@ -92,13 +98,22 @@ const app = {
             
             if (app.state.token && app.state.userRole !== 'admin') {
                 document.getElementById('client-logged-in-header').style.display = 'block';
+                const fab = document.getElementById('global-help-fab');
+                if (fab) fab.style.display = 'flex';
+                
                 const loggedOutHeader = document.getElementById('client-logged-out-header');
                 if (loggedOutHeader) loggedOutHeader.style.display = 'none';
                 document.getElementById('my-appointments-card').style.display = 'block';
                 if(clientGrid) clientGrid.classList.add('logged-in-grid');
                 if(app.client) app.client.initAuthClient();
+                if (!app.state.hasSeenGuide && app.startGuide) {
+                    setTimeout(() => app.startGuide(), 500);
+                }
             } else {
                 document.getElementById('client-logged-in-header').style.display = 'none';
+                const fab = document.getElementById('global-help-fab');
+                if (fab) fab.style.display = 'none';
+                
                 const loggedOutHeader = document.getElementById('client-logged-out-header');
                 if (loggedOutHeader) loggedOutHeader.style.display = 'block';
                 document.getElementById('my-appointments-card').style.display = 'none';
@@ -116,6 +131,13 @@ const app = {
         if (this.state.userRole === 'admin') {
             this.navigateTo('admin');
             this.admin.init();
+            
+            const fab = document.getElementById('global-help-fab');
+            if (fab) fab.style.display = 'flex';
+            
+            if (!this.state.hasSeenGuide && app.startAdminGuide) {
+                setTimeout(() => app.startAdminGuide(), 500);
+            }
         } else {
             this.navigateTo('client-zone');
         }

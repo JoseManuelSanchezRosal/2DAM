@@ -26,6 +26,12 @@ app.admin = {
 
         const targetTab = document.getElementById(`admin-tab-${tabId}`);
         if(targetTab) targetTab.style.display = 'block';
+        
+        // Admin Guide Hooks
+        if (app.adminGuideActive) {
+            if (tabId === 'catalog' && app.adminGuideStep === 1) app.advanceAdminGuideStep(2);
+            if (tabId === 'calendar' && app.adminGuideStep === 6) app.advanceAdminGuideStep(7);
+        }
     },
 
     changeMonth: function(delta) {
@@ -440,6 +446,10 @@ app.admin = {
         await this.populateServicesDropdown();
         await this.populateClientsDatalist();
         document.getElementById('admin-cita-modal').classList.add('active');
+        
+        if (app.adminGuideActive && app.adminGuideStep === 7) {
+            setTimeout(() => app.advanceAdminGuideStep(8), 200);
+        }
     },
 
     editCitaDialog: async function(citaStr) {
@@ -619,8 +629,11 @@ app.admin = {
         
         document.getElementById('serviceForm').classList.remove('hidden');
         document.getElementById('btn-save-service').textContent = "Actualizar Cambios";
-        document.getElementById('btn-cancel-edit').classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        if (app.adminGuideActive && app.adminGuideStep === 4) {
+            setTimeout(() => app.advanceAdminGuideStep(5), 200);
+        }
     },
 
     resetServiceForm: function() {
@@ -629,7 +642,12 @@ app.admin = {
         document.getElementById('srv-id').value = "";
         document.getElementById('srv-categoria').value = "";
         document.getElementById('btn-save-service').textContent = "Guardar Nuevo";
-        document.getElementById('btn-cancel-edit').classList.add('hidden');
+        
+        if (app.adminGuideActive && app.adminGuideStep === 3) {
+            app.advanceAdminGuideStep(4);
+        } else if (app.adminGuideActive && app.adminGuideStep === 5) {
+            app.advanceAdminGuideStep(6);
+        }
     },
 
     saveService: async function() {

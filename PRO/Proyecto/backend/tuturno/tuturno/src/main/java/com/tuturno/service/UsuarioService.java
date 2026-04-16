@@ -52,8 +52,13 @@ public class UsuarioService {
         return repositorio.findByEmail(email);
     }
 
-    // Elimina a un usuario de la base de datos usando su ID
     public void eliminar(Long id) {
         repositorio.deleteById(id);
+    }
+
+    public void marcarGuiaCompletada(Long id) {
+        Usuario usuario = repositorio.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        usuario.setHasSeenGuide(true);
+        repositorio.save(usuario);
     }
 }

@@ -35,12 +35,14 @@ app.login = async function() {
                 app.state.userEmail = email;
                 app.state.userName = email.split('@')[0];
                 app.state.userId = Math.floor(Math.random() * 10) + 1; 
+                app.state.hasSeenGuide = data.hasSeenGuide;
 
                 localStorage.setItem("auth_token", app.state.token);
                 localStorage.setItem("auth_role", app.state.userRole);
                 localStorage.setItem("auth_name", app.state.userName);
                 localStorage.setItem("auth_email", app.state.userEmail);
                 localStorage.setItem("auth_id", app.state.userId);
+                localStorage.setItem("auth_hasSeenGuide", app.state.hasSeenGuide);
 
                 app.showToast("¡Bienvenida de nuevo! Qué alegría verte.", "success");
                 app.navigateToDashboard();

@@ -151,9 +151,9 @@
         <section id="view-client-zone" class="view fade-in">
             <div class="crown-box bg-white">
                 <div class="dashboard-header" id="client-logged-in-header" style="display: none; margin-bottom: 2rem;">
-                <h2>Encantados de verte, <span id="client-name-display">clienta</span> ✨</h2>
-                <p style="color: var(--color-light-text);">Tu espacio personal de belleza.</p>
-            </div>
+                    <h2>Encantados de verte, <span id="client-name-display">clienta</span> ✨</h2>
+                    <p style="color: var(--color-light-text);">Tu espacio personal de belleza.</p>
+                </div>
             
             <div class="dashboard-header text-center" id="client-logged-out-header" style="margin-bottom: 2rem;">
                 <h2>Elige tu tratamiento</h2>
@@ -414,7 +414,7 @@
                 <div class="catalog-section card" id="admin-tab-catalog" style="display: none;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap: wrap; gap: 1rem;">
                         <h3 style="margin: 0;"><i class="fas fa-clipboard-list"></i> Catálogo</h3>
-                        <button class="btn btn-primary btn-small" onclick="document.getElementById('serviceForm').classList.toggle('hidden')"><i class="fas fa-plus"></i> Nuevo Servicio</button>
+                        <button class="btn btn-primary btn-small" onclick="document.getElementById('serviceForm').classList.toggle('hidden'); if(app.adminGuideActive && app.adminGuideStep === 2) app.advanceAdminGuideStep(3);"><i class="fas fa-plus"></i> Nuevo Servicio</button>
                     </div>
 
                     <div style="margin-bottom: 2rem;">
@@ -461,6 +461,8 @@
     <script src="client.js"></script>
     <script src="booking.js"></script>
     <script src="admin.js"></script>
+    <script src="guide.js"></script>
+    <script src="guide_admin.js"></script>
     <div id="register-modal" class="modal-overlay">
         <div class="modal-content">
             <h3>Éndate un momento ✨</h3>
@@ -530,5 +532,14 @@
             </form>
         </div>
     </div>
+    <button id="global-help-fab" class="fab-help-btn" onclick="if(app.state.userRole === 'admin') { if(app.startAdminGuide) app.startAdminGuide(); } else { if(app.startGuide) app.startGuide(); }" style="display: none; position: fixed; bottom: 30px; right: 30px; border-radius: 30px; padding: 12px 24px; background: var(--color-gold); color: white; border: none; box-shadow: 0 8px 20px rgba(212,175,55,0.4); font-size: 1.05rem; font-weight: 600; cursor: pointer; justify-content: center; align-items: center; gap: 8px; z-index: 9000; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;">
+        <i class="fas fa-magic"></i> Guía Interactiva
+    </button>
+    <style>
+        .fab-help-btn:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 12px 25px rgba(212,175,55,0.6) !important;
+        }
+    </style>
 </body>
 </html>

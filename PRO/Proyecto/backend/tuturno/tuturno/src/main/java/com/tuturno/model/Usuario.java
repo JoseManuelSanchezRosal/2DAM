@@ -28,4 +28,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoRol rol = TipoRol.CLIENTE;
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean hasSeenGuide = false;
 }

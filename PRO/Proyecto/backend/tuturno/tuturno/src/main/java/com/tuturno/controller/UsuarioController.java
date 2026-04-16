@@ -6,6 +6,10 @@ import com.tuturno.model.Usuario;
 import com.tuturno.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -49,5 +53,16 @@ public class UsuarioController {
                 usuario.getTelefono(),
                 usuario.getRol().name()
         );
+    }
+
+    @PatchMapping("/onboarding")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'BOSS', 'ADMIN')")
+    public ResponseEntity<Void> completeOnboarding(Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        Long realUserId = (Long) authentication.getPrincipal();
+        usuarioService.marcarGuiaCompletada(realUserId);
+        return ResponseEntity.ok().build();
     }
 }
