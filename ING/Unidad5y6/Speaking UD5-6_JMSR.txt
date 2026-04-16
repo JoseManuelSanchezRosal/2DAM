@@ -1,0 +1,23 @@
+Speaking
+
+E: Jose, here’s your work plan for next week. Your days off will be Monday and Wednesday and on Friday you’ll be working off-site. On Saturday morning, I want you to drop something at London’s office.
+
+J: Ok, where is the London’s office? I can’t remember.
+
+E: It’s right outside of the train station, in the alley. They need to get installed a new program for work management.
+
+J: Sure boss. Which software should I use?
+
+E: The IT department said they have it ready for you on a hard drive. You only have to insert the hard drive, transfer it to their computers and follow the instructions on the screen.
+
+J: OK, no problem. What else needs to be done?
+
+E: On Tuesday I need you to do some data recovering for the Human Resources department. 
+
+J: How do I get the access to their backup system?
+
+E: I will send an email to you with the credentials necessary. Is everything clear?
+
+J: I think so, thank you Ester.
+
+E: Thank you, keep me updated.

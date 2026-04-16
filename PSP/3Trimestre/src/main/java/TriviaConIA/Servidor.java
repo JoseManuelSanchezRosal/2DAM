@@ -1,4 +1,4 @@
-package ActividadEvaluableSockets;
+package TriviaConIA;
 
 import java.util.ArrayList;
 import java.util.Collections;

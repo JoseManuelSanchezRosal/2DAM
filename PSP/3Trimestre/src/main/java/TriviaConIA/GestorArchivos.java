@@ -1,4 +1,4 @@
-package ActividadEvaluableSockets;
+package TriviaConIA;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

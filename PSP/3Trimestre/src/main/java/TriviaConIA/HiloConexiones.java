@@ -1,4 +1,4 @@
-package ActividadEvaluableSockets;
+package TriviaConIA;
 
 import java.io.IOException;
 import java.net.ServerSocket;

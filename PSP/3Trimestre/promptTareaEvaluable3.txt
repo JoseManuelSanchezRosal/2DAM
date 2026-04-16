@@ -1,6 +1,6 @@
 Actúa como un desarrollador Java Senior experto en programación concurrente y Sockets TCP. Tu tarea es implementar un juego de Trivia Multijugador Cliente-Servidor.
 
-REGLA ESTRICTA: Genera el código completamente limpio, SIN NINGÚN TIPO DE COMENTARIO en el código fuente (ni javadoc, ni comentarios en línea). Todo el código debe pertenecer al paquete ActividadEvaluableSockets.
+REGLA ESTRICTA: Genera el código completamente limpio, SIN NINGÚN TIPO DE COMENTARIO en el código fuente (ni javadoc, ni comentarios en línea). Todo el código debe pertenecer al paquete TriviaConIA.
 
 A continuación, detallo la arquitectura, reglas de negocio y las 8 clases exactas que debes crear:
 
