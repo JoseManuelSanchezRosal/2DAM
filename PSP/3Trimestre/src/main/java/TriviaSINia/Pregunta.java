@@ -65,8 +65,4 @@ public class Pregunta {
     public void setRespuestaCorrecta(String respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
     }
-
-
-
-
 }

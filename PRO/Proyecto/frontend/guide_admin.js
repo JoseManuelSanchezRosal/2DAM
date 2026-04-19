@@ -306,12 +306,14 @@ app.startAdminGuide = function() {
 
         let top, left;
 
-        if (spaceR > tW + m && window.innerWidth > 768) {
-            top  = rect.top + rect.height / 2 - tH / 2;
-            left = rect.right + m;
-        } else if (spaceL > tW + m && window.innerWidth > 768) {
+        if (spaceL > tW + m && window.innerWidth > 768) {
+            // A la izquierda (prioridad)
             top  = rect.top + rect.height / 2 - tH / 2;
             left = rect.left - tW - m;
+        } else if (spaceR > tW + m && window.innerWidth > 768) {
+            // A la derecha (fallback)
+            top  = rect.top + rect.height / 2 - tH / 2;
+            left = rect.right + m;
         } else if (spaceB > tH + m) {
             top  = rect.bottom + m;
             left = Math.max(m, Math.min(rect.left + rect.width / 2 - tW / 2, window.innerWidth - tW - m));

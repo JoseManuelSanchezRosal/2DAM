@@ -157,14 +157,14 @@ app.startGuide = function() {
 
         let tTop, tLeft;
 
-        if (spaceRight > tooltipW + margin && window.innerWidth > 768) {
-            // A la derecha
-            tTop  = rect.top + (rect.height / 2) - (tooltipH / 2);
-            tLeft = rect.right + margin;
-        } else if (spaceLeft > tooltipW + margin && window.innerWidth > 768) {
-            // A la izquierda
+        if (spaceLeft > tooltipW + margin && window.innerWidth > 768) {
+            // A la izquierda (prioridad)
             tTop  = rect.top + (rect.height / 2) - (tooltipH / 2);
             tLeft = rect.left - tooltipW - margin;
+        } else if (spaceRight > tooltipW + margin && window.innerWidth > 768) {
+            // A la derecha (fallback)
+            tTop  = rect.top + (rect.height / 2) - (tooltipH / 2);
+            tLeft = rect.right + margin;
         } else if (spaceBottom > tooltipH + margin) {
             // Debajo del elemento (móvil / pantallas estrechas)
             tTop  = rect.bottom + margin;
