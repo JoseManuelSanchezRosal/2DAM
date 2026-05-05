@@ -1,0 +1,284 @@
+<odoo>
+    <record id="view_hospital_especialidad_search" model="ir.ui.view">
+        <field name="name">hospital.especialidad.search</field>
+        <field name="model">hospital.especialidad</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="consulta"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Consulta" name="group_by_consulta" context="{'group_by':'consulta'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hospital_especialidad_list" model="ir.ui.view">
+        <field name="name">hospital.especialidad.list</field>
+        <field name="model">hospital.especialidad</field>
+        <field name="arch" type="xml">
+            <list decoration-info="consulta">
+                <field name="name" string="Especialidad" decoration-bf="1"/>
+                <field name="consulta" optional="show" widget="badge" decoration-info="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hospital_especialidad_kanban" model="ir.ui.view">
+        <field name="name">hospital.especialidad.kanban</field>
+        <field name="model" >hospital.especialidad</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click oe_kanban_card p-4 d-flex flex-column justify-content-center text-center" style="min-height: 200px;">
+                            <div class="o_kanban_record_top mb-3">
+                                <div class="o_kanban_record_headings">
+                                    <div class="mb-3">
+                                        <t t-if="record.name.raw_value == 'Cardiologia' or record.name.raw_value == 'Cardiología'">
+                                            <i class="fa fa-heartbeat fa-4x text-danger"/>
+                                        </t>
+                                        <t t-elif="record.name.raw_value == 'Nutricion' or record.name.raw_value == 'Nutrición'">
+                                            <i class="fa fa-leaf fa-4x text-success"/>
+                                        </t>
+                                        <t t-elif="record.name.raw_value == 'Aparato Locomotor' or record.name.raw_value == 'Aparato locomotor'">
+                                            <i class="fa fa-wheelchair fa-4x text-warning"/>
+                                        </t>
+                                        <t t-elif="record.name.raw_value == 'Psicologia' or record.name.raw_value == 'Psicología'">
+                                            <i class="fa fa-puzzle-piece fa-4x text-info"/>
+                                        </t>
+                                        <t t-else="">
+                                            <i class="fa fa-user-md fa-4x text-primary"/>
+                                        </t>
+                                    </div>
+                                    <strong class="o_kanban_record_title fs-3 text-dark">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom mt-auto">
+                                <div class="oe_kanban_bottom_center">
+                                    <span class="badge rounded-pill text-bg-info fs-5 px-3 py-2">
+                                        <i class="fa fa-door-open me-2"/>
+                                        <field name="consulta"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_hospital_especialidad_form" model="ir.ui.view">
+        <field name="name">hospital.especialidad.form</field>
+        <field name="model">hospital.especialidad</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Nombre de Especialidad"/>
+                        <h1>
+                            <field name="name" placeholder="Ej. Cardiología"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="consulta" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hospital_medico_search" model="ir.ui.view">
+        <field name="name">hospital.medico.search</field>
+        <field name="model">hospital.medico</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('telefono', 'ilike', self)]"/>
+                <field name="especialidad_id"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Especialidad" name="group_by_especialidad" context="{'group_by':'especialidad_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hospital_medico_list" model="ir.ui.view">
+        <field name="name">hospital.medico.list</field>
+        <field name="model">hospital.medico</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="image" widget="image" class="oe_avatar" options="{'size': [35, 35]}"/>
+                <field name="name" decoration-bf="1"/>
+                <field name="especialidad_id" widget="badge" decoration-primary="1"/>
+                <field name="telefono" widget="phone"/>
+                <field name="fecha_ingreso" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hospital_medico_kanban" model="ir.ui.view">
+        <field name="name">hospital.medico.kanban</field>
+        <field name="model">hospital.medico</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="id"/>
+                <field name="image"/>
+                <field name="name"/>
+                <field name="especialidad_id"/>
+                <field name="telefono"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill p-2" style="min-height: 180px;">
+                            <t t-if="record.image.raw_value">
+                                <div class="o_kanban_image_fill_left d-none d-md-block" 
+                                     t-attf-style="background-image:url('#{kanban_image('hospital.medico', 'image', record.id.raw_value)}'); width: 140px;"/>
+                            </t>
+                            <t t-else="">
+                                <div class="o_kanban_image" style="width: 140px;"/>
+                            </t>
+                            <div class="oe_kanban_details d-flex flex-column justify-content-between p-3">
+                                <div>
+                                    <strong class="o_kanban_record_title fs-3 text-dark"><field name="name"/></strong>
+                                    <div class="mt-2">
+                                        <span class="badge text-bg-primary fs-6 px-3 py-2"><field name="especialidad_id"/></span>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom mt-3">
+                                    <div class="oe_kanban_bottom_left text-muted fs-5">
+                                        <i class="fa fa-phone me-2 text-info"/> <field name="telefono" widget="phone"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_hospital_medico_form" model="ir.ui.view">
+        <field name="name">hospital.medico.form</field>
+        <field name="model">hospital.medico</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar" options="{'preview_image': 'image'}"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" string="Nombre y Apellidos"/>
+                        <h1>
+                            <field name="name" placeholder="Dr. / Dra."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="especialidad_id" widget="selection"/>
+                            <field name="telefono" widget="phone"/>
+                        </group>
+                        <group>
+                            <field name="domicilio"/>
+                            <field name="fecha_ingreso" widget="date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hospital_cita_search" model="ir.ui.view">
+        <field name="name">hospital.cita.search</field>
+        <field name="model">hospital.cita</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="paciente"/>
+                <field name="medico_id"/>
+                <filter string="Citas Futuras" name="citas_futuras" domain="[('fecha_cita', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Médico" name="group_by_medico" context="{'group_by':'medico_id'}"/>
+                    <filter string="Fecha" name="group_by_fecha" context="{'group_by':'fecha_cita:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_hospital_cita_list" model="ir.ui.view">
+        <field name="name">hospital.cita.list</field>
+        <field name="model">hospital.cita</field>
+        <field name="arch" type="xml">
+            <list default_order="fecha_cita desc" decoration-success="fecha_cita &gt;= current_date" decoration-danger="fecha_cita &lt; current_date">
+                <field name="fecha_cita" widget="datetime"/>
+                <field name="paciente" decoration-bf="1"/>
+                <field name="medico_id" widget="many2one_avatar"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hospital_cita_form" model="ir.ui.view">
+        <field name="name">hospital.cita.form</field>
+        <field name="model">hospital.cita</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Programada" bg_color="text-bg-success"/>
+                    <div class="oe_title">
+                        <label for="paciente" class="oe_edit_only" string="Paciente (Nombre y Apellido)"/>
+                        <h1>
+                            <field name="paciente" placeholder="Nombre completo"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="medico_id" widget="many2one_avatar"/>
+                        </group>
+                        <group>
+                            <field name="fecha_cita" widget="datetime"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hospital_especialidad" model="ir.actions.act_window">
+        <field name="name">Especialidades</field>
+        <field name="res_model">hospital.especialidad</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea la primera especialidad del hospital
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hospital_medico" model="ir.actions.act_window">
+        <field name="name">Médicos</field>
+        <field name="res_model">hospital.medico</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registra un nuevo médico
+            </p>
+        </field>
+    </record>
+
+    <record id="action_hospital_cita" model="ir.actions.act_window">
+        <field name="name">Citas</field>
+        <field name="res_model">hospital.cita</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Programa una nueva cita
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_hospital_root" name="Hospital"/>
+    <menuitem id="menu_hospital_especialidades" name="Especialidades" parent="menu_hospital_root" action="action_hospital_especialidad" sequence="10"/>
+    <menuitem id="menu_hospital_medicos" name="Médicos" parent="menu_hospital_root" action="action_hospital_medico" sequence="20"/>
+    <menuitem id="menu_hospital_citas" name="Citas" parent="menu_hospital_root" action="action_hospital_cita" sequence="30"/>
+</odoo>

@@ -1,0 +1,59 @@
+<odoo>
+    <record id="action_report_medicos" model="ir.actions.report">
+        <field name="name">Informe de Médicos</field>
+        <field name="model">hospital.medico</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hospital.report_medicos_template</field>
+        <field name="report_file">hospital.report_medicos_template</field>
+        <field name="binding_model_id" ref="model_hospital_medico"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_medicos_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <h2 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">
+                            Ficha del Médico: <span t-field="doc.name"/>
+                        </h2>
+                        
+                        <div class="row mt32 mb32" style="font-size: 16px;">
+                            <div class="col-8">
+                                <strong>Especialidad:</strong> <span t-field="doc.especialidad_id.name"/><br/>
+                                <strong>Teléfono:</strong> <span t-field="doc.telefono"/><br/>
+                                <strong>Domicilio:</strong> <span t-field="doc.domicilio"/><br/>
+                                <strong>Fecha de Ingreso:</strong> <span t-field="doc.fecha_ingreso"/><br/>
+                            </div>
+                            <div class="col-4 text-center">
+                                <img t-if="doc.image" t-att-src="image_data_uri(doc.image)" style="max-height: 120px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+                            </div>
+                        </div>
+
+                        <h4 class="mt16">Citas Programadas</h4>
+                        <table class="table table-sm table-striped mt8">
+                            <thead style="background-color: #ecf0f1;">
+                                <tr>
+                                    <th>Paciente</th>
+                                    <th>Fecha y Hora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.cita_ids" t-as="cita">
+                                    <tr>
+                                        <td><span t-field="cita.paciente"/></td>
+                                        <td><span t-field="cita.fecha_cita"/></td>
+                                    </tr>
+                                </t>
+                                <tr t-if="not doc.cita_ids">
+                                    <td colspan="2" class="text-center text-muted">No hay citas programadas para este médico.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

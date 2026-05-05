@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hospital_especialidad_mgr,hospital.especialidad,model_hospital_especialidad,group_hospital_manager,1,1,1,1
+access_hospital_medico_mgr,hospital.medico,model_hospital_medico,group_hospital_manager,1,1,1,1
+access_hospital_cita_mgr,hospital.cita,model_hospital_cita,group_hospital_manager,1,1,1,1
+access_hospital_especialidad_user,hospital.especialidad,model_hospital_especialidad,group_hospital_user,1,0,0,0
+access_hospital_medico_user,hospital.medico,model_hospital_medico,group_hospital_user,1,0,0,0
+access_hospital_cita_user,hospital.cita,model_hospital_cita,group_hospital_user,1,1,1,0
