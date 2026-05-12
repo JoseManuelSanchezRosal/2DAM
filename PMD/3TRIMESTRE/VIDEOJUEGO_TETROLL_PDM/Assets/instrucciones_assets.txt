@@ -1,0 +1,2 @@
+Esta carpeta está destinada a guardar recursos como imágenes, audios (.wav, .ogg), etc.
+En el script JuegoPrincipal.gd están preparados los nodos de audio esperando a que se añadan archivos.

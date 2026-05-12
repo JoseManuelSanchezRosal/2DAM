@@ -1,0 +1,58 @@
+1.
+1- d
+2- c
+3- f
+4- b
+5- g
+6- e
+7- a
+
+2.
+1- as soon as possible
+2- deal with
+3- speak up
+4- dial a number
+5- on the line
+6- take a message
+7- in a meeting
+
+3.
+1- remind
+2- hang up
+3- contact
+4- unavailable
+
+4.
+1, 3, 4 y 6
+
+5.
+1- caller
+2- extension number
+3- Be careful
+4- state
+5- wrong number
+
+6. 
+1- a
+2- b
+3- a
+4- b
+5- a
+6- a
+7- b
+
+7. 
+1- d
+2- a
+3- f
+4- b
+5- e
+6- c
+
+SAY IT
+1- how may I help you?
+2- I'll put you through to the support technician.
+3- I'm afraid that he is unavailable at the moment.
+4- could you ask him to return my call, please?
+5- can you spell your last name, please?
+

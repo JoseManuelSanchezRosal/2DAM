@@ -1,0 +1,37 @@
+5.
+1- out of town
+2- in a meeting
+3- on holiday
+
+4- take down
+5- cute off
+6- hang up
+
+7- put you on hold
+8- take a message
+9- leave a message
+
+
+6.
+1- line is busy
+2- spell that
+3- interrupt
+4- out of the office
+5- return your call
+
+7.
+1- e
+2- c
+3- d
+4- a
+5- b
+
+8.
+1- in a meeting
+2- left
+3- urgent
+4- deal
+5- return
+6- took down
+
+
